@@ -1,0 +1,342 @@
+##############################################################################
+#                                                                            #
+# Co-Ga-La         # LaCo10.9Ga2.1                                 #  554038 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Hunter College - City University of New York                             #
+#                                                                            #
+##############################################################################
+
+data_554038
+_audit_creation_date                     2024-02-29
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      554038
+_database_code_PDF                       04-006-2940
+
+# Entry summary
+
+_chemical_formula_structural             'La Co~10.9~ Ga~2.1~'
+_chemical_formula_sum                    'Co10.9 Ga2.1 La'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            NaZn~13~,cF112,226
+_chemical_formula_weight                 927.7
+
+# Bibliographic data
+
+_publ_section_title
+;
+Magnetism and structural chemistry of RECo~13-x~Ga~x~ alloys (RE= La, Ce, Pr, Nd, and mischmetal MM)
+;
+_journal_coden_ASTM                      JAPIAU
+_journal_name_full                       'J. Appl. Phys.'
+_journal_year                            1990
+_journal_volume                          68
+_journal_page_first                      3504
+_journal_page_last                       3507
+_journal_language                        English
+loop_
+ _publ_author_name
+ _publ_author_address
+'Weitzer F.'
+;
+Vienna University
+Institut fur Physikalische Chemie
+Vienna
+Austria
+;
+'Hiebl K.'
+;
+Vienna University
+Institut fur Physikalische Chemie
+Vienna
+Austria
+;
+'Grin Y.'
+;
+Vienna University
+Institut fur Physikalische Chemie
+Vienna
+Austria
+;
+'Rogl P.'
+;
+Vienna University
+Institut fur Physikalische Chemie
+Vienna
+Austria
+;
+'Noel H.'
+;
+Rennes I University
+Laboratoire de Chimie Minerale
+Rennes
+France
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           11.4694
+_cell_length_b                           11.4694
+_cell_length_c                           11.4694
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             1508.8
+_cell_formula_units_Z                    8
+_space_group_IT_number                   226
+_space_group_name_H-M_alt                'F m -3 c'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '-x, -y, -z'
+ 3 '-x, -y, z'
+ 4 '-x, -z, 1/2-y'
+ 5 '-x, -z, 1/2+y'
+ 6 '-x, y, -z'
+ 7 '-x, y, z'
+ 8 '-x, z, 1/2-y'
+ 9 '-x, z, 1/2+y'
+ 10 '-y, -x, 1/2-z'
+ 11 '-y, -x, 1/2+z'
+ 12 '-y, -z, -x'
+ 13 '-y, -z, x'
+ 14 '-y, x, 1/2-z'
+ 15 '-y, x, 1/2+z'
+ 16 '-y, z, -x'
+ 17 '-y, z, x'
+ 18 '-z, -x, -y'
+ 19 '-z, -x, y'
+ 20 '-z, -y, 1/2-x'
+ 21 '-z, -y, 1/2+x'
+ 22 '-z, x, -y'
+ 23 '-z, x, y'
+ 24 '-z, y, 1/2-x'
+ 25 '-z, y, 1/2+x'
+ 26 'x, -y, -z'
+ 27 'x, -y, z'
+ 28 'x, -z, 1/2-y'
+ 29 'x, -z, 1/2+y'
+ 30 'x, y, -z'
+ 31 'x, z, 1/2-y'
+ 32 'x, z, 1/2+y'
+ 33 'y, -x, 1/2-z'
+ 34 'y, -x, 1/2+z'
+ 35 'y, -z, -x'
+ 36 'y, -z, x'
+ 37 'y, x, 1/2-z'
+ 38 'y, x, 1/2+z'
+ 39 'y, z, -x'
+ 40 'y, z, x'
+ 41 'z, -x, -y'
+ 42 'z, -x, y'
+ 43 'z, -y, 1/2-x'
+ 44 'z, -y, 1/2+x'
+ 45 'z, x, -y'
+ 46 'z, x, y'
+ 47 'z, y, 1/2-x'
+ 48 'z, y, 1/2+x'
+ 49 'x, 1/2+y, 1/2+z'
+ 50 '-x, 1/2-y, 1/2-z'
+ 51 '-x, 1/2-y, 1/2+z'
+ 52 '-x, 1/2-z, 1-y'
+ 53 '-x, 1/2-z, 1+y'
+ 54 '-x, 1/2+y, 1/2-z'
+ 55 '-x, 1/2+y, 1/2+z'
+ 56 '-x, 1/2+z, 1-y'
+ 57 '-x, 1/2+z, 1+y'
+ 58 '-y, 1/2-x, 1-z'
+ 59 '-y, 1/2-x, 1+z'
+ 60 '-y, 1/2-z, 1/2-x'
+ 61 '-y, 1/2-z, 1/2+x'
+ 62 '-y, 1/2+x, 1-z'
+ 63 '-y, 1/2+x, 1+z'
+ 64 '-y, 1/2+z, 1/2-x'
+ 65 '-y, 1/2+z, 1/2+x'
+ 66 '-z, 1/2-x, 1/2-y'
+ 67 '-z, 1/2-x, 1/2+y'
+ 68 '-z, 1/2-y, 1-x'
+ 69 '-z, 1/2-y, 1+x'
+ 70 '-z, 1/2+x, 1/2-y'
+ 71 '-z, 1/2+x, 1/2+y'
+ 72 '-z, 1/2+y, 1-x'
+ 73 '-z, 1/2+y, 1+x'
+ 74 'x, 1/2-y, 1/2-z'
+ 75 'x, 1/2-y, 1/2+z'
+ 76 'x, 1/2-z, 1-y'
+ 77 'x, 1/2-z, 1+y'
+ 78 'x, 1/2+y, 1/2-z'
+ 79 'x, 1/2+z, 1-y'
+ 80 'x, 1/2+z, 1+y'
+ 81 'y, 1/2-x, 1-z'
+ 82 'y, 1/2-x, 1+z'
+ 83 'y, 1/2-z, 1/2-x'
+ 84 'y, 1/2-z, 1/2+x'
+ 85 'y, 1/2+x, 1-z'
+ 86 'y, 1/2+x, 1+z'
+ 87 'y, 1/2+z, 1/2-x'
+ 88 'y, 1/2+z, 1/2+x'
+ 89 'z, 1/2-x, 1/2-y'
+ 90 'z, 1/2-x, 1/2+y'
+ 91 'z, 1/2-y, 1-x'
+ 92 'z, 1/2-y, 1+x'
+ 93 'z, 1/2+x, 1/2-y'
+ 94 'z, 1/2+x, 1/2+y'
+ 95 'z, 1/2+y, 1-x'
+ 96 'z, 1/2+y, 1+x'
+ 97 '1/2+x, y, 1/2+z'
+ 98 '1/2-x, -y, 1/2-z'
+ 99 '1/2-x, -y, 1/2+z'
+ 100 '1/2-x, -z, 1-y'
+ 101 '1/2-x, -z, 1+y'
+ 102 '1/2-x, y, 1/2-z'
+ 103 '1/2-x, y, 1/2+z'
+ 104 '1/2-x, z, 1-y'
+ 105 '1/2-x, z, 1+y'
+ 106 '1/2-y, -x, 1-z'
+ 107 '1/2-y, -x, 1+z'
+ 108 '1/2-y, -z, 1/2-x'
+ 109 '1/2-y, -z, 1/2+x'
+ 110 '1/2-y, x, 1-z'
+ 111 '1/2-y, x, 1+z'
+ 112 '1/2-y, z, 1/2-x'
+ 113 '1/2-y, z, 1/2+x'
+ 114 '1/2-z, -x, 1/2-y'
+ 115 '1/2-z, -x, 1/2+y'
+ 116 '1/2-z, -y, 1-x'
+ 117 '1/2-z, -y, 1+x'
+ 118 '1/2-z, x, 1/2-y'
+ 119 '1/2-z, x, 1/2+y'
+ 120 '1/2-z, y, 1-x'
+ 121 '1/2-z, y, 1+x'
+ 122 '1/2+x, -y, 1/2-z'
+ 123 '1/2+x, -y, 1/2+z'
+ 124 '1/2+x, -z, 1-y'
+ 125 '1/2+x, -z, 1+y'
+ 126 '1/2+x, y, 1/2-z'
+ 127 '1/2+x, z, 1-y'
+ 128 '1/2+x, z, 1+y'
+ 129 '1/2+y, -x, 1-z'
+ 130 '1/2+y, -x, 1+z'
+ 131 '1/2+y, -z, 1/2-x'
+ 132 '1/2+y, -z, 1/2+x'
+ 133 '1/2+y, x, 1-z'
+ 134 '1/2+y, x, 1+z'
+ 135 '1/2+y, z, 1/2-x'
+ 136 '1/2+y, z, 1/2+x'
+ 137 '1/2+z, -x, 1/2-y'
+ 138 '1/2+z, -x, 1/2+y'
+ 139 '1/2+z, -y, 1-x'
+ 140 '1/2+z, -y, 1+x'
+ 141 '1/2+z, x, 1/2-y'
+ 142 '1/2+z, x, 1/2+y'
+ 143 '1/2+z, y, 1-x'
+ 144 '1/2+z, y, 1+x'
+ 145 '1/2+x, 1/2+y, z'
+ 146 '1/2-x, 1/2-y, -z'
+ 147 '1/2-x, 1/2-y, z'
+ 148 '1/2-x, 1/2-z, 1/2-y'
+ 149 '1/2-x, 1/2-z, 1/2+y'
+ 150 '1/2-x, 1/2+y, -z'
+ 151 '1/2-x, 1/2+y, z'
+ 152 '1/2-x, 1/2+z, 1/2-y'
+ 153 '1/2-x, 1/2+z, 1/2+y'
+ 154 '1/2-y, 1/2-x, 1/2-z'
+ 155 '1/2-y, 1/2-x, 1/2+z'
+ 156 '1/2-y, 1/2-z, -x'
+ 157 '1/2-y, 1/2-z, x'
+ 158 '1/2-y, 1/2+x, 1/2-z'
+ 159 '1/2-y, 1/2+x, 1/2+z'
+ 160 '1/2-y, 1/2+z, -x'
+ 161 '1/2-y, 1/2+z, x'
+ 162 '1/2-z, 1/2-x, -y'
+ 163 '1/2-z, 1/2-x, y'
+ 164 '1/2-z, 1/2-y, 1/2-x'
+ 165 '1/2-z, 1/2-y, 1/2+x'
+ 166 '1/2-z, 1/2+x, -y'
+ 167 '1/2-z, 1/2+x, y'
+ 168 '1/2-z, 1/2+y, 1/2-x'
+ 169 '1/2-z, 1/2+y, 1/2+x'
+ 170 '1/2+x, 1/2-y, -z'
+ 171 '1/2+x, 1/2-y, z'
+ 172 '1/2+x, 1/2-z, 1/2-y'
+ 173 '1/2+x, 1/2-z, 1/2+y'
+ 174 '1/2+x, 1/2+y, -z'
+ 175 '1/2+x, 1/2+z, 1/2-y'
+ 176 '1/2+x, 1/2+z, 1/2+y'
+ 177 '1/2+y, 1/2-x, 1/2-z'
+ 178 '1/2+y, 1/2-x, 1/2+z'
+ 179 '1/2+y, 1/2-z, -x'
+ 180 '1/2+y, 1/2-z, x'
+ 181 '1/2+y, 1/2+x, 1/2-z'
+ 182 '1/2+y, 1/2+x, 1/2+z'
+ 183 '1/2+y, 1/2+z, -x'
+ 184 '1/2+y, 1/2+z, x'
+ 185 '1/2+z, 1/2-x, -y'
+ 186 '1/2+z, 1/2-x, y'
+ 187 '1/2+z, 1/2-y, 1/2-x'
+ 188 '1/2+z, 1/2-y, 1/2+x'
+ 189 '1/2+z, 1/2+x, -y'
+ 190 '1/2+z, 1/2+x, y'
+ 191 '1/2+z, 1/2+y, 1/2-x'
+ 192 '1/2+z, 1/2+y, 1/2+x'
+
+# Atomic positions taken from type-defining entry
+
+loop_
+ _atom_type_symbol
+ Co
+ Ga
+ La
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ M1A Co 96 i 0 0.11924 0.18063 0.840
+ M1B Ga 96 i 0 0.11924 0.18063 0.160
+ M2A Co 8 b 0 0 0 0.840
+ M2B Ga 8 b 0 0 0 0.160
+ La1 La 8 a 0.25 0.25 0.25 1
+
+
+_exptl_crystal_colour                    ?
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            8.17
+_cell_measurement_temperature            ?
+_cell_measurement_radiation              X-rays
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              ?
+_diffrn_measurement_device               'Debye-Scherrer film'
+_diffrn_measurement_device_type          ?
+_diffrn_radiation_type                   ?
+_diffrn_reflns_number                    ?
+_exptl_absorpt_coefficient_mu            ?
+_exptl_absorpt_correction_type           ?
+_computing_structure_solution            ?
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 ?
+_refine_ls_R_factor_gt                   ?
+_refine_ls_wR_factor_gt                  ?
+
+# End of data set 554038
+

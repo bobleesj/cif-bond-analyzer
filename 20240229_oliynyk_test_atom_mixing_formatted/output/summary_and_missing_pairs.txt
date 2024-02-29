@@ -1,0 +1,11 @@
+SUMMARY:
+Pair: Ga1A-Ga1, Count: 1, Distances: 2.601
+Pair: Ga1-La1, Count: 1, Distances: 3.291
+Pair: Co1B-Ga1, Count: 1, Distances: 2.601
+Pair: Ga1-Ga1A, Count: 1, Distances: 2.601
+Pair: Ga1-Ga1, Count: 1, Distances: 2.358
+
+Missing pairs:
+Co1B-La1
+Ga1A-La1
+Co1B-Ga1A

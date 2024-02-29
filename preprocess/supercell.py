@@ -102,8 +102,13 @@ def get_points_and_labels(all_coords_list, loop_values):
         Co,Ni1 Co 4 a 0 0 0 0.50
         '''
 
+        print("atom_site_type", atom_site_type)
+        print("atom_site_label", atom_site_label)
+        
+        
         if atom_site_type in atom_site_label:
             continue
+
         elif get_atom_type(atom_site_label) != atom_site_type:
             raise RuntimeError("Different elements found in atom site and label")
 

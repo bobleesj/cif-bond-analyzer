@@ -1,6 +1,5 @@
 
 import os
-import glob
 import preprocess.cif_parser as cif_parser
 import preprocess.supercell as supercell
 import preprocess.supercell_handler as supercell_handler
@@ -19,8 +18,9 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from itertools import permutations
-import plotter.histogram as histogram
+import postprocess.histogram as histogram
 
+# def get_shortest_distanc_pair_tuple_list_per_file():
 
 def main():
     print_intro_prompt()
@@ -92,8 +92,6 @@ def main():
                 unique_pairs_dict = {}
 
                 for pair in processed_pairs_ordered:
-                    # first_label = cif_parser.get_atom_type(pair["labels"][0])
-                    # second_label = cif_parser.get_atom_type(pair["labels"][1])
 
                     first_label =  pair["labels"][0]
                     second_label = pair["labels"][1]
