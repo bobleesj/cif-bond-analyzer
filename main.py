@@ -80,7 +80,7 @@ def main():
         filename_base = os.path.basename(cif_file_path)            
         try:
             # Process CIF files and return a list of coordinates after applying symmetry operations
-            CIF_block, cell_lengths, cell_angles_rad, all_coords_list, all_points, unique_labels, unique_atoms_tuple = get_CIF_info(cif_file_path, cif_parser.get_loop_tags())
+            CIF_block, cell_lengths, cell_angles_rad, _, all_points, _, _ = get_CIF_info(cif_file_path, cif_parser.get_loop_tags())
             number_of_supercell_atoms = len(all_points)
             print(f"{filename_base} has {number_of_supercell_atoms} atoms in the supercell.")
 
@@ -202,7 +202,7 @@ def main():
     for pair in missing_pairs:
         atom_1 = pair[0].strip().ljust(3)
         atom_2 = pair[1].strip().ljust(3)
-        print(f"Pair: {atom_1}-{atom_2}")
+        print(f"{atom_1}-{atom_2}")
 
 
     '''

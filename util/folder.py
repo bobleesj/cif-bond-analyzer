@@ -28,7 +28,6 @@ def choose_CIF_directory(script_directory):
             print("Invalid input. Please enter a number.")
 
 
-
 def save_to_csv_directory(folder_info, df, base_filename):
     """
     Saves the dataframe as a CSV inside a 'csv' sub-directory of the provided folder.

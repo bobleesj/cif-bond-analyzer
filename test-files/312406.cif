@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# Ga-Ho-Ni         # HoNi0.9Ga4                                    # 1633275 #
+# Fe-Gd-Si         # GdFe2Si2                                      #  312406 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -18,114 +18,86 @@
 #                                                                            #
 ##############################################################################
 
-data_1633275
+data_312406
 _audit_creation_date                     2024-02-24
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      1633275
-_database_code_PDF                       04-018-2936
+#_database_code_PCD                      312406
+_database_code_PDF                       04-002-1803
 
 # Entry summary
 
-_chemical_formula_structural             'Ho Ni~0.9~ Ga~4~'
-_chemical_formula_sum                    'Ga4 Ho Ni0.93'
+_chemical_formula_structural             'Gd Fe~2~ Si~2~'
+_chemical_formula_sum                    'Fe2 Gd Si2'
 _chemical_name_mineral                   ?
 _chemical_compound_source                ?
-_chemical_name_structure_type            TbNi~0.9~Ga~4~,tI46,139
-_chemical_formula_weight                 496.6
+_chemical_name_structure_type            CeAl~2~Ga~2~,tI10,139
+_chemical_formula_weight                 325.1
 
 # Bibliographic data
 
 _publ_section_title
 ;
-A tale of two polymorphs - Growth and characterization of \a-LnNiGa~4~ (Ln= Y, Gd-Yb) and \b-LnNi~1-x~Ga~4~ (Ln= Tb-Er)
+A study of compounds GdT~2~Si~2~ by Mossbauer spectroscopy and by bulk magnetization measurements
 ;
-_journal_coden_ASTM                      EJICFO
-_journal_name_full                       'Eur. J. Inorg. Chem.'
-_journal_year                            2011
-_journal_volume                          ?
-_journal_page_first                      3909
-_journal_page_last                       3919
+_journal_coden_ASTM                      JMMMDC
+_journal_name_full                       'J. Magn. Magn. Mater.'
+_journal_year                            1989
+_journal_volume                          79
+_journal_page_first                      42
+_journal_page_last                       56
 _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Menard M.C.'
+'Czjzek G.'
 ;
-Louisiana State University (LSU)
-Department of Chemistry
-Baton Rouge
-U.S.A. Louisiana
+Karlsruhe Institute of Technology (KIT)
+Institut fur Nukleare Festkorperphysik
+Karlsruhe
+Germany
 ;
-'Drake B.L.'
+'Oestreich V.'
 ;
-Louisiana State University (LSU)
-Department of Chemistry
-Baton Rouge
-U.S.A. Louisiana
+Siemens AG
+Hauptlaboratorium
+Karlsruhe
+Germany
 ;
-'McCandless G.T.'
+'Schmidt H.G.'
 ;
-Louisiana State University (LSU)
-Department of Chemistry
-Baton Rouge
-U.S.A. Louisiana
+Karlsruhe Institute of Technology (KIT)
+Institut fur Nukleare Festkorperphysik
+Karlsruhe
+Germany
 ;
-'Thomas K.R.'
+'Latka K.'
 ;
-Louisiana State University (LSU)
-Department of Chemistry
-Baton Rouge
-U.S.A. Louisiana
+Jagiellonian University
+M. Smoluchowski Institute of Physics
+Cracow
+Poland
 ;
-'Hembree R.D.'
+'Tomala K.'
 ;
-Louisiana State University (LSU)
-Department of Chemistry
-Baton Rouge
-U.S.A. Louisiana
-;
-'Haldolaarachchige N.'
-;
-Louisiana State University (LSU)
-Department of Physics and Astronomy
-Baton Rouge
-U.S.A. Louisiana
-;
-'DiTusa J.F.'
-;
-Louisiana State University (LSU)
-Department of Physics and Astronomy
-Baton Rouge
-U.S.A. Louisiana
-;
-'Young D.P.'
-;
-Louisiana State University (LSU)
-Department of Physics and Astronomy
-Baton Rouge
-U.S.A. Louisiana
-;
-'Chan J.Y.'
-;
-Louisiana State University (LSU)
-Department of Chemistry
-Baton Rouge
-U.S.A. Louisiana
+Jagiellonian University
+M. Smoluchowski Institute of Physics
+Cracow
+Poland
 ;
 
 # Standardized crystallographic data
 
-_cell_length_a                           4.168
-_cell_length_b                           4.168
-_cell_length_c                           23.537
+_cell_length_a                           3.94
+_cell_length_b                           3.94
+_cell_length_c                           9.97
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
 _cell_angle_gamma                        90
-_cell_volume                             408.9
-_cell_formula_units_Z                    4
+_cell_volume                             154.8
+_cell_formula_units_Z                    2
 _space_group_IT_number                   139
 _space_group_name_H-M_alt                'I 4/m m m'
 loop_
@@ -163,11 +135,14 @@ loop_
  30 '1/2+y, 1/2-x, 1/2+z'
  31 '1/2+y, 1/2+x, 1/2-z'
  32 '1/2+y, 1/2+x, 1/2+z'
+
+# Atomic positions taken from type-defining entry
+
 loop_
  _atom_type_symbol
- Ga
- Ho
- Ni
+ Si
+ Fe
+ Gd
 loop_
  _atom_site_label
  _atom_site_type_symbol
@@ -177,38 +152,29 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- Ga5 Ga 16 n 0 0.408 0.2563 0.15
- Ga1 Ga 8 g 0 0.5 0.05563 1
- Ho Ho 4 e 0 0 0.14766 1
- Ni2 Ni 4 e 0 0 0.2821 0.43
- Ga3 Ga 4 e 0 0 0.3535 0.51
- Ga2 Ga 4 e 0 0 0.379 0.49
- Ga4 Ga 4 d 0 0.5 0.25 0.4
- Ni1 Ni 2 a 0 0 0 1
+ Si1 Si 4 e 0 0 0.387 1
+ Fe1 Fe 4 d 0 0.5 0.25 1
+ Gd1 Gd 2 a 0 0 0 1
 
 
 _exptl_crystal_colour                    ?
 _exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            8.07
-_cell_measurement_temperature            100
-_cell_measurement_radiation              'X-rays, Mo Ka'
-_cell_measurement_wavelength             0.71073
+_exptl_crystal_density_diffrn            6.98
+_cell_measurement_temperature            ?
+_cell_measurement_radiation              X-rays
 _cell_measurement_reflns_used            ?
-_diffrn_ambient_temperature              100
-_diffrn_measurement_device               'automatic diffractometer'
-_diffrn_measurement_device_type          Enraf-Nonius
-_diffrn_radiation_type                   'X-rays, Mo Ka'
-_diffrn_radiation_wavelength             0.71073
+_diffrn_ambient_temperature              ?
+_diffrn_measurement_device               film
+_diffrn_measurement_device_type          ?
+_diffrn_radiation_type                   ?
 _diffrn_reflns_number                    ?
-_diffrn_reflns_theta_min                 3.46
-_diffrn_reflns_theta_max                 30.92
-_exptl_absorpt_coefficient_mu            49.060
-_exptl_absorpt_correction_type           yes
-_computing_structure_solution            'direct methods, Fourier synthesis'
-_refine_ls_number_parameters             25
+_exptl_absorpt_coefficient_mu            ?
+_exptl_absorpt_correction_type           ?
+_computing_structure_solution            ?
+_refine_ls_number_parameters             ?
 _refine_ls_number_reflns                 ?
-_refine_ls_R_factor_gt                   0.0370
-_refine_ls_wR_factor_gt                  0.1008
+_refine_ls_R_factor_gt                   ?
+_refine_ls_wR_factor_gt                  ?
 
-# End of data set 1633275
+# End of data set 312406
 

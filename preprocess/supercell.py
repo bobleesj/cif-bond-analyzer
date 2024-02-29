@@ -87,6 +87,7 @@ def get_points_and_labels(all_coords_list, loop_values):
     all_points = []
     unique_labels = []
     unique_atoms_tuple = []
+    
     for i, all_coords in enumerate(all_coords_list):
         points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
         atom_site_label = loop_values[0][i]
@@ -128,7 +129,7 @@ def get_atomic_pair_list(flattened_points, cell_lengths, angles):
                 pair = tuple(sorted([i, j]))  # Sort the pair so (i, j) is treated as equivalent to (j, i)
                 if pair not in pairs_set:  # Check if we've already processed this pair
                     distance, atom_label1, atom_label2 = calculate_distance(point1, point2, cell_lengths, angles)
-                    if abs(distance) > 1e-8:  # Update the condition with the tolerance value
+                    if abs(distance) > 1e-3:  # Update the condition with the tolerance value
                         distances_from_point_i.append({
                             'point_pair': (i + 1, j + 1),
                             'labels': (atom_label1, atom_label2),
