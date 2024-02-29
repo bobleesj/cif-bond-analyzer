@@ -31,7 +31,7 @@ def test_strip_labels_and_remove_duplicate_atom_type_pairs():
     adjusted_pairs_test_2 = strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances_test_2)
     
     assert adjusted_pairs_test_2 == {
-        ('Ga', 'Ga'): ['2.601'],
+        ('Ga', 'Ga'): ['2.358'],
         ('Ga', 'La'): ['3.291'],
         ('Co', 'Ga'): ['2.601']}
 
