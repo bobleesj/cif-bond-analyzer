@@ -1,0 +1,159 @@
+##############################################################################
+#                                                                            #
+# Ge-Ho-Ni         # HoNi0.6Ge2                                    #  301493 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Hunter College - City University of New York                             #
+#                                                                            #
+##############################################################################
+
+data_301493
+_audit_creation_date                     2024-02-25
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      301493
+_database_code_PDF                       04-001-5033
+
+# Entry summary
+
+_chemical_formula_structural             'Ho Ni~0.64~ Ge~2~'
+_chemical_formula_sum                    'Ge2 Ho Ni0.64'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            CeNiSi~2~,oS16,63
+_chemical_formula_weight                 347.7
+
+# Bibliographic data
+
+_publ_section_title
+'Magnetic ordering in TbNiGe~2~ and HoNi~0.64~Ge~2~ by neutron diffraction'   
+_journal_coden_ASTM                      JMMMDC
+_journal_name_full                       'J. Magn. Magn. Mater.'
+_journal_year                            1992
+_journal_volume                          109
+_journal_page_first                      305
+_journal_page_last                       308
+_journal_language                        English
+loop_
+ _publ_author_name
+ _publ_author_address
+'Bazela W.'
+;
+Cracow Tadeusz Kosciuszko University of Technology (PK)
+Institute of Physics
+Cracow
+Poland
+;
+'Leciejewicz J.'
+;
+Warsaw University of Technology (PW)
+Institute of Nuclear Chemistry and Technology
+Warsaw
+Poland
+;
+'Maletka K.'
+;
+Institute of Atomic Energy
+Swierk-Otwock
+Poland
+;
+'Szytula A.'
+;
+Jagiellonian University
+M. Smoluchowski Institute of Physics
+Cracow
+Poland
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           4.095
+_cell_length_b                           16.286
+_cell_length_c                           4.03
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             268.8
+_cell_formula_units_Z                    4
+_space_group_IT_number                   63
+_space_group_name_H-M_alt                'C m c m'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '-x, -y, -z'
+ 3 '-x, -y, 1/2+z'
+ 4 '-x, y, 1/2-z'
+ 5 '-x, y, z'
+ 6 'x, -y, -z'
+ 7 'x, -y, 1/2+z'
+ 8 'x, y, 1/2-z'
+ 9 '1/2+x, 1/2+y, z'
+ 10 '1/2-x, 1/2-y, -z'
+ 11 '1/2-x, 1/2-y, 1/2+z'
+ 12 '1/2-x, 1/2+y, 1/2-z'
+ 13 '1/2-x, 1/2+y, z'
+ 14 '1/2+x, 1/2-y, -z'
+ 15 '1/2+x, 1/2-y, 1/2+z'
+ 16 '1/2+x, 1/2+y, 1/2-z'
+loop_
+ _atom_type_symbol
+ Ge
+ Ni
+ Ho
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ Ge1 Ge 4 c 0 0.0511 0.25 1
+ Ni Ni 4 c 0 0.1833 0.25 0.64
+ Ho Ho 4 c 0 0.3972 0.25 1
+ Ge2 Ge 4 c 0 0.7505 0.25 1
+
+
+_exptl_crystal_colour                    ?
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            8.59
+_cell_measurement_temperature            300
+_cell_measurement_radiation              neutrons
+_cell_measurement_wavelength             1.324
+_pd_proc_wavelength                      1.324
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              300
+_diffrn_measurement_device               'automatic diffractometer'
+_diffrn_measurement_device_type
+'Poland, Swierk, Institute of Nuclear Research, EWA reactor, DN-500'          
+_diffrn_radiation_type                   neutrons
+_diffrn_radiation_wavelength             1.324
+_diffrn_reflns_number                    ?
+_exptl_absorpt_coefficient_mu            ?
+_exptl_absorpt_correction_type           ?
+_computing_structure_solution            'starting values from the literature'
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 ?
+_refine_ls_R_factor_gt                   ?
+_refine_ls_wR_factor_gt                  ?
+_pd_proc_ls_proof_R_factor               0.070
+_pd_proc_ls_proof_wR_factor              ?
+_refine_ls_R_I_factor                    ?
+
+# End of data set 301493
+
