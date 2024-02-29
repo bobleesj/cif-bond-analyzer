@@ -15,3 +15,8 @@ git clone https://github.com/bobleesj/cif-bond-analyzer
 cd cif-bond-analyzer
 python main
 ```
+
+## Contributors
+- Anton Oliynyk
+- Sangjoon Bob Lee
+- Emil Jaffal
