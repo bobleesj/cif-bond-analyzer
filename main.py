@@ -56,10 +56,11 @@ def main():
                 continue
 
             atomic_pair_list = supercell.get_atomic_pair_list(all_points, cell_lengths, cell_angles_rad)
-            
-            if len(set(atom_site_list)) != 3:
-                print("It is not a ternary file")
-            if len(set(atom_site_list)) == 3:
+            is_binary_file = len(set(atom_site_list)) == 2
+            is_ternary_file = len(set(atom_site_list)) == 3
+            is_quaternary_file = len(set(atom_site_list)) == 4
+
+            if is_binary_file or is_ternary_file or is_quaternary_file:
                 # Create a new list to store the processed pairs
                 processed_pairs = []
                 
