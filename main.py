@@ -1,10 +1,10 @@
 
 import os
-import glob
 import preprocess.cif_parser as cif_parser
 import preprocess.supercell as supercell
 import preprocess.supercell_handler as supercell_handler
 import preprocess.cif_parser_handler as cif_parser_handler
+import postprocess.bond as bond
 import click
 import os
 import pandas as pd
@@ -19,8 +19,9 @@ import os
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 from itertools import permutations
-import plotter.histogram as histogram
+import postprocess.histogram as histogram
 
+# def get_shortest_distanc_pair_tuple_list_per_file():
 
 def main():
     print_intro_prompt()
@@ -92,8 +93,9 @@ def main():
                 unique_pairs_dict = {}
 
                 for pair in processed_pairs_ordered:
-                    first_label = cif_parser.get_atom_type(pair["labels"][0])
-                    second_label = cif_parser.get_atom_type(pair["labels"][1])
+
+                    first_label =  pair["labels"][0]
+                    second_label = pair["labels"][1]
 
                     # Create a tuple of the labels
                     labels_tuple = (first_label, second_label)
@@ -109,9 +111,13 @@ def main():
 
                 for filename, pairs in unique_pairs_dict.items():
                     global_pairs_data[filename] = {}
+                    print("*Print all pairs with labels for debugging.")
+                    print("*Only the unique shortest pair will be written to the txt file.")
                     for labels, pair in pairs.items():
                         atom_1 = cif_parser.get_atom_type(labels[0])
                         atom_2 = cif_parser.get_atom_type(labels[1])
+                        atom_1 = labels[0]
+                        atom_2 = labels[1]
                         distance = str(round(pair['distance'], 3)).ljust(5)
                         print(f"Pair: {atom_1}-{atom_2} {distance} Å")
                         global_pairs_data[filename][(atom_1, atom_2)] = distance
@@ -135,9 +141,10 @@ def main():
     PART 3: OUTPUT
     '''
 
-
+    adjusted_unique_pairs_distances = bond.strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances)
+    
     # Extract all unique elements from the pairs
-    unique_elements = list(set([element for pair in unique_pairs_distances.keys() for element in pair]))
+    unique_elements = list(set([element for pair in adjusted_unique_pairs_distances.keys() for element in pair]))
 
     # Generate all possible pairs (with ordering matter)
     all_possible_pairs = list(permutations(unique_elements, 2))
@@ -149,8 +156,9 @@ def main():
     all_possible_pairs = list(set(all_possible_pairs))
 
     # Sort the pairs in the data as well before comparison
-    sorted_pairs_data = [tuple(sorted(pair)) for pair in unique_pairs_distances.keys()]
+    sorted_pairs_data = [tuple(sorted(pair)) for pair in adjusted_unique_pairs_distances.keys()]
 
+    print(sorted_pairs_data)
     # Find the pairs that are not in the data
     missing_pairs = [pair for pair in all_possible_pairs if pair not in sorted_pairs_data]
 
@@ -166,11 +174,12 @@ def main():
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
             
-        folder.write_summary_and_missing_pairs(unique_pairs_distances,
+        adjusted_unique_pairs_distances = bond.strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances)
+
+        folder.write_summary_and_missing_pairs(adjusted_unique_pairs_distances,
                                             missing_pairs,
                                             directory_path)
                                     
-
 
         histogram.plot_histograms(unique_pairs_distances,
                         directory_path)

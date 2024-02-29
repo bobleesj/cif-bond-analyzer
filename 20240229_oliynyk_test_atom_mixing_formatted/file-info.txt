@@ -1,0 +1,14 @@
+This is atomic mixing, where in one position there is Rh (80%) and In (20%).
+Below is the output from the previous instance of the code (which was incomplete):
+
+
+As for the mixing cases, here are a few examples:
+1612190: U-Rh 2.82489, U-In 2.82489, Rh-Rh 2.82489, In-In 2.82489
+-> Caused problem:
+
+560709: Co-Ga 2.501, Co-Co 2.501, Ga-Ga 2.501, La-Co 2.979, La-Ga 2.979
+554038: Co-Ga 2.401, Co-Co 2.401, Ga-Ga 2.401, La-Co 3.332, La-Ga 3.332
+539016: Ga-Ga 2.358, Co-Ga 2.601, La-Ga 3.291
+
+
+554038.cif has 3379 atoms in the supercell. (1/4)
