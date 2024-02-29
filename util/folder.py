@@ -3,6 +3,7 @@ from os.path import join, exists
 import glob
 from shutil import rmtree, move
 from preprocess.cif_parser import get_atom_type
+import postprocess.bond as bond
 
 def choose_CIF_directory(script_directory):
     """
@@ -87,22 +88,11 @@ def write_summary_and_missing_pairs(unique_pairs_distances, missing_pairs, direc
     - missing_pairs: A list of tuples representing missing atomic pairs.
     - directory_path: The path to the directory where the summary file will be saved.
     """
-    print(unique_pairs_distances)
-    
-    adjusted_pairs = {}
-    for pair, distances in unique_pairs_distances.items():
-        simplified_pair = tuple(sorted(get_atom_type(atom) for atom in pair))
-        # If the pair already exists, compare distances and keep the smallest (not applicable here since all distances are the same)
-        # Here we assume distances are strings and convert them to floats for comparison; this part of the logic is simplified due to identical distances
-        if simplified_pair not in adjusted_pairs:
-            adjusted_pairs[simplified_pair] = distances
-
-    print(adjusted_pairs)
 
     file_path = os.path.join(directory_path, "output", "summary_and_missing_pairs.txt")
     with open(file_path, 'w') as file:
-        print("SUMMARY:")
-        file.write("SUMMARY:\n")
+        print("Summary:")
+        file.write("Summary:\n")
         for pair, distances in unique_pairs_distances.items():
             atom_1 = pair[0].strip()
             atom_2 = pair[1].strip()

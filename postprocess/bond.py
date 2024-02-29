@@ -1,7 +1,4 @@
-
-import os
 from os.path import join, exists
-import glob
 from shutil import rmtree, move
 from preprocess.cif_parser import get_atom_type
 
@@ -16,13 +13,11 @@ def strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances):
         ('Ga', 'Ga'): ['2.501'],
         ('Ga', 'La'): ['2.979']}
     '''
-    print(unique_pairs_distances)
-
 
     adjusted_pairs = {}
     for pair, distances in unique_pairs_distances.items():
         simplified_pair = tuple(sorted(get_atom_type(atom) for atom in pair))
-        # If the pair already exists, compare distances and keep the smallest (not applicable here since all distances are the same)
+        # If the pair already exists, compare distances and keep the smallest
         # Here we assume distances are strings and convert them to floats for comparison; this part of the logic is simplified due to identical distances
         if simplified_pair not in adjusted_pairs:
             adjusted_pairs[simplified_pair] = distances
