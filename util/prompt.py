@@ -6,9 +6,15 @@ def print_intro_prompt():
     intro_prompt = textwrap.dedent("""\
     ===
     Welcome to the CIF Bond Analyzer!
-    - Get the shortest and unique distances for each CIF file.
-    - Save a histogra
                                    
+    What this script does
+    [1] Processes Crystallographic Information Files (CIF) from selected folder.
+    [2] Forms supercell based CIF info.
+    [3] Determines shortest unique atomic pairs found across all CIF files.
+    [4] Indicates frequency and distances of bonding pairs.
+    [5] Identifies missing atomic pairs not observed across all CIF files.
+    [6] Generates histograms for each unique atomic pair to visualize distribution of distances.
+                                    
     Let's get started!
     ===
     """)
@@ -16,7 +22,7 @@ def print_intro_prompt():
 
 
 def get_user_input_on_file_skip():
-    click.echo("Do you want to skip any CIF files based on the number of unique atoms in the supercell?")
+    click.echo("Do you want to skip any CIF files based on the number of unique in the supercell?")
     skip_based_on_atoms = click.confirm('(Default: N)', default=False)
     print()
 

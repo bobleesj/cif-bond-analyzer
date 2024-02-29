@@ -1,0 +1,141 @@
+##############################################################################
+#                                                                            #
+# Ge-Lu-Pd         # LuPd2Ge                                       #  300543 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Hunter College - City University of New York                             #
+#                                                                            #
+##############################################################################
+
+data_300543
+_audit_creation_date                     2024-02-25
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      300543
+_database_code_PDF                       04-001-4170
+
+# Entry summary
+
+_chemical_formula_structural             'Lu Pd~2~ Ge'
+_chemical_formula_sum                    'Ge Lu Pd2'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            YPd~2~Si,oP16,62
+_chemical_formula_weight                 460.4
+_chemical_melting_point                  1278
+
+# Bibliographic data
+
+_publ_section_title
+'New ternary germanides RPd~2~Ge of the YPd~2~Si type'                        
+_journal_coden_ASTM                      JCOMAH
+_journal_name_full                       'J. Less-Common Met.'
+_journal_year                            1983
+_journal_volume                          92
+_journal_page_first                      155
+_journal_page_last                       161
+_journal_language                        English
+loop_
+ _publ_author_name
+ _publ_author_address
+'Jorda J.L.'
+;
+Geneva University (UNIGE)
+Departement de Physique de la Matiere Condensee (DPMC)
+Geneva
+Switzerland
+;
+'Ishikawa M.'
+;
+Geneva University (UNIGE)
+Departement de Physique de la Matiere Condensee (DPMC)
+Geneva
+Switzerland
+;
+'Hovestreydt E.'
+;
+Geneva University (UNIGE)
+Laboratoire de Cristallographie aux Rayons X
+Geneva
+Switzerland
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           7.189
+_cell_length_b                           7.049
+_cell_length_c                           5.512
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             279.3
+_cell_formula_units_Z                    4
+_space_group_IT_number                   62
+_space_group_name_H-M_alt                'P n m a'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '1/2-x, -y, 1/2+z'
+ 3 '1/2-x, 1/2+y, 1/2+z'
+ 4 '-x, -y, -z'
+ 5 '-x, 1/2+y, -z'
+ 6 '1/2+x, 1/2-y, 1/2-z'
+ 7 '1/2+x, y, 1/2-z'
+ 8 'x, 1/2-y, z'
+
+# Atomic positions taken from type-defining entry
+
+loop_
+ _atom_type_symbol
+ Pd
+ Lu
+ Ge
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ Pd1 Pd 8 d 0.1767 0.0517 0.0928 1
+ Lu1 Lu 4 c 0.0303 0.25 0.644 1
+ Ge1 Ge 4 c 0.362 0.25 0.353 1
+
+
+_exptl_crystal_colour                    ?
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            10.95
+_cell_measurement_temperature            ?
+_cell_measurement_radiation              'X-rays, Cu Ka'
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              ?
+_diffrn_measurement_device               'Guinier film'
+_diffrn_measurement_device_type          ?
+_diffrn_radiation_type                   ?
+_diffrn_reflns_number                    ?
+_exptl_absorpt_coefficient_mu            ?
+_exptl_absorpt_correction_type           ?
+_computing_structure_solution            ?
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 ?
+_refine_ls_R_factor_gt                   ?
+_refine_ls_wR_factor_gt                  ?
+
+# End of data set 300543
+

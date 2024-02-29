@@ -76,3 +76,34 @@ def remove_file(file_path):
        os.remove(file_path)
 
 
+def write_summary_and_missing_pairs(unique_pairs_distances, missing_pairs, directory_path):
+    """
+    Writes a summary of unique atomic pairs, including counts and distances,
+    and a list of missing pairs to a file.
+
+    Parameters:
+    - unique_pairs_distances: A dictionary with atomic pairs as keys and lists of distances as values.
+    - missing_pairs: A list of tuples representing missing atomic pairs.
+    - directory_path: The path to the directory where the summary file will be saved.
+    """
+    file_path = os.path.join(directory_path, "output", "summary_and_missing_pairs.txt")
+    with open(file_path, 'w') as file:
+        print("SUMMARY:")
+        file.write("SUMMARY:\n")
+        for pair, distances in unique_pairs_distances.items():
+            atom_1 = pair[0].strip()
+            atom_2 = pair[1].strip()
+            count = len(distances)
+            distances_str = ' '.join([str(round(float(dist), 3)).ljust(5) for dist in distances])
+            file.write(f"Pair: {atom_1}-{atom_2}, Count: {count}, Distances: {distances_str}\n")
+            print(f"Pair: {atom_1}-{atom_2}, Count: {count}, Distances: {distances_str}")
+
+        print("\nMissing pairs:")
+        file.write("\nMissing pairs:\n")
+        for pair in missing_pairs:
+            atom_1 = pair[0].strip()
+            atom_2 = pair[1].strip()
+            file.write(f"{atom_1}-{atom_2}\n")
+            print((f"{atom_1}-{atom_2}"))
+
+    print(f"\nSummary and missing pairs saved to {file_path}")
