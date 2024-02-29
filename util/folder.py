@@ -16,7 +16,8 @@ def choose_CIF_directory(script_directory):
         return None
     print("\nAvailable folders containing CIF files:")
     for idx, dir_name in enumerate(directories, start=1):
-        print(f"{idx}. {dir_name}")
+        num_of_cif_files = get_cif_file_count_from_directory(dir_name)
+        print(f"{idx}. {dir_name}, {num_of_cif_files} files")
     while True:
         try:
             choice = int(input("\nEnter the number corresponding to the folder containing .cif files: "))
