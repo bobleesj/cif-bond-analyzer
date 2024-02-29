@@ -9,7 +9,7 @@ import util.folder as folder
 
 
 def get_user_input():
-    click.echo("Do you want to skip any CIF files based on the number of unique atoms in the supercell?")
+    click.echo("Do you want to skip any CIF files based on the number of atoms in the supercell?")
     skip_based_on_atoms = click.confirm('(Default: N)', default=False)
     print()
 

@@ -156,8 +156,8 @@ def main():
         
         except Exception as e:
             # Print error message if any error occurred and add the problematic file to the error list
-            print(f'Error processing file {filename}: {e}')
-            error_files.append(filename)
+            print(f'Error processing file {filename_base}: {e}')
+            error_files.append(filename_base)
 
     # Find the unique pairs and its count across all files
     unique_pairs_distances = {}
