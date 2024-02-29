@@ -92,8 +92,11 @@ def main():
                 unique_pairs_dict = {}
 
                 for pair in processed_pairs_ordered:
-                    first_label = cif_parser.get_atom_type(pair["labels"][0])
-                    second_label = cif_parser.get_atom_type(pair["labels"][1])
+                    # first_label = cif_parser.get_atom_type(pair["labels"][0])
+                    # second_label = cif_parser.get_atom_type(pair["labels"][1])
+
+                    first_label =  pair["labels"][0]
+                    second_label = pair["labels"][1]
 
                     # Create a tuple of the labels
                     labels_tuple = (first_label, second_label)
@@ -110,8 +113,10 @@ def main():
                 for filename, pairs in unique_pairs_dict.items():
                     global_pairs_data[filename] = {}
                     for labels, pair in pairs.items():
-                        atom_1 = cif_parser.get_atom_type(labels[0])
-                        atom_2 = cif_parser.get_atom_type(labels[1])
+                        # atom_1 = cif_parser.get_atom_type(labels[0])
+                        # atom_2 = cif_parser.get_atom_type(labels[1])
+                        atom_1 = labels[0]
+                        atom_2 = labels[1]
                         distance = str(round(pair['distance'], 3)).ljust(5)
                         print(f"Pair: {atom_1}-{atom_2} {distance} Å")
                         global_pairs_data[filename][(atom_1, atom_2)] = distance

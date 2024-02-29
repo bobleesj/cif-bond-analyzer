@@ -12,6 +12,7 @@ def plot_histograms(unique_pairs_distances, directory_path):
     - unique_pairs_distances: A dictionary with keys as atomic pairs and values as lists of distances.
     - directory_path: The path to the directory where the histogram image will be saved.
     """
+
     # Prepare the subplots grid. It's a square grid that has enough cells to hold all histograms.
     grid_size = int(len(unique_pairs_distances)**0.5)
     if grid_size**2 < len(unique_pairs_distances):
@@ -52,4 +53,3 @@ def plot_histograms(unique_pairs_distances, directory_path):
     plt.savefig(file_path, dpi=300)
     print(f"\nA bond distribution histrogram saved to {file_path}")
     
-
