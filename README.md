@@ -25,7 +25,7 @@ Enter the number corresponding to the folder containing .cif files:
 
 
 
-After processing, it saves `summary_and_missing_pairs.txt` with an exmaple below.
+After processing, it saves `summary_and_missing_pairs.txt`shown below.
 
 ```
 Summary:
