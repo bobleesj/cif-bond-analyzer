@@ -8,23 +8,20 @@ import postprocess.bond as bond
 import click
 import os
 import pandas as pd
-import numpy as np
+import time
 from click import style
 import preprocess.cif_parser as cif_parser
 import preprocess.supercell as supercell
-import util.folder as folder
-import matplotlib.pyplot as plt
-from util.prompt import print_intro_prompt, get_user_input_on_file_skip
 import os
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
+import util.folder as folder
+import util.prompt as prmopt
 from itertools import permutations
 import postprocess.histogram as histogram
 
 # def get_shortest_distanc_pair_tuple_list_per_file():
 
 def main():
-    print_intro_prompt()
+    prmopt.print_intro_prompt()
 
     '''
     PART 1: Choose the folder & get user input
@@ -32,10 +29,13 @@ def main():
     error_files = []  # list to hold names of files that cause an error
     global_pairs_data = {}
 
+    global results
+    results = []
+
     script_directory = os.path.dirname(os.path.abspath(__file__))
     directory_path = folder.choose_CIF_directory(script_directory)
     cif_file_path_list = folder.get_cif_file_path_list_from_directory(directory_path)
-    MAX_ATOMS_COUNT = get_user_input_on_file_skip()
+    MAX_ATOMS_COUNT = prmopt.get_user_input_on_file_skip()
 
     '''
     PART 2: PREPROCESS
@@ -43,16 +43,22 @@ def main():
 
     # For each file in the list of files
     for i, cif_file_path in enumerate(cif_file_path_list):
-        filename = os.path.basename(cif_file_path)            
+        start_time = time.time()
+        overall_start_time = time.time()
+        filename = os.path.basename(cif_file_path)      
+        num_of_atoms = None      
         try:
             # Process CIF files and return a list of coordinates after applying symmetry operations
-            CIF_block, cell_lengths, cell_angles_rad, all_coords_list,all_points, unique_labels, atom_site_list = cif_parser_handler.get_CIF_info(cif_file_path,
-                                                                                                            cif_parser.get_loop_tags())
-            print(f"{filename} has {len(all_points)} atoms in the supercell. ({i+1}/{len(cif_file_path_list)})")
+            _, cell_lengths, cell_angles_rad, _,all_points, _, atom_site_list = cif_parser_handler.get_CIF_info(
+                cif_file_path,
+                cif_parser.get_loop_tags()
+                )
+            num_of_atoms = len(all_points)
+            click.echo(style(f"Processing {filename} with {num_of_atoms} atoms ({i+1}/{len(cif_file_path_list)})", fg="black"))
 
             # Get the total number of unique positions after applying symmetry operations
-            if MAX_ATOMS_COUNT < len(all_points):
-                click.echo(style(f"Skipped - {filename} has {len(all_points)} atoms", fg="yellow"))
+            if MAX_ATOMS_COUNT < num_of_atoms:
+                click.echo(style(f"Skipped - {filename} has {num_of_atoms} atoms", fg="yellow"))
                 continue
 
             atomic_pair_list = supercell.get_atomic_pair_list(all_points, cell_lengths, cell_angles_rad)
@@ -122,7 +128,17 @@ def main():
                         distance = str(round(pair['distance'], 3)).ljust(5)
                         print(f"Pair: {atom_1}-{atom_2} {distance} Å")
                         global_pairs_data[filename][(atom_1, atom_2)] = distance
-                    print()
+            
+            elapsed_time = time.time() - start_time
+            click.echo(style(f"Processed {filename} with {num_of_atoms} atoms in {round(elapsed_time, 2)}s\n", fg="blue"))
+
+            # Append a row to the log csv file
+            data = {
+                "CIF file": filename,
+                "Number of atoms in supercell": num_of_atoms,
+                "Processing time (s)": round(elapsed_time, 3)
+            }
+            results.append(data)
         
         except Exception as e:
             # Print error message if any error occurred and add the problematic file to the error list
@@ -175,16 +191,31 @@ def main():
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
             
-        adjusted_unique_pairs_distances = bond.strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances)
+        adjusted_unique_pairs_distances = bond.strip_labels_and_remove_duplicate_atom_type_pairs(
+            unique_pairs_distances
+        )
 
-        folder.write_summary_and_missing_pairs(adjusted_unique_pairs_distances,
-                                            missing_pairs,
-                                            directory_path)
+        folder.write_summary_and_missing_pairs(
+            adjusted_unique_pairs_distances,
+            missing_pairs,
+            directory_path
+        )
                                     
 
-        histogram.plot_histograms(unique_pairs_distances,
-                        directory_path)
+        histogram.plot_histograms(
+            unique_pairs_distances,
+            directory_path
+        )
         
+        # Save csv
+        folder.save_to_csv_directory(
+            directory_path,
+            pd.DataFrame(results),
+            "log"
+        )
+
+        total_elapsed_time = time.time() - overall_start_time
+        print(f"Total processing time for all files: {total_elapsed_time:.2f} seconds")
 
 
     '''

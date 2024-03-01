@@ -8,15 +8,15 @@ Pair: Nd-Si, Count: 1, Distances: 3.08
 Pair: Si-Si, Count: 1, Distances: 2.755
 
 Missing pairs:
-Rh-Th
-Nd-Os
-Os-Si
-Nd-Sb
-Nd-Th
 Sb-Si
-Os-Rh
-Os-Sb
-Si-Th
-Sb-Th
 Rh-Si
+Os-Sb
 Nd-Rh
+Nd-Th
+Si-Th
+Nd-Sb
+Sb-Th
+Nd-Os
+Rh-Th
+Os-Si
+Os-Rh
