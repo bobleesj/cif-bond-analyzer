@@ -4,19 +4,19 @@ Pair: Sb-Sb, Count: 1, Distances: 2.829
 Pair: Os-Os, Count: 1, Distances: 2.728
 Pair: Os-Th, Count: 1, Distances: 3.198
 Pair: Th-Th, Count: 1, Distances: 3.341
-Pair: Si-Si, Count: 1, Distances: 2.755
 Pair: Nd-Si, Count: 1, Distances: 3.08 
+Pair: Si-Si, Count: 1, Distances: 2.755
 
 Missing pairs:
-Sb-Th
-Os-Sb
-Sb-Si
-Os-Rh
-Nd-Sb
+Rh-Th
 Nd-Os
 Os-Si
-Nd-Rh
-Rh-Si
-Rh-Th
+Nd-Sb
 Nd-Th
+Sb-Si
+Os-Rh
+Os-Sb
 Si-Th
+Sb-Th
+Rh-Si
+Nd-Rh
