@@ -22,20 +22,35 @@ def calculate_distance(point1, point2, cell_lengths, angles):
     return distance, label1, label2
 
 
-def shift_and_append_points(points, atom_site_label):
+def shift_and_append_points(points, atom_site_label, num_unitcell_atom):
     """
     Shift and duplicate points to create a 2 by 2 by 2 supercell.
     """
-    shifts = np.array([[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1],
-                        [-1, 0, 0], [0, -1, 0], [-1, -1, 0], [0, 0, -1], [1, 0, -1], [0, -1, -1], [-1, -1, -1]])
-    shifted_points = points[:, None, :] + shifts[None, :, :]
-    all_points = []
-    for point_group in shifted_points:
-        for point in point_group:
-            new_point = (*np.round(point,5), atom_site_label)
-            all_points.append(new_point)
+    translation_op_unit_cell_atom_num_threshold = 200
+    if num_unitcell_atom < translation_op_unit_cell_atom_num_threshold:
+        
+        shifts = np.array([[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1],
+                            [-1, 0, 0], [0, -1, 0], [-1, -1, 0], [0, 0, -1], [1, 0, -1], [0, -1, -1], [-1, -1, -1]])
 
-    return all_points
+        shifted_points = points[:, None, :] + shifts[None, :, :]
+        all_points = []
+        for point_group in shifted_points:
+            for point in point_group:
+                new_point = (*np.round(point,5), atom_site_label)
+                all_points.append(new_point)
+
+        return all_points
+    
+    else:
+        print(f"No shifts have been added to {atom_site_label}, more than {num_unitcell_atom} atoms in the unit cell.")
+        shifts = np.array([[0, 0, 0]])
+        shifted_points = points[:, None, :] + shifts[None, :, :]
+        all_points = []
+        for point_group in shifted_points:
+            for point in point_group:
+                new_point = (*np.round(point,5), atom_site_label)
+                all_points.append(new_point)
+        return all_points
 
 
 def get_coords_list(block, loop_values):
@@ -87,7 +102,20 @@ def get_points_and_labels(all_coords_list, loop_values):
     all_points = []
     unique_labels = []
     unique_atoms_tuple = []
-    
+
+    # Get the total number of atoms in the unit cell
+    num_unitcell_atom = 0
+
+    for i, all_coords in enumerate(all_coords_list):
+        points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
+        num_unitcell_atom += len(points)
+
+
+    if num_unitcell_atom > 200:
+        print("Do not apply translation to generate supercell")
+
+    # Then, determine whether to apply 2-2-2 supercell generation
+
     for i, all_coords in enumerate(all_coords_list):
         points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
         atom_site_label = loop_values[0][i]
@@ -95,12 +123,8 @@ def get_points_and_labels(all_coords_list, loop_values):
         
         unique_labels.append(atom_site_label)
         unique_atoms_tuple.append(atom_site_type)
-        all_points.extend(shift_and_append_points(points, atom_site_label))
 
-        '''
-        20240221 - switch to containing the label for the case of
-        Co,Ni1 Co 4 a 0 0 0 0.50
-        '''
+        all_points.extend(shift_and_append_points(points, atom_site_label, num_unitcell_atom))
         
         if atom_site_type in atom_site_label:
             continue

@@ -98,3 +98,4 @@ Please feel free to reach out via sl5400@columbia.edu for any questions.
 
 ## Changelog
 - 20240229 - include support for binary, ternary, and quaternary CIF files
+- 20240301 - show # of atoms and execution time per file on Terminal, save csv for logging at the end
