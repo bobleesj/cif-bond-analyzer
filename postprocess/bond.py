@@ -1,6 +1,38 @@
-from os.path import join, exists
-from shutil import rmtree, move
 from preprocess.cif_parser import get_atom_type
+from itertools import permutations
+
+
+def process_and_order_pairs(all_points, atomic_pair_list):
+    processed_pairs = []
+    
+    for i in range(len(all_points)):
+        pair_point = i + 1
+
+        shortest_pair = None
+        shortest_distance = float('inf')
+
+        for pair in atomic_pair_list:
+            if pair_point in pair["point_pair"] and pair["distance"] < shortest_distance:
+                shortest_distance = pair["distance"]
+                shortest_pair = pair
+
+        if shortest_pair is not None:
+            processed_pairs.append(shortest_pair)
+    
+    # Ordering the processed pairs based on atom types
+    processed_pairs_ordered = []
+    for pair in processed_pairs:
+        atom_type_0 = get_atom_type(pair['labels'][0])
+        atom_type_1 = get_atom_type(pair['labels'][1])
+
+        if atom_type_0 > atom_type_1:
+            pair['labels'] = pair['labels'][::-1]
+            pair['point_pair'] = pair['point_pair'][::-1]
+            pair['coordinates'] = pair['coordinates'][::-1]
+
+        processed_pairs_ordered.append(pair)
+    
+    return processed_pairs_ordered
 
 
 def strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances):
@@ -34,3 +66,25 @@ def strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances):
             adjusted_pairs[simplified_pair] = distances
 
     return adjusted_pairs
+
+
+def get_missing_pairs(adjusted_unique_pairs_distances):
+    # Extract all unique elements from the pairs
+    unique_elements = list(set([element for pair in adjusted_unique_pairs_distances.keys() for element in pair]))
+
+    # Generate all possible pairs (with ordering matter)
+    all_possible_pairs = list(permutations(unique_elements, 2))
+
+    # Make sure each pair is sorted
+    all_possible_pairs = [tuple(sorted(pair)) for pair in all_possible_pairs]
+
+    # Remove duplicates after sorting
+    all_possible_pairs = list(set(all_possible_pairs))
+
+    # Sort the pairs in the data as well before comparison
+    sorted_pairs_data = [tuple(sorted(pair)) for pair in adjusted_unique_pairs_distances.keys()]
+
+    # Find the pairs that are not in the data
+    missing_pairs = [pair for pair in all_possible_pairs if pair not in sorted_pairs_data]
+
+    return missing_pairs
