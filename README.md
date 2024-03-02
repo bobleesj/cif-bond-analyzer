@@ -93,11 +93,14 @@ Please feel free to reach out via sl5400@columbia.edu for any questions.
 ## To-do
 - [x] Test shortest distances identified with formatted `1612190.cif`, `539016.cif`
 - [x] Add suport for binary and quarternary cif compounds
+- [ ] Handle a case where more than two elements appear with a comman `1923821.cif`
 - [ ] Add option to apply +/-1 shifts in xyz directions or +1 shift based on supercell atom
 - [ ] Test missing pairs identified
 - [ ] Test histogram production
 - [ ] Test text file content for binary, ternary, and quartner files. 
 - [ ] Test above shift option
+
+
 
 ## Changelog
 - 20240301 - For files with more than 200 atoms in the unit cell, we let the user choose whether to apply translation in all +-1, +-1, +-1 directions or just +1 +1 +1 directions. 

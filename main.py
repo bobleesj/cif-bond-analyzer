@@ -1,21 +1,15 @@
-
 import os
-import preprocess.cif_parser as cif_parser
-import preprocess.supercell as supercell
-import preprocess.supercell_handler as supercell_handler
-import preprocess.cif_parser_handler as cif_parser_handler
-import postprocess.bond as bond
-import click
-import os
-import pandas as pd
 import time
-from click import style
+import pandas as pd
+from click import style, echo
+
 import preprocess.cif_parser as cif_parser
+import preprocess.cif_parser_handler as cif_parser_handler
 import preprocess.supercell as supercell
-import os
+import postprocess.bond as bond
+import postprocess.histogram as histogram
 import util.folder as folder
 import util.prompt as prompt
-import postprocess.histogram as histogram
 
 def main():
     prompt.print_intro_prompt()
@@ -23,6 +17,7 @@ def main():
     '''
     PART 1: Choose the folder & get user input
     '''
+
     error_files = []  # list to hold names of files that cause an error
     global_pairs_data = {}
     log_list = []
@@ -30,7 +25,6 @@ def main():
     script_directory = os.path.dirname(os.path.abspath(__file__))
     directory_path = folder.choose_CIF_directory(script_directory)
     cif_file_path_list = folder.get_cif_file_path_list_from_directory(directory_path)
-    # MAX_ATOMS_COUNT = prompt.get_user_input_on_file_skip()
     supercell_generation_method_above_200_atoms = prompt.get_user_input_on_supercell_generation_method()
 
     # If the user chooses no option, then it's simply 3
@@ -60,7 +54,7 @@ def main():
                 )
 
             num_of_atoms = len(all_points)
-            click.echo(style(f"Processing {filename} with {num_of_atoms} atoms ({i+1}/{len(cif_file_path_list)})", fg="black"))
+            echo(style(f"Processing {filename} with {num_of_atoms} atoms ({i+1}/{len(cif_file_path_list)})", fg="black"))
             atomic_pair_list = supercell.get_atomic_pair_list(all_points, cell_lengths, cell_angles_rad)
 
             if folder.get_file_type(atom_site_list) in ["binary", "ternary", "quaternary"]:
@@ -99,7 +93,7 @@ def main():
                         global_pairs_data[filename][(atom_1, atom_2)] = distance
             
             elapsed_time = time.time() - start_time
-            click.echo(style(f"Processed {filename} with {num_of_atoms} atoms in {round(elapsed_time, 2)}s\n", fg="blue"))
+            echo(style(f"Processed {filename} with {num_of_atoms} atoms in {round(elapsed_time, 2)}s\n", fg="blue"))
 
             # Append a row to the log csv file
             data = {
@@ -146,17 +140,17 @@ def main():
             unique_pairs_distances
         )
 
-        histogram.plot_histograms(
-            unique_pairs_distances,
-            directory_path
-        )
-
         folder.write_summary_and_missing_pairs(
             adjusted_unique_pairs_distances,
             missing_pairs,
             directory_path
         )
-                                    
+
+        histogram.plot_histograms(
+            unique_pairs_distances,
+            directory_path
+        )
+                            
         # Save csv
         folder.save_to_csv_directory(
             directory_path,

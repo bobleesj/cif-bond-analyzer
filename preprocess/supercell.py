@@ -125,6 +125,7 @@ def get_coords_after_sym_operations(block, atom_site_fract_x, atom_site_fract_y,
     return list(all_coords)
 
 
+# Specific to Bond Analyzer
 def get_points_and_labels(all_coords_list, loop_values, supercell_generation_method):
     """
     Process coordinates and loop values to extract points, labels, and atom types.
@@ -168,9 +169,6 @@ def get_atomic_pair_list(flattened_points, cell_lengths, angles):
     atomic_info_list = []
     pairs_set = set()
 
-    # i, and j refers to nth atom in the 2x2x2 supercell
-    # If there are 3,000 atoms total, ith atoms loops through every jth atom
-    # no distance between the same atom
     for i, point1 in enumerate(flattened_points):
         distances_from_point_i = []
 

@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 import os
-import util.folder
 
 def plot_histograms(unique_pairs_distances, directory_path):
     """
@@ -13,13 +12,17 @@ def plot_histograms(unique_pairs_distances, directory_path):
     - directory_path: The path to the directory where the histogram image will be saved.
     """
 
-    # Prepare the subplots grid. It's a square grid that has enough cells to hold all histograms.
-    grid_size = int(len(unique_pairs_distances)**0.5)
-    if grid_size**2 < len(unique_pairs_distances):
-        grid_size += 1
+    # Determine the number of histograms to be plotted
+    num_pairs = len(unique_pairs_distances)
 
-    # Set the figure size
-    plt.figure(figsize=(15, 10))
+    # Set the maximum number of columns as 4
+    max_columns = 4
+
+    # Calculate the number of rows based on the number of pairs and maximum columns
+    num_rows = -(-num_pairs // max_columns)  # Ceiling division to ensure we have enough rows
+
+    # Adjust the figure size to allow for extending the size vertically. Each subplot is approximately 4x3 inches.
+    plt.figure(figsize=(max_columns * 4, num_rows * 3))
 
     # Go through each unique pair
     for i, (pair, distances) in enumerate(unique_pairs_distances.items()):
@@ -30,7 +33,7 @@ def plot_histograms(unique_pairs_distances, directory_path):
         std_value = np.std(distances)
 
         # Create a new subplot for each histogram
-        plt.subplot(grid_size, grid_size, i + 1)
+        plt.subplot(num_rows, max_columns, i + 1)
         plt.hist(distances, bins=20, color='steelblue', edgecolor='black')
         plt.axvline(x=mean_value, color='red', linestyle='dashed', label=f"Mean: {mean_value:.4f}\nStd Dev: {std_value:.4f}")
         lower_bound = mean_value - 3 * std_value
@@ -52,4 +55,3 @@ def plot_histograms(unique_pairs_distances, directory_path):
     file_path = os.path.join(directory_path, "output", "histograms.png")
     plt.savefig(file_path, dpi=300)
     print(f"\n{os.path.basename(file_path)} saved")
-    

@@ -1,9 +1,7 @@
 import os
-from os.path import join, exists
 import glob
+from os.path import join, exists
 from shutil import rmtree, move
-from preprocess.cif_parser import get_atom_type
-import postprocess.bond as bond
 
 def choose_CIF_directory(script_directory):
     """

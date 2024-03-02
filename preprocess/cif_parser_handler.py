@@ -1,11 +1,9 @@
-import preprocess.supercell as supercell
-import preprocess.cif_parser as cif_parser
 import os
-import click
-from click import style
+
 import preprocess.cif_parser as cif_parser
 import preprocess.supercell as supercell
 import util.folder as folder
+
 
 
 def get_CIF_info(file_path, loop_tags, supercell_generation_method=3):
