@@ -51,5 +51,5 @@ def plot_histograms(unique_pairs_distances, directory_path):
     plt.tight_layout(pad=3.0)  # Increase padding
     file_path = os.path.join(directory_path, "output", "histograms.png")
     plt.savefig(file_path, dpi=300)
-    print(f"\nA bond distribution histrogram saved to {file_path}")
+    print(f"\n{os.path.basename(file_path)} saved")
     

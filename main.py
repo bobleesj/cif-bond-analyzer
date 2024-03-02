@@ -14,14 +14,14 @@ import preprocess.cif_parser as cif_parser
 import preprocess.supercell as supercell
 import os
 import util.folder as folder
-import util.prompt as prmopt
+import util.prompt as prompt
 from itertools import permutations
 import postprocess.histogram as histogram
 
 # def get_shortest_distanc_pair_tuple_list_per_file():
 
 def main():
-    prmopt.print_intro_prompt()
+    prompt.print_intro_prompt()
 
     '''
     PART 1: Choose the folder & get user input
@@ -35,7 +35,13 @@ def main():
     script_directory = os.path.dirname(os.path.abspath(__file__))
     directory_path = folder.choose_CIF_directory(script_directory)
     cif_file_path_list = folder.get_cif_file_path_list_from_directory(directory_path)
-    MAX_ATOMS_COUNT = prmopt.get_user_input_on_file_skip()
+    # MAX_ATOMS_COUNT = prompt.get_user_input_on_file_skip()
+    supercell_generation_method_for_above_200_atoms = prompt.get_user_input_on_supercell_generation_method()
+
+    # If the user chooses no option, then it's simply 3
+    if not supercell_generation_method_for_above_200_atoms:
+        print("\nYour default option is generating a 2-2-2 supercell for files with more than 200 atoms in the unit cell.")
+        supercell_generation_method_for_above_200_atoms = 3
 
     '''
     PART 2: PREPROCESS
@@ -51,15 +57,16 @@ def main():
             # Process CIF files and return a list of coordinates after applying symmetry operations
             _, cell_lengths, cell_angles_rad, _,all_points, _, atom_site_list = cif_parser_handler.get_CIF_info(
                 cif_file_path,
-                cif_parser.get_loop_tags()
+                cif_parser.get_loop_tags(),
+                supercell_generation_method_for_above_200_atoms
                 )
             num_of_atoms = len(all_points)
             click.echo(style(f"Processing {filename} with {num_of_atoms} atoms ({i+1}/{len(cif_file_path_list)})", fg="black"))
 
             # Get the total number of unique positions after applying symmetry operations
-            if MAX_ATOMS_COUNT < num_of_atoms:
-                click.echo(style(f"Skipped - {filename} has {num_of_atoms} atoms", fg="yellow"))
-                continue
+            # if MAX_ATOMS_COUNT < num_of_atoms:
+            #     click.echo(style(f"Skipped - {filename} has {num_of_atoms} atoms", fg="yellow"))
+            #     continue
 
             atomic_pair_list = supercell.get_atomic_pair_list(all_points, cell_lengths, cell_angles_rad)
             is_binary_file = len(set(atom_site_list)) == 2
@@ -175,7 +182,6 @@ def main():
     # Sort the pairs in the data as well before comparison
     sorted_pairs_data = [tuple(sorted(pair)) for pair in adjusted_unique_pairs_distances.keys()]
 
-    print(sorted_pairs_data)
     # Find the pairs that are not in the data
     missing_pairs = [pair for pair in all_possible_pairs if pair not in sorted_pairs_data]
 
@@ -195,18 +201,17 @@ def main():
             unique_pairs_distances
         )
 
+        histogram.plot_histograms(
+            unique_pairs_distances,
+            directory_path
+        )
+
         folder.write_summary_and_missing_pairs(
             adjusted_unique_pairs_distances,
             missing_pairs,
             directory_path
         )
                                     
-
-        histogram.plot_histograms(
-            unique_pairs_distances,
-            directory_path
-        )
-        
         # Save csv
         folder.save_to_csv_directory(
             directory_path,

@@ -22,36 +22,66 @@ def calculate_distance(point1, point2, cell_lengths, angles):
     return distance, label1, label2
 
 
-def shift_and_append_points(points, atom_site_label, num_unitcell_atom):
+def shift_and_append_points(points, atom_site_label, num_unitcell_atom, supercell_generation_method):
     """
     Shift and duplicate points to create a 2 by 2 by 2 supercell.
     """
+
     translation_op_unit_cell_atom_num_threshold = 200
-    if num_unitcell_atom < translation_op_unit_cell_atom_num_threshold:
+    '''
+    supercell_generation_method
+    Method 1 - No sfhits
+    Method 2 - +1 +1 +1 shifts
+    Method 3- +-1 +-1 +-1 shifts
+    '''
+
+    if num_unitcell_atom > translation_op_unit_cell_atom_num_threshold:
+        if supercell_generation_method == 1:
+            shifts = np.array([[0, 0, 0]])
+            shifted_points = points[:, None, :] + shifts[None, :, :]
+            all_points = []
+            for point_group in shifted_points:
+                for point in point_group:
+                    new_point = (*np.round(point,5), atom_site_label)
+                    all_points.append(new_point)
+
+            return all_points
         
-        shifts = np.array([[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1],
-                            [-1, 0, 0], [0, -1, 0], [-1, -1, 0], [0, 0, -1], [1, 0, -1], [0, -1, -1], [-1, -1, -1]])
+        if supercell_generation_method == 2:        
+            shifts = np.array([[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1]])
+            shifted_points = points[:, None, :] + shifts[None, :, :]
+            all_points = []
+            for point_group in shifted_points:
+                for point in point_group:
+                    new_point = (*np.round(point,5), atom_site_label)
+                    all_points.append(new_point)
 
-        shifted_points = points[:, None, :] + shifts[None, :, :]
-        all_points = []
-        for point_group in shifted_points:
-            for point in point_group:
-                new_point = (*np.round(point,5), atom_site_label)
-                all_points.append(new_point)
+            return all_points
+        
+        if supercell_generation_method == 3:        
+            shifts = np.array([[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1],
+                                [-1, 0, 0], [0, -1, 0], [-1, -1, 0], [0, 0, -1], [1, 0, -1], [0, -1, -1], [-1, -1, -1]])
+            shifted_points = points[:, None, :] + shifts[None, :, :]
+            all_points = []
+            for point_group in shifted_points:
+                for point in point_group:
+                    new_point = (*np.round(point,5), atom_site_label)
+                    all_points.append(new_point)
 
-        return all_points
+            return all_points
     
-    else:
-        print(f"No shifts have been added to {atom_site_label}, more than {num_unitcell_atom} atoms in the unit cell.")
-        shifts = np.array([[0, 0, 0]])
-        shifted_points = points[:, None, :] + shifts[None, :, :]
-        all_points = []
-        for point_group in shifted_points:
-            for point in point_group:
-                new_point = (*np.round(point,5), atom_site_label)
-                all_points.append(new_point)
-        return all_points
+    # General method for files below 200 atoms in the unit cell
+    shifts = np.array([[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1],
+                            [-1, 0, 0], [0, -1, 0], [-1, -1, 0], [0, 0, -1], [1, 0, -1], [0, -1, -1], [-1, -1, -1]])
+    shifted_points = points[:, None, :] + shifts[None, :, :]
+    all_points = []
+    for point_group in shifted_points:
+        for point in point_group:
+            new_point = (*np.round(point,5), atom_site_label)
+            all_points.append(new_point)
 
+    return all_points
+      
 
 def get_coords_list(block, loop_values):
     """
@@ -95,7 +125,7 @@ def get_coords_after_sym_operations(block, atom_site_fract_x, atom_site_fract_y,
     return list(all_coords)
 
 
-def get_points_and_labels(all_coords_list, loop_values):
+def get_points_and_labels(all_coords_list, loop_values, supercell_generation_method):
     """
     Process coordinates and loop values to extract points, labels, and atom types.
     """
@@ -111,11 +141,6 @@ def get_points_and_labels(all_coords_list, loop_values):
         num_unitcell_atom += len(points)
 
 
-    if num_unitcell_atom > 200:
-        print("Do not apply translation to generate supercell")
-
-    # Then, determine whether to apply 2-2-2 supercell generation
-
     for i, all_coords in enumerate(all_coords_list):
         points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
         atom_site_label = loop_values[0][i]
@@ -124,7 +149,7 @@ def get_points_and_labels(all_coords_list, loop_values):
         unique_labels.append(atom_site_label)
         unique_atoms_tuple.append(atom_site_type)
 
-        all_points.extend(shift_and_append_points(points, atom_site_label, num_unitcell_atom))
+        all_points.extend(shift_and_append_points(points, atom_site_label, num_unitcell_atom, supercell_generation_method))
         
         if atom_site_type in atom_site_label:
             continue

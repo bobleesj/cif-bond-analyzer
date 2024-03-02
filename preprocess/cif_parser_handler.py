@@ -8,7 +8,7 @@ import preprocess.supercell as supercell
 import util.folder as folder
 
 
-def get_CIF_info(file_path, loop_tags):
+def get_CIF_info(file_path, loop_tags, supercell_generation_method=3):
     """
     Parse the CIF data from the given file path.
     """
@@ -16,7 +16,11 @@ def get_CIF_info(file_path, loop_tags):
     cell_lengths, cell_angles_rad = cif_parser.get_cell_lenghts_angles_rad(CIF_block)
     CIF_loop_values = cif_parser.get_loop_values(CIF_block, loop_tags)
     all_coords_list = supercell.get_coords_list(CIF_block, CIF_loop_values)
-    all_points, unique_labels, atom_site_list = supercell.get_points_and_labels(all_coords_list, CIF_loop_values)
+    all_points, unique_labels, atom_site_list = supercell.get_points_and_labels(
+        all_coords_list,
+        CIF_loop_values,
+        supercell_generation_method
+    )
     
     return CIF_block, cell_lengths, cell_angles_rad, all_coords_list,all_points, unique_labels, atom_site_list
 
