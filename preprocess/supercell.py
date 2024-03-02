@@ -32,7 +32,7 @@ def shift_and_append_points(points, atom_site_label, num_unitcell_atom, supercel
     supercell_generation_method
     Method 1 - No sfhits
     Method 2 - +1 +1 +1 shifts
-    Method 3- +-1 +-1 +-1 shifts
+    Method 3 - +-1 +-1 +-1 shifts
     '''
 
     if num_unitcell_atom > translation_op_unit_cell_atom_num_threshold:
@@ -192,3 +192,4 @@ def get_atomic_pair_list(flattened_points, cell_lengths, angles):
         atomic_info_list.extend(distances_from_point_i)
 
     return atomic_info_list
+

@@ -1,22 +1,8 @@
 Summary:
-Pair: Co-Ga, Count: 1, Distances: 2.401
-Pair: Co-Co, Count: 1, Distances: 2.401
-Pair: Ga-Ga, Count: 1, Distances: 2.358
-Pair: Co-La, Count: 1, Distances: 2.979
+Pair: Co-Ga, Count: 1, Distances: 2.501
+Pair: Ga-Ga, Count: 1, Distances: 2.501
+Pair: Co-Co, Count: 1, Distances: 2.501
 Pair: Ga-La, Count: 1, Distances: 2.979
-Pair: Rh-Rh, Count: 1, Distances: 2.825
-Pair: In-U, Count: 1, Distances: 2.825
-Pair: Rh-U, Count: 1, Distances: 2.825
-Pair: In-Rh, Count: 1, Distances: 2.825
-Pair: In-In, Count: 1, Distances: 2.825
+Pair: Co-La, Count: 1, Distances: 2.979
 
 Missing pairs:
-Co-In
-Co-Rh
-Co-U
-Ga-In
-Ga-U
-La-U
-Ga-Rh
-La-Rh
-In-La

@@ -110,3 +110,9 @@ def write_summary_and_missing_pairs(unique_pairs_distances, missing_pairs, direc
             print((f"{atom_1}-{atom_2}"))
 
     print(f"\nSummary and missing pairs saved to {file_path}")
+
+
+def get_file_type(atom_site_list):
+    file_type_map = {2: "binary", 3: "ternary", 4: "quaternary"}
+    unique_atom_count = len(set(atom_site_list))
+    return file_type_map.get(unique_atom_count, "other")
