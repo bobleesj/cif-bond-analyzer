@@ -96,9 +96,9 @@ def write_summary_and_missing_pairs(unique_pairs_distances, missing_pairs, direc
             atom_1 = pair[0].strip()
             atom_2 = pair[1].strip()
             count = len(distances)
-            distances_str = ' '.join([str(round(float(dist), 3)).ljust(5) for dist in distances])
-            file.write(f"Pair: {atom_1}-{atom_2}, Count: {count}, Distances: {distances_str}\n")
-            print(f"Pair: {atom_1}-{atom_2}, Count: {count}, Distances: {distances_str}")
+            distances_str = ''.join([f"{round(float(dist), 3):6.3f}" for dist in distances])
+            file.write(f"Pair: {atom_1}-{atom_2}, Count: {count}, Distances:{distances_str}\n")
+            print(f"Pair: {atom_1}-{atom_2}, Count: {count}, Distances:{distances_str}")
 
         print("\nMissing pairs:")
         file.write("\nMissing pairs:\n")

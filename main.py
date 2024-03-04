@@ -39,11 +39,10 @@ def main():
     PART 2: PREPROCESS
     '''
 
+    overall_start_time = time.perf_counter()
     # For each file in the list of files
     for i, file_path in enumerate(file_path_list):
-
         start_time = time.perf_counter()
-        overall_start_time = time.perf_counter()
         filename = os.path.basename(file_path)
         num_of_atoms = None
 
@@ -102,21 +101,22 @@ def main():
 
                         # Add this pair to the dictionary
                         unique_pairs_dict[filename][label_tuple] = pair
-
+    
+                # Sort the pair alphabetically
                 for filename, pairs in unique_pairs_dict.items():
                     global_pairs_data[filename] = {}
-                    print("*Print all pairs with labels for debugging.")
+                    # print("*Print all pairs with labels for debugging.")
                     print("*Only unique shortest pairs recorded to .txt")
                     for labels, pair in pairs.items():
-                        # atom_1 = cif_parser.get_atom_type(labels[0])
-                        # atom_2 = cif_parser.get_atom_type(labels[1])
-                        atom_1 = labels[0]
-                        atom_2 = labels[1]
-                        dist = str(round(pair['distance'], 3)).ljust(5)
+                        atom_1, atom_2 = sorted(
+                            [cif_parser.get_atom_type(labels[0]),
+                             cif_parser.get_atom_type(labels[1])]
+                        )
+                        dist = str(round(pair['distance'], 3))
                         print(f"Pair: {atom_1}-{atom_2} {dist} Å")
                         # Store to the global overview dataset
                         global_pairs_data[filename][(atom_1, atom_2)] = dist
-            
+ 
             elapsed_time = time.perf_counter() - start_time
             echo(style(f"Processed {filename} with {num_of_atoms} atoms in {round(elapsed_time, 2)} s\n", fg="blue"))
 
@@ -132,6 +132,7 @@ def main():
             print(f'Error processing file {filename}: {e}')
             error_files.append(filename)
 
+    print(global_pairs_data)
     # Find the unique pairs and its count across all files
     unique_pairs_distances = {}
     for filename, pairs in global_pairs_data.items():
@@ -148,7 +149,46 @@ def main():
     adjusted_pairs_distances = bond.strip_labels_and_remove_duplicate(
         unique_pairs_distances
     )
-    missing_pairs = bond.get_missing_pairs(adjusted_pairs_distances)
+    unique_pair_tuple_list, missing_pair_tuple_list = bond.get_sorted_missing_pairs(
+        adjusted_pairs_distances
+    )
+
+    # Initialize a dictionary to hold the pairs and the .cif files
+    pairs_files_mapping = {}
+
+    for pair in unique_pair_tuple_list:
+        pairs_files_mapping[pair] = []
+        for filename, pairs in global_pairs_data.items():
+            # If the pair is present in the cif file
+            if pair in pairs:
+                pairs_files_mapping[pair].append(filename)
+
+    # Print the mapping of pairs to files
+    for pair, files in pairs_files_mapping.items():
+        print(f"Pair {pair} is found in: {files}")
+
+    # Create a Pandas Excel writer using openpyxl as the engine
+    excel_writer = pd.ExcelWriter("unique_pairs.xlsx", engine='openpyxl')
+
+    # Iterate over each unique pair
+    for pair, files in pairs_files_mapping.items():
+        # Initialize a list to hold the data for this pair
+        data_for_pair = []
+        
+        # For each file that contains this pair, add the filename and dist
+        for file in files:
+            distance = float(global_pairs_data[file][pair])
+            data_for_pair.append({'File': file, 'Distance': distance})
+        
+        # Convert the list to a DataFrame
+        df = pd.DataFrame(data_for_pair)
+        
+        # Write the DataFrame to a sheet named after the pair
+        sheet_name = f"{pair[0]}-{pair[1]}"
+        df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
+
+    # Save the Excel file
+    excel_writer.close()
 
     '''
     PART 4: SAVE & PLOT
@@ -168,7 +208,7 @@ def main():
 
         folder.write_summary_and_missing_pairs(
             adjusted_pairs_distances,
-            missing_pairs,
+            missing_pair_tuple_list,
             dir_path
         )
 

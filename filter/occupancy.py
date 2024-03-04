@@ -18,10 +18,14 @@ def get_atom_site_mixing_info(filename, CIF_loop_values):
     is_full_occupancy = True
 
     for i in range(num_atom_labels):
-        _, occupancy, coordinates = get_atom_info(CIF_loop_values, i)
+        label, occupancy, coordinates = get_atom_info(CIF_loop_values, i)
         occupancy_num = coord_occupancy_sum.get(coordinates, 0) + occupancy
         coord_occupancy_sum[coordinates] = occupancy_num
 
+    #     print("label", label)
+    #     print("occupancy", occupancy)
+
+    # print("coord_occupancy_sum", coord_occupancy_sum)
     # Now check summed occupancies
     for coordinates, sum_occ in coord_occupancy_sum.items():
         if sum_occ != 1:

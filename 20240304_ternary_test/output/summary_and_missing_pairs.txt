@@ -1,0 +1,283 @@
+Summary:
+Pair: Ge-Ru, Count: 14, Distances:  2.506 2.554 2.535 2.505 2.501 2.493 2.497 2.491 2.507 2.520 2.527 2.554 2.543 2.513
+Pair: Ge-Ge, Count: 29, Distances:  2.223 2.290 2.265 2.227 2.304 2.442 2.317 2.224 2.214 2.438 2.215 2.329 2.359 2.382 2.352 2.206 2.233 2.359 2.307 2.275 2.249 2.255 2.289 2.306 2.383 2.396 2.323 2.280 2.236
+Pair: Ge-Y, Count: 2, Distances:  3.188 3.122
+Pair: Ge-La, Count: 3, Distances:  3.241 3.189 3.246
+Pair: Ir-Si, Count: 2, Distances:  2.382 2.385
+Pair: Gd-Si, Count: 3, Distances:  3.131 3.185 3.201
+Pair: Pt-Pt, Count: 3, Distances:  2.727 2.717 2.710
+Pair: Pt-Sb, Count: 4, Distances:  2.727 2.717 2.710 2.838
+Pair: La-Pt, Count: 1, Distances:  3.140
+Pair: Sb-Sb, Count: 3, Distances:  2.727 2.717 2.710
+Pair: La-Sb, Count: 1, Distances:  3.140
+Pair: Ce-Pt, Count: 1, Distances:  3.114
+Pair: Ce-Sb, Count: 1, Distances:  3.114
+Pair: Ge-Pr, Count: 3, Distances:  3.220 3.161 3.217
+Pair: Dy-Ge, Count: 2, Distances:  3.184 3.125
+Pair: Ge-Rh, Count: 12, Distances:  2.481 2.487 2.499 2.524 2.542 2.515 2.519 2.483 2.455 2.460 2.538 2.495
+Pair: Ge-Ho, Count: 2, Distances:  3.120 3.180
+Pair: Pd-Si, Count: 2, Distances:  2.388 2.416
+Pair: Si-Yb, Count: 1, Distances:  3.143
+Pair: Nd-Pt, Count: 1, Distances:  3.089
+Pair: Nd-Sb, Count: 1, Distances:  3.089
+Pair: Ge-Pt, Count: 2, Distances:  2.499 2.489
+Pair: Gd-Pt, Count: 1, Distances:  3.274
+Pair: Fe-Si, Count: 1, Distances:  2.385
+Pair: Si-Si, Count: 1, Distances:  2.242
+Pair: Si-Y, Count: 1, Distances:  2.990
+Pair: Ge-Tm, Count: 2, Distances:  3.171 3.093
+Pair: Dy-Pt, Count: 1, Distances:  3.263
+Pair: Er-Ge, Count: 1, Distances:  3.177
+Pair: Pt-Sm, Count: 1, Distances:  2.838
+Pair: Ge-Sm, Count: 3, Distances:  3.141 3.198 3.201
+Pair: Ce-Ge, Count: 3, Distances:  3.169 3.226 3.227
+Pair: Ge-Ir, Count: 8, Distances:  2.455 2.348 2.367 2.373 2.380 2.537 2.401 2.387
+Pair: Ge-U, Count: 1, Distances:  3.227
+Pair: Ge-Tb, Count: 3, Distances:  3.165 3.187 3.135
+Pair: Ir-Tb, Count: 1, Distances:  3.282
+Pair: Ir-Sm, Count: 1, Distances:  3.274
+Pair: Ge-Nd, Count: 3, Distances:  3.157 3.208 3.210
+Pair: Ge-Yb, Count: 2, Distances:  3.170 3.089
+Pair: Si-U, Count: 1, Distances:  3.141
+Pair: Pt-Si, Count: 2, Distances:  2.453 2.424
+Pair: Ce-Si, Count: 1, Distances:  3.244
+Pair: Ir-Nd, Count: 1, Distances:  3.270
+Pair: Ir-Pr, Count: 1, Distances:  3.279
+Pair: Eu-Ge, Count: 3, Distances:  3.236 3.182 3.179
+Pair: Ir-La, Count: 1, Distances:  3.306
+Pair: Ce-Ir, Count: 1, Distances:  3.291
+Pair: Gd-Ge, Count: 1, Distances:  3.194
+
+Missing pairs:
+Er-Eu
+Dy-Sm
+Ce-Er
+Dy-Pd
+Ge-Sb
+Rh-Sb
+Er-Ir
+Er-Pt
+Nd-U
+La-Tb
+Gd-Rh
+Pd-Pt
+La-Ru
+Eu-Gd
+Ce-Yb
+Fe-U
+La-Pr
+Er-Yb
+Gd-Ru
+La-Tm
+Nd-Sm
+Tb-Y
+Eu-U
+Nd-Pr
+Nd-Pd
+Tm-Y
+Fe-Sm
+Y-Yb
+Sb-Yb
+Pt-Yb
+Sm-Y
+Ho-Sm
+Er-Si
+Eu-Sm
+Ho-Pd
+Fe-Pr
+Si-Sm
+Fe-Tm
+Ru-Yb
+Si-Tb
+Ce-Rh
+Eu-Pr
+Er-Rh
+Eu-Tm
+Ce-Ru
+Pr-Tb
+Si-Tm
+Pr-Ru
+Gd-La
+Pr-Tm
+Pt-Rh
+Pd-Sb
+Ru-Si
+Gd-Ir
+Pt-Ru
+Ir-Tm
+Er-Fe
+Ge-Pd
+La-Yb
+Rh-Y
+Ce-Eu
+Gd-Nd
+La-Si
+U-Yb
+Gd-Y
+Ce-La
+Gd-Ho
+Fe-Yb
+Er-La
+Tb-U
+Tm-U
+Dy-Tb
+Eu-Yb
+La-Rh
+Dy-Ru
+Dy-Pr
+Dy-Gd
+Dy-Tm
+Pr-Yb
+Gd-Sb
+Ho-U
+Ir-Yb
+Ce-Nd
+Nd-Tb
+Tb-Tm
+Er-Nd
+Nd-Ru
+Fe-Rh
+Ce-Y
+Er-Y
+Ce-Ho
+Fe-Tb
+Nd-Tm
+Pr-Si
+Fe-Ru
+Fe-Gd
+Eu-Rh
+Er-Ho
+Ho-Tb
+Pd-Y
+Dy-Eu
+Eu-Tb
+Ho-Pr
+Eu-Ru
+Sb-Y
+Ho-Tm
+Pt-Y
+Sb-Si
+Pr-Rh
+Dy-Er
+Er-Sb
+Rh-U
+Ir-Rh
+Ru-Y
+Ir-Ru
+Dy-Yb
+Ce-Fe
+Rh-Sm
+Fe-La
+Rh-Tm
+Gd-Sm
+Ru-Sb
+Fe-Ir
+Fe-Pt
+Dy-Si
+Eu-La
+La-Y
+La-Nd
+Tm-Yb
+Nd-Yb
+Gd-Pd
+Eu-Ir
+Eu-Pt
+Dy-Rh
+Ho-Yb
+Pr-Pt
+Nd-Si
+Sm-U
+Fe-Nd
+Er-U
+Ce-Dy
+Ir-Pt
+Pd-U
+Eu-Nd
+Ho-Si
+Ce-Sm
+Dy-Fe
+Nd-Rh
+Er-Sm
+Ce-Pd
+Eu-Si
+Er-Pd
+Sm-Tb
+Pd-Sm
+Fe-Ge
+Pr-Y
+Ho-Rh
+Sm-Tm
+Er-Tm
+Ru-U
+Rh-Yb
+Pd-Pr
+Pd-Tm
+Ir-Y
+Ho-Ru
+Dy-La
+Ru-Sm
+Dy-Ir
+Pr-Sb
+Eu-Fe
+Ru-Tm
+Ir-Sb
+La-U
+Gd-U
+Rh-Tb
+Rh-Ru
+Dy-Nd
+La-Sm
+Tb-Yb
+Dy-Y
+La-Pd
+Ho-La
+Dy-Ho
+Gd-Tb
+Ho-Pt
+Sm-Yb
+Ho-Ir
+Gd-Pr
+Gd-Tm
+Pd-Yb
+Nd-Y
+Ce-U
+Fe-Pd
+Dy-Sb
+U-Y
+Pr-U
+Fe-Y
+Ho-Nd
+Eu-Pd
+Fe-Ho
+Ho-Y
+Ir-U
+Eu-Y
+Sb-U
+Eu-Ho
+Pt-U
+Pr-Sm
+Ce-Tb
+Er-Tb
+Ce-Gd
+Ce-Pr
+Pd-Rh
+Er-Pr
+Pd-Tb
+Ce-Tm
+Sb-Sm
+Er-Ru
+Er-Gd
+Fe-Sb
+Pd-Ru
+Ir-Pd
+Sb-Tb
+Ho-Sb
+Pt-Tb
+Eu-Sb
+Sb-Tm
+Pt-Tm
+Gd-Yb
+Ge-Si
+Ru-Tb
+Rh-Si
+Dy-U
