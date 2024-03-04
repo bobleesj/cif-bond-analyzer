@@ -169,7 +169,7 @@ def main():
 
     # Create a Pandas Excel writer using openpyxl as the engine
     excel_writer = pd.ExcelWriter("unique_pairs.xlsx", engine='openpyxl')
-
+    
     # Iterate over each unique pair
     for pair, files in pairs_files_mapping.items():
         # Initialize a list to hold the data for this pair
@@ -189,7 +189,7 @@ def main():
 
     # Save the Excel file
     excel_writer.close()
-
+ 
     '''
     PART 4: SAVE & PLOT
     '''
@@ -202,18 +202,28 @@ def main():
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
 
+
         adjusted_pairs_distances = bond.strip_labels_and_remove_duplicate(
             unique_pairs_distances
         )
 
+        print("adjusted_pairs_distances", adjusted_pairs_distances)
+        sorted_pairs_by_count = sorted(
+            adjusted_pairs_distances.items(), 
+            key=lambda item: (len(item[1]), item[0]), 
+            reverse=True
+        )
+        sorted_pairs_by_count_dict = dict(sorted_pairs_by_count)
+        print("sorted_pairs", sorted_pairs_by_count_dict)
+
         folder.write_summary_and_missing_pairs(
-            adjusted_pairs_distances,
+            sorted_pairs_by_count_dict,
             missing_pair_tuple_list,
             dir_path
         )
 
         histogram.plot_histograms(
-            adjusted_pairs_distances,
+            sorted_pairs_by_count_dict,
             dir_path
         )
 

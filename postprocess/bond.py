@@ -87,4 +87,5 @@ def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
     # Find the pairs that are not in the data
     missing_pair_list = [pair for pair in all_possible_pairs if pair not in sorted_pair_list]
 
+    missing_pair_list = sorted(missing_pair_list, key=lambda x: x)
     return sorted_pair_list, missing_pair_list

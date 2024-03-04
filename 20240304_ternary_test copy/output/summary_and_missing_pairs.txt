@@ -1,0 +1,50 @@
+Summary:
+Pair: Ge-Ge, Count: 2, Distances: 2.304 2.438
+Pair: Si-Y, Count: 1, Distances: 2.990
+Pair: Si-Si, Count: 1, Distances: 2.242
+Pair: Pd-Si, Count: 1, Distances: 2.416
+Pair: Ge-Rh, Count: 1, Distances: 2.481
+Pair: Ge-Pt, Count: 1, Distances: 2.489
+Pair: Ge-Ho, Count: 1, Distances: 3.120
+Pair: Gd-Si, Count: 1, Distances: 3.185
+Pair: Fe-Si, Count: 1, Distances: 2.385
+Pair: Dy-Pt, Count: 1, Distances: 3.263
+
+Missing pairs:
+Dy-Fe
+Dy-Gd
+Dy-Ge
+Dy-Ho
+Dy-Pd
+Dy-Rh
+Dy-Si
+Dy-Y
+Fe-Gd
+Fe-Ge
+Fe-Ho
+Fe-Pd
+Fe-Pt
+Fe-Rh
+Fe-Y
+Gd-Ge
+Gd-Ho
+Gd-Pd
+Gd-Pt
+Gd-Rh
+Gd-Y
+Ge-Pd
+Ge-Si
+Ge-Y
+Ho-Pd
+Ho-Pt
+Ho-Rh
+Ho-Si
+Ho-Y
+Pd-Pt
+Pd-Rh
+Pd-Y
+Pt-Rh
+Pt-Si
+Pt-Y
+Rh-Si
+Rh-Y
