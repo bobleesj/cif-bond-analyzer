@@ -1,50 +1,59 @@
 Summary:
-Pair: Ge-Ge, Count: 2, Distances: 2.304 2.438
-Pair: Si-Y, Count: 1, Distances: 2.990
-Pair: Si-Si, Count: 1, Distances: 2.242
-Pair: Pd-Si, Count: 1, Distances: 2.416
-Pair: Ge-Rh, Count: 1, Distances: 2.481
-Pair: Ge-Pt, Count: 1, Distances: 2.489
+Pair: Ge-Ge, Count: 9, Distances: 2.290 2.265 2.304 2.233 2.359 2.249 2.255 2.306 2.236
+Pair: Ge-Ru, Count: 7, Distances: 2.554 2.535 2.507 2.520 2.527 2.554 2.513
+Pair: Ge-Rh, Count: 2, Distances: 2.481 2.519
+Pair: Ge-Pr, Count: 2, Distances: 3.220 3.161
+Pair: Ge-Tb, Count: 1, Distances: 3.187
+Pair: Ge-Sm, Count: 1, Distances: 3.201
+Pair: Ge-Nd, Count: 1, Distances: 3.210
+Pair: Ge-La, Count: 1, Distances: 3.241
 Pair: Ge-Ho, Count: 1, Distances: 3.120
-Pair: Gd-Si, Count: 1, Distances: 3.185
-Pair: Fe-Si, Count: 1, Distances: 2.385
-Pair: Dy-Pt, Count: 1, Distances: 3.263
+Pair: Gd-Ge, Count: 1, Distances: 3.194
+Pair: Eu-Ge, Count: 1, Distances: 3.236
 
 Missing pairs:
-Dy-Fe
-Dy-Gd
-Dy-Ge
-Dy-Ho
-Dy-Pd
-Dy-Rh
-Dy-Si
-Dy-Y
-Fe-Gd
-Fe-Ge
-Fe-Ho
-Fe-Pd
-Fe-Pt
-Fe-Rh
-Fe-Y
-Gd-Ge
+Eu-Gd
+Eu-Ho
+Eu-La
+Eu-Nd
+Eu-Pr
+Eu-Rh
+Eu-Ru
+Eu-Sm
+Eu-Tb
 Gd-Ho
-Gd-Pd
-Gd-Pt
+Gd-La
+Gd-Nd
+Gd-Pr
 Gd-Rh
-Gd-Y
-Ge-Pd
-Ge-Si
-Ge-Y
-Ho-Pd
-Ho-Pt
+Gd-Ru
+Gd-Sm
+Gd-Tb
+Ho-La
+Ho-Nd
+Ho-Pr
 Ho-Rh
-Ho-Si
-Ho-Y
-Pd-Pt
-Pd-Rh
-Pd-Y
-Pt-Rh
-Pt-Si
-Pt-Y
-Rh-Si
-Rh-Y
+Ho-Ru
+Ho-Sm
+Ho-Tb
+La-Nd
+La-Pr
+La-Rh
+La-Ru
+La-Sm
+La-Tb
+Nd-Pr
+Nd-Rh
+Nd-Ru
+Nd-Sm
+Nd-Tb
+Pr-Rh
+Pr-Ru
+Pr-Sm
+Pr-Tb
+Rh-Ru
+Rh-Sm
+Rh-Tb
+Ru-Sm
+Ru-Tb
+Sm-Tb

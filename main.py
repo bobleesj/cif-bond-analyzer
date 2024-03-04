@@ -11,6 +11,7 @@ import postprocess.histogram as histogram
 import util.folder as folder
 import util.prompt as prompt
 import filter.occupancy as occupancy
+import postprocess.excel as excel
 
 
 def main():
@@ -149,46 +150,9 @@ def main():
     adjusted_pairs_distances = bond.strip_labels_and_remove_duplicate(
         unique_pairs_distances
     )
-    unique_pair_tuple_list, missing_pair_tuple_list = bond.get_sorted_missing_pairs(
+    pair_tuples, missing_pair_tuples = bond.get_sorted_missing_pairs(
         adjusted_pairs_distances
     )
-
-    # Initialize a dictionary to hold the pairs and the .cif files
-    pairs_files_mapping = {}
-
-    for pair in unique_pair_tuple_list:
-        pairs_files_mapping[pair] = []
-        for filename, pairs in global_pairs_data.items():
-            # If the pair is present in the cif file
-            if pair in pairs:
-                pairs_files_mapping[pair].append(filename)
-
-    # Print the mapping of pairs to files
-    for pair, files in pairs_files_mapping.items():
-        print(f"Pair {pair} is found in: {files}")
-
-    # Create a Pandas Excel writer using openpyxl as the engine
-    excel_writer = pd.ExcelWriter("unique_pairs.xlsx", engine='openpyxl')
-    
-    # Iterate over each unique pair
-    for pair, files in pairs_files_mapping.items():
-        # Initialize a list to hold the data for this pair
-        data_for_pair = []
-        
-        # For each file that contains this pair, add the filename and dist
-        for file in files:
-            distance = float(global_pairs_data[file][pair])
-            data_for_pair.append({'File': file, 'Distance': distance})
-        
-        # Convert the list to a DataFrame
-        df = pd.DataFrame(data_for_pair)
-        
-        # Write the DataFrame to a sheet named after the pair
-        sheet_name = f"{pair[0]}-{pair[1]}"
-        df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
-
-    # Save the Excel file
-    excel_writer.close()
  
     '''
     PART 4: SAVE & PLOT
@@ -202,12 +166,10 @@ def main():
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
 
-
         adjusted_pairs_distances = bond.strip_labels_and_remove_duplicate(
             unique_pairs_distances
         )
 
-        print("adjusted_pairs_distances", adjusted_pairs_distances)
         sorted_pairs_by_count = sorted(
             adjusted_pairs_distances.items(), 
             key=lambda item: (len(item[1]), item[0]), 
@@ -216,9 +178,11 @@ def main():
         sorted_pairs_by_count_dict = dict(sorted_pairs_by_count)
         print("sorted_pairs", sorted_pairs_by_count_dict)
 
+        excel.write_excel(pair_tuples, global_pairs_data)
+
         folder.write_summary_and_missing_pairs(
             sorted_pairs_by_count_dict,
-            missing_pair_tuple_list,
+            missing_pair_tuples,
             dir_path
         )
 

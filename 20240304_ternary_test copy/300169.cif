@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# Fe-Si-Y          # YFe2Si2                                       #  300351 #
+# Ge-La-Ru         # LaRu2Ge2                                      #  300169 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -18,71 +18,85 @@
 #                                                                            #
 ##############################################################################
 
-data_300351
-_audit_creation_date                     2024-02-24
+data_300169
+_audit_creation_date                     2024-02-25
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      300351
-_database_code_PDF                       04-001-3992
+#_database_code_PCD                      300169
+_database_code_PDF                       04-001-3818
 
 # Entry summary
 
-_chemical_formula_structural             'Y Fe~2~ Si~2~'
-_chemical_formula_sum                    'Fe2 Si2 Y'
+_chemical_formula_structural             'La Ru~2~ Ge~2~'
+_chemical_formula_sum                    'Ge2 La Ru2'
 _chemical_name_mineral                   ?
 _chemical_compound_source                ?
 _chemical_name_structure_type            CeAl~2~Ga~2~,tI10,139
-_chemical_formula_weight                 256.8
+_chemical_formula_weight                 486.2
 
 # Bibliographic data
 
 _publ_section_title
 ;
-Lattice parameters of some ThCu~2~Si~2~-type phases in ternary alloys of rare earths with cobalt (or iron) and silicon (or germanium)
+De nouvelles series de germaniures, isotypes de U~4~Re~7~Si~6~, ThCr~2~Si et CaBe~2~Ge~2~, dans les systemes ternaires R-T-Ge ou R est un element des terres rares et T= Ru, Os, Rh, Ir: Supraconductivite de LaIr~2~Ge~2~
 ;
 _journal_coden_ASTM                      JCOMAH
 _journal_name_full                       'J. Less-Common Met.'
-_journal_year                            1978
-_journal_volume                          58
-_journal_page_first                      203
-_journal_page_last                       207
-_journal_language                        English
+_journal_year                            1985
+_journal_volume                          113
+_journal_page_first                      231
+_journal_page_last                       237
+_journal_language                        French
 loop_
  _publ_author_name
  _publ_author_address
-'Rossi D.'
+'Francois M.'
 ;
-Genoa University (UniGe)
-Istituto di Chimica Generale e Inorganica
-Genoa
-Italy
+Nancy I Henri Poincare University
+Laboratoire de Chimie du Solide Mineral (LCSM)
+Vandoeuvre-les-Nancy
+France
 ;
-'Marazza R.'
+'Venturini G.'
 ;
-Genoa University (UniGe)
-Istituto di Chimica Generale e Inorganica
-Genoa
-Italy
+Nancy I Henri Poincare University
+Laboratoire de Chimie du Solide Mineral (LCSM)
+Vandoeuvre-les-Nancy
+France
 ;
-'Ferro R.'
+'Mareche J.F.'
 ;
-Genoa University (UniGe)
-Istituto di Chimica Generale e Inorganica
-Genoa
-Italy
+Nancy I Henri Poincare University
+Laboratoire de Chimie du Solide Mineral (LCSM)
+Vandoeuvre-les-Nancy
+France
+;
+'Malaman B.'
+;
+Nancy I Henri Poincare University
+Laboratoire de Chimie du Solide Mineral (LCSM)
+Vandoeuvre-les-Nancy
+France
+;
+'Roques B.'
+;
+Nancy I Henri Poincare University
+Laboratoire de Chimie du Solide Mineral (LCSM)
+Vandoeuvre-les-Nancy
+France
 ;
 
 # Standardized crystallographic data
 
-_cell_length_a                           3.92
-_cell_length_b                           3.92
-_cell_length_c                           9.92
+_cell_length_a                           4.288
+_cell_length_b                           4.288
+_cell_length_c                           10.133
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
 _cell_angle_gamma                        90
-_cell_volume                             152.4
+_cell_volume                             186.3
 _cell_formula_units_Z                    2
 _space_group_IT_number                   139
 _space_group_name_H-M_alt                'I 4/m m m'
@@ -126,9 +140,9 @@ loop_
 
 loop_
  _atom_type_symbol
- Si
- Fe
- Y
+ Ge
+ Ru
+ La
 loop_
  _atom_site_label
  _atom_site_type_symbol
@@ -138,19 +152,19 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- Si1 Si 4 e 0 0 0.387 1
- Fe1 Fe 4 d 0 0.5 0.25 1
- Y1 Y 2 a 0 0 0 1
+ Ge1 Ge 4 e 0 0 0.387 1
+ Ru1 Ru 4 d 0 0.5 0.25 1
+ La1 La 2 a 0 0 0 1
 
 
 _exptl_crystal_colour                    ?
 _exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            5.59
+_exptl_crystal_density_diffrn            8.67
 _cell_measurement_temperature            ?
-_cell_measurement_radiation              'X-rays, Fe Ka'
+_cell_measurement_radiation              'X-rays, Cu Ka'
 _cell_measurement_reflns_used            ?
 _diffrn_ambient_temperature              ?
-_diffrn_measurement_device               film
+_diffrn_measurement_device               'Guinier film'
 _diffrn_measurement_device_type          ?
 _diffrn_radiation_type                   ?
 _diffrn_reflns_number                    ?
@@ -162,5 +176,5 @@ _refine_ls_number_reflns                 ?
 _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
-# End of data set 300351
+# End of data set 300169
 
