@@ -3,6 +3,7 @@ import glob
 from os.path import join, exists
 from shutil import rmtree, move
 
+
 def choose_CIF_directory(script_directory):
     """
     Allows the user to select a directory from the given path.
@@ -56,7 +57,7 @@ def get_cif_file_count_from_directory(directory):
     return len(glob.glob(join(directory, "*.cif")))
 
 
-def get_cif_file_path_list_from_directory(directory):
+def get_cif_file_path_list(directory):
     return glob.glob(os.path.join(directory, "*.cif"))
 
 
@@ -73,7 +74,7 @@ def move_files(to_directory, file_path_list):
 
 def remove_file(file_path):
     if exists(file_path):
-       os.remove(file_path)
+        os.remove(file_path)
 
 
 def write_summary_and_missing_pairs(unique_pairs_distances, missing_pairs, directory_path):

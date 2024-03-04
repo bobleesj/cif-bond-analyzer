@@ -35,7 +35,7 @@ def process_and_order_pairs(all_points, atomic_pair_list):
     return processed_pairs_ordered
 
 
-def strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances):
+def strip_labels_and_remove_duplicate(unique_pairs_distances):
     '''
     unique_pairs_distances_test_2 = {
         ('Ga1A', 'Ga1'): ['2.601'],
