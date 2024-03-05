@@ -1,10 +1,12 @@
 import pandas as pd
 import os
+import json
 
 
 def write_excel(dir_path, unique_pair_tuple_list, global_pairs_data):
     # Initialize a dictionary to hold the pairs and the .cif files
     pairs_files_mapping = {}
+    json_data = {}
 
     for pair in unique_pair_tuple_list:
         pairs_files_mapping[pair] = []
@@ -53,8 +55,20 @@ def write_excel(dir_path, unique_pair_tuple_list, global_pairs_data):
         df = pd.DataFrame(sorted_data_for_pair)
 
         # Prepare sheet name including the count
-        sheet_name = f"{pair[0]}-{pair[1]} ({len(files)})"
+        sheet_name = f"{pair[0]}-{pair[1]}"
+
+        # Older Excel supports up to 31 sheets only.
         df.to_excel(excel_writer, sheet_name=sheet_name[:31], index=False)
+
+        # Convert the DataFrame to JSON and save
+        json_data[f"{pair[0]}-{pair[1]}"] = sorted_data_for_pair
 
     # Save the Excel file
     excel_writer.close()
+
+    # Prepare the JSON file path
+    json_file_path = os.path.join(output_dir, f"{folder_name}_pairs.json")
+
+    # Write the JSON data to a single file
+    with open(json_file_path, 'w') as json_file:
+        json.dump(json_data, json_file, indent=4)

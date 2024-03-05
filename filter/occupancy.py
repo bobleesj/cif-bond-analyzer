@@ -34,17 +34,13 @@ def get_atom_site_mixing_info(filename, CIF_loop_values):
     is_atomic_mixing = len(coord_occupancy_sum) != num_atom_labels
 
     if is_atomic_mixing and not is_full_occupancy:
-        print(filename, "has deficiency_atomic_mixing")
         return "deficiency_atomic_mixing"
 
     elif is_atomic_mixing and is_full_occupancy:
-        print(filename, "has full_occupancy_atomic_mixing")
         return "full_occupancy_atomic_mixing"
 
     elif not is_atomic_mixing and not is_full_occupancy:
-        print(filename, "has deficiency_no_atomic_mixing")
         return "deficiency_no_atomic_mixing"
 
     elif is_full_occupancy:
-        print(filename, "has full_occupancy")
         return "full_occupancy"

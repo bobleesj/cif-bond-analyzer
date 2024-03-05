@@ -71,9 +71,14 @@ def main():
                 angles_rad
             )
 
-            occupancy.get_atom_site_mixing_info(filename, CIF_loop_values)
+            atom_site_info = occupancy.get_atom_site_mixing_info(
+                filename,
+                CIF_loop_values
+            )
+            print(filename, "has", atom_site_info)
 
             file_types = ["binary", "ternary", "quaternary"]
+
             if folder.get_file_type(atom_site_list) in file_types:
 
                 processed_pairs_ordered = bond.process_and_order_pairs(
@@ -106,8 +111,6 @@ def main():
                 # Sort the pair alphabetically
                 for filename, pairs in unique_pairs_dict.items():
                     global_pairs_data[filename] = {}
-                    # print("*Print all pairs with labels for debugging.")
-                    print("*Only unique shortest pairs recorded to .txt")
                     for labels, pair in pairs.items():
                         atom_1, atom_2 = sorted(
                             [cif_parser.get_atom_type(labels[0]),
