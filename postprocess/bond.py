@@ -35,7 +35,7 @@ def process_and_order_pairs(all_points, atomic_pair_list):
     return processed_pairs_ordered
 
 
-def strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances):
+def strip_labels_and_remove_duplicate(unique_pairs_distances):
     '''
     unique_pairs_distances_test_2 = {
         ('Ga1A', 'Ga1'): ['2.601'],
@@ -68,7 +68,7 @@ def strip_labels_and_remove_duplicate_atom_type_pairs(unique_pairs_distances):
     return adjusted_pairs
 
 
-def get_missing_pairs(adjusted_unique_pairs_distances):
+def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
     # Extract all unique elements from the pairs
     unique_elements = list(set([element for pair in adjusted_unique_pairs_distances.keys() for element in pair]))
 
@@ -82,9 +82,10 @@ def get_missing_pairs(adjusted_unique_pairs_distances):
     all_possible_pairs = list(set(all_possible_pairs))
 
     # Sort the pairs in the data as well before comparison
-    sorted_pairs_data = [tuple(sorted(pair)) for pair in adjusted_unique_pairs_distances.keys()]
+    sorted_pair_list = [tuple(sorted(pair)) for pair in adjusted_unique_pairs_distances.keys()]
 
     # Find the pairs that are not in the data
-    missing_pairs = [pair for pair in all_possible_pairs if pair not in sorted_pairs_data]
+    missing_pair_list = [pair for pair in all_possible_pairs if pair not in sorted_pair_list]
 
-    return missing_pairs
+    missing_pair_list = sorted(missing_pair_list, key=lambda x: x)
+    return sorted_pair_list, missing_pair_list

@@ -8,12 +8,12 @@ def print_intro_prompt():
     Welcome to the CIF Bond Analyzer!
                                    
     What this script does
-    [1] Processes Crystallographic Information Files (CIF) from selected folder.
+    [1] Processes Crystallographic Information Files from selected folder.
     [2] Forms supercell based CIF info.
     [3] Determines shortest unique atomic pairs found across all CIF files.
     [4] Indicates frequency and distances of bonding pairs.
     [5] Identifies missing atomic pairs not observed across all CIF files.
-    [6] Generates histograms for each unique atomic pair to visualize distribution of distances.
+    [6] Generates histograms for each unique atomic pair
                                     
     Let's get started!
     ===
@@ -21,21 +21,7 @@ def print_intro_prompt():
     print(intro_prompt)
 
 
-# def get_user_input_on_file_skip():
-#     click.echo("\nQ1. Do you want to skip any CIF files based on the number of unique in the supercell?")
-#     skip_based_on_atoms = click.confirm('(Default: N)', default=False)
-#     print()
-
-#     if skip_based_on_atoms:
-#         click.echo("Files with atoms exceeding this count will be skipped")
-#         supercell_max_atom_count = click.prompt('Enter the threshold for the maximum number of atoms in the supercell', type=int)
-#     else:
-#         supercell_max_atom_count = float('inf')  # A large number to essentially disable skipping
-#     return supercell_max_atom_count
-
-# import click
-
-def get_user_input_on_supercell_generation_method():
+def get_user_input_on_supercell_method():
     click.echo("\nDo you want to modify the supercell generation method for CIF files with more than 200 atoms in the unit cell?")
     is_supercell_generation_method_modified = click.confirm('(Default: N)', default=False)
 

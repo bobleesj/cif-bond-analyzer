@@ -1,16 +1,13 @@
 # CIF Bond Analyzer
-
 Analyze and visualize bonding pairs in CIF files: Processes CIFs to identify unique atomic pairs, their frequencies, distances, missing pairs, and generates histograms for distance distribution
 
 ## What CIF Bond Anaylzer does
-
 1. processes Crystallographic Information Files (CIF) from selected folder
 2. forms supercell based CIF info
 3. determines shortest unique atomic pairs found across all CIF files.
 4. indicates frequency and distances of bonding pairs.
 5. identifies missing atomic pairs not observed across all CIF files.
 6. generates histograms for each unique atomic pair to visualize distribution of distances.
-
 
 When you run `python main.py`, it identifies folders containing `.cif` files.
 
@@ -22,8 +19,6 @@ Available folders containing CIF files:
 
 Enter the number corresponding to the folder containing .cif files: 
 ```
-
-
 
 After processing, it saves `summary_and_missing_pairs.txt`shown below.
 
@@ -59,7 +54,7 @@ Simply copy and paste the following block.
 ```bash
 git clone https://github.com/bobleesj/cif-bond-analyzer.git
 cd cif-bond-analyzer
-pip install pandas==2.2.1 click==8.1.7 gemmi==0.6.5 matplotlib==3.8.3 pytest==8.0.1
+pip install pandas click gemmi matplotlib pytest sympy openpyxl
 python main.py
 ```
 
@@ -68,7 +63,7 @@ The above method had no issue so far. But If you are interested in using `Conda`
 ```bash
 git clone https://github.com/bobleesj/cif-bond-analyzer.git
 cd cif-bond-analyzer
-conda create -n cif python=3.10
+conda create -n cif python=3.12
 conda activate cif
 pip install -r requirements.txt
 python main.py
@@ -99,8 +94,6 @@ Please feel free to reach out via sl5400@columbia.edu for any questions.
 - [ ] Test histogram production
 - [ ] Test text file content for binary, ternary, and quartner files. 
 - [ ] Test above shift option
-
-
 
 ## Changelog
 - 20240301 - For files with more than 200 atoms in the unit cell, we let the user choose whether to apply translation in all +-1, +-1, +-1 directions or just +1 +1 +1 directions. 

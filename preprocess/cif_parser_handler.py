@@ -5,7 +5,6 @@ import preprocess.supercell as supercell
 import util.folder as folder
 
 
-
 def get_CIF_info(file_path, loop_tags, supercell_generation_method=3):
     """
     Parse the CIF data from the given file path.
@@ -20,7 +19,15 @@ def get_CIF_info(file_path, loop_tags, supercell_generation_method=3):
         supercell_generation_method
     )
     
-    return CIF_block, cell_lengths, cell_angles_rad, all_coords_list,all_points, unique_labels, atom_site_list
+    return CIF_block, cell_lengths, cell_angles_rad, all_coords_list, all_points, unique_labels, atom_site_list
+
+
+def get_CIF_loop_values(file_path):
+    loop_tags = cif_parser.get_loop_tags()
+    CIF_block = cif_parser.get_CIF_block(file_path)
+    CIF_loop_values = cif_parser.get_loop_values(CIF_block, loop_tags)
+
+    return CIF_loop_values
 
 
 def get_folder_and_files_info(script_directory, isInteractiveMode):
