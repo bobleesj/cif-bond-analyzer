@@ -102,7 +102,7 @@ def main():
 
                         # Add this pair to the dictionary
                         unique_pairs_dict[filename][label_tuple] = pair
-    
+
                 # Sort the pair alphabetically
                 for filename, pairs in unique_pairs_dict.items():
                     global_pairs_data[filename] = {}
@@ -117,7 +117,7 @@ def main():
                         print(f"Pair: {atom_1}-{atom_2} {dist} Å")
                         # Store to the global overview dataset
                         global_pairs_data[filename][(atom_1, atom_2)] = dist
- 
+
             elapsed_time = time.perf_counter() - start_time
             echo(style(f"Processed {filename} with {num_of_atoms} atoms in {round(elapsed_time, 2)} s\n", fg="blue"))
 
@@ -128,7 +128,7 @@ def main():
                 "Processing time (s)": round(elapsed_time, 3)
             }
             log_list.append(data)
-        
+
         except Exception as e:
             print(f'Error processing file {filename}: {e}')
             error_files.append(filename)
@@ -178,8 +178,6 @@ def main():
         sorted_pairs_by_count_dict = dict(sorted_pairs_by_count)
         print("sorted_pairs", sorted_pairs_by_count_dict)
 
-        excel.write_excel(pair_tuples, global_pairs_data)
-
         folder.write_summary_and_missing_pairs(
             sorted_pairs_by_count_dict,
             missing_pair_tuples,
@@ -195,6 +193,12 @@ def main():
             dir_path,
             pd.DataFrame(log_list),
             "log"
+        )
+
+        excel.write_excel(
+            dir_path,
+            pair_tuples,
+            global_pairs_data
         )
 
         total_elapsed_time = time.perf_counter() - overall_start_time
