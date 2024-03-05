@@ -21,7 +21,7 @@ def main():
     PART 1: Choose the folder & get user input
     '''
 
-    error_files = []  # list to hold names of files that cause an error
+    error_files = []
     global_pairs_data = {}
     log_list = []
 

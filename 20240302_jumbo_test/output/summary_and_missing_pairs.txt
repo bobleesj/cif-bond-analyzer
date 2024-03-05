@@ -1,78 +1,78 @@
 Summary:
-Pair: Co-Ga, Count: 3, Distances: 2.482 2.601 2.501
-Pair: Ga-Ga, Count: 3, Distances: 2.482 2.358 2.501
-Pair: Co-Co, Count: 2, Distances: 2.482 2.501
 Pair: Ga-La, Count: 3, Distances: 3.332 3.291 2.979
+Pair: Ga-Ga, Count: 3, Distances: 2.482 2.601 2.501
+Pair: Co-Ga, Count: 3, Distances: 2.482 2.601 2.501
 Pair: Co-La, Count: 2, Distances: 3.332 2.979
-Pair: Rh-Sb, Count: 1, Distances: 2.652
-Pair: Sb-Sb, Count: 1, Distances: 2.829
-Pair: In-In, Count: 1, Distances: 2.825
-Pair: Rh-U, Count: 1, Distances: 2.825
-Pair: In-Rh, Count: 1, Distances: 2.825
-Pair: In-U, Count: 1, Distances: 2.825
-Pair: Rh-Rh, Count: 1, Distances: 2.825
-Pair: Os-Os, Count: 1, Distances: 2.728
-Pair: Os-Th, Count: 1, Distances: 3.198
+Pair: Co-Co, Count: 2, Distances: 2.482 2.501
 Pair: Th-Th, Count: 1, Distances: 3.341
-Pair: Pt-Pt, Count: 1, Distances: 2.819
-Pair: Nd-Si, Count: 1, Distances: 3.08 
 Pair: Si-Si, Count: 1, Distances: 2.755
+Pair: Sb-Sb, Count: 1, Distances: 2.829
+Pair: Rh-U, Count: 1, Distances: 2.825
+Pair: Rh-Sb, Count: 1, Distances: 2.516
+Pair: Rh-Rh, Count: 1, Distances: 2.825
+Pair: Pt-Pt, Count: 1, Distances: 2.819
+Pair: Os-Th, Count: 1, Distances: 3.198
+Pair: Os-Os, Count: 1, Distances: 2.728
+Pair: Nd-Si, Count: 1, Distances: 3.215
+Pair: In-U, Count: 1, Distances: 2.825
+Pair: In-Rh, Count: 1, Distances: 2.825
+Pair: In-In, Count: 1, Distances: 2.825
 
 Missing pairs:
-La-Th
 Co-In
-Nd-Os
-La-Os
-Sb-Th
-Ga-Th
-Ga-Os
-Rh-Si
-Os-U
-Co-U
-Si-U
 Co-Nd
-In-Nd
-Pt-U
-Ga-In
-Nd-U
-Os-Si
-La-U
-Co-Si
-In-Si
-La-Nd
-Pt-Si
-Os-Sb
-Co-Sb
-Sb-U
-In-Sb
-Ga-U
-La-Si
-Pt-Sb
-Ga-Nd
-Os-Rh
-Co-Rh
-In-La
-Pt-Rh
-Sb-Si
-Nd-Sb
-Ga-Si
-Nd-Rh
-La-Sb
-Os-Pt
-La-Rh
-Co-Pt
-In-Pt
-Rh-Th
-Th-U
-Nd-Pt
-Ga-Sb
-Ga-Rh
-La-Pt
-Co-Th
-In-Th
-Pt-Th
-Si-Th
-In-Os
-Ga-Pt
 Co-Os
+Co-Pt
+Co-Rh
+Co-Sb
+Co-Si
+Co-Th
+Co-U
+Ga-In
+Ga-Nd
+Ga-Os
+Ga-Pt
+Ga-Rh
+Ga-Sb
+Ga-Si
+Ga-Th
+Ga-U
+In-La
+In-Nd
+In-Os
+In-Pt
+In-Sb
+In-Si
+In-Th
+La-Nd
+La-Os
+La-Pt
+La-Rh
+La-Sb
+La-Si
+La-Th
+La-U
+Nd-Os
+Nd-Pt
+Nd-Rh
+Nd-Sb
 Nd-Th
+Nd-U
+Os-Pt
+Os-Rh
+Os-Sb
+Os-Si
+Os-U
+Pt-Rh
+Pt-Sb
+Pt-Si
+Pt-Th
+Pt-U
+Rh-Si
+Rh-Th
+Sb-Si
+Sb-Th
+Sb-U
+Si-Th
+Si-U
+Th-U

@@ -22,9 +22,6 @@ def get_atom_site_mixing_info(filename, CIF_loop_values):
         occupancy_num = coord_occupancy_sum.get(coordinates, 0) + occupancy
         coord_occupancy_sum[coordinates] = occupancy_num
 
-    #     print("label", label)
-    #     print("occupancy", occupancy)
-
     # print("coord_occupancy_sum", coord_occupancy_sum)
     # Now check summed occupancies
     for coordinates, sum_occ in coord_occupancy_sum.items():
@@ -38,12 +35,16 @@ def get_atom_site_mixing_info(filename, CIF_loop_values):
 
     if is_atomic_mixing and not is_full_occupancy:
         print(filename, "has deficiency_atomic_mixing")
+        return "deficiency_atomic_mixing"
 
     elif is_atomic_mixing and is_full_occupancy:
         print(filename, "has full_occupancy_atomic_mixing")
+        return "full_occupancy_atomic_mixing"
 
     elif not is_atomic_mixing and not is_full_occupancy:
         print(filename, "has deficiency_no_atomic_mixing")
+        return "deficiency_no_atomic_mixing"
 
     elif is_full_occupancy:
         print(filename, "has full_occupancy")
+        return "full_occupancy"
