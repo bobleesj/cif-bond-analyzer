@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# Ge-Ru-Tb         # TbRu2Ge2                                      #  300163 #
+# Ge-Rh-Sm         # SmRh2Ge2                                      #  300160 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -18,23 +18,23 @@
 #                                                                            #
 ##############################################################################
 
-data_300163
+data_300160
 _audit_creation_date                     2024-02-25
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      300163
-_database_code_PDF                       04-001-3812
+#_database_code_PCD                      300160
+_database_code_PDF                       04-001-3809
 
 # Entry summary
 
-_chemical_formula_structural             'Tb Ru~2~ Ge~2~'
-_chemical_formula_sum                    'Ge2 Ru2 Tb'
+_chemical_formula_structural             'Sm Rh~2~ Ge~2~'
+_chemical_formula_sum                    'Ge2 Rh2 Sm'
 _chemical_name_mineral                   ?
 _chemical_compound_source                ?
 _chemical_name_structure_type            CeAl~2~Ga~2~,tI10,139
-_chemical_formula_weight                 506.2
+_chemical_formula_weight                 501.4
 
 # Bibliographic data
 
@@ -90,13 +90,13 @@ France
 
 # Standardized crystallographic data
 
-_cell_length_a                           4.221
-_cell_length_b                           4.221
-_cell_length_c                           9.879
+_cell_length_a                           4.125
+_cell_length_b                           4.125
+_cell_length_c                           10.305
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
 _cell_angle_gamma                        90
-_cell_volume                             176
+_cell_volume                             175.3
 _cell_formula_units_Z                    2
 _space_group_IT_number                   139
 _space_group_name_H-M_alt                'I 4/m m m'
@@ -141,8 +141,8 @@ loop_
 loop_
  _atom_type_symbol
  Ge
- Ru
- Tb
+ Rh
+ Sm
 loop_
  _atom_site_label
  _atom_site_type_symbol
@@ -153,13 +153,13 @@ loop_
  _atom_site_fract_z
  _atom_site_occupancy
  Ge1 Ge 4 e 0 0 0.387 1
- Ru1 Ru 4 d 0 0.5 0.25 1
- Tb1 Tb 2 a 0 0 0 1
+ Rh1 Rh 4 d 0 0.5 0.25 1
+ Sm1 Sm 2 a 0 0 0 1
 
 
 _exptl_crystal_colour                    ?
 _exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            9.55
+_exptl_crystal_density_diffrn            9.50
 _cell_measurement_temperature            ?
 _cell_measurement_radiation              'X-rays, Cu Ka'
 _cell_measurement_reflns_used            ?
@@ -176,5 +176,5 @@ _refine_ls_number_reflns                 ?
 _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
-# End of data set 300163
+# End of data set 300160
 

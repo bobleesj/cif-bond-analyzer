@@ -1,65 +1,200 @@
-Ge-Ge:
-- File: 300163.cif
-  Distance: 2.233
-- File: 300164.cif
-  Distance: 2.236
-- File: 300166.cif
-  Distance: 2.249
-- File: 300167.cif
-  Distance: 2.255
-- File: 300168.cif
-  Distance: 2.265
-- File: 300169.cif
-  Distance: 2.29
-- File: 300156.cif
-  Distance: 2.304
-- File: 300165.cif
-  Distance: 2.306
-- File: 300162.cif
-  Distance: 2.359
-Ge-Ru:
-- File: 300163.cif
-  Distance: 2.507
-- File: 300164.cif
-  Distance: 2.513
-- File: 300166.cif
-  Distance: 2.52
-- File: 300167.cif
-  Distance: 2.527
-- File: 300168.cif
-  Distance: 2.535
-- File: 300169.cif
-  Distance: 2.554
-- File: 300165.cif
-  Distance: 2.554
-Ge-Pr:
-- File: 300162.cif
-  Distance: 3.161
-- File: 300168.cif
-  Distance: 3.22
-Ge-Rh:
-- File: 300156.cif
-  Distance: 2.481
-- File: 300162.cif
-  Distance: 2.519
-Ge-La:
-- File: 300169.cif
-  Distance: 3.241
-Ge-Ho:
-- File: 300156.cif
-  Distance: 3.12
-Ge-Tb:
-- File: 300163.cif
-  Distance: 3.187
-Ge-Sm:
-- File: 300166.cif
-  Distance: 3.201
-Ge-Nd:
-- File: 300167.cif
-  Distance: 3.21
-Eu-Ge:
-- File: 300165.cif
-  Distance: 3.236
-Gd-Ge:
-- File: 300164.cif
-  Distance: 3.194
+{
+    "Ge-Ge": [
+        {
+            "File": "1040392.cif",
+            "Distance": 2.226,
+            "Atomic Site": "deficiency"
+        },
+        {
+            "File": "300168.cif",
+            "Distance": 2.265,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300170.cif",
+            "Distance": 2.28,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300169.cif",
+            "Distance": 2.29,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300156.cif",
+            "Distance": 2.304,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300160.cif",
+            "Distance": 2.329,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300161.cif",
+            "Distance": 2.352,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300162.cif",
+            "Distance": 2.359,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300171.cif",
+            "Distance": 2.383,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300159.cif",
+            "Distance": 2.396,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "1005628.cif",
+            "Distance": 2.401,
+            "Atomic Site": "deficiency"
+        }
+    ],
+    "Ge-Rh": [
+        {
+            "File": "300156.cif",
+            "Distance": 2.481,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300160.cif",
+            "Distance": 2.499,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300161.cif",
+            "Distance": 2.515,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300162.cif",
+            "Distance": 2.519,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300159.cif",
+            "Distance": 2.538,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ge-Ru": [
+        {
+            "File": "300168.cif",
+            "Distance": 2.535,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300170.cif",
+            "Distance": 2.543,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300169.cif",
+            "Distance": 2.554,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ge-Pr": [
+        {
+            "File": "300162.cif",
+            "Distance": 3.161,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "1005628.cif",
+            "Distance": 3.168,
+            "Atomic Site": "deficiency"
+        },
+        {
+            "File": "300168.cif",
+            "Distance": 3.22,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Eu-Ge": [
+        {
+            "File": "300159.cif",
+            "Distance": 3.179,
+            "Atomic Site": "full_occupancy"
+        },
+        {
+            "File": "300171.cif",
+            "Distance": 3.182,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ce-Ge": [
+        {
+            "File": "1040392.cif",
+            "Distance": 3.141,
+            "Atomic Site": "deficiency"
+        },
+        {
+            "File": "300170.cif",
+            "Distance": 3.227,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ge-La": [
+        {
+            "File": "300169.cif",
+            "Distance": 3.241,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ge-Ho": [
+        {
+            "File": "300156.cif",
+            "Distance": 3.12,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ge-Sm": [
+        {
+            "File": "300160.cif",
+            "Distance": 3.141,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ge-Nd": [
+        {
+            "File": "300161.cif",
+            "Distance": 3.157,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ge-Ir": [
+        {
+            "File": "300171.cif",
+            "Distance": 2.537,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Ge-Ni": [
+        {
+            "File": "1040392.cif",
+            "Distance": 2.226,
+            "Atomic Site": "deficiency"
+        }
+    ],
+    "Ni-Ni": [
+        {
+            "File": "1040392.cif",
+            "Distance": 2.477,
+            "Atomic Site": "deficiency"
+        }
+    ],
+    "Ce-Ni": [
+        {
+            "File": "1040392.cif",
+            "Distance": 3.141,
+            "Atomic Site": "deficiency"
+        }
+    ]
+}

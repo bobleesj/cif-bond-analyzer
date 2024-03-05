@@ -1,57 +1,65 @@
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
+import pandas as pd
 import os
 
-def plot_histograms(unique_pairs_distances, directory_path):
-    """
-    Generates and saves histograms for the distribution of distances for each unique atomic pair.
 
-    Parameters:
-    - unique_pairs_distances: A dictionary with keys as atomic pairs and values as lists of distances.
-    - directory_path: The path to the directory where the histogram image will be saved.
-    """
+def plot_histograms_from_data(data, directory_path):
+    # Define the color mapping for atomic site categories
+    categories_colors = {
+        "deficiency": "#d62728",             # brick red
+        "full_occupancy_atomic_mixing": "#ff7f0e",  # safety orange
+        "deficiency_no_atomic_mixing": "#2ca02c",   # cooked asparagus green
+        "full_occupancy": "#1f77b4",         # muted blue
+    }
 
-    # Determine the number of histograms to be plotted
-    num_pairs = len(unique_pairs_distances)
-
-    # Set the maximum number of columns as 4
+    # Prepare for plotting
+    num_pairs = len(data)
     max_columns = 4
-
-    # Calculate the number of rows based on the number of pairs and maximum columns
-    num_rows = -(-num_pairs // max_columns)  # Ceiling division to ensure we have enough rows
-
-    # Adjust the figure size to allow for extending the size vertically. Each subplot is approximately 4x3 inches.
+    num_rows = np.ceil(num_pairs / max_columns).astype(int)
     plt.figure(figsize=(max_columns * 4, num_rows * 3))
 
-    # Go through each unique pair
-    for i, (pair, distances) in enumerate(unique_pairs_distances.items()):
-        distances = [float(dist) for dist in distances]  # Convert distances to float
+    # Collect all distances to establish global bins
+    all_distances = [
+        record['Distance'] for pair in data.values() for record in pair
+    ]
+    bins = np.linspace(min(all_distances), max(all_distances), 21)
 
-        # Compute the mean and standard deviation of the distances
-        mean_value = np.mean(distances)
-        std_value = np.std(distances)
+    # Iterate over each atomic pair and its list of records
+    for i, (pair, records) in enumerate(data.items(), start=1):
+        # Create a subplot for each atomic pair
+        ax = plt.subplot(num_rows, max_columns, i)
 
-        # Create a new subplot for each histogram
-        plt.subplot(num_rows, max_columns, i + 1)
-        plt.hist(distances, bins=20, color='steelblue', edgecolor='black')
-        plt.axvline(x=mean_value, color='red', linestyle='dashed', label=f"Mean: {mean_value:.4f}\nStd Dev: {std_value:.4f}")
-        lower_bound = mean_value - 3 * std_value
-        upper_bound = mean_value + 3 * std_value
-        plt.xlim([lower_bound, upper_bound])
+        # Prepare the data for the histogram
+        stacked_data = []
+        labels = []
+        for category in categories_colors.keys():
+            category_distances = [
+                record['Distance'] for record in records if record['Atomic Site'] == category
+            ]
+            if category_distances:
+                stacked_data.append(category_distances)
+                labels.append(category)
 
-        # Set x-axis tick size to exactly 4 tickers
-        plt.gca().xaxis.set_major_locator(ticker.LinearLocator(numticks=5))
-        plt.gca().xaxis.set_major_formatter(ticker.FormatStrFormatter('%1.3f'))  # Display up to third decimal place
+        # Plot the stacked histogram
+        if stacked_data:
+            ax.hist(
+                stacked_data,
+                bins=bins,
+                color=[categories_colors[cat] for cat in labels],
+                label=labels,
+                stacked=True,
+                edgecolor='black'
+            )
 
-        # Ensure y-axis has integer ticks
-        plt.gca().yaxis.set_major_locator(ticker.MaxNLocator(integer=True))
+        ax.set_title(f"Distances for {pair}")
+        ax.set_xlabel("Distance (Å)")
+        ax.set_ylabel("Count")
+        ax.legend(loc='upper right')
 
-        plt.xlabel(f"Distance (Å): {pair[0].strip()}-{pair[1].strip()}")
-        plt.ylabel("Count")
-        plt.legend()
+    plt.tight_layout()
 
-    plt.tight_layout(pad=3.0)  # Increase padding
-    file_path = os.path.join(directory_path, "output", "histograms.png")
-    plt.savefig(file_path, dpi=300)
-    print(f"\n{os.path.basename(file_path)} saved")
+    # Save the figure
+    plt.savefig(os.path.join(directory_path, "output", "atomic_pair_histograms.png"), dpi=300)
+    plt.close()

@@ -1,0 +1,14 @@
+{
+    "In-Rh": [
+        {
+            "File": "URhIn-full_occupancy",
+            "Distance": 2.852
+        }
+    ],
+    "Rh-U": [
+        {
+            "File": "URhIn-full_occupancy",
+            "Distance": 2.983
+        }
+    ]
+}
