@@ -43,19 +43,20 @@ def strip_labels_and_remove_duplicate(unique_pairs_distances):
         ('Co1B', 'Ga1'): ['2.601'],
         ('Ga1', 'Ga1A'): ['2.601'],
         ('Ga1', 'Ga1'): ['2.358']}
-                                     
+
     to 
-    
+
     adjusted_pairs_test_2 == {
         ('Ga', 'Ga'): ['2.358'],
         ('Ga', 'La'): ['3.291'],
         ('Co', 'Ga'): ['2.601']}
-        
+
     '''
+
     adjusted_pairs = {}
     for pair, distances in unique_pairs_distances.items():
         simplified_pair = tuple(sorted(get_atom_type(atom) for atom in pair))
-        current_distance = float(distances[0])  # Convert distance to float for comparison
+        current_distance = float(distances[0])
 
         # If the pair already exists, compare distances and keep the smallest
         if simplified_pair in adjusted_pairs:
@@ -89,3 +90,38 @@ def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
 
     missing_pair_list = sorted(missing_pair_list, key=lambda x: x)
     return sorted_pair_list, missing_pair_list
+
+
+def get_unique_pairs_dict(ordered_pairs, filename):
+    unique_pairs_dict = {}
+
+    for pair in ordered_pairs:
+        atom_label_0 = pair["labels"][0]
+        atom_label_1 = pair["labels"][1]
+
+        # Create a tuple of the labels
+        label_tuple = (atom_label_0, atom_label_1)
+
+        # Initialize a new dictionary for this filename
+        if filename not in unique_pairs_dict:
+            unique_pairs_dict[filename] = {}
+
+        # If these labels have not been seen before or
+        # if this pair is shorter than the previous pair
+        if (label_tuple not in unique_pairs_dict[filename] or
+            pair["distance"] < unique_pairs_dict[filename][label_tuple]["distance"]):
+
+            # Add this pair to the dictionary
+            unique_pairs_dict[filename][label_tuple] = pair
+    return unique_pairs_dict
+
+
+def get_unique_pairs_distances(global_pairs_data):
+    unique_pairs_distances = {}
+    for filename, pairs in global_pairs_data.items():
+        for pair, dist in pairs.items():
+            if pair not in unique_pairs_distances:
+                unique_pairs_distances[pair] = [dist]
+            else:
+                unique_pairs_distances[pair].append(dist)
+    return unique_pairs_distances

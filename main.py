@@ -21,7 +21,7 @@ def main():
     PART 1: Choose the folder & get user input
     '''
 
-    error_files = []  # list to hold names of files that cause an error
+    error_files = []
     global_pairs_data = {}
     log_list = []
 
@@ -44,9 +44,10 @@ def main():
     # For each file in the list of files
     for i, file_path in enumerate(file_path_list):
         start_time = time.perf_counter()
-        filename = os.path.basename(file_path)
+        filename_with_ext = os.path.basename(file_path)
+        filename, ext = os.path.splitext(filename_with_ext)
         num_of_atoms = None
-
+        
         try:
             # Process CIF files and return a list of coordinates
             result = cif_parser_handler.get_CIF_info(
@@ -63,63 +64,59 @@ def main():
 
             num_of_atoms = len(all_points)
             index = f"({i+1}/{len(file_path_list)})"
-            msg = f"Processing {filename} with {num_of_atoms} atoms {index}"
-            echo(style(msg, fg="black"))
+
+            echo(
+                style(
+                    f"Processing {filename_with_ext} with "
+                    f"{num_of_atoms} atoms {index}", fg="black"
+                )
+            )
+
             atomic_pair_list = supercell.get_atomic_pair_list(
                 all_points,
                 lenghts,
                 angles_rad
             )
 
-            occupancy.get_atom_site_mixing_info(filename, CIF_loop_values)
+            # Get atomic site mixing info -> String
+            atom_site_mixing_info = occupancy.get_atom_site_mixing_info(
+                filename,
+                CIF_loop_values
+            )
 
-            file_types = ["binary", "ternary", "quaternary"]
-            if folder.get_file_type(atom_site_list) in file_types:
+            # Add atom_site_info to the file name
+            filename += f"-{atom_site_mixing_info}"
+   
+            ordered_pairs = bond.process_and_order_pairs(
+                all_points,
+                atomic_pair_list
+            )
 
-                processed_pairs_ordered = bond.process_and_order_pairs(
-                    all_points,
-                    atomic_pair_list
-                )
+            unique_pairs_dict = bond.get_unique_pairs_dict(
+                ordered_pairs,
+                filename
+            )
 
-                unique_pairs_dict = {}
+            # Sort the pair alphabetically
+            for filename, pairs in unique_pairs_dict.items():
+                global_pairs_data[filename] = {}
+                for labels, pair in pairs.items():
+                    atom_1, atom_2 = sorted(
+                        [cif_parser.get_atom_type(labels[0]),
+                            cif_parser.get_atom_type(labels[1])]
+                    )
+                    dist = str(round(pair['distance'], 3))
+                    print(f"Pair: {atom_1}-{atom_2} {dist} Å")
+                    # Store to the global overview dataset
+                    global_pairs_data[filename][(atom_1, atom_2)] = dist
 
-                for pair in processed_pairs_ordered:
-
-                    atom_label_0 = pair["labels"][0]
-                    atom_label_1 = pair["labels"][1]
-
-                    # Create a tuple of the labels
-                    label_tuple = (atom_label_0, atom_label_1)
-
-                    # Initialize a new dictionary for this filename
-                    if filename not in unique_pairs_dict:
-                        unique_pairs_dict[filename] = {}
-
-                    # If these labels have not been seen before or
-                    # if this pair is shorter than the previous pair
-                    if (label_tuple not in unique_pairs_dict[filename] or
-                        pair["distance"] < unique_pairs_dict[filename][label_tuple]["distance"]):
-
-                        # Add this pair to the dictionary
-                        unique_pairs_dict[filename][label_tuple] = pair
-    
-                # Sort the pair alphabetically
-                for filename, pairs in unique_pairs_dict.items():
-                    global_pairs_data[filename] = {}
-                    # print("*Print all pairs with labels for debugging.")
-                    print("*Only unique shortest pairs recorded to .txt")
-                    for labels, pair in pairs.items():
-                        atom_1, atom_2 = sorted(
-                            [cif_parser.get_atom_type(labels[0]),
-                             cif_parser.get_atom_type(labels[1])]
-                        )
-                        dist = str(round(pair['distance'], 3))
-                        print(f"Pair: {atom_1}-{atom_2} {dist} Å")
-                        # Store to the global overview dataset
-                        global_pairs_data[filename][(atom_1, atom_2)] = dist
- 
             elapsed_time = time.perf_counter() - start_time
-            echo(style(f"Processed {filename} with {num_of_atoms} atoms in {round(elapsed_time, 2)} s\n", fg="blue"))
+
+            echo(style(
+                f"Processed {filename_with_ext} with {num_of_atoms} atoms in "
+                f"{round(elapsed_time, 2)} s\n",
+                fg="blue"
+            ))
 
             # Append a row to the log csv file
             data = {
@@ -128,32 +125,26 @@ def main():
                 "Processing time (s)": round(elapsed_time, 3)
             }
             log_list.append(data)
-        
+
         except Exception as e:
             print(f'Error processing file {filename}: {e}')
             error_files.append(filename)
 
-    print(global_pairs_data)
-    # Find the unique pairs and its count across all files
-    unique_pairs_distances = {}
-    for filename, pairs in global_pairs_data.items():
-        for pair, dist in pairs.items():
-            if pair not in unique_pairs_distances:
-                unique_pairs_distances[pair] = [dist]
-            else:
-                unique_pairs_distances[pair].append(dist)
-
     '''
     PART 3: OUTPUT
     '''
+   
+    # Find the unique pairs and its count across all files
+    unique_pairs_distances = bond.get_unique_pairs_distances(global_pairs_data)
 
     adjusted_pairs_distances = bond.strip_labels_and_remove_duplicate(
         unique_pairs_distances
     )
+
     pair_tuples, missing_pair_tuples = bond.get_sorted_missing_pairs(
         adjusted_pairs_distances
     )
- 
+
     '''
     PART 4: SAVE & PLOT
     '''
@@ -171,23 +162,16 @@ def main():
         )
 
         sorted_pairs_by_count = sorted(
-            adjusted_pairs_distances.items(), 
-            key=lambda item: (len(item[1]), item[0]), 
+            adjusted_pairs_distances.items(),
+            key=lambda item: (len(item[1]), item[0]),
             reverse=True
         )
         sorted_pairs_by_count_dict = dict(sorted_pairs_by_count)
         print("sorted_pairs", sorted_pairs_by_count_dict)
 
-        excel.write_excel(pair_tuples, global_pairs_data)
-
         folder.write_summary_and_missing_pairs(
             sorted_pairs_by_count_dict,
             missing_pair_tuples,
-            dir_path
-        )
-
-        histogram.plot_histograms(
-            sorted_pairs_by_count_dict,
             dir_path
         )
 
@@ -196,6 +180,14 @@ def main():
             pd.DataFrame(log_list),
             "log"
         )
+
+        json_data = excel.write_excel_json(
+            dir_path,
+            pair_tuples,
+            global_pairs_data
+        )
+
+        histogram.plot_histograms_from_data(json_data, dir_path)
 
         total_elapsed_time = time.perf_counter() - overall_start_time
         print(f"Total processing time: {total_elapsed_time:.2f}s")
