@@ -1,0 +1,51 @@
+{
+    "Rh-Sb": [
+        {
+            "File": "RhSb2.cif",
+            "Distance": 2.652,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Sb-Sb": [
+        {
+            "File": "RhSb2.cif",
+            "Distance": 2.829,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Os-Os": [
+        {
+            "File": "ThOs2.cif",
+            "Distance": 2.728,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Os-Th": [
+        {
+            "File": "ThOs2.cif",
+            "Distance": 3.198,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Th-Th": [
+        {
+            "File": "ThOs2.cif",
+            "Distance": 3.341,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Nd-Si": [
+        {
+            "File": "Nd5Si3.cif",
+            "Distance": 3.08,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Si-Si": [
+        {
+            "File": "Nd5Si3.cif",
+            "Distance": 2.755,
+            "Atomic Site": "full_occupancy"
+        }
+    ]
+}

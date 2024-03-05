@@ -119,8 +119,10 @@ def main():
             ))
 
             # Append a row to the log csv file
+            base_filename, _ = filename.split('-')
+
             data = {
-                "CIF file": filename,
+                'File': f"{base_filename}.cif",
                 "Number of atoms in supercell": num_of_atoms,
                 "Processing time (s)": round(elapsed_time, 3)
             }

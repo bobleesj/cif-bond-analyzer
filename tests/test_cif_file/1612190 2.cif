@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# In-Rh-U          # URhIn                                         #  380981 #
+# In-Rh-U          # URh2.4In0.6                                   # 1612190 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -18,45 +18,40 @@
 #                                                                            #
 ##############################################################################
 
-data_380981
-_audit_creation_date                     2023-07-02
+data_1612190
+_audit_creation_date                     2023-07-27
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      380981
-_database_code_PDF                       04-002-7389
+#_database_code_PCD                      1612190
+_database_code_PDF                       04-008-1409
 
 # Entry summary
 
-_chemical_formula_structural             'U Rh In'
-_chemical_formula_sum                    'In Rh U'
+_chemical_formula_structural             'U Rh~2.4~ In~0.6~'
+_chemical_formula_sum                    'In0.60 Rh2.40 U'
 _chemical_name_mineral                   ?
 _chemical_compound_source                ?
-_chemical_name_structure_type            ZrNiAl,hP9,189
-_chemical_formula_weight                 455.8
+_chemical_name_structure_type            Cu~3~Au,cP4,221
+_chemical_formula_weight                 553.9
 
 # Bibliographic data
 
 _publ_section_title
-'Magnetic structures of some UTM compounds'                                   
-_journal_coden_ASTM                      JMMMDC
-_journal_name_full                       'J. Magn. Magn. Mater.'
-_journal_year                            1995
-_journal_volume                          140/144
-_journal_page_first                      1377
-_journal_page_last                       1378
+;
+Formation of cubic URh~4~In and UPd~4.5~In~0.5~ phases and their characterization by X-ray-diffraction, magnetic-susceptibility, and electrical-resistivity measurements
+;
+_journal_coden_ASTM                      JALCEU
+_journal_name_full                       'J. Alloys Compd.'
+_journal_year                            2000
+_journal_volume                          297
+_journal_page_first                      9
+_journal_page_last                       14
 _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Tran V.H.'
-;
-Polish Academy of Sciences (PAN)
-Trzebiatowski W. Institute of Low Temperature and Structure Research
-Wroclaw
-Poland
-;
 'Troc R.'
 ;
 Polish Academy of Sciences (PAN)
@@ -64,63 +59,95 @@ Trzebiatowski W. Institute of Low Temperature and Structure Research
 Wroclaw
 Poland
 ;
-'Bouree Vigneron F.'
+'Zaremba V.I.'
 ;
-National Center for Scientific Research (CNRS)
-Laboratoire Leon Brillouin (LLB)
-Gif-sur-Yvette
-France
+Lviv Ivan Franko State University
+Department of Inorganic Chemistry
+Lviv
+Ukraine
 ;
-'Roisnel T.'
+'Kuznietz M.'
 ;
-National Center for Scientific Research (CNRS)
-Laboratoire Leon Brillouin (LLB)
-Gif-sur-Yvette
-France
+Negev Nuclear Research Center (NRCN)
+Beer-Sheva
+Israel
 ;
-'Andre G.'
+'Levin E.M.'
 ;
-National Center for Scientific Research (CNRS)
-Laboratoire Leon Brillouin (LLB)
-Gif-sur-Yvette
-France
+Wroclaw University of Science and Technology (PWr)
+International Laboratory of High Magnetic Fields and Low Temperatures
+Wroclaw
+Poland
 ;
 
 # Standardized crystallographic data
 
-_cell_length_a                           7.476
-_cell_length_b                           7.476
-_cell_length_c                           3.881
+_cell_length_a                           3.995
+_cell_length_b                           3.995
+_cell_length_c                           3.995
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
-_cell_angle_gamma                        120
-_cell_volume                             187.9
-_cell_formula_units_Z                    3
-_space_group_IT_number                   189
-_space_group_name_H-M_alt                'P -6 2 m'
+_cell_angle_gamma                        90
+_cell_volume                             63.8
+_cell_formula_units_Z                    1
+_space_group_IT_number                   221
+_space_group_name_H-M_alt                'P m -3 m'
 loop_
  _space_group_symop_id
  _space_group_symop_operation_xyz
  1 'x, y, z'
- 2 '-x+y, -x, -z'
- 3 '-x+y, -x, z'
- 4 '-x, -x+y, -z'
- 5 '-x, -x+y, z'
- 6 '-y, x-y, -z'
- 7 '-y, x-y, z'
- 8 'x, y, -z'
- 9 'x-y, -y, -z'
- 10 'x-y, -y, z'
- 11 'y, x, -z'
- 12 'y, x, z'
-
-# Atomic positions taken from type-defining entry
-
+ 2 '-x, -y, -z'
+ 3 '-x, -y, z'
+ 4 '-x, -z, -y'
+ 5 '-x, -z, y'
+ 6 '-x, y, -z'
+ 7 '-x, y, z'
+ 8 '-x, z, -y'
+ 9 '-x, z, y'
+ 10 '-y, -x, -z'
+ 11 '-y, -x, z'
+ 12 '-y, -z, -x'
+ 13 '-y, -z, x'
+ 14 '-y, x, -z'
+ 15 '-y, x, z'
+ 16 '-y, z, -x'
+ 17 '-y, z, x'
+ 18 '-z, -x, -y'
+ 19 '-z, -x, y'
+ 20 '-z, -y, -x'
+ 21 '-z, -y, x'
+ 22 '-z, x, -y'
+ 23 '-z, x, y'
+ 24 '-z, y, -x'
+ 25 '-z, y, x'
+ 26 'x, -y, -z'
+ 27 'x, -y, z'
+ 28 'x, -z, -y'
+ 29 'x, -z, y'
+ 30 'x, y, -z'
+ 31 'x, z, -y'
+ 32 'x, z, y'
+ 33 'y, -x, -z'
+ 34 'y, -x, z'
+ 35 'y, -z, -x'
+ 36 'y, -z, x'
+ 37 'y, x, -z'
+ 38 'y, x, z'
+ 39 'y, z, -x'
+ 40 'y, z, x'
+ 41 'z, -x, -y'
+ 42 'z, -x, y'
+ 43 'z, -y, -x'
+ 44 'z, -y, x'
+ 45 'z, x, -y'
+ 46 'z, x, y'
+ 47 'z, y, -x'
+ 48 'z, y, x'
 loop_
  _atom_type_symbol
+ Rh
  In
  U
- Rh
 loop_
  _atom_site_label
  _atom_site_type_symbol
@@ -130,20 +157,21 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- In1 In 3 g 0.2505 0 0.5 1
- U1 U 3 f 0.5925 0 0 1
- Rh1 Rh 2 d 0.333333 0.666667 0.5 1
- Rh2 Rh 1 a 0 0 0 1
+ Rh1 Rh 3 c 0 0.5 0.5 0.8
+ In2 In 3 c 0 0.5 0.5 0.2
+ U U 1 a 0 0 0 1
 
 
 _exptl_crystal_colour                    ?
 _exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            12.09
-_cell_measurement_temperature            ?
-_cell_measurement_radiation              neutrons
+_exptl_crystal_density_diffrn            14.43
+_cell_measurement_temperature            295
+_cell_measurement_radiation              'X-rays, Cu Ka'
+_cell_measurement_wavelength             1.5406
+_pd_proc_wavelength                      1.5406
 _cell_measurement_reflns_used            ?
 _diffrn_ambient_temperature              ?
-_diffrn_measurement_device               'automatic diffractometer'
+_diffrn_measurement_device               diffractometer
 _diffrn_measurement_device_type          ?
 _diffrn_radiation_type                   ?
 _diffrn_reflns_number                    ?
@@ -155,5 +183,5 @@ _refine_ls_number_reflns                 ?
 _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
-# End of data set 380981
+# End of data set 1612190
 

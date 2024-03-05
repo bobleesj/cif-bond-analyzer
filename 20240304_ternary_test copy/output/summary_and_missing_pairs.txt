@@ -5,7 +5,7 @@ Pair: Ge-Ru, Count: 3, Distances: 2.554 2.535 2.543
 Pair: Ge-Pr, Count: 3, Distances: 3.168 3.220 3.161
 Pair: Eu-Ge, Count: 2, Distances: 3.182 3.179
 Pair: Ce-Ge, Count: 2, Distances: 3.141 3.227
-Pair: Ni-Ni, Count: 1, Distances: 2.477
+Pair: Ni-Ni, Count: 1, Distances: 2.226
 Pair: Ge-Sm, Count: 1, Distances: 3.141
 Pair: Ge-Ni, Count: 1, Distances: 2.226
 Pair: Ge-Nd, Count: 1, Distances: 3.157

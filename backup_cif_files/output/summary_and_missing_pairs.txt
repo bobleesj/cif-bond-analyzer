@@ -1,6 +1,0 @@
-Summary:
-Pair: Rh-U, Count: 1, Distances: 2.983
-Pair: In-Rh, Count: 1, Distances: 2.852
-
-Missing pairs:
-In-U
