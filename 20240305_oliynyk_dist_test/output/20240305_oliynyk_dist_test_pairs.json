@@ -1,15 +1,15 @@
 {
-    "Co-Er": [
-        {
-            "File": "1803318.cif",
-            "Distance": 2.644,
-            "Atomic Site": "full_occupancy"
-        }
-    ],
     "Er-Er": [
         {
             "File": "1803318.cif",
             "Distance": 3.34,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Co-Er": [
+        {
+            "File": "1803318.cif",
+            "Distance": 2.644,
             "Atomic Site": "full_occupancy"
         }
     ],

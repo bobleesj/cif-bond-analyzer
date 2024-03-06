@@ -3,6 +3,10 @@ from itertools import permutations
 
 
 def process_and_order_pairs(all_points, atomic_pair_list):
+    '''
+    Find the shortest distance from each atom to another 
+    atom in the structure
+    '''
     processed_pairs = []
     
     for i in range(len(all_points)):
@@ -15,6 +19,7 @@ def process_and_order_pairs(all_points, atomic_pair_list):
             if pair_point in pair["point_pair"] and pair["distance"] < shortest_distance:
                 shortest_distance = pair["distance"]
                 shortest_pair = pair
+        print(shortest_pair)
 
         if shortest_pair is not None:
             processed_pairs.append(shortest_pair)
@@ -93,6 +98,13 @@ def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
 
 
 def get_unique_pairs_dict(ordered_pairs, filename):
+    '''
+    Constructs a dictionary containing the shortest distance pairs for each unique atom label pair
+    per file. It iterates over a list of ordered pairs, where each pair
+    contains atom labels and the distance between those atoms. If a pair of labels is encountered
+    for the first time or if the current pair's distance is shorter than the previously recorded
+    distance for the same label pair, it updates the dictionary to include the current pair.
+    '''
     unique_pairs_dict = {}
 
     for pair in ordered_pairs:
@@ -113,6 +125,7 @@ def get_unique_pairs_dict(ordered_pairs, filename):
 
             # Add this pair to the dictionary
             unique_pairs_dict[filename][label_tuple] = pair
+
     return unique_pairs_dict
 
 
