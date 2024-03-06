@@ -27,7 +27,8 @@ def shift_and_append_points(points, atom_site_label, num_unitcell_atom, supercel
     Shift and duplicate points to create a 2 by 2 by 2 supercell.
     """
 
-    translation_op_unit_cell_atom_num_threshold = 200
+    translation_op_unit_cell_atom_num_threshold = 100
+    
     '''
     supercell_generation_method
     Method 1 - No sfhits

@@ -22,7 +22,7 @@ def print_intro_prompt():
 
 
 def get_user_input_on_supercell_method():
-    click.echo("\nDo you want to modify the supercell generation method for CIF files with more than 200 atoms in the unit cell?")
+    click.echo("\nDo you want to modify the supercell generation method for CIF files with more than 100 atoms in the unit cell?")
     is_supercell_generation_method_modified = click.confirm('(Default: N)', default=False)
 
     if is_supercell_generation_method_modified:

@@ -68,7 +68,7 @@ def main():
             echo(
                 style(
                     f"Processing {filename_with_ext} with "
-                    f"{num_of_atoms} atoms {index}", fg="black"
+                    f"{num_of_atoms} atoms {index}", fg="yellow"
                 )
             )
 
@@ -105,12 +105,23 @@ def main():
                         [cif_parser.get_atom_type(labels[0]),
                             cif_parser.get_atom_type(labels[1])]
                     )
-                    dist = str(round(pair['distance'], 3))
-                    print(f"Pair: {atom_1}-{atom_2} {dist} Å")
-                    # Store to the global overview dataset
-                    global_pairs_data[filename][(atom_1, atom_2)] = dist
+                    # Calculate the distance and keep it as a string for now
+                    dist_str = str(round(pair['distance'], 3))
+                    # Convert dist back to float for comparison
+                    dist = float(dist_str)
 
-            elapsed_time = time.perf_counter() - start_time
+                    pair_tuple = (atom_1, atom_2)  # Create a tuple to use as a key
+
+                    # Check if this pair already exists and if the new distance is shorter
+                    if pair_tuple not in global_pairs_data[filename] or dist < float(global_pairs_data[filename][pair_tuple]):
+                        global_pairs_data[filename][pair_tuple] = dist_str  # Store the distance as a string
+                        print(f"Pair: {atom_1}-{atom_2} {dist_str} Å")
+                    else:
+                        # Optional: Acknowledge existing pair with a longer distance not updated
+                        existing_dist = global_pairs_data[filename][pair_tuple]
+                        print(f"Existing pair: {atom_1}-{atom_2} with distance {existing_dist} Å not updated, new distance {dist_str} Å is not shorter.")
+
+                    elapsed_time = time.perf_counter() - start_time
 
             echo(style(
                 f"Processed {filename_with_ext} with {num_of_atoms} atoms in "
@@ -169,6 +180,7 @@ def main():
             reverse=True
         )
         sorted_pairs_by_count_dict = dict(sorted_pairs_by_count)
+        # Sort pair based on the shortest distance
         print("sorted_pairs", sorted_pairs_by_count_dict)
 
         folder.write_summary_and_missing_pairs(
