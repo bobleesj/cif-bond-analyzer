@@ -14,7 +14,7 @@ import filter.occupancy as occupancy
 import postprocess.excel as excel
 
 
-def main():
+def main(is_iteractive_mode = True, dir_path = None):
     prompt.print_intro_prompt()
 
     '''
@@ -24,18 +24,24 @@ def main():
     error_files = []
     global_pairs_data = {}
     log_list = []
+    file_path_list = None
 
-    script_directory = os.path.dirname(os.path.abspath(__file__))
-    dir_path = folder.choose_CIF_directory(script_directory)
+    if is_iteractive_mode:
+        script_directory = os.path.dirname(os.path.abspath(__file__))
+        dir_path = folder.choose_CIF_directory(script_directory)
+        supercell_method_large_cif = prompt.get_user_input_on_supercell_method()
+    
+        # If the user chooses no option, then it's simply 3
+        if not supercell_method_large_cif:
+            print("\nYour default option is generating a 2-2-2 supercell for files"
+                "more than 100 atoms in the unit cell.")
+            supercell_method_large_cif = 1
+    
+    if not is_iteractive_mode:
+        file_path_list = folder.get_cif_file_path_list(dir_path)
+        supercell_method_large_cif = 1
+
     file_path_list = folder.get_cif_file_path_list(dir_path)
-    supercell_method_large_cif = prompt.get_user_input_on_supercell_method()
-
-    # If the user chooses no option, then it's simply 3
-    if not supercell_method_large_cif:
-        print("\nYour default option is generating a 2-2-2 supercell for files"
-              "more than 200 atoms in the unit cell.")
-        supercell_method_large_cif = 3
-
     '''
     PART 2: PREPROCESS
     '''
@@ -87,11 +93,13 @@ def main():
             # Add atom_site_info to the file name
             filename += f"-{atom_site_mixing_info}"
    
+            # Find the shortest pair form each atom
             ordered_pairs = bond.process_and_order_pairs(
                 all_points,
                 atomic_pair_list
             )
 
+            # Determine unique pairs and get the shortest dist for each pair
             unique_pairs_dict = bond.get_unique_pairs_dict(
                 ordered_pairs,
                 filename
@@ -103,10 +111,12 @@ def main():
                 for labels, pair in pairs.items():
                     atom_1, atom_2 = sorted(
                         [cif_parser.get_atom_type(labels[0]),
-                            cif_parser.get_atom_type(labels[1])]
+                        cif_parser.get_atom_type(labels[1])]
                     )
+
                     # Calculate the distance and keep it as a string for now
                     dist_str = str(round(pair['distance'], 3))
+
                     # Convert dist back to float for comparison
                     dist = float(dist_str)
 
