@@ -1,0 +1,9 @@
+Summary:
+Pair: La-Ga, Count: 1, Distances: 2.979
+Pair: La-Co, Count: 1, Distances: 2.979
+Pair: Ga-Ga, Count: 1, Distances: 2.501
+Pair: Co-Ga, Count: 1, Distances: 2.501
+Pair: Co-Co, Count: 1, Distances: 2.501
+
+Missing pairs:
+La-La

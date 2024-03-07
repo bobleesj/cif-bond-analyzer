@@ -56,7 +56,7 @@
             "Atomic Site": "deficiency"
         }
     ],
-    "Ge-Rh": [
+    "Rh-Ge": [
         {
             "File": "300156.cif",
             "Distance": 2.481,
@@ -83,7 +83,7 @@
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ge-Ru": [
+    "Ru-Ge": [
         {
             "File": "300168.cif",
             "Distance": 2.535,
@@ -100,7 +100,7 @@
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ge-Pr": [
+    "Pr-Ge": [
         {
             "File": "300162.cif",
             "Distance": 3.161,
@@ -141,49 +141,42 @@
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ge-La": [
+    "La-Ge": [
         {
             "File": "300169.cif",
             "Distance": 3.241,
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ge-Ho": [
+    "Ho-Ge": [
         {
             "File": "300156.cif",
             "Distance": 3.12,
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ge-Sm": [
+    "Sm-Ge": [
         {
             "File": "300160.cif",
             "Distance": 3.141,
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ge-Nd": [
+    "Nd-Ge": [
         {
             "File": "300161.cif",
             "Distance": 3.157,
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ge-Ir": [
+    "Ir-Ge": [
         {
             "File": "300171.cif",
             "Distance": 2.537,
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ge-Ni": [
-        {
-            "File": "1040392.cif",
-            "Distance": 2.226,
-            "Atomic Site": "deficiency"
-        }
-    ],
-    "Ni-Ni": [
+    "Ni-Ge": [
         {
             "File": "1040392.cif",
             "Distance": 2.226,
@@ -194,6 +187,13 @@
         {
             "File": "1040392.cif",
             "Distance": 3.141,
+            "Atomic Site": "deficiency"
+        }
+    ],
+    "Ni-Ni": [
+        {
+            "File": "1040392.cif",
+            "Distance": 2.226,
             "Atomic Site": "deficiency"
         }
     ]

@@ -1,308 +1,328 @@
- Summary:
-Pair: Ge-Ge, Count: 31, Distances: 2.223 2.290 2.401 2.265 2.227 2.304 2.442 2.317 2.224 2.214 2.438 2.215 2.329 2.359 2.382 2.352 2.206 2.233 2.359 2.307 2.275 2.249 2.255 2.289 2.306 2.383 2.396 2.226 2.323 2.280 2.236
-Pair: Ge-Ru, Count: 14, Distances: 2.506 2.554 2.535 2.505 2.501 2.493 2.497 2.491 2.507 2.520 2.527 2.554 2.543 2.513
-Pair: Ge-Rh, Count: 12, Distances: 2.481 2.487 2.499 2.524 2.542 2.515 2.519 2.483 2.455 2.460 2.538 2.495
-Pair: Ge-Ir, Count: 8, Distances: 2.455 2.473 2.488 2.492 2.499 2.537 2.521 2.507
-Pair: Pt-Sb, Count: 4, Distances: 2.727 2.717 2.710 2.838
-Pair: Ge-Pr, Count: 4, Distances: 3.168 3.220 3.161 3.217
-Pair: Ce-Ge, Count: 4, Distances: 3.169 3.141 3.226 3.227
-Pair: Sb-Sb, Count: 3, Distances: 2.727 2.717 2.710
-Pair: Pt-Pt, Count: 3, Distances: 2.727 2.717 2.710
-Pair: Ge-Tb, Count: 3, Distances: 3.165 3.187 3.135
-Pair: Ge-Sm, Count: 3, Distances: 3.141 3.198 3.201
-Pair: Ge-Nd, Count: 3, Distances: 3.157 3.208 3.210
-Pair: Ge-La, Count: 3, Distances: 3.241 3.189 3.246
-Pair: Gd-Si, Count: 3, Distances: 3.131 3.185 3.201
-Pair: Eu-Ge, Count: 3, Distances: 3.236 3.182 3.179
-Pair: Pt-Si, Count: 2, Distances: 2.453 2.424
-Pair: Pd-Si, Count: 2, Distances: 2.388 2.416
-Pair: Ir-Si, Count: 2, Distances: 2.382 2.385
-Pair: Ge-Yb, Count: 2, Distances: 3.170 3.089
-Pair: Ge-Y, Count: 2, Distances: 3.188 3.122
-Pair: Ge-Tm, Count: 2, Distances: 3.171 3.093
-Pair: Ge-Pt, Count: 2, Distances: 2.499 2.489
-Pair: Ge-Ho, Count: 2, Distances: 3.120 3.180
-Pair: Dy-Ge, Count: 2, Distances: 3.184 3.125
-Pair: Si-Yb, Count: 1, Distances: 3.143
-Pair: Si-Y, Count: 1, Distances: 2.990
-Pair: Si-U, Count: 1, Distances: 3.141
-Pair: Si-Si, Count: 1, Distances: 2.242
-Pair: Pt-Sm, Count: 1, Distances: 2.838
-Pair: Ni-Ni, Count: 1, Distances: 2.477
-Pair: Nd-Sb, Count: 1, Distances: 3.089
-Pair: Nd-Pt, Count: 1, Distances: 3.089
-Pair: La-Sb, Count: 1, Distances: 3.140
-Pair: La-Pt, Count: 1, Distances: 3.140
-Pair: Ir-Tb, Count: 1, Distances: 3.282
-Pair: Ir-Sm, Count: 1, Distances: 3.274
-Pair: Ir-Pr, Count: 1, Distances: 3.279
-Pair: Ir-Nd, Count: 1, Distances: 3.270
-Pair: Ir-La, Count: 1, Distances: 3.306
-Pair: Ge-U, Count: 1, Distances: 3.227
-Pair: Ge-Ni, Count: 1, Distances: 2.226
-Pair: Gd-Pt, Count: 1, Distances: 3.274
-Pair: Gd-Ge, Count: 1, Distances: 3.194
-Pair: Fe-Si, Count: 1, Distances: 2.385
-Pair: Er-Ge, Count: 1, Distances: 3.177
-Pair: Dy-Pt, Count: 1, Distances: 3.263
-Pair: Ce-Si, Count: 1, Distances: 3.244
-Pair: Ce-Sb, Count: 1, Distances: 3.114
-Pair: Ce-Pt, Count: 1, Distances: 3.114
+Summary:
+Pair: Ge-Ge, Count: 60, Distances: 2.223 2.290 2.290 2.401 2.280 2.265 2.227 2.304 2.275 2.304 2.442 2.317 2.224 2.307 2.214 2.359 2.438 2.442 2.215 2.289 2.438 2.317 2.265 2.383 2.382 2.206 2.359 2.329 2.215 2.224 2.236 2.396 2.249 2.223 2.329 2.359 2.352 2.382 2.214 2.352 2.206 2.233 2.233 2.359 2.307 2.275 2.249 2.255 2.255 2.289 2.306 2.383 2.396 2.227 2.226 2.323 2.323 2.280 2.236 2.306
+Pair: Ru-Ge, Count: 28, Distances: 2.506 2.554 2.554 2.543 2.535 2.505 2.501 2.493 2.497 2.535 2.491 2.497 2.501 2.513 2.520 2.506 2.493 2.491 2.507 2.507 2.520 2.527 2.527 2.554 2.505 2.543 2.513 2.554
+Pair: Rh-Ge, Count: 24, Distances: 2.481 2.455 2.481 2.487 2.483 2.524 2.460 2.487 2.542 2.519 2.499 2.538 2.499 2.524 2.515 2.542 2.515 2.519 2.483 2.455 2.460 2.538 2.495 2.495
+Pair: Ir-Ge, Count: 16, Distances: 2.537 2.348 2.373 2.387 2.455 2.348 2.367 2.367 2.373 2.380 2.455 2.401 2.537 2.380 2.401 2.387
+Pair: Pt-Sb, Count: 8, Distances: 2.727 2.717 2.717 2.710 2.727 2.710 2.838 2.838
+Pair: Pr-Ge, Count: 7, Distances: 3.168 3.220 3.220 3.161 3.161 3.217 3.217
+Pair: Ce-Ge, Count: 7, Distances: 3.227 3.169 3.226 3.169 3.141 3.226 3.227
+Pair: Tb-Ge, Count: 6, Distances: 3.165 3.165 3.187 3.187 3.135 3.135
+Pair: Sm-Ge, Count: 6, Distances: 3.141 3.201 3.141 3.198 3.198 3.201
+Pair: Sb-Sb, Count: 6, Distances: 2.727 2.717 2.717 2.710 2.727 2.710
+Pair: Pt-Pt, Count: 6, Distances: 2.727 2.717 2.717 2.710 2.727 2.710
+Pair: Nd-Ge, Count: 6, Distances: 3.208 3.157 3.157 3.210 3.208 3.210
+Pair: La-Ge, Count: 6, Distances: 3.241 3.241 3.189 3.189 3.246 3.246
+Pair: Gd-Si, Count: 6, Distances: 3.131 3.185 3.131 3.185 3.201 3.201
+Pair: Eu-Ge, Count: 6, Distances: 3.182 3.179 3.236 3.182 3.179 3.236
+Pair: Yb-Ge, Count: 4, Distances: 3.089 3.170 3.170 3.089
+Pair: Y-Ge, Count: 4, Distances: 3.188 3.122 3.188 3.122
+Pair: Tm-Ge, Count: 4, Distances: 3.171 3.093 3.171 3.093
+Pair: Pt-Si, Count: 4, Distances: 2.453 2.424 2.453 2.424
+Pair: Pt-Ge, Count: 4, Distances: 2.499 2.489 2.499 2.489
+Pair: Pd-Si, Count: 4, Distances: 2.416 2.388 2.416 2.388
+Pair: Ir-Si, Count: 4, Distances: 2.382 2.382 2.385 2.385
+Pair: Ho-Ge, Count: 4, Distances: 3.120 3.120 3.180 3.180
+Pair: Dy-Ge, Count: 4, Distances: 3.184 3.125 3.125 3.184
+Pair: Yb-Si, Count: 2, Distances: 3.143 3.143
+Pair: Y-Si, Count: 2, Distances: 2.990 2.990
+Pair: U-Si, Count: 2, Distances: 3.141 3.141
+Pair: U-Ge, Count: 2, Distances: 3.227 3.227
+Pair: Tb-Ir, Count: 2, Distances: 3.282 3.282
+Pair: Sm-Pt, Count: 2, Distances: 2.838 2.838
+Pair: Sm-Ir, Count: 2, Distances: 3.274 3.274
+Pair: Si-Si, Count: 2, Distances: 2.242 2.242
+Pair: Pr-Ir, Count: 2, Distances: 3.279 3.279
+Pair: Nd-Sb, Count: 2, Distances: 3.089 3.089
+Pair: Nd-Pt, Count: 2, Distances: 3.089 3.089
+Pair: Nd-Ir, Count: 2, Distances: 3.270 3.270
+Pair: La-Sb, Count: 2, Distances: 3.140 3.140
+Pair: La-Pt, Count: 2, Distances: 3.140 3.140
+Pair: La-Ir, Count: 2, Distances: 3.306 3.306
+Pair: Gd-Pt, Count: 2, Distances: 3.274 3.274
+Pair: Gd-Ge, Count: 2, Distances: 3.194 3.194
+Pair: Fe-Si, Count: 2, Distances: 2.385 2.385
+Pair: Er-Ge, Count: 2, Distances: 3.177 3.177
+Pair: Dy-Pt, Count: 2, Distances: 3.263 3.263
+Pair: Ce-Si, Count: 2, Distances: 3.244 3.244
+Pair: Ce-Sb, Count: 2, Distances: 3.114 3.114
+Pair: Ce-Pt, Count: 2, Distances: 3.114 3.114
+Pair: Ce-Ir, Count: 2, Distances: 3.291 3.291
+Pair: Ni-Ni, Count: 1, Distances: 2.226
+Pair: Ni-Ge, Count: 1, Distances: 2.226
 Pair: Ce-Ni, Count: 1, Distances: 3.141
-Pair: Ce-Ir, Count: 1, Distances: 3.291
 
 Missing pairs:
-Ce-Dy
-Ce-Er
-Ce-Eu
-Ce-Fe
-Ce-Gd
-Ce-Ho
-Ce-La
-Ce-Nd
-Ce-Pd
-Ce-Pr
-Ce-Rh
-Ce-Ru
-Ce-Sm
-Ce-Tb
-Ce-Tm
-Ce-U
-Ce-Y
-Ce-Yb
-Dy-Er
-Dy-Eu
-Dy-Fe
-Dy-Gd
-Dy-Ho
-Dy-Ir
-Dy-La
-Dy-Nd
-Dy-Ni
-Dy-Pd
-Dy-Pr
-Dy-Rh
-Dy-Ru
-Dy-Sb
-Dy-Si
-Dy-Sm
-Dy-Tb
-Dy-Tm
-Dy-U
-Dy-Y
-Dy-Yb
-Er-Eu
-Er-Fe
-Er-Gd
-Er-Ho
-Er-Ir
-Er-La
-Er-Nd
-Er-Ni
-Er-Pd
-Er-Pr
-Er-Pt
-Er-Rh
-Er-Ru
-Er-Sb
-Er-Si
-Er-Sm
-Er-Tb
 Er-Tm
-Er-U
-Er-Y
-Er-Yb
-Eu-Fe
-Eu-Gd
-Eu-Ho
-Eu-Ir
-Eu-La
-Eu-Nd
-Eu-Ni
-Eu-Pd
-Eu-Pr
-Eu-Pt
-Eu-Rh
-Eu-Ru
-Eu-Sb
-Eu-Si
-Eu-Sm
-Eu-Tb
-Eu-Tm
-Eu-U
-Eu-Y
-Eu-Yb
-Fe-Gd
-Fe-Ge
-Fe-Ho
-Fe-Ir
-Fe-La
-Fe-Nd
-Fe-Ni
-Fe-Pd
-Fe-Pr
-Fe-Pt
-Fe-Rh
-Fe-Ru
-Fe-Sb
-Fe-Sm
-Fe-Tb
-Fe-Tm
-Fe-U
-Fe-Y
-Fe-Yb
-Gd-Ho
-Gd-Ir
-Gd-La
-Gd-Nd
-Gd-Ni
-Gd-Pd
-Gd-Pr
-Gd-Rh
-Gd-Ru
-Gd-Sb
-Gd-Sm
-Gd-Tb
-Gd-Tm
-Gd-U
-Gd-Y
-Gd-Yb
-Ge-Pd
-Ge-Sb
-Ge-Si
-Ho-Ir
-Ho-La
-Ho-Nd
-Ho-Ni
-Ho-Pd
-Ho-Pr
-Ho-Pt
-Ho-Rh
-Ho-Ru
-Ho-Sb
-Ho-Si
-Ho-Sm
-Ho-Tb
-Ho-Tm
-Ho-U
-Ho-Y
-Ho-Yb
-Ir-Ni
-Ir-Pd
-Ir-Pt
-Ir-Rh
-Ir-Ru
-Ir-Sb
-Ir-Tm
-Ir-U
-Ir-Y
-Ir-Yb
-La-Nd
-La-Ni
-La-Pd
-La-Pr
-La-Rh
-La-Ru
-La-Si
-La-Sm
-La-Tb
-La-Tm
-La-U
-La-Y
+Pr-Dy
+Ce-Eu
 La-Yb
-Nd-Ni
-Nd-Pd
-Nd-Pr
-Nd-Rh
-Nd-Ru
-Nd-Si
-Nd-Sm
-Nd-Tb
-Nd-Tm
-Nd-U
-Nd-Y
-Nd-Yb
-Ni-Pd
-Ni-Pr
-Ni-Pt
-Ni-Rh
-Ni-Ru
-Ni-Sb
-Ni-Si
-Ni-Sm
-Ni-Tb
-Ni-Tm
-Ni-U
-Ni-Y
-Ni-Yb
-Pd-Pr
-Pd-Pt
-Pd-Rh
-Pd-Ru
-Pd-Sb
-Pd-Sm
-Pd-Tb
-Pd-Tm
-Pd-U
-Pd-Y
-Pd-Yb
+Sm-Sb
 Pr-Pt
-Pr-Rh
-Pr-Ru
-Pr-Sb
-Pr-Si
-Pr-Sm
-Pr-Tb
-Pr-Tm
-Pr-U
-Pr-Y
-Pr-Yb
-Pt-Rh
-Pt-Ru
-Pt-Tb
-Pt-Tm
-Pt-U
-Pt-Y
-Pt-Yb
-Rh-Ru
-Rh-Sb
-Rh-Si
-Rh-Sm
-Rh-Tb
-Rh-Tm
-Rh-U
-Rh-Y
-Rh-Yb
-Ru-Sb
-Ru-Si
-Ru-Sm
-Ru-Tb
-Ru-Tm
-Ru-U
-Ru-Y
-Ru-Yb
-Sb-Si
-Sb-Sm
-Sb-Tb
-Sb-Tm
-Sb-U
-Sb-Y
-Sb-Yb
-Si-Sm
-Si-Tb
-Si-Tm
+Ir-Pd
+Pr-Pd
+Yb-Ir
+Ir-Ni
+U-Sm
+Y-La
+Er-Pt
+La-Tm
+U-Ru
+Yb-Yb
+Fe-Ir
+La-Ho
+Ho-Yb
+Tm-Rh
+Rh-Ir
+Tb-Er
+Pr-Eu
+Eu-Yb
+Gd-Yb
 Sm-Tb
-Sm-Tm
-Sm-U
-Sm-Y
-Sm-Yb
-Tb-Tm
-Tb-U
-Tb-Y
+Y-Sm
+U-Dy
+Tm-Fe
+Tm-Sb
+Ho-Tm
+Y-Ru
+U-Pd
+Eu-Gd
+Ho-Ho
+Gd-Gd
+Dy-Fe
+Nd-Er
+Fe-Pt
+Ce-Ce
+Y-Dy
 Tb-Yb
-Tm-U
-Tm-Y
+Nd-Sm
+Rh-Pt
+Rh-Pd
+U-Eu
+Y-Pd
+Ir-Sb
+Nd-Ru
+Pd-Sb
+Sm-Yb
+Tb-Ni
+Ce-Er
+Ru-Ir
+Pd-Ge
+Ce-Sm
+Sm-Tm
+Er-Si
+Y-Eu
+Ce-Ru
+Sm-Ho
+Eu-Fe
+Nd-Ni
+Gd-Fe
+La-Si
+Nd-Gd
+Pr-Er
 Tm-Yb
-U-Y
+Ru-Pt
+La-La
+Dy-Ir
+Tm-Tm
+Ce-Gd
+Ho-Si
+Er-Ru
+Tb-Fe
+Eu-Tb
+Gd-Tb
+Dy-Tm
+La-Sm
+Sm-Fe
+U-Er
+La-Ru
+Dy-Ho
+Nd-Rh
+Y-Ce
+Pr-Ni
+Er-Pd
+Pr-Gd
+Nd-Fe
+Ho-Ir
+Yb-Ru
+Eu-Ir
+La-Dy
+Gd-Ir
+Tb-Tb
+Y-Er
+La-Pd
+Ce-Rh
+Fe-Ru
+Sm-Si
 U-Yb
+Ce-Fe
+Pr-Pr
+Eu-Tm
+Yb-Pt
+Pr-Nd
+Yb-Pd
+Gd-Tm
+Ru-Si
+U-Ni
+Eu-Ho
+Nd-Tb
+U-Gd
+Ho-Pt
+Gd-Ho
+La-Eu
+Ho-Pd
+Fe-Pd
+Eu-Pt
+Pr-Rh
 Y-Yb
+Er-Rh
+Pr-Fe
+Pr-Sb
+Rh-Ni
+Tm-Si
+Y-Ni
+Ce-Tb
+Tb-Tm
+Er-Sb
+Y-Gd
+Nd-U
+Tb-Ho
+Dy-Si
+Nd-Yb
+Tb-Pt
+Ru-Ru
+Ni-Pt
+U-Rh
+Sm-Dy
+Ni-Pd
+Tm-Ir
+Sm-Pd
+Nd-Tm
+Ce-U
+Pr-Tb
+Y-Pr
+U-Fe
+U-Sb
+Y-Nd
+Nd-Ho
+La-Ce
+Ce-Yb
+Tm-Ru
+Er-Er
+Ru-Pd
+Rh-Rh
+Y-Rh
+Ce-Tm
+Fe-Ge
+Rh-Sb
+Dy-Ru
+Y-Fe
+La-Er
+Y-Sb
+Ir-Ir
+Pr-U
+Eu-Si
+Ce-Ho
+Nd-Nd
+Tm-Pt
+Tm-Pd
+U-Tb
+Pr-Yb
+Dy-Dy
+Er-Yb
+Dy-Pd
+Pr-Tm
+Ho-Er
+Ce-Pr
+Ce-Nd
+Dy-Ni
+Er-Ni
+Pr-Ho
+Tb-Si
+Y-Tb
+Ir-Pt
+Ru-Rh
+U-U
+U-Ir
+Ho-Ru
+Pd-Pt
+Ni-Si
+Pd-Pd
+Eu-Ru
+Gd-Ru
+La-Ni
+Ru-Sb
+La-Gd
+Si-Sb
+Nd-Si
+Si-Ge
+U-Tm
+Y-U
+Eu-Dy
+Yb-Ni
+Y-Ir
+Gd-Dy
+U-Ho
+Eu-Pd
+Ho-Ni
+Gd-Pd
+Sm-Er
+Fe-Ni
+U-Pt
+Eu-Ni
+Tb-Ru
+Dy-Rh
+Gd-Ni
+La-Pr
+La-Nd
+Sm-Sm
+Y-Tm
+Sm-Ru
+Er-Fe
+Dy-Sb
+Eu-Eu
+Y-Ho
+La-Rh
+Tb-Dy
+Ge-Sb
+Y-Pt
+Tb-Pd
+La-Fe
+Yb-Rh
+Pr-Si
+Ho-Rh
+Sm-Ni
+Fe-Rh
+Yb-Fe
+Yb-Sb
+Nd-Dy
+Eu-Rh
+Sm-Gd
+Dy-Er
+Gd-Rh
+Nd-Pd
+Ho-Fe
+Ho-Sb
+Fe-Fe
+Fe-Sb
+Ru-Ni
+Eu-Sb
+Sm-Eu
+Gd-Sb
+La-Tb
+Ce-Dy
+Pr-Sm
+Nd-Eu
+Er-Ir
+Ce-Pd
+Tb-Rh
+Tm-Ni
+Pr-Ru
+Dy-Yb
+Y-Y
+Tb-Sb
+Sm-Rh
+La-U
+Eu-Er
+Ni-Sb
+Rh-Si
+Gd-Er

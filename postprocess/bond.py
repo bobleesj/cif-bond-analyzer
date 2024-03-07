@@ -59,7 +59,7 @@ def strip_labels_and_remove_duplicate(unique_pairs_distances):
 
     adjusted_pairs = {}
     for pair, distances in unique_pairs_distances.items():
-
+        pair = tuple((get_atom_type(atom) for atom in pair))
         current_distance = float(distances[0])
 
         # If the pair already exists, compare distances and keep the smallest
@@ -86,13 +86,13 @@ def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
         [tuple(pair_order.order_pair_based_on_mendeleev_num(pair)) for pair in all_possible_pairs]
     )
 
-    print(all_possible_pairs, "all_possible_pairs\n")
-
     # Remove duplicates after sorting
     all_possible_pairs = list(set(all_possible_pairs))
 
     # Sort the pairs in the data as well before comparison
-    pair_list = [tuple((pair)) for pair in adjusted_unique_pairs_distances.keys()]
+    pair_list = (
+        [tuple((pair)) for pair in adjusted_unique_pairs_distances.keys()]
+    )
 
     # Find the pairs that are not in the data
     missing_pair_list = [pair for pair in all_possible_pairs if pair not in pair_list]

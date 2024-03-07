@@ -1,0 +1,30 @@
+{
+    "Er-Er": [
+        {
+            "File": "1803318.cif",
+            "Distance": 3.34,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Er-In": [
+        {
+            "File": "1803318.cif",
+            "Distance": 3.024,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "Er-Co": [
+        {
+            "File": "1803318.cif",
+            "Distance": 2.644,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "In-In": [
+        {
+            "File": "1803318.cif",
+            "Distance": 2.999,
+            "Atomic Site": "full_occupancy"
+        }
+    ]
+}

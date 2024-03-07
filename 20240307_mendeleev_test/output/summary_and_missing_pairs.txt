@@ -3,7 +3,7 @@ Pair: U-Rh, Count: 1, Distances: 2.983
 Pair: Rh-In, Count: 1, Distances: 2.697
 
 Missing pairs:
-In-In
 Rh-Rh
-U-U
 U-In
+U-U
+In-In
