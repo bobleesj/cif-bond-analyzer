@@ -1,0 +1,16 @@
+{
+    "Rh-In": [
+        {
+            "File": "URhIn.cif",
+            "Distance": 2.697,
+            "Atomic Site": "full_occupancy"
+        }
+    ],
+    "U-Rh": [
+        {
+            "File": "URhIn.cif",
+            "Distance": 2.983,
+            "Atomic Site": "full_occupancy"
+        }
+    ]
+}

@@ -176,14 +176,14 @@
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Ni-Ni": [
+    "Ge-Ni": [
         {
             "File": "1040392.cif",
             "Distance": 2.226,
             "Atomic Site": "deficiency"
         }
     ],
-    "Ge-Ni": [
+    "Ni-Ni": [
         {
             "File": "1040392.cif",
             "Distance": 2.226,

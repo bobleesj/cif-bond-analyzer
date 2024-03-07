@@ -19,12 +19,13 @@ def order_pair_based_on_mendeleev_num(pair_tuple):
     second_mendeleev_num = (
         df.loc[df['Symbol'] == second_element, 'Mendeleev number'].iloc[0]
     )
-    # Sort the tuple based on this
 
-    if second_mendeleev_num < first_mendeleev_num:
+    # First element num must be smaller
+    if first_mendeleev_num > second_mendeleev_num:
         return (second_element, first_element)
     
-    return (first_element, second_element)
+    else:
+        return (first_element, second_element)
     
 
     

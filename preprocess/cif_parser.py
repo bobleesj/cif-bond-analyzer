@@ -5,18 +5,6 @@ from util.unit import get_radians_from_degrees
  
  
 def get_atom_type(label):
-    """
-    print(get_atom_type("Co4(2)"))  # Output: "Co"
-    print(get_atom_type("FeIII"))  # Output: "Fe"
-    print(get_atom_type("Fe(III)"))  # Output: "Fe"
-    print(get_atom_type("Mg12"))  # Output: "Mg"
-    print(get_atom_type("OI"))  # Output: "O"
-    print(get_atom_type("O3"))  # Output: "O"
-    print(get_atom_type("Co2"))  # Output: "O"
-    print(get_atom_type("Fe12k"))  # Output: "Fe"
-    print(get_atom_type("Rh3A"))  # Output: "Rh"
-    print(get_atom_type("Si3B"))  # Output: "Si"
-    """
     # Splitting the label into separate parts if it contains parentheses
     parts = re.split(r'[()]', label)
     for part in parts:

@@ -10,11 +10,12 @@ import postprocess.bond as bond
 import postprocess.histogram as histogram
 import util.folder as folder
 import util.prompt as prompt
+import postprocess.pair_order as pair_order
 import filter.occupancy as occupancy
 import postprocess.excel as excel
 
 
-def main(is_iteractive_mode = True, dir_path = None):
+def main(is_iteractive_mode=True, dir_path=None):
     prompt.print_intro_prompt()
 
     '''
@@ -109,18 +110,21 @@ def main(is_iteractive_mode = True, dir_path = None):
             for filename, pairs in unique_pairs_dict.items():
                 global_pairs_data[filename] = {}
                 for labels, pair in pairs.items():
-                    atom_1, atom_2 = sorted(
-                        [cif_parser.get_atom_type(labels[0]),
-                        cif_parser.get_atom_type(labels[1])]
-                    )
 
-                    # Calculate the distance and keep it as a string for now
+                    atom_1_type = cif_parser.get_atom_type(labels[0])
+                    atom_2_type = cif_parser.get_atom_type(labels[1])
+                    pair_tuple = pair_order.order_pair_based_on_mendeleev_num(
+                        (atom_1_type, atom_2_type)
+                    )
+                    print("pair_tuple", pair_tuple)
+                    atom_1 = pair_tuple[0]
+                    atom_2 = pair_tuple[1]
                     dist_str = str(round(pair['distance'], 3))
+                    print(f"Pair: {atom_1}-{atom_2} {dist_str} Å")
 
                     # Convert dist back to float for comparison
                     dist = float(dist_str)
-
-                    pair_tuple = (atom_1, atom_2)  # Create a tuple to use as a key
+                    pair_tuple = (atom_1, atom_2)
 
                     # Check if this pair already exists and if the new distance is shorter
                     if pair_tuple not in global_pairs_data[filename] or dist < float(global_pairs_data[filename][pair_tuple]):
@@ -168,6 +172,12 @@ def main(is_iteractive_mode = True, dir_path = None):
         adjusted_pairs_distances
     )
 
+
+    print("global_pairs_data", global_pairs_data) # working
+    print("unique apirs distances", unique_pairs_distances) # worked
+    print("adjusted_pairs_distancesces", adjusted_pairs_distances) # worked
+    print("pair_tuples", pair_tuples) # worked
+
     '''
     PART 4: SAVE & PLOT
     '''
@@ -184,12 +194,16 @@ def main(is_iteractive_mode = True, dir_path = None):
             unique_pairs_distances
         )
 
+
         sorted_pairs_by_count = sorted(
             adjusted_pairs_distances.items(),
             key=lambda item: (len(item[1]), item[0]),
             reverse=True
         )
+
+        print("sorted_pairs_by_count", sorted_pairs_by_count)
         sorted_pairs_by_count_dict = dict(sorted_pairs_by_count)
+        
         # Sort pair based on the shortest distance
         print("sorted_pairs", sorted_pairs_by_count_dict)
 

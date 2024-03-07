@@ -1,6 +1,6 @@
 from preprocess.cif_parser import get_atom_type
-from itertools import permutations
-
+import postprocess.pair_order as pair_order
+from itertools import product
 
 def process_and_order_pairs(all_points, atomic_pair_list):
     '''
@@ -19,7 +19,6 @@ def process_and_order_pairs(all_points, atomic_pair_list):
             if pair_point in pair["point_pair"] and pair["distance"] < shortest_distance:
                 shortest_distance = pair["distance"]
                 shortest_pair = pair
-        print(shortest_pair)
 
         if shortest_pair is not None:
             processed_pairs.append(shortest_pair)
@@ -60,16 +59,16 @@ def strip_labels_and_remove_duplicate(unique_pairs_distances):
 
     adjusted_pairs = {}
     for pair, distances in unique_pairs_distances.items():
-        simplified_pair = tuple(sorted(get_atom_type(atom) for atom in pair))
+
         current_distance = float(distances[0])
 
         # If the pair already exists, compare distances and keep the smallest
-        if simplified_pair in adjusted_pairs:
-            existing_distance = float(adjusted_pairs[simplified_pair][0])
+        if pair in adjusted_pairs:
+            existing_distance = float(adjusted_pairs[pair][0])
             if current_distance < existing_distance:
-                adjusted_pairs[simplified_pair] = [distances[0]]
+                adjusted_pairs[pair] = [distances[0]]
         else:
-            adjusted_pairs[simplified_pair] = distances
+            adjusted_pairs[pair] = distances
 
     return adjusted_pairs
 
@@ -79,22 +78,26 @@ def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
     unique_elements = list(set([element for pair in adjusted_unique_pairs_distances.keys() for element in pair]))
 
     # Generate all possible pairs (with ordering matter)
-    all_possible_pairs = list(permutations(unique_elements, 2))
+    # Assuming unique_elements is a list of unique chemical elements
+    all_possible_pairs = list(product(unique_elements, repeat=2))
 
-    # Make sure each pair is sorted
-    all_possible_pairs = [tuple(sorted(pair)) for pair in all_possible_pairs]
+    # Order pairs based on Mendeleev ordering
+    all_possible_pairs = (
+        [tuple(pair_order.order_pair_based_on_mendeleev_num(pair)) for pair in all_possible_pairs]
+    )
+
+    print(all_possible_pairs, "all_possible_pairs\n")
 
     # Remove duplicates after sorting
     all_possible_pairs = list(set(all_possible_pairs))
 
     # Sort the pairs in the data as well before comparison
-    sorted_pair_list = [tuple(sorted(pair)) for pair in adjusted_unique_pairs_distances.keys()]
+    pair_list = [tuple((pair)) for pair in adjusted_unique_pairs_distances.keys()]
 
     # Find the pairs that are not in the data
-    missing_pair_list = [pair for pair in all_possible_pairs if pair not in sorted_pair_list]
+    missing_pair_list = [pair for pair in all_possible_pairs if pair not in pair_list]
 
-    missing_pair_list = sorted(missing_pair_list, key=lambda x: x)
-    return sorted_pair_list, missing_pair_list
+    return pair_list, missing_pair_list
 
 
 def get_unique_pairs_dict(ordered_pairs, filename):
