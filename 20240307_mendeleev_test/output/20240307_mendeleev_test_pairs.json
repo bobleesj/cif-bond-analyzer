@@ -1,16 +1,44 @@
 {
-    "Rh-In": [
+    "La-Ga1B": [
         {
-            "File": "URhIn.cif",
-            "Distance": 2.697,
-            "Atomic Site": "full_occupancy"
+            "File": "560709.cif",
+            "Distance": 2.979,
+            "Atomic Site": "full_occupancy_atomic_mixing"
         }
     ],
-    "U-Rh": [
+    "Co2A-Ga1B": [
         {
-            "File": "URhIn.cif",
-            "Distance": 2.983,
-            "Atomic Site": "full_occupancy"
+            "File": "560709.cif",
+            "Distance": 2.501,
+            "Atomic Site": "full_occupancy_atomic_mixing"
+        }
+    ],
+    "Co1A-Co2A": [
+        {
+            "File": "560709.cif",
+            "Distance": 2.501,
+            "Atomic Site": "full_occupancy_atomic_mixing"
+        }
+    ],
+    "Co1A-Ga2B": [
+        {
+            "File": "560709.cif",
+            "Distance": 2.501,
+            "Atomic Site": "full_occupancy_atomic_mixing"
+        }
+    ],
+    "Ga1B-Ga2B": [
+        {
+            "File": "560709.cif",
+            "Distance": 2.501,
+            "Atomic Site": "full_occupancy_atomic_mixing"
+        }
+    ],
+    "La-Co1A": [
+        {
+            "File": "560709.cif",
+            "Distance": 2.979,
+            "Atomic Site": "full_occupancy_atomic_mixing"
         }
     ]
 }

@@ -1,3 +1,17 @@
 Summary:
+Pair: La-Ga, Count: 1, Distances: 2.979
+Pair: La-Co, Count: 1, Distances: 2.979
+Pair: Ga-Ga, Count: 1, Distances: 2.501
+Pair: Co-Ga, Count: 1, Distances: 2.501
+Pair: Co-Co, Count: 1, Distances: 2.501
 
 Missing pairs:
+La-Co2A
+Ga1B-Ga1B
+Co2A-Ga2B
+Co1A-Co1A
+Co2A-Co2A
+La-La
+Co1A-Ga1B
+Ga2B-Ga2B
+La-Ga2B

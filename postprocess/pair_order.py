@@ -23,34 +23,29 @@ def get_mendeleev_num_from_tuple(pair_tuple):
     return first_mendeleev_num, second_mendeleev_num
 
 
-def order_pair_based_on_mendeleev_num(pair_tuple):
-    first_element = pair_tuple[0]
-    second_element = pair_tuple[1]
+def order_pair_by_mendeleev(label_pair_tuple):
+    first_label = label_pair_tuple[0]
+    second_label = label_pair_tuple[1]
 
     first_mendeleev_num, second_mendeleev_num = get_mendeleev_num_from_tuple(
-        pair_tuple
+        label_pair_tuple
     )
 
     # First element num must be smaller
     if first_mendeleev_num > second_mendeleev_num:
-        return (second_element, first_element)
+        return (second_label, first_label)
 
+    # If first and second have the same mendeleev num, sort
+    elif first_mendeleev_num == second_mendeleev_num:
+        return sort_label_tuple(label_pair_tuple)
+    
+    # If it in correct order, return as it is
     else:
-        return (first_element, second_element)
+        return label_pair_tuple
 
 
-# Get True or False whether the pair is ordered
-def is_pair_ordered_by_mendeleev(pair_tuple):
-    first_mendeleev_num, second_mendeleev_num = get_mendeleev_num_from_tuple(
-        pair_tuple
-    )
-
-    # First element num must be smaller
-    if first_mendeleev_num > second_mendeleev_num:
-        return False
-
-    else:
-        return True
+def sort_label_tuple(label_tuple):
+    return tuple(sorted(label_tuple))
 
 
 def sort_tuple_in_list(tuple_list):

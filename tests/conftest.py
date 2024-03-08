@@ -50,3 +50,11 @@ def get_cif_1617211_loop_values():
     return CIF_loop_values
 
 
+@pytest.fixture
+def get_cif_URhIn_loop_values():
+    CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
+        "tests/filter/cifs/URhIn.cif"
+    )
+    return CIF_loop_values
+
+

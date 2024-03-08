@@ -39,6 +39,46 @@ def process_and_order_pairs(all_points, atomic_pair_list):
     return processed_pairs_ordered
 
 
+# Include 
+def remove_duplicate_pairs(unique_pairs_distances):
+    '''
+    unique_pairs_distances_test_2 = {
+        ('Ga1A', 'Ga1'): ['2.601'],
+        ('Ga1', 'La1'): ['3.291'],
+        ('Co1B', 'Ga1'): ['2.601'],
+        ('Ga1', 'Ga1A'): ['2.601'],
+        ('Ga1', 'Ga1'): ['2.358']}
+
+    to 
+
+    adjusted_pairs_test_2 == {
+        ('Ga1A', 'Ga1'): ['2.601'],
+        ('Ga1', 'La1'): ['3.291'],
+        ('Co1B', 'Ga1'): ['2.601'],
+        ('Ga1', 'Ga1A'): ['2.601'],
+        ('Ga1', 'Ga1'): ['2.358']}
+    '''
+    
+    ## First 
+
+    adjusted_pairs = {}
+    for pair, distances in unique_pairs_distances.items():
+        pair = tuple((get_atom_type(atom) for atom in pair))
+        current_distance = float(distances[0])
+
+        # If the pair already exists, compare distances and keep the smallest
+        if pair in adjusted_pairs:
+            existing_distance = float(adjusted_pairs[pair][0])
+            if current_distance < existing_distance:
+                adjusted_pairs[pair] = [distances[0]]
+        else:
+            adjusted_pairs[pair] = distances
+
+    return adjusted_pairs
+
+
+
+# Include 
 def strip_labels_and_remove_duplicate(unique_pairs_distances):
     '''
     unique_pairs_distances_test_2 = {
@@ -84,7 +124,7 @@ def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
 
     # Order pairs based on Mendeleev ordering
     all_possible_pairs = (
-        [tuple(pair_order.order_pair_based_on_mendeleev_num(pair)) for pair in all_possible_pairs]
+        [tuple(pair_order.order_pair_by_mendeleev(pair)) for pair in all_possible_pairs]
     )
 
     # Remove duplicates after sorting

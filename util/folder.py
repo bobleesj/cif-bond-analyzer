@@ -90,7 +90,7 @@ def write_summary_and_missing_pairs(unique_pairs_distances, missing_pairs, direc
 
     file_path = os.path.join(directory_path, "output", "summary_and_missing_pairs.txt")
     with open(file_path, 'w') as file:
-        print("Summary:")
+        print("\nSummary:")
         file.write("Summary:\n")
         for pair, distances in unique_pairs_distances.items():
             atom_1 = pair[0].strip()

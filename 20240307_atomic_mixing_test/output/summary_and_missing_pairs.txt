@@ -1,6 +1,0 @@
-Summary:
-Pair: Rh-Si, Count: 1, Distances: 2.280
-Pair: Rh-Rh, Count: 1, Distances: 2.524
-
-Missing pairs:
-Si-Si

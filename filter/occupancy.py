@@ -62,7 +62,7 @@ def get_all_possible_ordered_label_pairs(CIF_loop_values):
 
     # Step 3. Order pairs based on Mendeleev ordering
     unique_sorted_pairs_ordered = (
-        [tuple(pair_order.order_pair_based_on_mendeleev_num(pair))
+        [tuple(pair_order.order_pair_by_mendeleev(pair))
          for pair in unique_sorted_pairs]
     )
 
@@ -94,26 +94,12 @@ def get_atom_site_mixing_dict(
     '''
     if atom_site_mixing_file_info != "4":
         for idx, pair in enumerate(unique_ordered_label_pairs):
-            print("Label number:", idx+1)
             # Step 1: For the given pair, get the coordinate and occupany info
             first_label_coord = cif_loop_value_dict[pair[0]]["coordinates"]
             second_label_coord = cif_loop_value_dict[pair[1]]["coordinates"]
 
             first_label_occ = cif_loop_value_dict[pair[0]]["occupancy"]
             second_label_occ = cif_loop_value_dict[pair[1]]["occupancy"]
-
-            print(
-                "first_label:",
-                pair[0],
-                first_label_coord,
-                first_label_occ
-            )
-            print(
-                "second_label:",
-                pair[1],
-                second_label_coord,
-                second_label_occ
-            )
 
             '''
             Step 3. Check full occupacny at the pair level
@@ -194,7 +180,5 @@ def get_atom_site_mixing_dict(
                 (is_first_label_atomic_mixed or
                  is_second_label_atomic_mixed)):
                 atom_site_pair_dict[pair] = "1"
-
-            print()
 
     return atom_site_pair_dict

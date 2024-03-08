@@ -1,0 +1,81 @@
+Summary:
+Pair: Ge-Ge, Count: 11, Distances: 2.290 2.401 2.265 2.304 2.329 2.352 2.359 2.383 2.396 2.226 2.280
+Pair: Rh-Ge, Count: 5, Distances: 2.481 2.499 2.515 2.519 2.538
+Pair: Ru-Ge, Count: 3, Distances: 2.554 2.535 2.543
+Pair: Pr-Ge, Count: 3, Distances: 3.168 3.220 3.161
+Pair: Eu-Ge, Count: 2, Distances: 3.182 3.179
+Pair: Ce-Ge, Count: 2, Distances: 3.141 3.227
+Pair: Sm-Ge, Count: 1, Distances: 3.141
+Pair: Ni-Ni, Count: 1, Distances: 2.226
+Pair: Ni-Ge, Count: 1, Distances: 2.226
+Pair: Nd-Ge, Count: 1, Distances: 3.157
+Pair: La-Ge, Count: 1, Distances: 3.241
+Pair: Ir-Ge, Count: 1, Distances: 2.537
+Pair: Ho-Ge, Count: 1, Distances: 3.120
+Pair: Ce-Ni, Count: 1, Distances: 3.141
+
+Missing pairs:
+La-Ce
+Ru-Ir
+Sm-Sm
+Ru-Ni
+Pr-Ho
+Ce-Rh
+Ce-Ir
+La-Rh
+Pr-Ru
+Ho-Rh
+La-Ir
+Rh-Rh
+La-Ni
+Nd-Rh
+La-Pr
+Ho-Ir
+Sm-Rh
+Nd-Ir
+La-Sm
+Sm-Ir
+Ru-Rh
+Eu-Ru
+Pr-Nd
+Pr-Ir
+Pr-Ni
+Pr-Pr
+Pr-Sm
+Eu-Rh
+Eu-Ir
+Eu-Ni
+Ce-Eu
+La-Eu
+Pr-Rh
+Nd-Eu
+Sm-Eu
+Ce-Ho
+La-Ho
+Ho-Ho
+Ce-Ru
+Ce-Ce
+Nd-Ho
+Sm-Ho
+Ho-Ru
+Eu-Eu
+Nd-Ru
+Sm-Ru
+Ir-Ir
+Ce-Nd
+Ir-Ni
+Ru-Ru
+La-Nd
+Ce-Pr
+Pr-Eu
+Nd-Nd
+Ce-Sm
+Rh-Ir
+Ho-Ni
+Eu-Ho
+Rh-Ni
+Nd-Ni
+La-La
+Sm-Ni
+La-Ru
+Nd-Sm
