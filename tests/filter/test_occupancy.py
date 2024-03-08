@@ -41,7 +41,7 @@ def test_get_all_possible_ordered_label_pair_tuples(
 
 
 @pytest.mark.now
-def test_get_atom_site_mixing_dict_type_4(get_cif_300160_loop_values):
+def test_get_atom_site_mixing_dict_1(get_cif_300160_loop_values):
     atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
         get_cif_300160_loop_values
     )
@@ -62,7 +62,7 @@ def test_get_atom_site_mixing_dict_type_4(get_cif_300160_loop_values):
 
 
 @pytest.mark.now
-def test_get_atom_site_mixing_dict_type_3(get_cif_527000_loop_values):
+def test_get_atom_site_mixing_dict_2(get_cif_527000_loop_values):
     atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
         get_cif_527000_loop_values
     )
@@ -87,7 +87,7 @@ def test_get_atom_site_mixing_dict_type_3(get_cif_527000_loop_values):
 
 
 @pytest.mark.now
-def test_get_atom_site_mixing_dict_type_2(get_cif_1831432_loop_values):
+def test_get_atom_site_mixing_dict_3(get_cif_1831432_loop_values):
     atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
         get_cif_1831432_loop_values
     )
@@ -116,22 +116,61 @@ def test_get_atom_site_mixing_dict_type_2(get_cif_1831432_loop_values):
     assert atom_site_pair_dict[("Fe2", "Ge1")] == "2"
     assert atom_site_pair_dict[("Fe2", "Fe2")] == "2"
     assert atom_site_pair_dict[("Ge1", "Ge1")] == "2"
-    
-    
+
+
+@pytest.mark.now
+def test_get_atom_site_mixing_dict_4(get_cif_529848_loop_values):
+    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+        get_cif_529848_loop_values
+    )
+
+    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_file_info,
+        get_cif_529848_loop_values
+    )
+
     '''
-    if is_atomic_mixing and not is_full_occupancy:
-        # "deficiency" (atomic mixing has to occur)
-        return "1"
+    Mendeleev # - Ni 61, Sb 85
+    529848.cif
+    Ni1 Ni 4 a 0 0 0 0.92
+    Sb2 Sb 4 a 0 0 0 0.08
 
-    elif is_atomic_mixing and is_full_occupancy:
-        # "full_occupancy_atomic_mixing"
-        return "2"
+    Result:
+    529848: Ni-Sb 2.531 mixing
 
-    elif not is_atomic_mixing and not is_full_occupancy:
-        # "deficiency_no_atomic_mixing"
-        return "3"
-
-    elif is_full_occupancy:
-        # "full_occupancy"
-        return "4"
     '''
+    assert len(atom_site_pair_dict) == 3
+    assert atom_site_pair_dict[("Ni1", "Ni1")] == "2"
+    assert atom_site_pair_dict[("Sb2", "Sb2")] == "2"
+    assert atom_site_pair_dict[("Ni1", "Sb2")] == "2"
+
+
+@pytest.mark.now
+def test_get_atom_site_mixing_dict_5(get_cif_1617211_loop_values):
+    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+        get_cif_1617211_loop_values
+    )
+
+    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_file_info,
+        get_cif_1617211_loop_values
+    )
+
+    '''
+    Mendeleev # - Fe 55, Si 78
+    1617211.cif
+    Si1 Si 2 h 0.5 0.5 0.2700 1
+    Fe1A Fe 1 a 0 0 0 0.85008
+    Si1B Si 1 a 0 0 0 0.06992
+    
+    Result:
+    529848: Ni-Sb 2.531 mixing
+
+    '''
+    assert len(atom_site_pair_dict) == 6
+    assert atom_site_pair_dict[("Si1", "Si1")] == "4"
+    assert atom_site_pair_dict[("Si1B", "Si1B")] == "1"
+    assert atom_site_pair_dict[("Fe1A", "Fe1A")] == "1"
+    assert atom_site_pair_dict[("Fe1A", "Si1")] == "1"
+    assert atom_site_pair_dict[("Si1", "Si1B")] == "1"
+    assert atom_site_pair_dict[("Fe1A", "Si1B")] == "1"

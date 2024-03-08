@@ -37,3 +37,17 @@ def test_cheeck_is_pair_ordered_based_on_mendeleev_num():
 
     is_ordered = pair_order.is_pair_ordered_by_mendeleev(("In", "Rh"))
     assert is_ordered is not True
+
+
+@pytest.mark.now
+def test_sort_tuple_in_list():
+    tuple_pairs = [("Fe1B", "Fe1A"), ("Si1B", "Si1")]
+    sorted_tuple_pairs = pair_order.sort_tuple_in_list(tuple_pairs)
+    assert sorted_tuple_pairs == [("Fe1A", "Fe1B"), ("Si1", "Si1B")]
+
+    tuple_pairs = [("Rh2", "Rh1"), ("Si1C", "Si1A")]
+    sorted_tuple_pairs = pair_order.sort_tuple_in_list(tuple_pairs)
+    assert sorted_tuple_pairs == [("Rh1", "Rh2"), ("Si1A", "Si1C")]
+
+    sorted_tuple_pairs = pair_order.sort_tuple_in_list(tuple_pairs)
+    assert sorted_tuple_pairs == [("Rh1", "Rh2"), ("Si1A", "Si1C")]

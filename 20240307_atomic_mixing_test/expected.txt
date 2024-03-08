@@ -22,6 +22,22 @@ Strategy:
 
 
 ---
+529848: Ni-Sb 2.531 mixing
+---
+
+
+1810929:
+Fe-Si 2.447 deficiency,
+Fe-Fe 2.447 mixing,
+Fe-Si 2.447 mixing
+note that the last one would be Si-Fe before implementing Mendeleev number ordering,
+and the full output, as well as unique output should include all three
+given that the first 2.447 and the third 2.447 are not the same based on the label.
+
+
+
+
+---
 554324: 
 Fe-Ge 2.302 mixing
 Ge-Ge 2.302 mixing
@@ -37,14 +53,6 @@ Pair: Ge2-Ge 2.302 Å (0.333333 0.666667 0.75 0.0198-0.333333 0.666667 0.25 1) -
 Pair: Fe1-Ge 2.302 Å (0.333333 0.666667 0.75 0.5802-0.333333 0.666667 0.25 1)
 Pair: Fe-Fe 2.502 Å (0 0 0 1-0 0 0 1)
 
-
-1810929:
-Fe-Si 2.447 deficiency,
-Fe-Fe 2.447 mixing,
-Fe-Si 2.447 mixing
-note that the last one would be Si-Fe before implementing Mendeleev number ordering,
-and the full output, as well as unique output should include all three
-given that the first 2.447 and the third 2.447 are not the same based on the label.
 
 
 1617211:
@@ -68,7 +76,6 @@ Si-Si
 1830597: Ni-Ga 2.424 deficiency, Ni-Ni 2.529 full, Ni-Ga 2.529 full, Ni-Ni 2.476.  (Note that this is the full output, that we plan to include )
 
 526991: Pd-Pd 2.759 mixing, Pd-Sn 2.759 mixing
-529848: Ni-Sb 2.531 mixing
 1817291: Fe-Fe 2.512 mixing, Fe-Ga 2.512 mixing, Fe-Fe 2.512 full
 
 

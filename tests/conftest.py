@@ -35,9 +35,18 @@ def get_cif_1831432_loop_values():
 
 
 @pytest.fixture
-def get_cif_1810929_loop_values():
+def get_cif_529848_loop_values():
     CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
-        "tests/filter/cifs/1810929.cif"
+        "tests/filter/cifs/529848.cif"
     )
     return CIF_loop_values
+
+
+@pytest.fixture
+def get_cif_1617211_loop_values():
+    CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
+        "tests/filter/cifs/1617211.cif"
+    )
+    return CIF_loop_values
+
 

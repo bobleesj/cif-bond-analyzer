@@ -49,9 +49,9 @@ def test_cif_json_processing():
     ]
 
     for dir_path, expected_json in test_cases:
-        # cleanup(dir_path)  # Cleanup before each test
+        cleanup(dir_path)  # Cleanup before each test
         run_test(dir_path, expected_json)
-        # cleanup(dir_path)  # Cleanup after each test
+        cleanup(dir_path)  # Cleanup after each test
 
 # Main execution
 if __name__ == "__main__":

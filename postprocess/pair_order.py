@@ -51,3 +51,7 @@ def is_pair_ordered_by_mendeleev(pair_tuple):
 
     else:
         return True
+
+
+def sort_tuple_in_list(tuple_list):
+    return [tuple(sorted(item)) for item in tuple_list]
