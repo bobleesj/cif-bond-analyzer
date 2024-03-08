@@ -1,0 +1,48 @@
+Summary:
+Pair: Nd1-Si1, Count: 1 Distances: 3.082
+Pair: Nd1-Si2, Count: 1 Distances: 3.215
+Pair: Nd2-Si1, Count: 1 Distances: 3.080
+Pair: Os-Os, Count: 1 Distances: 2.728
+Pair: Rh-SbI, Count: 1 Distances: 2.516
+Pair: Rh-SbII, Count: 1 Distances: 2.652
+Pair: SbI-SbII, Count: 1 Distances: 2.829
+Pair: Si1-Si1, Count: 1 Distances: 2.755
+Pair: Th-Os, Count: 1 Distances: 3.198
+Pair: Th-Th, Count: 1 Distances: 3.341
+
+Missing pairs:
+Nd1-Nd1
+Nd1-Nd2
+Nd1-Os
+Nd1-Rh
+Nd1-SbI
+Nd1-SbII
+Nd2-Nd2
+Nd2-Os
+Nd2-Rh
+Nd2-SbI
+Nd2-SbII
+Nd2-Si2
+Os-Rh
+Os-SbI
+Os-SbII
+Os-Si1
+Os-Si2
+Rh-Rh
+Rh-Si1
+Rh-Si2
+SbI-SbI
+SbII-SbII
+Si1-SbI
+Si1-SbII
+Si1-Si2
+Si2-SbI
+Si2-SbII
+Si2-Si2
+Th-Nd1
+Th-Nd2
+Th-Rh
+Th-SbI
+Th-SbII
+Th-Si1
+Th-Si2

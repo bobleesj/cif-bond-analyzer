@@ -1,9 +1,9 @@
-CIF file,Number of atoms in supercell,Processing time (s)
-554038.cif,240,1.03
-539016.cif,334,3.132
-RhSb2.cif,180,0.447
-1612190.cif,211,0.676
-ThOs2.cif,642,21.308
-560709.cif,323,3.766
-1923821.cif,120,0.163
-Nd5Si3.cif,662,23.099
+File,Number of atoms in supercell,Processing time (s)
+554038,240,0.802
+539016,334,1.916
+RhSb2,180,0.281
+1612190,211,0.418
+ThOs2,642,16.483
+560709,323,1.815
+1923821,120,0.126
+Nd5Si3,662,19.379
