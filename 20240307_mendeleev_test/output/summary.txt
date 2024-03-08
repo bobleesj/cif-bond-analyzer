@@ -1,24 +1,24 @@
 Summary:
-Pair: Ru1-Ge1, Count: 2 Distances: 2.543, 2.554
 Pair: Ge1-Ge1, Count: 3 Distances: 2.280, 2.290, 2.383
-Pair: La1-Ge1, Count: 1 Distances: 3.241
-Pair: Ir1-Ge1, Count: 1 Distances: 2.537
-Pair: Eu1-Ge1, Count: 1 Distances: 3.182
+Pair: Ru1-Ge1, Count: 2 Distances: 2.543, 2.554
 Pair: Ce1-Ge1, Count: 1 Distances: 3.227
+Pair: Eu1-Ge1, Count: 1 Distances: 3.182
+Pair: Ir1-Ge1, Count: 1 Distances: 2.537
+Pair: La1-Ge1, Count: 1 Distances: 3.241
 
 Missing pairs:
-Eu1-Ru1
+Ce1-Ce1
+Ce1-Eu1
+Ce1-Ir1
 Ce1-Ru1
+Eu1-Eu1
+Eu1-Ir1
+Eu1-Ru1
+Ir1-Ir1
+La1-Ce1
+La1-Eu1
+La1-Ir1
+La1-La1
 La1-Ru1
 Ru1-Ir1
-Eu1-Eu1
-Ce1-Eu1
-La1-Eu1
 Ru1-Ru1
-Ir1-Ir1
-Ce1-Ce1
-La1-Ce1
-La1-La1
-La1-Ir1
-Ce1-Ir1
-Eu1-Ir1

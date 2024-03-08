@@ -21,7 +21,7 @@ def choose_CIF_directory(script_directory):
         print(f"{idx}. {dir_name}, {num_of_cif_files} files")
     while True:
         try:
-            choice = int(input("\nEnter the number corresponding to the folder containing .cif files: "))
+            choice = int(input("\nEnter folder # having .cif files: "))
             if 1 <= choice <= len(directories):
                 return join(script_directory, directories[choice-1])
             else:
@@ -32,7 +32,7 @@ def choose_CIF_directory(script_directory):
 
 def save_to_csv_directory(folder_info, df, base_filename):
     """
-    Saves the dataframe as a CSV inside a 'csv' sub-directory of the provided folder.
+    Saves the dataframe as a CSV inside a 'csv' sub-directory.
     """
     # Create the sub-directory for CSVs if it doesn't exist
     
@@ -78,9 +78,9 @@ def remove_file(file_path):
 
 
 def write_summary_and_missing_pairs(
-            dist_mix_pair_dict,
-            missing_pairs,
-            dir_path):
+        dist_mix_pair_dict,
+        missing_pairs,
+        dir_path):
     """
     Writes a summary of unique atomic pairs, including counts and distances,
     and a list of missing pairs to a file.
@@ -98,17 +98,17 @@ def write_summary_and_missing_pairs(
     for pair, files in dist_mix_pair_dict.items():
         distances = sorted(float(info['dist']) for info in files.values())
         count = len(distances)
-        distances_str = ', '.join(f"{distance:.3f}" for distance in distances)
-        data.append((pair, count, distances_str))
-    
-    # Step 2: Sort the data first by count (descending) then by pair name (ascending)
+        dists = ', '.join(f"{distance:.3f}" for distance in distances)
+        data.append((pair, count, dists))
+
+    # Step 2: Sort the data first by count (descending) then by pair name
     sorted_data = sorted(data, key=lambda x: (-x[1], x[0]))
 
     # Step 3: Write sorted data to file
     with open(file_path, 'w') as file:
         file.write("Summary:\n")
-        for pair, count, distances_str in sorted_data:
-            file.write(f"Pair: {pair}, Count: {count} Distances: {distances_str}\n")
+        for pair, count, dists in sorted_data:
+            file.write(f"Pair: {pair}, Count: {count} Distances: {dists}\n")
 
         # x[0][0] - use 1st cha of the first element
         # x[0] - use the first element to sort

@@ -1,200 +1,204 @@
 {
-    "Ge-Ge": [
-        {
-            "File": "1040392.cif",
-            "Distance": 2.226,
-            "Atomic Site": "deficiency"
+    "Ru1-Ge1": {
+        "300169": {
+            "mixing": "4",
+            "dist": "2.554"
         },
-        {
-            "File": "300168.cif",
-            "Distance": 2.265,
-            "Atomic Site": "full_occupancy"
+        "300168": {
+            "mixing": "4",
+            "dist": "2.535"
         },
-        {
-            "File": "300170.cif",
-            "Distance": 2.28,
-            "Atomic Site": "full_occupancy"
-        },
-        {
-            "File": "300169.cif",
-            "Distance": 2.29,
-            "Atomic Site": "full_occupancy"
-        },
-        {
-            "File": "300156.cif",
-            "Distance": 2.304,
-            "Atomic Site": "full_occupancy"
-        },
-        {
-            "File": "300160.cif",
-            "Distance": 2.329,
-            "Atomic Site": "full_occupancy"
-        },
-        {
-            "File": "300161.cif",
-            "Distance": 2.352,
-            "Atomic Site": "full_occupancy"
-        },
-        {
-            "File": "300162.cif",
-            "Distance": 2.359,
-            "Atomic Site": "full_occupancy"
-        },
-        {
-            "File": "300171.cif",
-            "Distance": 2.383,
-            "Atomic Site": "full_occupancy"
-        },
-        {
-            "File": "300159.cif",
-            "Distance": 2.396,
-            "Atomic Site": "full_occupancy"
-        },
-        {
-            "File": "1005628.cif",
-            "Distance": 2.401,
-            "Atomic Site": "deficiency"
+        "300170": {
+            "mixing": "4",
+            "dist": "2.543"
         }
-    ],
-    "Rh-Ge": [
-        {
-            "File": "300156.cif",
-            "Distance": 2.481,
-            "Atomic Site": "full_occupancy"
+    },
+    "La1-Ge1": {
+        "300169": {
+            "mixing": "4",
+            "dist": "3.241"
+        }
+    },
+    "Ge1-Ge1": {
+        "300169": {
+            "mixing": "4",
+            "dist": "2.29"
         },
-        {
-            "File": "300160.cif",
-            "Distance": 2.499,
-            "Atomic Site": "full_occupancy"
+        "300168": {
+            "mixing": "4",
+            "dist": "2.265"
         },
-        {
-            "File": "300161.cif",
-            "Distance": 2.515,
-            "Atomic Site": "full_occupancy"
+        "300156": {
+            "mixing": "4",
+            "dist": "2.304"
         },
-        {
-            "File": "300162.cif",
-            "Distance": 2.519,
-            "Atomic Site": "full_occupancy"
+        "300160": {
+            "mixing": "4",
+            "dist": "2.329"
         },
-        {
-            "File": "300159.cif",
-            "Distance": 2.538,
-            "Atomic Site": "full_occupancy"
-        }
-    ],
-    "Ru-Ge": [
-        {
-            "File": "300168.cif",
-            "Distance": 2.535,
-            "Atomic Site": "full_occupancy"
+        "300161": {
+            "mixing": "4",
+            "dist": "2.352"
         },
-        {
-            "File": "300170.cif",
-            "Distance": 2.543,
-            "Atomic Site": "full_occupancy"
+        "300162": {
+            "mixing": "4",
+            "dist": "2.359"
         },
-        {
-            "File": "300169.cif",
-            "Distance": 2.554,
-            "Atomic Site": "full_occupancy"
-        }
-    ],
-    "Pr-Ge": [
-        {
-            "File": "300162.cif",
-            "Distance": 3.161,
-            "Atomic Site": "full_occupancy"
+        "300171": {
+            "mixing": "4",
+            "dist": "2.383"
         },
-        {
-            "File": "1005628.cif",
-            "Distance": 3.168,
-            "Atomic Site": "deficiency"
+        "300159": {
+            "mixing": "4",
+            "dist": "2.396"
         },
-        {
-            "File": "300168.cif",
-            "Distance": 3.22,
-            "Atomic Site": "full_occupancy"
+        "300170": {
+            "mixing": "4",
+            "dist": "2.28"
         }
-    ],
-    "Eu-Ge": [
-        {
-            "File": "300159.cif",
-            "Distance": 3.179,
-            "Atomic Site": "full_occupancy"
+    },
+    "Ge,Ni1-Ge,Ni2": {
+        "1005628": {
+            "mixing": "1",
+            "dist": "2.401"
+        }
+    },
+    "Pr-Ge,Ni2": {
+        "1005628": {
+            "mixing": "1",
+            "dist": "3.168"
+        }
+    },
+    "Ge,Ni2-Ge,Ni2": {
+        "1005628": {
+            "mixing": "1",
+            "dist": "2.401"
+        }
+    },
+    "Ge,Ni1-Ge,Ni1": {
+        "1005628": {
+            "mixing": "1",
+            "dist": "2.401"
+        }
+    },
+    "Pr-Ge,Ni1": {
+        "1005628": {
+            "mixing": "1",
+            "dist": "3.168"
+        }
+    },
+    "Pr1-Ge1": {
+        "300168": {
+            "mixing": "4",
+            "dist": "3.22"
         },
-        {
-            "File": "300171.cif",
-            "Distance": 3.182,
-            "Atomic Site": "full_occupancy"
+        "300162": {
+            "mixing": "4",
+            "dist": "3.161"
         }
-    ],
-    "Ce-Ge": [
-        {
-            "File": "1040392.cif",
-            "Distance": 3.141,
-            "Atomic Site": "deficiency"
+    },
+    "Rh1-Ge1": {
+        "300156": {
+            "mixing": "4",
+            "dist": "2.481"
         },
-        {
-            "File": "300170.cif",
-            "Distance": 3.227,
-            "Atomic Site": "full_occupancy"
+        "300160": {
+            "mixing": "4",
+            "dist": "2.499"
+        },
+        "300161": {
+            "mixing": "4",
+            "dist": "2.515"
+        },
+        "300162": {
+            "mixing": "4",
+            "dist": "2.519"
+        },
+        "300159": {
+            "mixing": "4",
+            "dist": "2.538"
         }
-    ],
-    "La-Ge": [
-        {
-            "File": "300169.cif",
-            "Distance": 3.241,
-            "Atomic Site": "full_occupancy"
+    },
+    "Ho1-Ge1": {
+        "300156": {
+            "mixing": "4",
+            "dist": "3.12"
         }
-    ],
-    "Ho-Ge": [
-        {
-            "File": "300156.cif",
-            "Distance": 3.12,
-            "Atomic Site": "full_occupancy"
+    },
+    "Sm1-Ge1": {
+        "300160": {
+            "mixing": "4",
+            "dist": "3.141"
         }
-    ],
-    "Sm-Ge": [
-        {
-            "File": "300160.cif",
-            "Distance": 3.141,
-            "Atomic Site": "full_occupancy"
+    },
+    "Nd1-Ge1": {
+        "300161": {
+            "mixing": "4",
+            "dist": "3.157"
         }
-    ],
-    "Nd-Ge": [
-        {
-            "File": "300161.cif",
-            "Distance": 3.157,
-            "Atomic Site": "full_occupancy"
+    },
+    "Ir1-Ge1": {
+        "300171": {
+            "mixing": "4",
+            "dist": "2.537"
         }
-    ],
-    "Ir-Ge": [
-        {
-            "File": "300171.cif",
-            "Distance": 2.537,
-            "Atomic Site": "full_occupancy"
+    },
+    "Eu1-Ge1": {
+        "300171": {
+            "mixing": "4",
+            "dist": "3.182"
+        },
+        "300159": {
+            "mixing": "4",
+            "dist": "3.179"
         }
-    ],
-    "Ni-Ge": [
-        {
-            "File": "1040392.cif",
-            "Distance": 2.226,
-            "Atomic Site": "deficiency"
+    },
+    "Ge1A-Ge1A": {
+        "1040392": {
+            "mixing": "2",
+            "dist": "2.226"
         }
-    ],
-    "Ce-Ni": [
-        {
-            "File": "1040392.cif",
-            "Distance": 3.141,
-            "Atomic Site": "deficiency"
+    },
+    "Ni1-Ge1A": {
+        "1040392": {
+            "mixing": "2",
+            "dist": "2.477"
         }
-    ],
-    "Ni-Ni": [
-        {
-            "File": "1040392.cif",
-            "Distance": 2.226,
-            "Atomic Site": "deficiency"
+    },
+    "Ni1-Ni1B": {
+        "1040392": {
+            "mixing": "2",
+            "dist": "2.477"
         }
-    ]
+    },
+    "Ni1B-Ge1A": {
+        "1040392": {
+            "mixing": "2",
+            "dist": "2.226"
+        }
+    },
+    "Ce1-Ge1A": {
+        "1040392": {
+            "mixing": "1",
+            "dist": "3.141"
+        }
+    },
+    "Ni1B-Ni1B": {
+        "1040392": {
+            "mixing": "2",
+            "dist": "2.226"
+        }
+    },
+    "Ce1-Ni1B": {
+        "1040392": {
+            "mixing": "1",
+            "dist": "3.141"
+        }
+    },
+    "Ce1-Ge1": {
+        "300170": {
+            "mixing": "4",
+            "dist": "3.227"
+        }
+    }
 }

@@ -139,7 +139,6 @@ def main(is_iteractive_mode=True, dir_path=None):
     missing_pairs = bond.get_sorted_missing_pairs(
         dist_mix_pair_dict
     )
-    
 
     '''
     # PART 4: SAVE & PLOT
@@ -153,24 +152,25 @@ def main(is_iteractive_mode=True, dir_path=None):
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
 
-
         folder.write_summary_and_missing_pairs(
             dist_mix_pair_dict,
             missing_pairs,
             dir_path
         )
+        
+        json_data = excel.write_excel_json(
+            dist_mix_pair_dict,
+            dir_path
+        )
+                
+        # Save csv
+        folder.save_to_csv_directory(
+            dir_path,
+            pd.DataFrame(log_list),
+            "log"
+        )
 
-    #     folder.save_to_csv_directory(
-    #         dir_path,
-    #         pd.DataFrame(log_list),
-    #         "log"
-    #     )
 
-    #     json_data = excel.write_excel_json(
-    #         dir_path,
-    #         pair_tuples,
-    #         global_pairs_data
-    #     )
 
     #     histogram.plot_histograms_from_data(json_data, dir_path)
 
