@@ -6,10 +6,10 @@
             "Atomic Site": "full_occupancy"
         }
     ],
-    "Er-In": [
+    "In-In": [
         {
             "File": "1803318.cif",
-            "Distance": 3.024,
+            "Distance": 2.999,
             "Atomic Site": "full_occupancy"
         }
     ],
@@ -20,10 +20,10 @@
             "Atomic Site": "full_occupancy"
         }
     ],
-    "In-In": [
+    "Er-In": [
         {
             "File": "1803318.cif",
-            "Distance": 2.999,
+            "Distance": 3.024,
             "Atomic Site": "full_occupancy"
         }
     ]

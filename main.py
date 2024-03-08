@@ -34,8 +34,8 @@ def main(is_iteractive_mode=True, dir_path=None):
     
         # If the user chooses no option, then it's simply 3
         if not supercell_method_large_cif:
-            print("\nYour default option is generating a 2-2-2 supercell for files"
-                "more than 100 atoms in the unit cell.")
+            print("\nYour default option is generating a 2-2-2 supercell for",
+                "files more than 100 atoms in the unit cell.")
             supercell_method_large_cif = 1
     
     if not is_iteractive_mode:
@@ -86,14 +86,18 @@ def main(is_iteractive_mode=True, dir_path=None):
             )
 
             # Get atomic site mixing info -> String
-            atom_site_mixing_info = occupancy.get_atom_site_mixing_info(
-                filename,
+            atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
                 CIF_loop_values
             )
 
             # Add atom_site_info to the file name
-            filename += f"-{atom_site_mixing_info}"
-   
+            filename += f"-{atom_site_mixing_file_info}"
+            
+            # Get atom site pair information
+            atom_site_mixing_pairs = occupancy.get_atom_site_mixing_dict(
+                atom_site_mixing_file_info, CIF_loop_values
+            )
+
             # Find the shortest pair form each atom
             ordered_pairs = bond.process_and_order_pairs(
                 all_points,
@@ -126,12 +130,8 @@ def main(is_iteractive_mode=True, dir_path=None):
 
                     # Check if this pair already exists and if the new distance is shorter
                     if pair_tuple not in global_pairs_data[filename] or dist < float(global_pairs_data[filename][pair_tuple]):
-                        global_pairs_data[filename][pair_tuple] = dist_str  # Store the distance as a string
+                        global_pairs_data[filename][pair_tuple] = dist_str
                         print(f"Pair: {labels[0]}-{labels[1]} {dist_str} Å")
-                    else:
-                        # Optional: Acknowledge existing pair with a longer distance not updated
-                        existing_dist = global_pairs_data[filename][pair_tuple]
-                        # print(f"Existing pair: {atom_1}-{atom_2} with distance {existing_dist} Å not updated, new distance {dist_str} Å is not shorter.")
 
                     elapsed_time = time.perf_counter() - start_time
 

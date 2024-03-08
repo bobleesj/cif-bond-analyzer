@@ -1,19 +1,19 @@
 {
-    "Co-Ga": [
+    "Ga-Ga": [
         {
             "File": "560709.cif",
             "Distance": 2.501,
             "Atomic Site": "full_occupancy_atomic_mixing"
         }
     ],
-    "La-Ga": [
+    "La-Co": [
         {
             "File": "560709.cif",
             "Distance": 2.979,
             "Atomic Site": "full_occupancy_atomic_mixing"
         }
     ],
-    "Ga-Ga": [
+    "Co-Ga": [
         {
             "File": "560709.cif",
             "Distance": 2.501,
@@ -27,7 +27,7 @@
             "Atomic Site": "full_occupancy_atomic_mixing"
         }
     ],
-    "La-Co": [
+    "La-Ga": [
         {
             "File": "560709.cif",
             "Distance": 2.979,

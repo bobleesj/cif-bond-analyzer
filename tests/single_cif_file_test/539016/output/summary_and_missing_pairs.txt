@@ -4,6 +4,6 @@ Pair: Ga-Ga, Count: 1, Distances: 2.358
 Pair: Co-Ga, Count: 1, Distances: 2.601
 
 Missing pairs:
-La-Co
 Co-Co
 La-La
+La-Co

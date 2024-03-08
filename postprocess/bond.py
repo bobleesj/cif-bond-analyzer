@@ -79,6 +79,7 @@ def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
 
     # Generate all possible pairs (with ordering matter)
     # Assuming unique_elements is a list of unique chemical elements
+
     all_possible_pairs = list(product(unique_elements, repeat=2))
 
     # Order pairs based on Mendeleev ordering

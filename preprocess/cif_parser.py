@@ -3,7 +3,7 @@ import re
 from util.string_parser import remove_string_braket
 from util.unit import get_radians_from_degrees
  
- 
+
 def get_atom_type(label):
     # Splitting the label into separate parts if it contains parentheses
     parts = re.split(r'[()]', label)
@@ -78,3 +78,28 @@ def get_cell_lenghts_angles_rad(CIF_block):
     cell_lengths = [cell_length_a, cell_length_b, cell_length_c]
 
     return cell_lengths, cell_angles_rad
+
+
+def get_num_of_atom_labels(CIF_loop_values):
+    # Count the nmber of labels in the loop
+    return len(CIF_loop_values[0])
+
+
+def get_unique_element_list(CIF_loop_values):
+    # Get a list of unqiue element from loop values
+    num_atom_labels = get_num_of_atom_labels(CIF_loop_values)
+    element_list = []
+    for i in range(num_atom_labels):
+        element = CIF_loop_values[1][i]
+        element_list.append(element)
+    return list(set(element_list))
+
+
+def get_atom_label_list(CIF_loop_values):
+    num_atom_labels = get_num_of_atom_labels(CIF_loop_values)
+    label_list = []
+    for i in range(num_atom_labels):
+        element = CIF_loop_values[0][i]
+        label_list.append(element)
+    return label_list
+

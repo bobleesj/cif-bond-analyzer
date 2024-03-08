@@ -1,0 +1,16 @@
+{
+    "Rh-Si": [
+        {
+            "File": "527000.cif",
+            "Distance": 2.28,
+            "Atomic Site": "deficiency_no_atomic_mixing"
+        }
+    ],
+    "Rh-Rh": [
+        {
+            "File": "527000.cif",
+            "Distance": 2.524,
+            "Atomic Site": "deficiency_no_atomic_mixing"
+        }
+    ]
+}
