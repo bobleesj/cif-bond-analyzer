@@ -2,7 +2,7 @@ import gemmi
 import re
 from util.string_parser import remove_string_braket
 from util.unit import get_radians_from_degrees
- 
+
 
 def get_atom_type(label):
     # Splitting the label into separate parts if it contains parentheses
@@ -69,7 +69,7 @@ def get_cell_lenghts_angles_rad(CIF_block):
     # Extract cell dimensions and angles from CIF block
     cell_lengths_angles = get_unit_cell_lengths_angles(CIF_block)
     cell_length_a, cell_length_b, cell_length_c, alpha_deg, beta_deg, gamma_deg = cell_lengths_angles
-    
+   
     # Convert angles from degrees to radians
     alpha_rad, beta_rad, gamma_rad = get_radians_from_degrees([alpha_deg, beta_deg, gamma_deg])
 
@@ -101,5 +101,28 @@ def get_atom_label_list(CIF_loop_values):
     for i in range(num_atom_labels):
         element = CIF_loop_values[0][i]
         label_list.append(element)
+
     return label_list
 
+
+def get_atom_info(CIF_loop_values, i):
+    label = CIF_loop_values[0][i]
+    occupancy = float(remove_string_braket(CIF_loop_values[7][i]))
+    coordinates = (remove_string_braket(CIF_loop_values[4][i]),
+                   remove_string_braket(CIF_loop_values[5][i]),
+                   remove_string_braket(CIF_loop_values[6][i]))
+
+    return label, occupancy, coordinates
+
+
+def get_cif_loop_value_dict(CIF_loop_values):
+    cif_loop_value_dict = {}
+    num_of_atom_labels = get_num_of_atom_labels(CIF_loop_values)
+
+    for i in range(num_of_atom_labels):
+        label, occupancy, coordinates = get_atom_info(CIF_loop_values, i)
+        cif_loop_value_dict[label] = {}
+        cif_loop_value_dict[label]["occupancy"] = occupancy
+        cif_loop_value_dict[label]["coordinates"] = coordinates
+
+    return cif_loop_value_dict
