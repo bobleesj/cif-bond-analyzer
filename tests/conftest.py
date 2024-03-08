@@ -18,10 +18,26 @@ def get_cif_1803318_loop_values():
     return CIF_loop_values
 
 
-# Full occupancy
 @pytest.fixture
 def get_cif_300160_loop_values():
     CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
         "tests/filter/cifs/300160.cif"
     )
     return CIF_loop_values
+
+
+@pytest.fixture 
+def get_cif_1831432_loop_values():
+    CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
+        "tests/filter/cifs/1831432.cif"
+    )
+    return CIF_loop_values
+
+
+@pytest.fixture
+def get_cif_1810929_loop_values():
+    CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
+        "tests/filter/cifs/1810929.cif"
+    )
+    return CIF_loop_values
+

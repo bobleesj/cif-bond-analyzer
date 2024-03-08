@@ -76,16 +76,21 @@ def get_atom_site_mixing_dict(
         CIF_loop_values
     )
 
-    # Case 4: full_occupancy Ex) 300160.cif
+    '''
+    Step 1. Check full occupacny at the file level
+    '''
     if atom_site_mixing_file_info == "4":
         for pair in unique_ordered_label_pairs:
             atom_site_pair_dict[pair] = "4"
 
-    # Step 0. Get label dict info and site occupancy sum
+    # Get label dict info and site occupancy sum
     cif_loop_value_dict = cif_parser.get_cif_loop_value_dict(CIF_loop_values)
     coord_occupancy_sum = get_coord_occupancy_sum(CIF_loop_values)
 
-    if atom_site_mixing_file_info == "3" or "2" or "1":
+    '''
+    Step 2. If not, loop through every ordered label pair per file
+    '''
+    if atom_site_mixing_file_info != "4":
         for idx, pair in enumerate(unique_ordered_label_pairs):
             print("Label number:", idx+1)
             # Step 1: For the given pair, get the coordinate and occupany info
@@ -95,31 +100,41 @@ def get_atom_site_mixing_dict(
             first_label_occupancy = cif_loop_value_dict[pair[0]]["occupancy"]
             second_label_occupancy = cif_loop_value_dict[pair[1]]["occupancy"]
 
-            print("first_label:", pair[0], first_label_coord, first_label_occupancy)
-            print("second_label", pair[1], second_label_coord, second_label_occupancy)
+            print(
+                "first_label:",
+                pair[0],
+                first_label_coord,
+                first_label_occupancy
+            )
+            print(
+                "second_label:",
+                pair[1],
+                second_label_coord,
+                second_label_occupancy
+            )
 
-            is_occupancy_below_one = None
-            
-            # full_occupancy - Type 4
+            '''
+            Step 3. Check full occupacny at the pair level
+            '''
+
+            # Assign "4" for "full_occupancy"
             if first_label_occupancy == 1 and second_label_occupancy == 1:
                 print("Both labels have full occupancy!",
                       "automatically set to 4\n")
                 atom_site_pair_dict[pair] = "4"
                 continue
-                
-            
+    
+            '''
+            Step 4. Check deficiecny at the pair level
+            '''
+            # Check whehter one of the sites is deficient
+            is_first_label_site_deficient = None
+            is_second_label_site_deficient = None
+
             if first_label_occupancy < 1 or second_label_occupancy < 1:
                 print("Either first or/and the second label has lower than 1 site occupancy")
-
-                # is_first_label_site_atomic_mixing = None
-                # is_second_label_site_atomic_mixing = None
-                
-                print("\n*coord sum at the first label coord", coord_occupancy_sum[first_label_coord])
-                print("*coord sum at the second label coord", coord_occupancy_sum[second_label_coord])
-
-                # Check whehter one of the sites is deficient
-                is_first_label_site_deficient = None
-                is_second_label_site_deficient = None
+                print("*coord sum of 1st label", coord_occupancy_sum[first_label_coord])
+                print("*coord sum of 2nd label", coord_occupancy_sum[second_label_coord])
 
                 if coord_occupancy_sum[first_label_coord] < 1:
                     is_first_label_site_deficient = True
@@ -135,51 +150,59 @@ def get_atom_site_mixing_dict(
                     is_second_label_site_deficient = False
                     print("The second label site is NOT deficient")
 
-                # Check whether atomic mixing occurs
-                is_first_label_atomic_mixed = None
-                is_second_label_atomic_mixed = None
-                
-                # Check for atomic mixing
-                # Subtract current label coordinates occupacny from the sum,
-                # If is zero, then no atomic mixing
-                if (coord_occupancy_sum[first_label_coord] - first_label_occupancy) == 0:
-                    print("No atomic mixing for first label!")
-                    is_first_label_atomic_mixed = False
-                else:
-                    print("Atomic mixing for first label!")
-                    is_first_label_atomic_mixed = True
+            '''
+            Step 5. Check mixing at the pair level
+            - Subtract current label coordinates occupacny from the sum,
+            - If is zero, then no atomic mixing
+            '''
 
-                if (coord_occupancy_sum[second_label_coord] - second_label_occupancy) == 0:
-                    print("No atomic mixing for second label!")
-                    is_second_label_atomic_mixed = False
-                else:
-                    print("Atomic mixing for second label!")
-                    is_second_label_atomic_mixed = True
+            is_first_label_atomic_mixed = None
+            is_second_label_atomic_mixed = None
 
-                if ((is_first_label_site_deficient and not is_first_label_atomic_mixed) or 
-                    (is_second_label_site_deficient and not is_second_label_atomic_mixed)):
-                    print("This must be 3")
-                    atom_site_pair_dict[pair] = "3"
+            if (coord_occupancy_sum[first_label_coord] - first_label_occupancy) == 0:
+                print("No atomic mixing for first label!")
+                is_first_label_atomic_mixed = False
+            else:
+                print("Atomic mixing for first label!")
+                is_first_label_atomic_mixed = True
 
-                print("\n")
+            if (coord_occupancy_sum[second_label_coord] - second_label_occupancy) == 0:
+                print("No atomic mixing for second label!")
+                is_second_label_atomic_mixed = False
+            else:
+                print("Atomic mixing for second label!")
+                is_second_label_atomic_mixed = True
 
-                    
 
-            # Step 2. If the occupancy info is <1, check whether the sum is 1
+            '''
+            Step 6. Assign occupancy category for each pair label
+            '''
+            
+            # Assign "3" for "deficiency_no_atomic_mixing"
+            # Check 1. One of the labels is deficient
+            # Check 2. Both labels are not atomic mixed
+            if ((is_first_label_site_deficient or is_second_label_site_deficient) and
+                (not is_first_label_atomic_mixed and not is_second_label_atomic_mixed)):
+                print("This deficiency_no_atomic_mixing,  3")
+                atom_site_pair_dict[pair] = "3"
 
-    '''
-    527000: Rh-Si 2.28 deficiency, Rh-Rh 2.523 full, 
-    Rh2 Rh 2 d 0.333333 0.666667 0.75 0.38
-    Si Si 2 c 0.333333 0.666667 0.25 1
-    Rh1 Rh 2 a 0 0 0 1
+            # Assign "2" for "full_occupancy_atomic_mixing"
+            # Check 1. Both labels are not deficient
+            # Check 2. At least one label is atomic mixed
+            if ((not is_first_label_site_deficient and not is_second_label_site_deficient) and
+                (is_first_label_atomic_mixed or is_second_label_atomic_mixed)):
+                print("This is full_occupancy_atomic_mixing, 2")
+                atom_site_pair_dict[pair] = "2"
 
-    Summary:
-    Pair: Rh2-Si 2.28 Å - Deficiency, no atomic mixing
-    Pair: Rh1-Rh1 2.524 Å - Full
+            # Assign "1" for "deficiency"
+            # Check 1. At least one label is deficient
+            # Check 2. At least one label mixed
+            if ((is_first_label_site_deficient or is_second_label_site_deficient) and
+                (is_first_label_atomic_mixed or is_second_label_atomic_mixed)):
+                print("This is deficiency, 1")
+                atom_site_pair_dict[pair] = "1"
 
-    Missing pairs:
-    Si-Si
-    '''
+            print()
 
     return atom_site_pair_dict
 

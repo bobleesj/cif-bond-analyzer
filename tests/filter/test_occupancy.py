@@ -73,6 +73,10 @@ def test_get_atom_site_mixing_dict_type_3(get_cif_527000_loop_values):
     )
 
     # Mendeleev # - Rh 59, Si 78
+    '''
+    Pair: Rh2-Si 2.28 Å - deficiency_no_atomic_mixing
+    Pair: Rh1-Rh1 2.524 Å - full_occupancy
+    '''
     assert len(atom_site_pair_dict) == 6
     assert atom_site_pair_dict[("Rh1", "Si")] == "4"
     assert atom_site_pair_dict[("Rh1", "Rh1")] == "4"
@@ -82,9 +86,41 @@ def test_get_atom_site_mixing_dict_type_3(get_cif_527000_loop_values):
     assert atom_site_pair_dict[("Rh2", "Si")] == "3"
 
 
+@pytest.mark.now
+def test_get_atom_site_mixing_dict_type_2(get_cif_1831432_loop_values):
+    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+        get_cif_1831432_loop_values
+    )
+
+    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_file_info,
+        get_cif_1831432_loop_values
+    )
+
+    '''
+    Mendeleev # - Fe 55, Ge 79
+    1831432.cif
+    Fe Fe 8 b 0.375 0.375 0.375 0.01
+    Ge1 Ge 8 a 0.125 0.125 0.125 0.944
+    Fe2 Fe 8 a 0.125 0.125 0.125 0.056
+    
+    Result:
+    Fe-Fe 2.448 deficiency,
+    Fe-Ge 2.448 mixing-deficiency,
+    Fe-Fe 2.448 mixing-deficiency
+    '''
+    assert len(atom_site_pair_dict) == 6
+    assert atom_site_pair_dict[("Fe", "Fe")] == "3"
+    assert atom_site_pair_dict[("Fe", "Fe2")] == "1"
+    assert atom_site_pair_dict[("Fe", "Ge1")] == "1" 
+    assert atom_site_pair_dict[("Fe2", "Ge1")] == "2"
+    assert atom_site_pair_dict[("Fe2", "Fe2")] == "2"
+    assert atom_site_pair_dict[("Ge1", "Ge1")] == "2"
+    
+    
     '''
     if is_atomic_mixing and not is_full_occupancy:
-        # "deficiency"
+        # "deficiency" (atomic mixing has to occur)
         return "1"
 
     elif is_atomic_mixing and is_full_occupancy:
@@ -98,13 +134,4 @@ def test_get_atom_site_mixing_dict_type_3(get_cif_527000_loop_values):
     elif is_full_occupancy:
         # "full_occupancy"
         return "4"
-        
-    527000
-    assert atom_site_pair_dict["Rh2-Si"] == "3"
-    assert atom_site_pair_dict["Rh1-Rh1"] == "4"
-    # We need to sort using Mendeleev number
-    Rh - 59
-    Si - 78
-    Pair: Rh2-Si 2.28 Å - deficiency_no_atomic_mixing
-    Pair: Rh1-Rh1 2.524 Å - full_occupancy
     '''
