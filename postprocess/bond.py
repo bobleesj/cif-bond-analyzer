@@ -35,110 +35,53 @@ def process_and_order_pairs(all_points, atomic_pair_list):
             pair['coordinates'] = pair['coordinates'][::-1]
 
         processed_pairs_ordered.append(pair)
-    
+
     return processed_pairs_ordered
 
 
-# Include 
-def remove_duplicate_pairs(unique_pairs_distances):
-    '''
-    unique_pairs_distances_test_2 = {
-        ('Ga1A', 'Ga1'): ['2.601'],
-        ('Ga1', 'La1'): ['3.291'],
-        ('Co1B', 'Ga1'): ['2.601'],
-        ('Ga1', 'Ga1A'): ['2.601'],
-        ('Ga1', 'Ga1'): ['2.358']}
-
-    to 
-
-    adjusted_pairs_test_2 == {
-        ('Ga1A', 'Ga1'): ['2.601'],
-        ('Ga1', 'La1'): ['3.291'],
-        ('Co1B', 'Ga1'): ['2.601'],
-        ('Ga1', 'Ga1A'): ['2.601'],
-        ('Ga1', 'Ga1'): ['2.358']}
-    '''
-    
-    ## First 
-
-    adjusted_pairs = {}
-    for pair, distances in unique_pairs_distances.items():
-        pair = tuple((get_atom_type(atom) for atom in pair))
-        current_distance = float(distances[0])
-
-        # If the pair already exists, compare distances and keep the smallest
-        if pair in adjusted_pairs:
-            existing_distance = float(adjusted_pairs[pair][0])
-            if current_distance < existing_distance:
-                adjusted_pairs[pair] = [distances[0]]
-        else:
-            adjusted_pairs[pair] = distances
-
-    return adjusted_pairs
-
-
-
-# Include 
-def strip_labels_and_remove_duplicate(unique_pairs_distances):
-    '''
-    unique_pairs_distances_test_2 = {
-        ('Ga1A', 'Ga1'): ['2.601'],
-        ('Ga1', 'La1'): ['3.291'],
-        ('Co1B', 'Ga1'): ['2.601'],
-        ('Ga1', 'Ga1A'): ['2.601'],
-        ('Ga1', 'Ga1'): ['2.358']}
-
-    to 
-
-    adjusted_pairs_test_2 == {
-        ('Ga', 'Ga'): ['2.358'],
-        ('Ga', 'La'): ['3.291'],
-        ('Co', 'Ga'): ['2.601']}
-
-    '''
-
-    adjusted_pairs = {}
-    for pair, distances in unique_pairs_distances.items():
-        pair = tuple((get_atom_type(atom) for atom in pair))
-        current_distance = float(distances[0])
-
-        # If the pair already exists, compare distances and keep the smallest
-        if pair in adjusted_pairs:
-            existing_distance = float(adjusted_pairs[pair][0])
-            if current_distance < existing_distance:
-                adjusted_pairs[pair] = [distances[0]]
-        else:
-            adjusted_pairs[pair] = distances
-
-    return adjusted_pairs
-
-
-def get_sorted_missing_pairs(adjusted_unique_pairs_distances):
+def get_all_ordered_pairs_from_set(dict):
     # Extract all unique elements from the pairs
-    unique_elements = list(set([element for pair in adjusted_unique_pairs_distances.keys() for element in pair]))
+    unique_labels = set()
 
+    for pair in dict.keys():
+        element_1, element_2 = pair.split('-')  # Assuming '-' is used as the delimiter
+        unique_labels.add(element_1)
+        unique_labels.add(element_2)
+        
     # Generate all possible pairs (with ordering matter)
-    # Assuming unique_elements is a list of unique chemical elements
-
-    all_possible_pairs = list(product(unique_elements, repeat=2))
+    all_pairs = list(product(unique_labels, repeat=2))
 
     # Order pairs based on Mendeleev ordering
-    all_possible_pairs = (
-        [tuple(pair_order.order_pair_by_mendeleev(pair)) for pair in all_possible_pairs]
+    all_pairs_ordered = ([
+        tuple(
+            pair_order.order_pair_by_mendeleev(pair)
+        ) for pair in all_pairs
+    ])
+    
+    # Remove duplicates from all possible pairs
+    all_pairs_ordered_unique = list(set(all_pairs_ordered))
+    
+    return all_pairs_ordered_unique
+
+
+def get_sorted_missing_pairs(dict):
+    
+    all_pairs = get_all_ordered_pairs_from_set(
+        dict
     )
-
-    # Remove duplicates after sorting
-    all_possible_pairs = list(set(all_possible_pairs))
-
+    
+    pairs_found = set(
+        tuple(
+            pair_order.order_pair_by_mendeleev(tuple(pair.split('-')))
+        ) for pair in dict.keys()
+    )
+    
     # Sort the pairs in the data as well before comparison
-    pair_list = (
-        [tuple((pair)) for pair in adjusted_unique_pairs_distances.keys()]
-    )
+    missing_pairs = [
+        pair for pair in all_pairs if pair not in pairs_found
+    ]
 
-    # Find the pairs that are not in the data
-    missing_pair_list = [pair for pair in all_possible_pairs if pair not in pair_list]
-
-    return pair_list, missing_pair_list
+    return missing_pairs
 
 
 def get_unique_pairs_dict(ordered_pairs, filename):
@@ -173,12 +116,60 @@ def get_unique_pairs_dict(ordered_pairs, filename):
     return unique_pairs_dict
 
 
-def get_unique_pairs_distances(global_pairs_data):
-    unique_pairs_distances = {}
-    for filename, pairs in global_pairs_data.items():
-        for pair, dist in pairs.items():
-            if pair not in unique_pairs_distances:
-                unique_pairs_distances[pair] = [dist]
+def get_dist_mix_pair_dict(dist_mix_pair_dict,
+                           unique_pairs_dict,
+                           label_pair_mixing_dict):
+    
+    '''
+    returns
+    {
+    "Co1A-Co2A": {
+        "560709": {
+            "dist": "2.501",
+            "mixing": "2"
+        }
+    },
+    "Co1A-Ga2B": {
+        "560709": {
+            "dist": "2.501",
+            "mixing": "2"
+        }
+    },
+    '''
+
+    for filename, pairs in unique_pairs_dict.items():
+        for labels, pair in pairs.items():
+            pair_tuple_ordered = pair_order.order_pair_by_mendeleev(
+                (labels[0], labels[1])
+            )
+            label_1 = pair_tuple_ordered[0]
+            label_2 = pair_tuple_ordered[1]
+            dist = round(pair['distance'], 3)
+            dist_str = str(dist)
+
+            # Convert dist back to float for comparison
+            pair_key = f"{label_1}-{label_2}"
+            pair_mixing_category = label_pair_mixing_dict[pair_tuple_ordered]
+
+            # Initialize pair_key if not exists
+            if pair_key not in dist_mix_pair_dict:
+                dist_mix_pair_dict[pair_key] = {}
+
+            # Check if the file is already associated with the pair_key
+            if filename in dist_mix_pair_dict[pair_key]:
+                # Update only if the new distance is shorter
+                if dist < float(dist_mix_pair_dict[pair_key][filename]["dist"]):
+                    dist_mix_pair_dict[pair_key][filename] = {
+                        "mixing": pair_mixing_category,
+                        "dist": dist_str
+                    }
             else:
-                unique_pairs_distances[pair].append(dist)
-    return unique_pairs_distances
+                # If the file is not associated yet, add it directly
+                dist_mix_pair_dict[pair_key][filename] = {
+                    "mixing": pair_mixing_category,
+                    "dist": dist_str
+                }
+
+    return dist_mix_pair_dict
+
+

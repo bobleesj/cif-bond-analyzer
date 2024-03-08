@@ -1,0 +1,156 @@
+Summary:
+Pair: Ge1-Ge1, Count: 9 Distances: 2.265, 2.280, 2.290, 2.304, 2.329, 2.352, 2.359, 2.383, 2.396
+Pair: Rh1-Ge1, Count: 5 Distances: 2.481, 2.499, 2.515, 2.519, 2.538
+Pair: Ru1-Ge1, Count: 3 Distances: 2.535, 2.543, 2.554
+Pair: Eu1-Ge1, Count: 2 Distances: 3.179, 3.182
+Pair: Pr1-Ge1, Count: 2 Distances: 3.161, 3.220
+Pair: Ce1-Ge1, Count: 1 Distances: 3.227
+Pair: Ce1-Ge1A, Count: 1 Distances: 3.141
+Pair: Ce1-Ni1B, Count: 1 Distances: 3.141
+Pair: Ge,Ni1-Ge,Ni1, Count: 1 Distances: 2.401
+Pair: Ge,Ni1-Ge,Ni2, Count: 1 Distances: 2.401
+Pair: Ge,Ni2-Ge,Ni2, Count: 1 Distances: 2.401
+Pair: Ge1A-Ge1A, Count: 1 Distances: 2.226
+Pair: Ho1-Ge1, Count: 1 Distances: 3.120
+Pair: Ir1-Ge1, Count: 1 Distances: 2.537
+Pair: La1-Ge1, Count: 1 Distances: 3.241
+Pair: Nd1-Ge1, Count: 1 Distances: 3.157
+Pair: Ni1-Ge1A, Count: 1 Distances: 2.477
+Pair: Ni1-Ni1B, Count: 1 Distances: 2.477
+Pair: Ni1B-Ge1A, Count: 1 Distances: 2.226
+Pair: Ni1B-Ni1B, Count: 1 Distances: 2.226
+Pair: Pr-Ge,Ni1, Count: 1 Distances: 3.168
+Pair: Pr-Ge,Ni2, Count: 1 Distances: 3.168
+Pair: Sm1-Ge1, Count: 1 Distances: 3.141
+
+Missing pairs:
+Ce1-Ce1
+Ce1-Eu1
+Ce1-Ge,Ni1
+Ce1-Ge,Ni2
+Ce1-Ho1
+Ce1-Ir1
+Ce1-Nd1
+Ce1-Ni1
+Ce1-Pr
+Ce1-Pr1
+Ce1-Rh1
+Ce1-Ru1
+Ce1-Sm1
+Eu1-Eu1
+Eu1-Ge,Ni1
+Eu1-Ge,Ni2
+Eu1-Ge1A
+Eu1-Ho1
+Eu1-Ir1
+Eu1-Ni1
+Eu1-Ni1B
+Eu1-Rh1
+Eu1-Ru1
+Ge,Ni1-Ge1
+Ge,Ni1-Ge1A
+Ge,Ni2-Ge1
+Ge,Ni2-Ge1A
+Ge1-Ge1A
+Ho1-Ge,Ni1
+Ho1-Ge,Ni2
+Ho1-Ge1A
+Ho1-Ho1
+Ho1-Ir1
+Ho1-Ni1
+Ho1-Ni1B
+Ho1-Rh1
+Ho1-Ru1
+Ir1-Ge,Ni1
+Ir1-Ge,Ni2
+Ir1-Ge1A
+Ir1-Ir1
+Ir1-Ni1
+Ir1-Ni1B
+La1-Ce1
+La1-Eu1
+La1-Ge,Ni1
+La1-Ge,Ni2
+La1-Ge1A
+La1-Ho1
+La1-Ir1
+La1-La1
+La1-Nd1
+La1-Ni1
+La1-Ni1B
+La1-Pr
+La1-Pr1
+La1-Rh1
+La1-Ru1
+La1-Sm1
+Nd1-Eu1
+Nd1-Ge,Ni1
+Nd1-Ge,Ni2
+Nd1-Ge1A
+Nd1-Ho1
+Nd1-Ir1
+Nd1-Nd1
+Nd1-Ni1
+Nd1-Ni1B
+Nd1-Rh1
+Nd1-Ru1
+Nd1-Sm1
+Ni1-Ge,Ni1
+Ni1-Ge,Ni2
+Ni1-Ge1
+Ni1-Ni1
+Ni1B-Ge,Ni1
+Ni1B-Ge,Ni2
+Ni1B-Ge1
+Pr-Eu1
+Pr-Ge1
+Pr-Ge1A
+Pr-Ho1
+Pr-Ir1
+Pr-Nd1
+Pr-Ni1
+Pr-Ni1B
+Pr-Pr
+Pr-Pr1
+Pr-Rh1
+Pr-Ru1
+Pr-Sm1
+Pr1-Eu1
+Pr1-Ge,Ni1
+Pr1-Ge,Ni2
+Pr1-Ge1A
+Pr1-Ho1
+Pr1-Ir1
+Pr1-Nd1
+Pr1-Ni1
+Pr1-Ni1B
+Pr1-Pr1
+Pr1-Rh1
+Pr1-Ru1
+Pr1-Sm1
+Rh1-Ge,Ni1
+Rh1-Ge,Ni2
+Rh1-Ge1A
+Rh1-Ir1
+Rh1-Ni1
+Rh1-Ni1B
+Rh1-Rh1
+Ru1-Ge,Ni1
+Ru1-Ge,Ni2
+Ru1-Ge1A
+Ru1-Ir1
+Ru1-Ni1
+Ru1-Ni1B
+Ru1-Rh1
+Ru1-Ru1
+Sm1-Eu1
+Sm1-Ge,Ni1
+Sm1-Ge,Ni2
+Sm1-Ge1A
+Sm1-Ho1
+Sm1-Ir1
+Sm1-Ni1
+Sm1-Ni1B
+Sm1-Rh1
+Sm1-Ru1
+Sm1-Sm1

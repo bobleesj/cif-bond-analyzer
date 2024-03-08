@@ -47,7 +47,7 @@ def main(is_iteractive_mode=True, dir_path=None):
     PART 2: PREPROCESS
     '''
     
-    dist_mixing_file_per_pair_dict = {}
+    dist_mix_pair_dict = {}
 
     overall_start_time = time.perf_counter()
     # For each file in the list of files
@@ -90,9 +90,6 @@ def main(is_iteractive_mode=True, dir_path=None):
         atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
             CIF_loop_values
         )
-
-        # Add atom_site_info to the file name
-        
         
         # Get atom site pair information
         label_pair_mixing_dict = occupancy.get_atom_site_mixing_dict(
@@ -111,45 +108,14 @@ def main(is_iteractive_mode=True, dir_path=None):
             filename
         )
         
-        # Save to the global pair data
-        for filename, pairs in unique_pairs_dict.items():
-            
-            for labels, pair in pairs.items():
-                pair_tuple_ordered = pair_order.order_pair_by_mendeleev(
-                    (labels[0], labels[1])
-                )
-                label_1 = pair_tuple_ordered[0]
-                label_2 = pair_tuple_ordered[1]
-                dist = round(pair['distance'], 3)
-                dist_str = str(dist)
-
-                # Convert dist back to float for comparison
-            
-                pair_key = f"{label_1}-{label_2}"
-                pair_mixing_category = label_pair_mixing_dict[pair_tuple_ordered]
-                
-                # Initialize pair_key if not exists
-                if pair_key not in dist_mixing_file_per_pair_dict:
-                    dist_mixing_file_per_pair_dict[pair_key] = {}
-                
-                # Check if the file is already associated with the pair_key
-                if filename in dist_mixing_file_per_pair_dict[pair_key]:
-                    # Update only if the new distance is shorter
-                    if dist < float(dist_mixing_file_per_pair_dict[pair_key][filename]["dist"]):
-                        dist_mixing_file_per_pair_dict[pair_key][filename] = {
-                            "mixing": pair_mixing_category,
-                            "dist": dist_str
-                        }
-                else:
-                    # If the file is not associated yet, add it directly
-                    dist_mixing_file_per_pair_dict[pair_key][filename] = {
-                        "mixing": pair_mixing_category,
-                        "dist": dist_str
-                    }
-                    
+        dist_mix_pair_dict = bond.get_dist_mix_pair_dict(
+            dist_mix_pair_dict,
+            unique_pairs_dict,
+            label_pair_mixing_dict
+        )
+        
         elapsed_time = time.perf_counter() - start_time
 
-        prompt.print_dict_in_json(dist_mixing_file_per_pair_dict)
         prompt.print_progress(
             filename_with_ext,
             num_of_atoms,
@@ -164,55 +130,35 @@ def main(is_iteractive_mode=True, dir_path=None):
         }
         log_list.append(data)
 
-    # except Exception as e:
-    #     print(f'Error processing file {filename}: {e}')
-    #     error_files.append(filename)
+    prompt.print_dict_in_json(dist_mix_pair_dict)
 
     '''
     PART 3: OUTPUT
     '''
-
-    # print("\nlabel_pair_mixing_dict")
-    # print(label_pair_mixing_dict)
+    # 1. Get missing label missing tuple
+    missing_pairs = bond.get_sorted_missing_pairs(
+        dist_mix_pair_dict
+    )
     
-    # # Find the unique pairs and its count across all files
-    # unique_pairs_distances = bond.get_unique_pairs_distances(global_pairs_data)
-    
-    # print('\nunique_pairs_distances', unique_pairs_distances)
-
-    # pair_tuples, missing_pair_tuples = bond.get_sorted_missing_pairs(
-    #     unique_pairs_distances
-    # )
 
     '''
     # PART 4: SAVE & PLOT
     # '''
 
-    # if len(file_path_list) > 0:
-    #     # Create a directory if needed
-    #     output_directory_path = os.path.join(dir_path, "output")
+    if len(file_path_list) > 0:
+        # Create a directory if needed
+        output_directory_path = os.path.join(dir_path, "output")
 
-    #     # Check if the output directory exists, create it if it does not
-    #     if not os.path.exists(output_directory_path):
-    #         os.makedirs(output_directory_path)
+        # Check if the output directory exists, create it if it does not
+        if not os.path.exists(output_directory_path):
+            os.makedirs(output_directory_path)
 
-    #     adjusted_pairs_distances = bond.strip_labels_and_remove_duplicate(
-    #         unique_pairs_distances
-    #     )
 
-    #     sorted_pairs_by_count = sorted(
-    #         adjusted_pairs_distances.items(),
-    #         key=lambda item: (len(item[1]), item[0]),
-    #         reverse=True
-    #     )
-
-    #     sorted_pairs_by_count_dict = dict(sorted_pairs_by_count)
-
-    #     folder.write_summary_and_missing_pairs(
-    #         sorted_pairs_by_count_dict,
-    #         missing_pair_tuples,
-    #         dir_path
-    #     )
+        folder.write_summary_and_missing_pairs(
+            dist_mix_pair_dict,
+            missing_pairs,
+            dir_path
+        )
 
     #     folder.save_to_csv_directory(
     #         dir_path,

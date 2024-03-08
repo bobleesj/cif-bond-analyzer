@@ -77,41 +77,51 @@ def remove_file(file_path):
         os.remove(file_path)
 
 
-def write_summary_and_missing_pairs(unique_pairs_distances, missing_pairs, directory_path):
+def write_summary_and_missing_pairs(
+            dist_mix_pair_dict,
+            missing_pairs,
+            dir_path):
     """
     Writes a summary of unique atomic pairs, including counts and distances,
     and a list of missing pairs to a file.
 
     Parameters:
-    - unique_pairs_distances: A dictionary with atomic pairs as keys and lists of distances as values.
+    - unique_pairs_distances: A dictionary with atomic pairs as keys and lists.
     - missing_pairs: A list of tuples representing missing atomic pairs.
-    - directory_path: The path to the directory where the summary file will be saved.
+    - directory_path: The path to the directory where the summary file savde.
     """
 
-    file_path = os.path.join(directory_path, "output", "summary_and_missing_pairs.txt")
-    with open(file_path, 'w') as file:
-        print("\nSummary:")
-        file.write("Summary:\n")
-        for pair, distances in unique_pairs_distances.items():
-            atom_1 = pair[0].strip()
-            atom_2 = pair[1].strip()
-            count = len(distances)
-            distances_str = ''.join([f"{round(float(dist), 3):6.3f}" for dist in distances])
-            file.write(f"Pair: {atom_1}-{atom_2}, Count: {count}, Distances:{distances_str}\n")
-            print(f"Pair: {atom_1}-{atom_2}, Count: {count}, Distances:{distances_str}")
+    file_path = os.path.join(dir_path, "output", "summary.txt")
 
+    # Step 1: Collect data
+    data = []
+    for pair, files in dist_mix_pair_dict.items():
+        distances = sorted(float(info['dist']) for info in files.values())
+        count = len(distances)
+        distances_str = ', '.join(f"{distance:.3f}" for distance in distances)
+        data.append((pair, count, distances_str))
+    
+    # Step 2: Sort the data first by count (descending) then by pair name (ascending)
+    sorted_data = sorted(data, key=lambda x: (-x[1], x[0]))
+
+    # Step 3: Write sorted data to file
+    with open(file_path, 'w') as file:
+        file.write("Summary:\n")
+        for pair, count, distances_str in sorted_data:
+            file.write(f"Pair: {pair}, Count: {count} Distances: {distances_str}\n")
+
+        # x[0][0] - use 1st cha of the first element
+        # x[0] - use the first element to sort
+        # x[1] - use the second element to sort
         print("\nMissing pairs:")
         file.write("\nMissing pairs:\n")
-        for pair in missing_pairs:
+        missing_pairs_sorted = sorted(
+            missing_pairs, key=lambda x: (x[0][0], x[0], x[1])
+        )
+        for pair in missing_pairs_sorted:
             atom_1 = pair[0].strip()
             atom_2 = pair[1].strip()
             file.write(f"{atom_1}-{atom_2}\n")
             print((f"{atom_1}-{atom_2}"))
 
     print(f"\nSummary and missing pairs saved to {file_path}")
-
-
-def get_file_type(atom_site_list):
-    file_type_map = {2: "binary", 3: "ternary", 4: "quaternary"}
-    unique_atom_count = len(set(atom_site_list))
-    return file_type_map.get(unique_atom_count, "other")
