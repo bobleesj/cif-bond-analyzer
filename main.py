@@ -10,11 +10,12 @@ import postprocess.bond as bond
 import postprocess.histogram as histogram
 import util.folder as folder
 import util.prompt as prompt
+import postprocess.pair_order as pair_order
 import filter.occupancy as occupancy
 import postprocess.excel as excel
 
 
-def main(is_iteractive_mode = True, dir_path = None):
+def main(is_iteractive_mode=True, dir_path=None):
     prompt.print_intro_prompt()
 
     '''
@@ -22,7 +23,6 @@ def main(is_iteractive_mode = True, dir_path = None):
     '''
 
     error_files = []
-    global_pairs_data = {}
     log_list = []
     file_path_list = None
 
@@ -33,18 +33,21 @@ def main(is_iteractive_mode = True, dir_path = None):
     
         # If the user chooses no option, then it's simply 3
         if not supercell_method_large_cif:
-            print("\nYour default option is generating a 2-2-2 supercell for files"
-                "more than 100 atoms in the unit cell.")
+            print("\nYour default option is generating a 2-2-2 supercell for",
+                "files more than 100 atoms in the unit cell.")
             supercell_method_large_cif = 1
-    
+
     if not is_iteractive_mode:
         file_path_list = folder.get_cif_file_path_list(dir_path)
         supercell_method_large_cif = 1
 
     file_path_list = folder.get_cif_file_path_list(dir_path)
+
     '''
     PART 2: PREPROCESS
     '''
+    
+    dist_mix_pair_dict = {}
 
     overall_start_time = time.perf_counter()
     # For each file in the list of files
@@ -53,124 +56,93 @@ def main(is_iteractive_mode = True, dir_path = None):
         filename_with_ext = os.path.basename(file_path)
         filename, ext = os.path.splitext(filename_with_ext)
         num_of_atoms = None
+    
+        # Process CIF files and return a list of coordinates
+        result = cif_parser_handler.get_CIF_info(
+            file_path,
+            cif_parser.get_loop_tags(),
+            supercell_method_large_cif
+        )
+
+        CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
+            file_path
+        )
+
+        _, lenghts, angles_rad, _, all_points, _, atom_site_list = result
+
+        num_of_atoms = len(all_points)
+        index = f"({i+1}/{len(file_path_list)})"
+
+        echo(
+            style(
+                f"Processing {filename_with_ext} with "
+                f"{num_of_atoms} atoms {index}", fg="yellow"
+            )
+        )
+
+        atomic_pair_list = supercell.get_atomic_pair_list(
+            all_points,
+            lenghts,
+            angles_rad
+        )
+
+        # Get atomic site mixing info -> String
+        atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+            CIF_loop_values
+        )
         
-        try:
-            # Process CIF files and return a list of coordinates
-            result = cif_parser_handler.get_CIF_info(
-                file_path,
-                cif_parser.get_loop_tags(),
-                supercell_method_large_cif
-            )
+        # Get atom site pair information
+        label_pair_mixing_dict = occupancy.get_atom_site_mixing_dict(
+            atom_site_mixing_file_info, CIF_loop_values
+        )
+        
+        # Find the shortest pair from each reference atom
+        ordered_pairs = bond.process_and_order_pairs(
+            all_points,
+            atomic_pair_list
+        )
 
-            CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
-                file_path
-            )
+        # Determine unique pairs and get the shortest dist for each pair
+        unique_pairs_dict = bond.get_unique_pairs_dict(
+            ordered_pairs,
+            filename
+        )
+        
+        dist_mix_pair_dict = bond.get_dist_mix_pair_dict(
+            dist_mix_pair_dict,
+            unique_pairs_dict,
+            label_pair_mixing_dict
+        )
+        
+        elapsed_time = time.perf_counter() - start_time
 
-            _, lenghts, angles_rad, _, all_points, _, atom_site_list = result
+        prompt.print_progress(
+            filename_with_ext,
+            num_of_atoms,
+            elapsed_time,
+            is_finished=True
+        )
 
-            num_of_atoms = len(all_points)
-            index = f"({i+1}/{len(file_path_list)})"
+        data = {
+            'File': filename,
+            "Number of atoms in supercell": num_of_atoms,
+            "Processing time (s)": round(elapsed_time, 3)
+        }
+        log_list.append(data)
 
-            echo(
-                style(
-                    f"Processing {filename_with_ext} with "
-                    f"{num_of_atoms} atoms {index}", fg="yellow"
-                )
-            )
-
-            atomic_pair_list = supercell.get_atomic_pair_list(
-                all_points,
-                lenghts,
-                angles_rad
-            )
-
-            # Get atomic site mixing info -> String
-            atom_site_mixing_info = occupancy.get_atom_site_mixing_info(
-                filename,
-                CIF_loop_values
-            )
-
-            # Add atom_site_info to the file name
-            filename += f"-{atom_site_mixing_info}"
-   
-            # Find the shortest pair form each atom
-            ordered_pairs = bond.process_and_order_pairs(
-                all_points,
-                atomic_pair_list
-            )
-
-            # Determine unique pairs and get the shortest dist for each pair
-            unique_pairs_dict = bond.get_unique_pairs_dict(
-                ordered_pairs,
-                filename
-            )
-
-            # Sort the pair alphabetically
-            for filename, pairs in unique_pairs_dict.items():
-                global_pairs_data[filename] = {}
-                for labels, pair in pairs.items():
-                    atom_1, atom_2 = sorted(
-                        [cif_parser.get_atom_type(labels[0]),
-                        cif_parser.get_atom_type(labels[1])]
-                    )
-
-                    # Calculate the distance and keep it as a string for now
-                    dist_str = str(round(pair['distance'], 3))
-
-                    # Convert dist back to float for comparison
-                    dist = float(dist_str)
-
-                    pair_tuple = (atom_1, atom_2)  # Create a tuple to use as a key
-
-                    # Check if this pair already exists and if the new distance is shorter
-                    if pair_tuple not in global_pairs_data[filename] or dist < float(global_pairs_data[filename][pair_tuple]):
-                        global_pairs_data[filename][pair_tuple] = dist_str  # Store the distance as a string
-                        print(f"Pair: {atom_1}-{atom_2} {dist_str} Å")
-                    else:
-                        # Optional: Acknowledge existing pair with a longer distance not updated
-                        existing_dist = global_pairs_data[filename][pair_tuple]
-                        print(f"Existing pair: {atom_1}-{atom_2} with distance {existing_dist} Å not updated, new distance {dist_str} Å is not shorter.")
-
-                    elapsed_time = time.perf_counter() - start_time
-
-            echo(style(
-                f"Processed {filename_with_ext} with {num_of_atoms} atoms in "
-                f"{round(elapsed_time, 2)} s\n",
-                fg="blue"
-            ))
-
-            # Append a row to the log csv file
-            base_filename, _ = filename.split('-')
-
-            data = {
-                'File': f"{base_filename}.cif",
-                "Number of atoms in supercell": num_of_atoms,
-                "Processing time (s)": round(elapsed_time, 3)
-            }
-            log_list.append(data)
-
-        except Exception as e:
-            print(f'Error processing file {filename}: {e}')
-            error_files.append(filename)
+    prompt.print_dict_in_json(dist_mix_pair_dict)
 
     '''
     PART 3: OUTPUT
     '''
-   
-    # Find the unique pairs and its count across all files
-    unique_pairs_distances = bond.get_unique_pairs_distances(global_pairs_data)
-
-    adjusted_pairs_distances = bond.strip_labels_and_remove_duplicate(
-        unique_pairs_distances
-    )
-
-    pair_tuples, missing_pair_tuples = bond.get_sorted_missing_pairs(
-        adjusted_pairs_distances
+    # 1. Get missing label missing tuple
+    missing_pairs = bond.get_sorted_missing_pairs(
+        dist_mix_pair_dict
     )
 
     '''
-    PART 4: SAVE & PLOT
-    '''
+    # PART 4: SAVE & PLOT
+    # '''
 
     if len(file_path_list) > 0:
         # Create a directory if needed
@@ -180,51 +152,35 @@ def main(is_iteractive_mode = True, dir_path = None):
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
 
-        adjusted_pairs_distances = bond.strip_labels_and_remove_duplicate(
-            unique_pairs_distances
-        )
-
-        sorted_pairs_by_count = sorted(
-            adjusted_pairs_distances.items(),
-            key=lambda item: (len(item[1]), item[0]),
-            reverse=True
-        )
-        sorted_pairs_by_count_dict = dict(sorted_pairs_by_count)
-        # Sort pair based on the shortest distance
-        print("sorted_pairs", sorted_pairs_by_count_dict)
-
         folder.write_summary_and_missing_pairs(
-            sorted_pairs_by_count_dict,
-            missing_pair_tuples,
+            dist_mix_pair_dict,
+            missing_pairs,
             dir_path
         )
+        
+        # Save Excel file
+        data = excel.write_excel_json(
+            dist_mix_pair_dict,
+            dir_path
+        )
+                
+        # Draw histograms
+        histogram.plot_histograms_from_data(
+            dist_mix_pair_dict,
+            dir_path
+        )
+        
+        total_elapsed_time = time.perf_counter() - overall_start_time
+        print(f"Total processing time: {total_elapsed_time:.2f}s")
 
+        # Save log csv
         folder.save_to_csv_directory(
             dir_path,
             pd.DataFrame(log_list),
             "log"
         )
 
-        json_data = excel.write_excel_json(
-            dir_path,
-            pair_tuples,
-            global_pairs_data
-        )
 
-        histogram.plot_histograms_from_data(json_data, dir_path)
-
-        total_elapsed_time = time.perf_counter() - overall_start_time
-        print(f"Total processing time: {total_elapsed_time:.2f}s")
-
-    '''
-    PART 5: ERROR
-    '''
-
-    if len(error_files) > 0:
-        print(f'\nTotal files that caused errors: {len(error_files)}')
-        # Print each file that caused an error
-        for file in error_files:
-            print(f'File with error: {file}')
 
     print("\nAll files successfully processed.")
 

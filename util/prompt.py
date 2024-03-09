@@ -1,5 +1,7 @@
 import textwrap
 import click
+from click import style, echo
+import json
 
 def print_intro_prompt():
     """Filters and moves CIF files based on the shortest atomic distance."""
@@ -41,8 +43,21 @@ def get_user_input_on_supercell_method():
             click.echo("You've selected: +-1, +-1, +-1 shifts (2x2x2 supercell generation, slowest)\n")
         else:
             click.echo("Invalid option. Defaulting to No shift (fastest)\n")
-            method = 1 
+            method = 1
     else:
         method = None
 
     return method
+
+
+def print_progress(filename_with_ext, num_of_atoms, elapsed_time, is_finished):
+    if is_finished:
+        echo(style(
+            f"Processed {filename_with_ext} with {num_of_atoms} atoms in "
+            f"{round(elapsed_time, 2)} s\n",
+            fg="blue"
+        ))
+
+
+def print_dict_in_json(data):
+    print(json.dumps(data, indent=4, sort_keys=True))

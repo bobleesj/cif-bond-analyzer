@@ -60,8 +60,14 @@ def shift_and_append_points(points, atom_site_label, num_unitcell_atom, supercel
             return all_points
         
         if supercell_generation_method == 3:        
-            shifts = np.array([[0, 0, 0], [1, 0, 0], [0, 1, 0], [1, 1, 0], [0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1],
-                                [-1, 0, 0], [0, -1, 0], [-1, -1, 0], [0, 0, -1], [1, 0, -1], [0, -1, -1], [-1, -1, -1]])
+            shifts = np.array([
+                [0, 0, 0],[1, 0, 0], [0, 1, 0],
+                [1, 1, 0], [0, 0, 1], [1, 0, 1],
+                [0, 1, 1], [1, 1, 1], [-1, 0, 0],
+                [0, -1, 0], [-1, -1, 0], [0, 0, -1],
+                [1, 0, -1], [0, -1, -1], [-1, -1, -1]
+            ])
+            
             shifted_points = points[:, None, :] + shifts[None, :, :]
             all_points = []
             for point_group in shifted_points:
@@ -86,7 +92,8 @@ def shift_and_append_points(points, atom_site_label, num_unitcell_atom, supercel
 
 def get_coords_list(block, loop_values):
     """
-    Computes the new coordinates after applying symmetry operations to the initial coordinates.
+    Computes the new coordinates after applying 
+    symmetry operations to the initial coordinates.
     """
     
     loop_length = len(loop_values[0])
@@ -105,7 +112,7 @@ def get_coords_list(block, loop_values):
 
 def get_coords_after_sym_operations(block, atom_site_fract_x, atom_site_fract_y, atom_site_fract_z, atom_site_label):
     """
-    Generates a list of coordinates for each atom site in the block.
+    Generates a list of coordinates for each atom site
     """
     all_coords = set()
     for operation in block.find_loop("_space_group_symop_operation_xyz"):
@@ -151,7 +158,12 @@ def get_points_and_labels(all_coords_list, loop_values, supercell_generation_met
         unique_labels.append(atom_site_label)
         unique_atoms_tuple.append(atom_site_type)
 
-        all_points.extend(shift_and_append_points(points, atom_site_label, num_unitcell_atom, supercell_generation_method))
+        all_points.extend(shift_and_append_points(
+            points, 
+            atom_site_label,
+            num_unitcell_atom,
+            supercell_generation_method
+        ))
         
         if atom_site_type in atom_site_label:
             continue
