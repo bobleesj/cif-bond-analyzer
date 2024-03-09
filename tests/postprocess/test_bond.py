@@ -1,6 +1,4 @@
-from postprocess.bond import strip_labels_and_remove_duplicate
 import pytest
-
 
 
 @pytest.mark.fast
@@ -23,8 +21,7 @@ def test_remove_duplicate_pairs():
         ('Ga1', 'Ga1'): ['2.358']}
     '''
 
-# @pytest.mark.fast
-# def test_strip_labels_and_remove_duplicate_atom_type_pairs():
+
 
 #     # 560709.cif
 #     # Mendeleev Ga	74

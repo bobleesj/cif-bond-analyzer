@@ -107,8 +107,6 @@ def get_atom_site_mixing_dict(
 
             # Assign "4" for "full_occupancy"
             if first_label_occ == 1 and second_label_occ == 1:
-                print("Both labels have full occupancy!",
-                      "automatically set to 4\n")
                 atom_site_pair_dict[pair] = "4"
                 continue
     
