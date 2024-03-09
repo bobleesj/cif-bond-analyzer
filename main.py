@@ -158,12 +158,22 @@ def main(is_iteractive_mode=True, dir_path=None):
             dir_path
         )
         
-        json_data = excel.write_excel_json(
+        # Save Excel file
+        data = excel.write_excel_json(
             dist_mix_pair_dict,
             dir_path
         )
                 
-        # Save csv
+        # Draw histograms
+        histogram.plot_histograms_from_data(
+            dist_mix_pair_dict,
+            dir_path
+        )
+        
+        total_elapsed_time = time.perf_counter() - overall_start_time
+        print(f"Total processing time: {total_elapsed_time:.2f}s")
+
+        # Save log csv
         folder.save_to_csv_directory(
             dir_path,
             pd.DataFrame(log_list),
@@ -171,18 +181,6 @@ def main(is_iteractive_mode=True, dir_path=None):
         )
 
 
-
-    #     histogram.plot_histograms_from_data(json_data, dir_path)
-
-    #     total_elapsed_time = time.perf_counter() - overall_start_time
-    #     print(f"Total processing time: {total_elapsed_time:.2f}s")
-
-
-    # if len(error_files) > 0:
-    #     print(f'\nTotal files that caused errors: {len(error_files)}')
-    #     # Print each file that caused an error
-    #     for file in error_files:
-    #         print(f'File with error: {file}')
 
     print("\nAll files successfully processed.")
 
