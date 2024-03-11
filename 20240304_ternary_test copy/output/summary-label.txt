@@ -1,0 +1,39 @@
+Summary:
+Pair: Ge1-Ge1, Count: 2 Distances: 2.280, 2.383
+Pair: Ce1-Ge1, Count: 1 Distances: 3.227
+Pair: Ce1-Ge1A, Count: 1 Distances: 3.141
+Pair: Ce1-Ni1B, Count: 1 Distances: 3.141
+Pair: Eu1-Ge1, Count: 1 Distances: 3.182
+Pair: Ge1A-Ge1A, Count: 1 Distances: 2.226
+Pair: Ir1-Ge1, Count: 1 Distances: 2.537
+Pair: Ni1-Ge1A, Count: 1 Distances: 2.477
+Pair: Ni1-Ni1B, Count: 1 Distances: 2.477
+Pair: Ni1B-Ge1A, Count: 1 Distances: 2.226
+Pair: Ni1B-Ni1B, Count: 1 Distances: 2.226
+Pair: Ru1-Ge1, Count: 1 Distances: 2.543
+
+Missing pairs:
+Ce1-Ce1
+Ce1-Eu1
+Ce1-Ir1
+Ce1-Ni1
+Ce1-Ru1
+Eu1-Eu1
+Eu1-Ge1A
+Eu1-Ir1
+Eu1-Ni1
+Eu1-Ni1B
+Eu1-Ru1
+Ge1-Ge1A
+Ir1-Ge1A
+Ir1-Ir1
+Ir1-Ni1
+Ir1-Ni1B
+Ni1-Ge1
+Ni1-Ni1
+Ni1B-Ge1
+Ru1-Ge1A
+Ru1-Ir1
+Ru1-Ni1
+Ru1-Ni1B
+Ru1-Ru1

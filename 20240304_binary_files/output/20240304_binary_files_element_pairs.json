@@ -1,0 +1,44 @@
+{
+    "Rh-Sb": {
+        "RhSb2": {
+            "mixing": "4",
+            "dist": "2.652"
+        }
+    },
+    "Sb-Sb": {
+        "RhSb2": {
+            "mixing": "4",
+            "dist": "2.829"
+        }
+    },
+    "Th-Os": {
+        "ThOs2": {
+            "mixing": "4",
+            "dist": "3.198"
+        }
+    },
+    "Os-Os": {
+        "ThOs2": {
+            "mixing": "4",
+            "dist": "2.728"
+        }
+    },
+    "Th-Th": {
+        "ThOs2": {
+            "mixing": "4",
+            "dist": "3.341"
+        }
+    },
+    "Nd-Si": {
+        "Nd5Si3": {
+            "mixing": "4",
+            "dist": "3.082"
+        }
+    },
+    "Si-Si": {
+        "Nd5Si3": {
+            "mixing": "4",
+            "dist": "2.755"
+        }
+    }
+}

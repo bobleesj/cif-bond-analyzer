@@ -1,51 +1,57 @@
+"""
+Main script for processing CIF files.
+
+This script processes CIF files in a specified directory,
+performs preprocessing, bond analysis, and generates output files and plots.
+
+Usage:
+    python main.py
+
+Author: Sangjoon Bob Lee
+
+Date: Mar 10, 2024
+
+"""
+
 import os
 import time
-import pandas as pd
 from click import style, echo
+import pandas as pd
 
-import preprocess.cif_parser as cif_parser
-import preprocess.cif_parser_handler as cif_parser_handler
-import preprocess.supercell as supercell
-import postprocess.bond as bond
-import postprocess.histogram as histogram
-import util.folder as folder
-import util.prompt as prompt
-import postprocess.pair_order as pair_order
-import filter.occupancy as occupancy
-import postprocess.excel as excel
+from preprocess import cif_parser, cif_parser_handler, supercell
+from postprocess import bond, excel, histogram, writer
+from util import folder, prompt
+from filter import occupancy
 
 
 def main(is_iteractive_mode=True, dir_path=None):
+    """
+    Runs the Python script
+    """
     prompt.print_intro_prompt()
+    # PART 1: Choose the folder & get user input
 
-    '''
-    PART 1: Choose the folder & get user input
-    '''
-
-    error_files = []
     log_list = []
     file_path_list = None
 
     if is_iteractive_mode:
         script_directory = os.path.dirname(os.path.abspath(__file__))
         dir_path = folder.choose_CIF_directory(script_directory)
-        supercell_method_large_cif = prompt.get_user_input_on_supercell_method()
-    
+        supercell_method = prompt.get_user_input_on_supercell_method()
+
         # If the user chooses no option, then it's simply 3
-        if not supercell_method_large_cif:
+        if not supercell_method:
             print("\nYour default option is generating a 2-2-2 supercell for",
                 "files more than 100 atoms in the unit cell.")
-            supercell_method_large_cif = 1
+            supercell_method = 1
 
     if not is_iteractive_mode:
         file_path_list = folder.get_cif_file_path_list(dir_path)
-        supercell_method_large_cif = 1
+        supercell_method = 1
 
     file_path_list = folder.get_cif_file_path_list(dir_path)
 
-    '''
-    PART 2: PREPROCESS
-    '''
+    # PART 2: PREPROCESS
     
     dist_mix_pair_dict = {}
 
@@ -58,13 +64,13 @@ def main(is_iteractive_mode=True, dir_path=None):
         num_of_atoms = None
     
         # Process CIF files and return a list of coordinates
-        result = cif_parser_handler.get_CIF_info(
+        result = cif_parser_handler.get_cif_info(
             file_path,
             cif_parser.get_loop_tags(),
-            supercell_method_large_cif
+            supercell_method
         )
 
-        CIF_loop_values = cif_parser_handler.get_CIF_loop_values(
+        CIF_loop_values = cif_parser_handler.get_cif_loop_values(
             file_path
         )
 
@@ -90,12 +96,12 @@ def main(is_iteractive_mode=True, dir_path=None):
         atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
             CIF_loop_values
         )
-        
+
         # Get atom site pair information
         label_pair_mixing_dict = occupancy.get_atom_site_mixing_dict(
             atom_site_mixing_file_info, CIF_loop_values
         )
-        
+
         # Find the shortest pair from each reference atom
         ordered_pairs = bond.process_and_order_pairs(
             all_points,
@@ -107,13 +113,13 @@ def main(is_iteractive_mode=True, dir_path=None):
             ordered_pairs,
             filename
         )
-        
+
         dist_mix_pair_dict = bond.get_dist_mix_pair_dict(
             dist_mix_pair_dict,
             unique_pairs_dict,
             label_pair_mixing_dict
         )
-        
+
         elapsed_time = time.perf_counter() - start_time
 
         prompt.print_progress(
@@ -132,17 +138,24 @@ def main(is_iteractive_mode=True, dir_path=None):
 
     prompt.print_dict_in_json(dist_mix_pair_dict)
 
-    '''
-    PART 3: OUTPUT
-    '''
-    # 1. Get missing label missing tuple
-    missing_pairs = bond.get_sorted_missing_pairs(
+    # PART 3: OUTPUT
+
+    # For Element-Pair Display
+    dist_mix_element_pair_dict = bond.get_dist_mix_element_pair_dict(
         dist_mix_pair_dict
     )
 
-    '''
-    # PART 4: SAVE & PLOT
-    # '''
+    prompt.print_dict_in_json(dist_mix_element_pair_dict)
+
+    missing_label_pairs = bond.get_sorted_missing_pairs(
+        dist_mix_pair_dict
+    )
+    
+    missing_element_pairs = bond.get_sorted_missing_pairs(
+        dist_mix_element_pair_dict
+    )
+
+    # # PART 4: SAVE & PLOT
 
     if len(file_path_list) > 0:
         # Create a directory if needed
@@ -152,24 +165,50 @@ def main(is_iteractive_mode=True, dir_path=None):
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
 
-        folder.write_summary_and_missing_pairs(
+        # Write label-pair
+        writer.write_summary_and_missing_pairs(
             dist_mix_pair_dict,
-            missing_pairs,
+            missing_label_pairs,
+            "summary-label.txt",
             dir_path
         )
         
-        # Save Excel file
-        data = excel.write_excel_json(
+        # Save Excel file with label pair
+        excel.write_label_pair_dict_to_excel_json(
             dist_mix_pair_dict,
+            "label",
             dir_path
         )
-                
-        # Draw histograms
-        histogram.plot_histograms_from_data(
+
+        # Draw histograms with label pari
+        histogram.plot_histograms_from_label_dict(
             dist_mix_pair_dict,
             dir_path
         )
         
+        # Write elesummary-element.txt
+        writer.write_summary_and_missing_pairs_with_element_dict(
+            dist_mix_element_pair_dict,
+            missing_element_pairs,
+            "summary-element.txt",
+            dir_path
+        ) 
+
+        # Save Excel file with element pair
+        excel.write_element_pair_dict_to_excel_json(
+            dist_mix_element_pair_dict,
+            "element",
+            dir_path
+        )
+
+        # Draw histograms with element pair
+        histogram.plot_histograms_from_element_dict(
+            dist_mix_element_pair_dict,
+            dir_path
+        )
+        
+
+
         total_elapsed_time = time.perf_counter() - overall_start_time
         print(f"Total processing time: {total_elapsed_time:.2f}s")
 
@@ -180,9 +219,7 @@ def main(is_iteractive_mode=True, dir_path=None):
             "log"
         )
 
-
-
-    print("\nAll files successfully processed.")
+    # print("\nAll files successfully processed.")
 
 
 if __name__ == "__main__":

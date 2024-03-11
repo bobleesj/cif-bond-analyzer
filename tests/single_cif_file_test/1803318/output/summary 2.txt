@@ -1,0 +1,58 @@
+Summary:
+Pair: Er1-Co1, Count: 1 Distances: 2.774
+Pair: Er1-Er6, Count: 1 Distances: 3.493
+Pair: Er2-Er2, Count: 1 Distances: 3.571
+Pair: Er2-Er4, Count: 1 Distances: 3.436
+Pair: Er2-In2, Count: 1 Distances: 3.239
+Pair: Er3-Co1, Count: 1 Distances: 2.644
+Pair: Er3-Er5, Count: 1 Distances: 3.340
+Pair: Er3-In1, Count: 1 Distances: 3.376
+Pair: Er3-In2, Count: 1 Distances: 3.024
+Pair: Er4-Co1, Count: 1 Distances: 4.658
+Pair: Er4-In1, Count: 1 Distances: 3.263
+Pair: Er5-Er7, Count: 1 Distances: 3.460
+Pair: Er5-In1, Count: 1 Distances: 3.314
+Pair: Er6-Co1, Count: 1 Distances: 2.742
+Pair: Er7-In1, Count: 1 Distances: 3.207
+Pair: In1-In1, Count: 1 Distances: 2.999
+Pair: In1-In2, Count: 1 Distances: 5.078
+
+Missing pairs:
+Co1-Co1
+Co1-In1
+Co1-In2
+Er1-Er1
+Er1-Er2
+Er1-Er3
+Er1-Er4
+Er1-Er5
+Er1-Er7
+Er1-In1
+Er1-In2
+Er2-Co1
+Er2-Er3
+Er2-Er5
+Er2-Er6
+Er2-Er7
+Er2-In1
+Er3-Er3
+Er3-Er4
+Er3-Er6
+Er3-Er7
+Er4-Er4
+Er4-Er5
+Er4-Er6
+Er4-Er7
+Er4-In2
+Er5-Co1
+Er5-Er5
+Er5-Er6
+Er5-In2
+Er6-Er6
+Er6-Er7
+Er6-In1
+Er6-In2
+Er7-Co1
+Er7-Er7
+Er7-In2
+In2-In2
