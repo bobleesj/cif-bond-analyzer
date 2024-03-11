@@ -18,14 +18,14 @@ def get_mendeleev_num_from_tuple(pair_tuple):
     df = pd.read_excel("element_Mendeleev_numbers.xlsx")
 
     # Get Mendeleev number for the first element
-    first_mendeleev_num = (
-        df.loc[df['Symbol'] == first_element, 'Mendeleev number'].iloc[0]
-    )
+    first_mendeleev_num = df.loc[
+        df["Symbol"] == first_element, "Mendeleev number"
+    ].iloc[0]
 
     # Get Mendeleev number for the second element
-    second_mendeleev_num = (
-        df.loc[df['Symbol'] == second_element, 'Mendeleev number'].iloc[0]
-    )
+    second_mendeleev_num = df.loc[
+        df["Symbol"] == second_element, "Mendeleev number"
+    ].iloc[0]
 
     return first_mendeleev_num, second_mendeleev_num
 
