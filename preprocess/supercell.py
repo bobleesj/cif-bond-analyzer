@@ -5,7 +5,7 @@ from preprocess import cif_parser
 
 def calculate_distance(point1, point2, cell_lengths, angles):
     """
-    Calculates the Euclidean distance between two points using cell lengths and angles.
+    Calculates distance between two points using cell lengths and angles.
     """
     # Unpack points
     x1, y1, z1, label1 = point1
@@ -106,7 +106,7 @@ def shift_and_append_points(points, atom_site_label,
     all_points = []
     for point_group in shifted_points:
         for point in point_group:
-            new_point = (*np.round(point,5), atom_site_label)
+            new_point = (*np.round(point, 5), atom_site_label)
             all_points.append(new_point)
 
     return all_points
@@ -126,15 +126,14 @@ def get_coords_list(block, loop_values):
         atom_site_z = cif_parser.remove_string_braket(loop_values[6][i])
         atom_site_label = loop_values[0][i]
 
-        # print(atom_site_x, atom_site_y, atom_site_z, atom_site_label, atom_type_symbol)
-        coordinates_after_symmetry_operations = get_coords_after_sym_operations(
+        coords_after_symmetry_operations = get_coords_after_sym_operations(
             block, 
             float(atom_site_x),
             float(atom_site_y),
             float(atom_site_z),
             atom_site_label
         )
-        coords_list.append(coordinates_after_symmetry_operations)
+        coords_list.append(coords_after_symmetry_operations)
 
     return coords_list
 

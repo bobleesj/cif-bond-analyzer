@@ -19,7 +19,7 @@ def get_atom_type(label):
 
 def get_loop_tags():
     """
-    Returns a list of predefined loop tags commonly used for atomic site description.
+    Returns tags commonly used for atomic description.
     """
     loop_tags = ["_atom_site_label",
                  "_atom_site_type_symbol",
@@ -48,8 +48,10 @@ def get_unit_cell_lengths_angles(block):
         '_cell_angle_gamma'
     ]
 
-    lengths = [remove_string_braket(block.find_value(key)) for key in keys_lengths]
-    angles = [remove_string_braket(block.find_value(key)) for key in keys_angles]
+    lengths = [remove_string_braket(block.find_value(key))
+               for key in keys_lengths]
+    angles = [remove_string_braket(block.find_value(key))
+              for key in keys_angles]
 
     return tuple(lengths + angles)
 
@@ -89,7 +91,9 @@ def get_cell_lenghts_angles_rad(CIF_block):
     cell_len_a, cell_len_b, cell_len_c, alpha_deg, beta_deg, gamma_deg = cell_lengths_angles
 
     # Convert angles from degrees to radians
-    alpha_rad, beta_rad, gamma_rad = get_radians_from_degrees([alpha_deg, beta_deg, gamma_deg])
+    alpha_rad, beta_rad, gamma_rad = get_radians_from_degrees(
+        [alpha_deg, beta_deg, gamma_deg]
+    )
 
     # Store angles in radians and cell lengths in a list
     cell_angles_rad = [alpha_rad, beta_rad, gamma_rad]

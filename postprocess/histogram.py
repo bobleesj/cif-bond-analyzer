@@ -17,6 +17,13 @@ def plot_histograms_from_data(data, directory_path):
         "3": "#2ca02c",  # cooked asparagus green
         "4": "#1f77b4",  # muted blue
     }
+    
+    categories_mapping = {
+        "1": "Deficiency",  # brick red
+        "2": "Full occupancy & atomic mixing",  # safety orange
+        "3": "Deficiency & noatomic mixing",  # cooked asparagus green
+        "4": "Full occupancy",  # muted blue
+    }
 
     # Prepare for plotting
     num_pairs = len(data)
@@ -42,14 +49,14 @@ def plot_histograms_from_data(data, directory_path):
         # Prepare the data for the histogram
         stacked_data = []
         labels = []
-        for category, _ in categories_colors.items():
+        for cat, _ in categories_colors.items():
             category_distances = [
                 float(pair_info["dist"]) for sub_key, 
-                pair_info in pair_info.items() if pair_info["mixing"] == category
+                pair_info in pair_info.items() if pair_info["mixing"] == cat
             ]
             if category_distances:
                 stacked_data.append(category_distances)
-                labels.append(category)
+                labels.append(cat)
 
         # Plot the stacked histogram
         if stacked_data:
@@ -57,7 +64,7 @@ def plot_histograms_from_data(data, directory_path):
                 stacked_data,
                 bins=bins,
                 color=[categories_colors[cat] for cat in labels],
-                label=labels,
+                label=[categories_mapping[cat] for cat in labels],
                 stacked=True,
                 edgecolor='black'
             )

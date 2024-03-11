@@ -1,25 +1,35 @@
+"""
+Main script for processing CIF files.
+
+This script processes CIF files in a specified directory,
+performs preprocessing, bond analysis, and generates output files and plots.
+
+Usage:
+    python main.py
+
+Author: Sangjoon Bob Lee
+
+Date: Mar 10, 2024
+
+"""
+
 import os
 import time
-import pandas as pd
 from click import style, echo
+import pandas as pd
 
-import preprocess.cif_parser as cif_parser
-import preprocess.cif_parser_handler as cif_parser_handler
-import preprocess.supercell as supercell
-import postprocess.bond as bond
-import postprocess.histogram as histogram
-import util.folder as folder
-import util.prompt as prompt
-import filter.occupancy as occupancy
-import postprocess.excel as excel
+from preprocess import cif_parser, cif_parser_handler, supercell
+from postprocess import bond, excel, histogram
+from util import folder, prompt
+from filter import occupancy
 
 
 def main(is_iteractive_mode=True, dir_path=None):
+    """
+    Runs the Python script
+    """
     prompt.print_intro_prompt()
-
-    '''
-    PART 1: Choose the folder & get user input
-    '''
+    # PART 1: Choose the folder & get user input
 
     log_list = []
     file_path_list = None
@@ -41,9 +51,7 @@ def main(is_iteractive_mode=True, dir_path=None):
 
     file_path_list = folder.get_cif_file_path_list(dir_path)
 
-    '''
-    PART 2: PREPROCESS
-    '''
+    # PART 2: PREPROCESS
     
     dist_mix_pair_dict = {}
 
@@ -130,9 +138,7 @@ def main(is_iteractive_mode=True, dir_path=None):
 
     prompt.print_dict_in_json(dist_mix_pair_dict)
 
-    '''
-    PART 3: OUTPUT
-    '''
+    # PART 3: OUTPUT
 
     # For Element-Pair Display
     dist_mix_element_pair_dict = bond.get_dist_mix_element_pair_dict(
@@ -145,9 +151,7 @@ def main(is_iteractive_mode=True, dir_path=None):
         dist_mix_pair_dict
     )
 
-    '''
     # PART 4: SAVE & PLOT
-    # '''
 
     if len(file_path_list) > 0:
         # Create a directory if needed
@@ -172,7 +176,7 @@ def main(is_iteractive_mode=True, dir_path=None):
             "summary-label.txt",
             dir_path
         )
-        
+
         # Save Excel file
         data = excel.write_excel_json(
             dist_mix_element_pair_dict,
