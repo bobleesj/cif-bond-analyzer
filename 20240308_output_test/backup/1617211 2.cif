@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# Ge-La-Ru         # LaRu2Ge2                                      #  300169 #
+# Fe-Si            # Fe0.92Si2 ht                                  # 1617211 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -18,88 +18,76 @@
 #                                                                            #
 ##############################################################################
 
-data_300169
-_audit_creation_date                     2024-02-25
+data_1617211
+_audit_creation_date                     2024-02-16
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      300169
-_database_code_PDF                       04-001-3818
+#_database_code_PCD                      1617211
+_database_code_PDF                       04-017-1432
 
 # Entry summary
 
-_chemical_formula_structural             'La Ru~2~ Ge~2~'
-_chemical_formula_sum                    'Ge2 La Ru2'
-_chemical_name_mineral                   ?
+_chemical_formula_structural             'Fe~0.85~ Si~2.07~'
+_chemical_formula_sum                    'Fe0.85 Si2.07'
+_chemical_name_mineral                   linzhiite
 _chemical_compound_source                ?
-_chemical_name_structure_type            CeAl~2~Ga~2~,tI10,139
-_chemical_formula_weight                 486.2
+_chemical_name_structure_type            Fe~0.92~Si~2~,tP3,123
+_chemical_formula_weight                 105.6
 
 # Bibliographic data
 
 _publ_section_title
-;
-De nouvelles series de germaniures, isotypes de U~4~Re~7~Si~6~, ThCr~2~Si et CaBe~2~Ge~2~, dans les systemes ternaires R-T-Ge ou R est un element des terres rares et T= Ru, Os, Rh, Ir: Supraconductivite de LaIr~2~Ge~2~
-;
-_journal_coden_ASTM                      JCOMAH
-_journal_name_full                       'J. Less-Common Met.'
-_journal_year                            1985
-_journal_volume                          113
-_journal_page_first                      231
-_journal_page_last                       237
-_journal_language                        French
+'Solubility of aluminium in \a-leboite'                                       
+_journal_coden_ASTM                      PHMMA6
+_journal_name_full                       'Phys. Met. Metallogr.'
+_journal_year                            1961
+_journal_volume                          12
+_journal_issue                           5
+_journal_page_first                      81
+_journal_page_last                       87
+_journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Francois M.'
+'Sabirzyanov A.V.'
 ;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
+Ural Polytechnic Institute
+Yekaterinburg
+Russia
 ;
-'Venturini G.'
+'Shumilov M.A.'
 ;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
+Ural Polytechnic Institute
+Yekaterinburg
+Russia
 ;
-'Mareche J.F.'
+'Gel'd P.V.'
 ;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
+Ural Polytechnic Institute
+Yekaterinburg
+Russia
 ;
-'Malaman B.'
+'Ozhgikhina G.V.'
 ;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
-;
-'Roques B.'
-;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
+Ural Polytechnic Institute
+Yekaterinburg
+Russia
 ;
 
 # Standardized crystallographic data
 
-_cell_length_a                           4.288
-_cell_length_b                           4.288
-_cell_length_c                           10.133
+_cell_length_a                           2.6904
+_cell_length_b                           2.6904
+_cell_length_c                           5.1333
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
 _cell_angle_gamma                        90
-_cell_volume                             186.3
-_cell_formula_units_Z                    2
-_space_group_IT_number                   139
-_space_group_name_H-M_alt                'I 4/m m m'
+_cell_volume                             37.2
+_cell_formula_units_Z                    1
+_space_group_IT_number                   123
+_space_group_name_H-M_alt                'P 4/m m m'
 loop_
  _space_group_symop_id
  _space_group_symop_operation_xyz
@@ -119,30 +107,13 @@ loop_
  14 'y, -x, z'
  15 'y, x, -z'
  16 'y, x, z'
- 17 '1/2+x, 1/2+y, 1/2+z'
- 18 '1/2-x, 1/2-y, 1/2-z'
- 19 '1/2-x, 1/2-y, 1/2+z'
- 20 '1/2-x, 1/2+y, 1/2-z'
- 21 '1/2-x, 1/2+y, 1/2+z'
- 22 '1/2-y, 1/2-x, 1/2-z'
- 23 '1/2-y, 1/2-x, 1/2+z'
- 24 '1/2-y, 1/2+x, 1/2-z'
- 25 '1/2-y, 1/2+x, 1/2+z'
- 26 '1/2+x, 1/2-y, 1/2-z'
- 27 '1/2+x, 1/2-y, 1/2+z'
- 28 '1/2+x, 1/2+y, 1/2-z'
- 29 '1/2+y, 1/2-x, 1/2-z'
- 30 '1/2+y, 1/2-x, 1/2+z'
- 31 '1/2+y, 1/2+x, 1/2-z'
- 32 '1/2+y, 1/2+x, 1/2+z'
 
 # Atomic positions taken from type-defining entry
 
 loop_
  _atom_type_symbol
- Ge
- Ru
- La
+ Si
+ Fe
 loop_
  _atom_site_label
  _atom_site_type_symbol
@@ -152,19 +123,19 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- Ge1 Ge 4 e 0 0 0.387 1
- Ru1 Ru 4 d 0 0.5 0.25 1
- La1 La 2 a 0 0 0 1
+Si1 Si 2 h 0.5 0.5 0.2700 1
+Fe1A Fe 1 a 0 0 0 0.85008
+Si1B Si 1 a 0 0 0 0.06992
 
 
 _exptl_crystal_colour                    ?
-_exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            8.67
+_exptl_crystal_density_meas              4.562
+_exptl_crystal_density_diffrn            4.72
 _cell_measurement_temperature            ?
-_cell_measurement_radiation              'X-rays, Cu Ka'
+_cell_measurement_radiation              'X-rays, Co Ka'
 _cell_measurement_reflns_used            ?
 _diffrn_ambient_temperature              ?
-_diffrn_measurement_device               'Guinier film'
+_diffrn_measurement_device               'Debye-Scherrer film'
 _diffrn_measurement_device_type          ?
 _diffrn_radiation_type                   ?
 _diffrn_reflns_number                    ?
@@ -176,5 +147,5 @@ _refine_ls_number_reflns                 ?
 _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
-# End of data set 300169
+# End of data set 1617211
 

@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# Ce-Ge-Ni         # CeNi2Ge2 m                                    # 1040392 #
+# Co-Ga-La         # LaCo0.5Ga3.5                                  #  539016 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -18,83 +18,78 @@
 #                                                                            #
 ##############################################################################
 
-data_1040392
-_audit_creation_date                     2024-02-24
+data_539016
+_audit_creation_date                     2024-02-29
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      1040392
-_database_code_PDF                       04-026-0478
+#_database_code_PCD                      539016
+_database_code_PDF                       04-005-2607
 
 # Entry summary
 
-_chemical_formula_structural             'Ce~0.98~ Ni~2.025~ Ge~1.975~'
-_chemical_formula_sum                    'Ce0.98 Ge1.975 Ni2.025'
+_chemical_formula_structural             'La Co~0.5~ Ga~3.5~'
+_chemical_formula_sum                    'Co0.5 Ga3.5 La'
 _chemical_name_mineral                   ?
 _chemical_compound_source                ?
 _chemical_name_structure_type            CeAl~2~Ga~2~,tI10,139
-_chemical_formula_weight                 399.6
+_chemical_formula_weight                 412.4
 
 # Bibliographic data
 
 _publ_section_title
-'Single crystal growth of CeNi~2~Ge~2~ using the floating zone technique'     
-_journal_coden_ASTM                      PSSBBD
-_journal_name_full                       'Phys. Status Solidi B'
-_journal_year                            2010
-_journal_volume                          247
-_journal_page_first                      694
-_journal_page_last                       696
+;
+Magnetism and structural chemistry of ternary gallides RENi~x~Ga~4-x~ (RE= La, Ce, Pr, Nd, Sm, Gd, Tb) and LaCo~0.5~Ga~3.5~
+;
+_journal_coden_ASTM                      JCOMAH
+_journal_name_full                       'J. Less-Common Met.'
+_journal_year                            1990
+_journal_volume                          162
+_journal_page_first                      361
+_journal_page_last                       369
 _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Bergmann C.'
+'Grin Y.'
 ;
-Gottingen Georg August University
-Physikalisches Institut I
-Gottingen
-Germany
+Lviv Ivan Franko State University
+Department of Inorganic Chemistry
+Lviv
+Ukraine
 ;
-'Jeevan H.S.'
+'Hiebl K.'
 ;
-Gottingen Georg August University
-Physikalisches Institut I
-Gottingen
-Germany
+Vienna University
+Institut fur Physikalische Chemie
+Vienna
+Austria
 ;
-'Schubert M.'
+'Rogl P.'
 ;
-Gottingen Georg August University
-Physikalisches Institut I
-Gottingen
-Germany
+Vienna University
+Institut fur Physikalische Chemie
+Vienna
+Austria
 ;
-'Geibel C.'
+'Noel H.'
 ;
-Max Planck Society (MPG)
-Max Planck Institut (MPI) fur Chemische Physik Fester Stoffe
-Dresden
-Germany
-;
-'Gegenwart P.'
-;
-Gottingen Georg August University
-Physikalisches Institut I
-Gottingen
-Germany
+Rennes I University
+Laboratoire de Chimie Minerale
+Rennes
+France
 ;
 
 # Standardized crystallographic data
 
-_cell_length_a                           4.154
-_cell_length_b                           4.154
-_cell_length_c                           9.851
+_cell_length_a                           4.346
+_cell_length_b                           4.346
+_cell_length_c                           10.433
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
 _cell_angle_gamma                        90
-_cell_volume                             170
+_cell_volume                             197.1
 _cell_formula_units_Z                    2
 _space_group_IT_number                   139
 _space_group_name_H-M_alt                'I 4/m m m'
@@ -138,9 +133,9 @@ loop_
 
 loop_
  _atom_type_symbol
- Ge
- Ni
- Ce
+ Ga
+ Co
+ La
 loop_
  _atom_site_label
  _atom_site_type_symbol
@@ -150,20 +145,20 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
-Ge1A Ge 4 e 0 0 0.387 0.988
-Ni1B Ni 4 e 0 0 0.387 0.012
-Ni1 Ni 4 d 0 0.5 0.25 1
-Ce1 Ce 2 a 0 0 0 0.980
+Ga1 Ga 4 e 0 0 0.387 1
+Ga1A Ga 4 d 0 0.5 0.25 0.750
+Co1B Co 4 d 0 0.5 0.25 0.250
+La1 La 2 a 0 0 0 1
 
 
 _exptl_crystal_colour                    ?
 _exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            7.81
+_exptl_crystal_density_diffrn            6.95
 _cell_measurement_temperature            ?
 _cell_measurement_radiation              X-rays
 _cell_measurement_reflns_used            ?
 _diffrn_ambient_temperature              ?
-_diffrn_measurement_device               ?
+_diffrn_measurement_device               'Guinier film'
 _diffrn_measurement_device_type          ?
 _diffrn_radiation_type                   ?
 _diffrn_reflns_number                    ?
@@ -175,5 +170,5 @@ _refine_ls_number_reflns                 ?
 _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
-# End of data set 1040392
+# End of data set 539016
 

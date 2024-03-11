@@ -169,7 +169,7 @@ def main(is_iteractive_mode=True, dir_path=None):
         writer.write_summary_and_missing_pairs(
             dist_mix_pair_dict,
             missing_label_pairs,
-            "summary-label.txt",
+            "summary_label.txt",
             dir_path
         )
         
@@ -190,7 +190,7 @@ def main(is_iteractive_mode=True, dir_path=None):
         writer.write_summary_and_missing_pairs_with_element_dict(
             dist_mix_element_pair_dict,
             missing_element_pairs,
-            "summary-element.txt",
+            "summary_element.txt",
             dir_path
         ) 
 
