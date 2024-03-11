@@ -1,6 +1,3 @@
-import re
-
-
 def remove_string_braket(value_string):
     """
     Removes parentheses from a value string and convert to float if possible.

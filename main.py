@@ -41,8 +41,10 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         # If the user chooses no option, then it's simply 3
         if not supercell_method:
-            print("\nYour default option is generating a 2-2-2 supercell for",
-                "files more than 100 atoms in the unit cell.")
+            print(
+                "\nYour default option is generating a 2-2-2 supercell for",
+                "files more than 100 atoms in the unit cell.",
+            )
             supercell_method = 1
 
     if not is_iteractive_mode:
@@ -52,7 +54,7 @@ def main(is_iteractive_mode=True, dir_path=None):
     file_path_list = folder.get_cif_file_path_list(dir_path)
 
     # PART 2: PREPROCESS
-    
+
     dist_mix_pair_dict = {}
 
     overall_start_time = time.perf_counter()
@@ -62,17 +64,13 @@ def main(is_iteractive_mode=True, dir_path=None):
         filename_with_ext = os.path.basename(file_path)
         filename, ext = os.path.splitext(filename_with_ext)
         num_of_atoms = None
-    
+
         # Process CIF files and return a list of coordinates
         result = cif_parser_handler.get_cif_info(
-            file_path,
-            cif_parser.get_loop_tags(),
-            supercell_method
+            file_path, cif_parser.get_loop_tags(), supercell_method
         )
 
-        CIF_loop_values = cif_parser_handler.get_cif_loop_values(
-            file_path
-        )
+        CIF_loop_values = cif_parser_handler.get_cif_loop_values(file_path)
 
         _, lenghts, angles_rad, _, all_points, _, atom_site_list = result
 
@@ -82,14 +80,13 @@ def main(is_iteractive_mode=True, dir_path=None):
         echo(
             style(
                 f"Processing {filename_with_ext} with "
-                f"{num_of_atoms} atoms {index}", fg="yellow"
+                f"{num_of_atoms} atoms {index}",
+                fg="yellow",
             )
         )
 
         atomic_pair_list = supercell.get_atomic_pair_list(
-            all_points,
-            lenghts,
-            angles_rad
+            all_points, lenghts, angles_rad
         )
 
         # Get atomic site mixing info -> String
@@ -104,35 +101,26 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         # Find the shortest pair from each reference atom
         ordered_pairs = bond.process_and_order_pairs(
-            all_points,
-            atomic_pair_list
+            all_points, atomic_pair_list
         )
 
         # Determine unique pairs and get the shortest dist for each pair
-        unique_pairs_dict = bond.get_unique_pairs_dict(
-            ordered_pairs,
-            filename
-        )
+        unique_pairs_dict = bond.get_unique_pairs_dict(ordered_pairs, filename)
 
         dist_mix_pair_dict = bond.get_dist_mix_pair_dict(
-            dist_mix_pair_dict,
-            unique_pairs_dict,
-            label_pair_mixing_dict
+            dist_mix_pair_dict, unique_pairs_dict, label_pair_mixing_dict
         )
 
         elapsed_time = time.perf_counter() - start_time
 
         prompt.print_progress(
-            filename_with_ext,
-            num_of_atoms,
-            elapsed_time,
-            is_finished=True
+            filename_with_ext, num_of_atoms, elapsed_time, is_finished=True
         )
 
         data = {
-            'File': filename,
+            "File": filename,
             "Number of atoms in supercell": num_of_atoms,
-            "Processing time (s)": round(elapsed_time, 3)
+            "Processing time (s)": round(elapsed_time, 3),
         }
         log_list.append(data)
 
@@ -147,10 +135,8 @@ def main(is_iteractive_mode=True, dir_path=None):
 
     prompt.print_dict_in_json(dist_mix_element_pair_dict)
 
-    missing_label_pairs = bond.get_sorted_missing_pairs(
-        dist_mix_pair_dict
-    )
-    
+    missing_label_pairs = bond.get_sorted_missing_pairs(dist_mix_pair_dict)
+
     missing_element_pairs = bond.get_sorted_missing_pairs(
         dist_mix_element_pair_dict
     )
@@ -170,54 +156,40 @@ def main(is_iteractive_mode=True, dir_path=None):
             dist_mix_pair_dict,
             missing_label_pairs,
             "summary_label.txt",
-            dir_path
+            dir_path,
         )
-        
+
         # Save Excel file with label pair
         excel.write_label_pair_dict_to_excel_json(
-            dist_mix_pair_dict,
-            "label",
-            dir_path
+            dist_mix_pair_dict, "label", dir_path
         )
 
         # Draw histograms with label pari
-        histogram.plot_histograms_from_label_dict(
-            dist_mix_pair_dict,
-            dir_path
-        )
-        
+        histogram.plot_histograms_from_label_dict(dist_mix_pair_dict, dir_path)
+
         # Write elesummary-element.txt
         writer.write_summary_and_missing_pairs_with_element_dict(
             dist_mix_element_pair_dict,
             missing_element_pairs,
             "summary_element.txt",
-            dir_path
-        ) 
+            dir_path,
+        )
 
         # Save Excel file with element pair
         excel.write_element_pair_dict_to_excel_json(
-            dist_mix_element_pair_dict,
-            "element",
-            dir_path
+            dist_mix_element_pair_dict, "element", dir_path
         )
 
         # Draw histograms with element pair
         histogram.plot_histograms_from_element_dict(
-            dist_mix_element_pair_dict,
-            dir_path
+            dist_mix_element_pair_dict, dir_path
         )
-        
-
 
         total_elapsed_time = time.perf_counter() - overall_start_time
         print(f"Total processing time: {total_elapsed_time:.2f}s")
 
         # Save log csv
-        folder.save_to_csv_directory(
-            dir_path,
-            pd.DataFrame(log_list),
-            "log"
-        )
+        folder.save_to_csv_directory(dir_path, pd.DataFrame(log_list), "log")
 
     # print("\nAll files successfully processed.")
 

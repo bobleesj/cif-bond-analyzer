@@ -39,7 +39,7 @@ def get_user_input_on_supercell_method():
         click.echo("1. No shift (fastest)")
         click.echo("2. +1 +1 +1 shifts in x, y, z directions")
         click.echo(
-            "3. +-1, +-1, +-1 shifts (2x2x2 supercell generation, requires heavy computation, slowest)"
+            "3. +-1, +-1, +-1 shifts (2x2x2 supercell generation, slowest)"
         )
 
         method = click.prompt(
@@ -54,7 +54,7 @@ def get_user_input_on_supercell_method():
             )
         elif method == 3:
             click.echo(
-                "You've selected: +-1, +-1, +-1 shifts (2x2x2 supercell generation, slowest)\n"
+                "You've selected: +-1, +-1, +-1 shifts (2x2x2 supercell, slowest)\n"
             )
         else:
             click.echo("Invalid option. Defaulting to No shift (fastest)\n")
