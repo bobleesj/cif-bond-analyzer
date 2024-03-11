@@ -17,9 +17,7 @@ def get_coord_occupancy_sum(cif_loop_values):
     coord_occupancy_sum = {}
 
     for i in range(num_atom_labels):
-        _, occupancy, coordinates = cif_parser.get_atom_info(
-            cif_loop_values, i
-        )
+        _, occupancy, coordinates = cif_parser.get_atom_info(cif_loop_values, i)
         occupancy_num = coord_occupancy_sum.get(coordinates, 0) + occupancy
         coord_occupancy_sum[coordinates] = occupancy_num
 
@@ -69,7 +67,7 @@ def get_all_possible_ordered_label_pairs(cif_loop_values):
     # Get a list of unique pairs from atomic labels
     label_list = cif_parser.get_atom_label_list(cif_loop_values)
     all_possible_label_pairs = list(product(label_list, repeat=2))
-    
+
     # Step 1: Sort each pair to standardize order
     sorted_pairs = pair_order.sort_tuple_in_list(all_possible_label_pairs)
 
@@ -77,17 +75,16 @@ def get_all_possible_ordered_label_pairs(cif_loop_values):
     unique_sorted_pairs = list(set(sorted_pairs))
 
     # Step 3. Order pairs based on Mendeleev ordering
-    unique_sorted_pairs_ordered = (
-        [tuple(pair_order.order_pair_by_mendeleev(pair))
-         for pair in unique_sorted_pairs]
-    )
+    unique_sorted_pairs_ordered = [
+        tuple(pair_order.order_pair_by_mendeleev(pair))
+        for pair in unique_sorted_pairs
+    ]
 
     return unique_sorted_pairs_ordered
 
 
 # Get atom site mixing label for all pairs possible
-def get_atom_site_mixing_dict(
-        atom_site_mixing_file_info, cif_loop_values):
+def get_atom_site_mixing_dict(atom_site_mixing_file_info, cif_loop_values):
     """
     Gets atomic site mixing dictionary for all possible label pairs using cif loop values.
     """
@@ -122,7 +119,7 @@ def get_atom_site_mixing_dict(
             if first_label_occ == 1 and second_label_occ == 1:
                 atom_site_pair_dict[pair] = "4"
                 continue
-    
+
             # Step 4. Check deficiecny at the pair level
             # Check whehter one of the sites is deficient
             is_first_label_site_deficient = None
@@ -136,7 +133,7 @@ def get_atom_site_mixing_dict(
 
                 if occupancy_sum[second_label_coord] < 1:
                     is_second_label_deficient = True
-                    
+
                 else:
                     is_second_label_deficient = False
 
@@ -162,28 +159,29 @@ def get_atom_site_mixing_dict(
             # Assign "3" for "deficiency_no_atomic_mixing"
             # Check 1. One of the labels is deficient
             # Check 2. Both labels are not atomic mixed
-            if ((is_first_label_site_deficient or
-                 is_second_label_deficient) and
-                (not is_first_label_atomic_mixed and
-                 not is_second_label_atomic_mixed)):
+            if (
+                is_first_label_site_deficient or is_second_label_deficient
+            ) and (
+                not is_first_label_atomic_mixed
+                and not is_second_label_atomic_mixed
+            ):
                 atom_site_pair_dict[pair] = "3"
 
             # Assign "2" for "full_occupancy_atomic_mixing"
             # Check 1. Both labels are not deficient
             # Check 2. At least one label is atomic mixed
-            if ((not is_first_label_site_deficient
-                 and not is_second_label_deficient) and
-                (is_first_label_atomic_mixed or
-                 is_second_label_atomic_mixed)):
+            if (
+                not is_first_label_site_deficient
+                and not is_second_label_deficient
+            ) and (is_first_label_atomic_mixed or is_second_label_atomic_mixed):
                 atom_site_pair_dict[pair] = "2"
 
             # Assign "1" for "deficiency"
             # Check 1. At least one label is deficient
             # Check 2. At least one label mixed
-            if ((is_first_label_site_deficient or
-                 is_second_label_deficient) and
-                (is_first_label_atomic_mixed or
-                 is_second_label_atomic_mixed)):
+            if (
+                is_first_label_site_deficient or is_second_label_deficient
+            ) and (is_first_label_atomic_mixed or is_second_label_atomic_mixed):
                 atom_site_pair_dict[pair] = "1"
 
     return atom_site_pair_dict

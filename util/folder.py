@@ -8,10 +8,16 @@ def choose_CIF_directory(script_directory):
     """
     Allows the user to select a directory from the given path.
     """
-    directories = [d for d in os.listdir(script_directory) 
-                   if os.path.isdir(join(script_directory, d)) 
-                   and any(file.endswith('.cif') for file in os.listdir(join(script_directory, d)))]
-    
+    directories = [
+        d
+        for d in os.listdir(script_directory)
+        if os.path.isdir(join(script_directory, d))
+        and any(
+            file.endswith(".cif")
+            for file in os.listdir(join(script_directory, d))
+        )
+    ]
+
     if not directories:
         print("No directories found in the current path containing .cif files!")
         return None
@@ -23,9 +29,11 @@ def choose_CIF_directory(script_directory):
         try:
             choice = int(input("\nEnter folder # having .cif files: "))
             if 1 <= choice <= len(directories):
-                return join(script_directory, directories[choice-1])
+                return join(script_directory, directories[choice - 1])
             else:
-                print(f"Please enter a number between 1 and {len(directories)}.")
+                print(
+                    f"Please enter a number between 1 and {len(directories)}."
+                )
         except ValueError:
             print("Invalid input. Please enter a number.")
 
@@ -35,7 +43,7 @@ def save_to_csv_directory(folder_info, df, base_filename):
     Saves the dataframe as a CSV inside a 'csv' sub-directory.
     """
     # Create the sub-directory for CSVs if it doesn't exist
-    
+
     csv_directory = join(folder_info, "csv")
     if not os.path.exists(csv_directory):
         os.mkdir(csv_directory)

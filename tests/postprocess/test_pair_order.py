@@ -27,7 +27,7 @@ def test_order_pair_by_mendeleev_and_label():
 
     expected = pair_order.order_pair_by_mendeleev(("In", "Rh"))
     assert expected == ("Rh", "In")
-    
+
     expected = pair_order.order_pair_by_mendeleev(("Rh4", "Rh2"))
     assert expected == ("Rh2", "Rh4")
 
@@ -51,7 +51,3 @@ def test_sort_tuple_in_list():
     tuple_pairs = [("Co2A", "Co1A")]
     sorted_tuple_pairs = pair_order.sort_tuple_in_list(tuple_pairs)
     assert sorted_tuple_pairs == [("Co1A", "Co2A")]
-
-
-
-

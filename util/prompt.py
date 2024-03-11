@@ -3,9 +3,11 @@ import click
 from click import style, echo
 import json
 
+
 def print_intro_prompt():
     """Filters and moves CIF files based on the shortest atomic distance."""
-    intro_prompt = textwrap.dedent("""\
+    intro_prompt = textwrap.dedent(
+        """\
     ===
     Welcome to the CIF Bond Analyzer!
                                    
@@ -19,28 +21,41 @@ def print_intro_prompt():
                                     
     Let's get started!
     ===
-    """)
+    """
+    )
     print(intro_prompt)
 
 
 def get_user_input_on_supercell_method():
-    click.echo("\nDo you want to modify the supercell generation method for CIF files with more than 100 atoms in the unit cell?")
-    is_supercell_generation_method_modified = click.confirm('(Default: N)', default=False)
+    click.echo(
+        "\nDo you want to modify the supercell generation method for CIF files with more than 100 atoms in the unit cell?"
+    )
+    is_supercell_generation_method_modified = click.confirm(
+        "(Default: N)", default=False
+    )
 
     if is_supercell_generation_method_modified:
         click.echo("\nChoose a supercell generation method:")
         click.echo("1. No shift (fastest)")
         click.echo("2. +1 +1 +1 shifts in x, y, z directions")
-        click.echo("3. +-1, +-1, +-1 shifts (2x2x2 supercell generation, requires heavy computation, slowest)")
-        
-        method = click.prompt("Choose your option by entering a number", type=int)
-        
+        click.echo(
+            "3. +-1, +-1, +-1 shifts (2x2x2 supercell generation, slowest)"
+        )
+
+        method = click.prompt(
+            "Choose your option by entering a number", type=int
+        )
+
         if method == 1:
             click.echo("You've selected: No shift (fastest)\n")
         elif method == 2:
-            click.echo("You've selected: +1 +1 +1 shifts in x, y, z directions\n")
+            click.echo(
+                "You've selected: +1 +1 +1 shifts in x, y, z directions\n"
+            )
         elif method == 3:
-            click.echo("You've selected: +-1, +-1, +-1 shifts (2x2x2 supercell generation, slowest)\n")
+            click.echo(
+                "You've selected: +-1, +-1, +-1 shifts (2x2x2 supercell, slowest)\n"
+            )
         else:
             click.echo("Invalid option. Defaulting to No shift (fastest)\n")
             method = 1
@@ -52,11 +67,13 @@ def get_user_input_on_supercell_method():
 
 def print_progress(filename_with_ext, num_of_atoms, elapsed_time, is_finished):
     if is_finished:
-        echo(style(
-            f"Processed {filename_with_ext} with {num_of_atoms} atoms in "
-            f"{round(elapsed_time, 2)} s\n",
-            fg="blue"
-        ))
+        echo(
+            style(
+                f"Processed {filename_with_ext} with {num_of_atoms} atoms in "
+                f"{round(elapsed_time, 2)} s\n",
+                fg="blue",
+            )
+        )
 
 
 def print_dict_in_json(data):

@@ -1,6 +1,7 @@
-#conftest.py
+# conftest.py
 import pytest
 import preprocess.cif_parser_handler as cif_parser_handler
+
 
 @pytest.fixture
 def get_cif_527000_loop_values():
@@ -26,7 +27,7 @@ def get_cif_300160_loop_values():
     return CIF_loop_values
 
 
-@pytest.fixture 
+@pytest.fixture
 def get_cif_1831432_loop_values():
     CIF_loop_values = cif_parser_handler.get_cif_loop_values(
         "tests/filter/cifs/1831432.cif"
@@ -56,5 +57,3 @@ def get_cif_URhIn_loop_values():
         "tests/filter/cifs/URhIn.cif"
     )
     return CIF_loop_values
-
-

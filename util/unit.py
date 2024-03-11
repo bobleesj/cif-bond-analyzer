@@ -14,7 +14,5 @@ def rounded_distance(distance, precision=2):
     """
     Round a distance value to a specified precision.
     """
-    
+
     return round(distance, precision)
-
-
