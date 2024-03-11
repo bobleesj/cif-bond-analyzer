@@ -17,12 +17,12 @@ def plot_histograms_from_data(data, directory_path):
         "3": "#2ca02c",  # cooked asparagus green
         "4": "#1f77b4",  # muted blue
     }
-    
+
     categories_mapping = {
-        "1": "Deficiency",  # brick red
-        "2": "Full occupancy & atomic mixing",  # safety orange
-        "3": "Deficiency & noatomic mixing",  # cooked asparagus green
-        "4": "Full occupancy",  # muted blue
+        "1": "Deficiency",
+        "2": "Full occupancy & atomic mixing",
+        "3": "Deficiency & noatomic mixing",
+        "4": "Full occupancy",
     }
 
     # Prepare for plotting

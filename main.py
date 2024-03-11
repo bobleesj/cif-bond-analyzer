@@ -151,7 +151,7 @@ def main(is_iteractive_mode=True, dir_path=None):
         dist_mix_pair_dict
     )
 
-    # PART 4: SAVE & PLOT
+    # # PART 4: SAVE & PLOT
 
     if len(file_path_list) > 0:
         # Create a directory if needed
@@ -161,14 +161,6 @@ def main(is_iteractive_mode=True, dir_path=None):
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
 
-        # Write element-pair
-        folder.write_summary_and_missing_pairs(
-            dist_mix_element_pair_dict,
-            missing_pairs,
-            "summary-element.txt",
-            dir_path
-        ) 
-
         # Write label-pair
         folder.write_summary_and_missing_pairs(
             dist_mix_pair_dict,
@@ -176,16 +168,17 @@ def main(is_iteractive_mode=True, dir_path=None):
             "summary-label.txt",
             dir_path
         )
+        
+        # # Write element-pair
+        # folder.write_summary_and_missing_pairs(
+        #     dist_mix_element_pair_dict,
+        #     missing_pairs,
+        #     "summary-element.txt",
+        #     dir_path
+        # ) 
 
         # Save Excel file
-        data = excel.write_excel_json(
-            dist_mix_element_pair_dict,
-            "element",
-            dir_path
-        )
-
-        # Save Excel file
-        data = excel.write_excel_json(
+        excel.write_excel_json(
             dist_mix_pair_dict,
             "label",
             dir_path
@@ -197,17 +190,26 @@ def main(is_iteractive_mode=True, dir_path=None):
             dir_path
         )
 
-        total_elapsed_time = time.perf_counter() - overall_start_time
-        print(f"Total processing time: {total_elapsed_time:.2f}s")
 
-        # Save log csv
-        folder.save_to_csv_directory(
-            dir_path,
-            pd.DataFrame(log_list),
-            "log"
-        )
+    #     # Save Excel file
+    #     data = excel.write_excel_json(
+    #         dist_mix_element_pair_dict,
+    #         "element",
+    #         dir_path
+    #     )
 
-    print("\nAll files successfully processed.")
+
+    #     total_elapsed_time = time.perf_counter() - overall_start_time
+    #     print(f"Total processing time: {total_elapsed_time:.2f}s")
+
+    #     # Save log csv
+    #     folder.save_to_csv_directory(
+    #         dir_path,
+    #         pd.DataFrame(log_list),
+    #         "log"
+    #     )
+
+    # print("\nAll files successfully processed.")
 
 
 if __name__ == "__main__":

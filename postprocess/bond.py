@@ -1,6 +1,8 @@
 from preprocess.cif_parser import get_atom_type
 import postprocess.pair_order as pair_order
 from itertools import product
+from util import prompt
+
 
 def process_and_order_pairs(all_points, atomic_pair_list):
     '''
@@ -167,24 +169,30 @@ def get_element_pair_from_label_pair(labels):
     element1 = get_atom_type(labels[0])
     element2 = get_atom_type(labels[1])
     return f"{element1}-{element2}"
-    
+
 
 def get_dist_mix_element_pair_dict(input_dict):
-    dist_mix_element_pair_dict = {}
-    for key, values in input_dict.items():
-        new_key = get_element_pair_from_label_pair(key)
+    output_dict = {}
 
-        if new_key not in dist_mix_element_pair_dict:
-            dist_mix_element_pair_dict[new_key] = values
-            # Merge existing and new values for the same key
-            for id_key, id_value in values.items():
-                # If the key exists and the value is different, append it to a list
-                if id_key in dist_mix_element_pair_dict[new_key] and dist_mix_element_pair_dict[new_key][id_key] != id_value:
-                    if not isinstance(dist_mix_element_pair_dict[new_key][id_key], list):
-                        dist_mix_element_pair_dict[new_key][id_key] = [dist_mix_element_pair_dict[new_key][id_key]]
-                    dist_mix_element_pair_dict[new_key][id_key].append(id_value)
-                else:
-                    # Use the merge operator for a simpler one-liner
-                    dist_mix_element_pair_dict[new_key] = {**dist_mix_element_pair_dict[new_key], **{id_key: id_value}}
+    for pair_key, values in input_dict.items():
+        new_key = get_element_pair_from_label_pair(pair_key)
+        
+        if new_key not in output_dict:
+            output_dict[new_key] = {}
+
+        for id, id_value in values.items():
+            # Convert id_value to a list if it's not one already
+            if id not in output_dict[new_key]:
+                output_dict[new_key][id] = []
+            # Check if the current id_value (as a dict) is already in the list
+            # So if the mixing is different, it is stored
+            if not any(v == id_value for v in output_dict[new_key][id]):
+                output_dict[new_key][id].append(id_value)
+
+    return output_dict
+
+
+    print("Printed dist_mix_element_pair_dict:")
+    prompt.print_dict_in_json(output_dict)
     
-    return dist_mix_element_pair_dict
+    return output_dict
