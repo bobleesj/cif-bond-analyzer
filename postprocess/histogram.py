@@ -54,8 +54,9 @@ def plot_histograms_from_label_dict(data, directory_path):
         labels = []
         for cat, _ in categories_colors.items():
             category_distances = [
-                float(pair_info["dist"]) for sub_key, 
-                pair_info in pair_info.items() if pair_info["mixing"] == cat
+                float(pair_info["dist"])
+                for sub_key, pair_info in pair_info.items()
+                if pair_info["mixing"] == cat
             ]
             if category_distances:
                 stacked_data.append(category_distances)
@@ -69,18 +70,19 @@ def plot_histograms_from_label_dict(data, directory_path):
                 color=[categories_colors[cat] for cat in labels],
                 label=[categories_mapping[cat] for cat in labels],
                 stacked=True,
-                edgecolor='black'
+                edgecolor="black",
             )
 
         ax.set_title(atomic_pair)
         ax.set_xlabel("Distance (Å)")
         ax.set_ylabel("Count")
-        ax.legend(loc='upper right')
+        ax.legend(loc="upper right")
 
     plt.tight_layout()
-    plt.savefig(os.path.join(
-        directory_path,
-        "output", "histograms_label_pair.png"), dpi=150)
+    plt.savefig(
+        os.path.join(directory_path, "output", "histograms_label_pair.png"),
+        dpi=150,
+    )
 
     plt.close()
 
@@ -114,7 +116,7 @@ def plot_histograms_from_element_dict(data, directory_path):
     for atomic_pair, records in data.items():
         for infos in records.values():
             for info in infos:
-                distances.append(float(info['dist']))
+                distances.append(float(info["dist"]))
 
     all_distances = sorted(distances)
     bins = np.linspace(min(all_distances), max(all_distances), 21)
@@ -129,8 +131,10 @@ def plot_histograms_from_element_dict(data, directory_path):
         labels = []
         for cat, color in categories_colors.items():
             category_distances = [
-                float(info['dist']) for infos in records.values()
-                for info in infos if info['mixing'] == cat
+                float(info["dist"])
+                for infos in records.values()
+                for info in infos
+                if info["mixing"] == cat
             ]
             if category_distances:
                 stacked_data.append(category_distances)
@@ -144,15 +148,17 @@ def plot_histograms_from_element_dict(data, directory_path):
                 color=[categories_colors[cat] for cat in labels],
                 label=[categories_mapping[cat] for cat in labels],
                 stacked=True,
-                edgecolor='black'
+                edgecolor="black",
             )
 
         ax.set_xlabel("Distance (Å)")
         ax.set_ylabel("Count")
-        ax.legend(loc='upper right')
+        ax.legend(loc="upper right")
 
     plt.tight_layout()
     output_dir = os.path.join(directory_path, "output")
     os.makedirs(output_dir, exist_ok=True)  # Ensure output directory exists
-    plt.savefig(os.path.join(output_dir, "histograms_element_pair.png"), dpi=150)
+    plt.savefig(
+        os.path.join(output_dir, "histograms_element_pair.png"), dpi=150
+    )
     plt.close()

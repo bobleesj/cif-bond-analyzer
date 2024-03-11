@@ -86,7 +86,9 @@ def get_sorted_missing_pairs(pair_dict):
     )
 
     # Sort the pairs in the data as well before comparison
-    missing_label_pairs = [pair for pair in all_pairs if pair not in pairs_found]
+    missing_label_pairs = [
+        pair for pair in all_pairs if pair not in pairs_found
+    ]
 
     return missing_label_pairs
 
@@ -118,7 +120,8 @@ def get_unique_pairs_dict(ordered_pairs, filename):
         # if this pair is shorter than the previous pair
         if (
             label_tuple not in unique_pairs_dict[filename]
-            or pair["distance"] < unique_pairs_dict[filename][label_tuple]["distance"]
+            or pair["distance"]
+            < unique_pairs_dict[filename][label_tuple]["distance"]
         ):
             # Add this pair to the dictionary
             unique_pairs_dict[filename][label_tuple] = pair
@@ -126,7 +129,9 @@ def get_unique_pairs_dict(ordered_pairs, filename):
     return unique_pairs_dict
 
 
-def get_dist_mix_pair_dict(dist_pair_dict, unique_pairs_dict, label_pair_mixing_dict):
+def get_dist_mix_pair_dict(
+    dist_pair_dict, unique_pairs_dict, label_pair_mixing_dict
+):
     """
     Returns dict containing files and dist per pair.
     """

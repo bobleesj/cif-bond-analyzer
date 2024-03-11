@@ -3,7 +3,7 @@ import pytest
 
 @pytest.mark.fast
 def test_remove_duplicate_pairs():
-    '''
+    """
     unique_pairs_distances_test = {
         ('Ga1A', 'Ga1'): ['2.601'],
         ('Ga1', 'La1'): ['3.291'],
@@ -11,7 +11,7 @@ def test_remove_duplicate_pairs():
         ('Ga1', 'Ga1A'): ['2.601'],
         ('Ga1', 'Ga1'): ['2.358']}
 
-    to 
+    to
 
     adjusted_pairs_test == {
         ('Ga1', 'Ga1A'): ['2.601'],
@@ -19,8 +19,7 @@ def test_remove_duplicate_pairs():
         ('Co1B', 'Ga1'): ['2.601'],
         ('Ga1', 'Ga1A'): ['2.601'],
         ('Ga1', 'Ga1'): ['2.358']}
-    '''
-
+    """
 
 
 #     # 560709.cif

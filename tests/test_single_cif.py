@@ -1,4 +1,6 @@
-from main import main  # Assuming main.py and this test file are in the same directory
+from main import (
+    main,
+)  # Assuming main.py and this test file are in the same directory
 import os
 import json
 import util.folder as folder
@@ -10,6 +12,7 @@ def cleanup(dir_path):
     output_dir_path = os.path.join(dir_path, "output")
     folder.remove_directories([csv_dir_path, output_dir_path])
 
+
 # def run_test(dir_path, expected_json):
 #     cif_folder_name = os.path.basename(dir_path)
 #     output_dir_path = os.path.join(dir_path, "output")
@@ -17,7 +20,7 @@ def cleanup(dir_path):
 
 #     # Run
 #     main(False, dir_path)
-    
+
 #     # Load output
 #     with open(json_output_path, 'r') as file:
 #         actual_output = json.load(file)
