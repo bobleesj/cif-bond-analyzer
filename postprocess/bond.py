@@ -4,8 +4,7 @@ from itertools import product
 
 def process_and_order_pairs(all_points, atomic_pair_list):
     '''
-    Find the shortest distance from each atom to another 
-    atom in the structure
+    Finds the shortest distance from each atom to another atom in the structure
     '''
     processed_pairs = []
     
@@ -39,15 +38,17 @@ def process_and_order_pairs(all_points, atomic_pair_list):
     return processed_pairs_ordered
 
 
-def get_all_ordered_pairs_from_set(dict):
-    # Extract all unique elements from the pairs
+def get_all_ordered_pairs_from_set(pair_dict):
+    '''
+    Generates all possible unique ordered label pairs.
+    '''
     unique_labels = set()
 
-    for pair in dict.keys():
-        element_1, element_2 = pair.split('-')  # Assuming '-' is used as the delimiter
+    for pair in pair_dict.keys():
+        element_1, element_2 = pair.split('-')
         unique_labels.add(element_1)
         unique_labels.add(element_2)
-        
+
     # Generate all possible pairs (with ordering matter)
     all_pairs = list(product(unique_labels, repeat=2))
 
@@ -57,25 +58,25 @@ def get_all_ordered_pairs_from_set(dict):
             pair_order.order_pair_by_mendeleev(pair)
         ) for pair in all_pairs
     ])
-    
+
     # Remove duplicates from all possible pairs
     all_pairs_ordered_unique = list(set(all_pairs_ordered))
-    
+
     return all_pairs_ordered_unique
 
 
-def get_sorted_missing_pairs(dict):
-    
+def get_sorted_missing_pairs(pair_dict):
+
     all_pairs = get_all_ordered_pairs_from_set(
-        dict
+        pair_dict
     )
-    
+
     pairs_found = set(
         tuple(
             pair_order.order_pair_by_mendeleev(tuple(pair.split('-')))
-        ) for pair in dict.keys()
+        ) for pair in pair_dict.keys()
     )
-    
+
     # Sort the pairs in the data as well before comparison
     missing_pairs = [
         pair for pair in all_pairs if pair not in pairs_found
@@ -119,24 +120,9 @@ def get_unique_pairs_dict(ordered_pairs, filename):
 def get_dist_mix_pair_dict(dist_mix_pair_dict,
                            unique_pairs_dict,
                            label_pair_mixing_dict):
-    
-    '''
-    returns
-    {
-    "Co1A-Co2A": {
-        "560709": {
-            "dist": "2.501",
-            "mixing": "2"
-        }
-    },
-    "Co1A-Ga2B": {
-        "560709": {
-            "dist": "2.501",
-            "mixing": "2"
-        }
-    },
-    '''
-
+    """
+    Returns dict containing files and dist per pair.
+    """
     for filename, pairs in unique_pairs_dict.items():
         for labels, pair in pairs.items():
             pair_tuple_ordered = pair_order.order_pair_by_mendeleev(
@@ -173,3 +159,32 @@ def get_dist_mix_pair_dict(dist_mix_pair_dict,
     return dist_mix_pair_dict
 
 
+def get_element_pair_from_label_pair(labels):
+    '''
+    Convert Ge1-Ge2 to Ge-Ge, for intance.
+    '''
+    labels = labels.split('-')
+    element1 = get_atom_type(labels[0])
+    element2 = get_atom_type(labels[1])
+    return f"{element1}-{element2}"
+    
+
+def get_dist_mix_element_pair_dict(input_dict):
+    dist_mix_element_pair_dict = {}
+    for key, values in input_dict.items():
+        new_key = get_element_pair_from_label_pair(key)
+
+        if new_key not in dist_mix_element_pair_dict:
+            dist_mix_element_pair_dict[new_key] = values
+            # Merge existing and new values for the same key
+            for id_key, id_value in values.items():
+                # If the key exists and the value is different, append it to a list
+                if id_key in dist_mix_element_pair_dict[new_key] and dist_mix_element_pair_dict[new_key][id_key] != id_value:
+                    if not isinstance(dist_mix_element_pair_dict[new_key][id_key], list):
+                        dist_mix_element_pair_dict[new_key][id_key] = [dist_mix_element_pair_dict[new_key][id_key]]
+                    dist_mix_element_pair_dict[new_key][id_key].append(id_value)
+                else:
+                    # Use the merge operator for a simpler one-liner
+                    dist_mix_element_pair_dict[new_key] = {**dist_mix_element_pair_dict[new_key], **{id_key: id_value}}
+    
+    return dist_mix_element_pair_dict

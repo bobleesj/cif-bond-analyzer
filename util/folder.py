@@ -80,6 +80,7 @@ def remove_file(file_path):
 def write_summary_and_missing_pairs(
         dist_mix_pair_dict,
         missing_pairs,
+        text_filename,
         dir_path):
     """
     Writes a summary of unique atomic pairs, including counts and distances,
@@ -91,7 +92,7 @@ def write_summary_and_missing_pairs(
     - directory_path: The path to the directory where the summary file savde.
     """
 
-    file_path = os.path.join(dir_path, "output", "summary.txt")
+    file_path = os.path.join(dir_path, "output", text_filename)
 
     # Step 1: Collect data
     data = []

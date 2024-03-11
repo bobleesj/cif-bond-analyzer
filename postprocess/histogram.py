@@ -1,11 +1,14 @@
-import matplotlib.pyplot as plt
-import matplotlib.ticker as ticker
-import numpy as np
-import pandas as pd
+"""Plot histograms for atomic pair dists from dict and save the plots."""
+
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_histograms_from_data(data, directory_path):
+    """
+    Plot histograms for atomic pair dists from dict and save the plots.
+    """
     # Define the color mapping for atomic site categories
 
     categories_colors = {
@@ -39,7 +42,7 @@ def plot_histograms_from_data(data, directory_path):
         # Prepare the data for the histogram
         stacked_data = []
         labels = []
-        for category, color in categories_colors.items():
+        for category, _ in categories_colors.items():
             category_distances = [
                 float(pair_info["dist"]) for sub_key, 
                 pair_info in pair_info.items() if pair_info["mixing"] == category
@@ -68,4 +71,5 @@ def plot_histograms_from_data(data, directory_path):
     plt.savefig(os.path.join(
         directory_path,
         "output", "atomic_pair_histograms.png"), dpi=150)
+
     plt.close()
