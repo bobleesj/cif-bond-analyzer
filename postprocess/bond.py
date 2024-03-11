@@ -80,11 +80,11 @@ def get_sorted_missing_pairs(pair_dict):
     )
 
     # Sort the pairs in the data as well before comparison
-    missing_pairs = [
+    missing_label_pairs = [
         pair for pair in all_pairs if pair not in pairs_found
     ]
 
-    return missing_pairs
+    return missing_label_pairs
 
 
 def get_unique_pairs_dict(ordered_pairs, filename):
@@ -189,10 +189,4 @@ def get_dist_mix_element_pair_dict(input_dict):
             if not any(v == id_value for v in output_dict[new_key][id]):
                 output_dict[new_key][id].append(id_value)
 
-    return output_dict
-
-
-    print("Printed dist_mix_element_pair_dict:")
-    prompt.print_dict_in_json(output_dict)
-    
     return output_dict

@@ -19,7 +19,7 @@ from click import style, echo
 import pandas as pd
 
 from preprocess import cif_parser, cif_parser_handler, supercell
-from postprocess import bond, excel, histogram
+from postprocess import bond, excel, histogram, writer
 from util import folder, prompt
 from filter import occupancy
 
@@ -147,8 +147,12 @@ def main(is_iteractive_mode=True, dir_path=None):
 
     prompt.print_dict_in_json(dist_mix_element_pair_dict)
 
-    missing_pairs = bond.get_sorted_missing_pairs(
+    missing_label_pairs = bond.get_sorted_missing_pairs(
         dist_mix_pair_dict
+    )
+    
+    missing_element_pairs = bond.get_sorted_missing_pairs(
+        dist_mix_element_pair_dict
     )
 
     # # PART 4: SAVE & PLOT
@@ -162,52 +166,58 @@ def main(is_iteractive_mode=True, dir_path=None):
             os.makedirs(output_directory_path)
 
         # Write label-pair
-        folder.write_summary_and_missing_pairs(
+        writer.write_summary_and_missing_pairs(
             dist_mix_pair_dict,
-            missing_pairs,
+            missing_label_pairs,
             "summary-label.txt",
             dir_path
         )
         
-        # # Write element-pair
-        # folder.write_summary_and_missing_pairs(
-        #     dist_mix_element_pair_dict,
-        #     missing_pairs,
-        #     "summary-element.txt",
-        #     dir_path
-        # ) 
-
-        # Save Excel file
-        excel.write_excel_json(
+        # Save Excel file with label pair
+        excel.write_label_pair_dict_to_excel_json(
             dist_mix_pair_dict,
             "label",
             dir_path
         )
 
-        # Draw histograms
-        histogram.plot_histograms_from_data(
+        # Draw histograms with label pari
+        histogram.plot_histograms_from_label_dict(
             dist_mix_pair_dict,
             dir_path
         )
+        
+        # Write elesummary-element.txt
+        writer.write_summary_and_missing_pairs_with_element_dict(
+            dist_mix_element_pair_dict,
+            missing_element_pairs,
+            "summary-element.txt",
+            dir_path
+        ) 
+
+        # Save Excel file with element pair
+        excel.write_element_pair_dict_to_excel_json(
+            dist_mix_element_pair_dict,
+            "element",
+            dir_path
+        )
+
+        # Draw histograms with element pair
+        histogram.plot_histograms_from_element_dict(
+            dist_mix_element_pair_dict,
+            dir_path
+        )
+        
 
 
-    #     # Save Excel file
-    #     data = excel.write_excel_json(
-    #         dist_mix_element_pair_dict,
-    #         "element",
-    #         dir_path
-    #     )
+        total_elapsed_time = time.perf_counter() - overall_start_time
+        print(f"Total processing time: {total_elapsed_time:.2f}s")
 
-
-    #     total_elapsed_time = time.perf_counter() - overall_start_time
-    #     print(f"Total processing time: {total_elapsed_time:.2f}s")
-
-    #     # Save log csv
-    #     folder.save_to_csv_directory(
-    #         dir_path,
-    #         pd.DataFrame(log_list),
-    #         "log"
-    #     )
+        # Save log csv
+        folder.save_to_csv_directory(
+            dir_path,
+            pd.DataFrame(log_list),
+            "log"
+        )
 
     # print("\nAll files successfully processed.")
 

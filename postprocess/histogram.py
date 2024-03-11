@@ -1,11 +1,14 @@
-"""Plot histograms for atomic pair dists from dict and save the plots."""
+"""
+Plot histograms for atomic pair dists from dict and save the plots.
+(Refactoring will occcur once test results are confirmed)
+"""
 
 import os
 import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_histograms_from_data(data, directory_path):
+def plot_histograms_from_label_dict(data, directory_path):
     """
     Plot histograms for atomic pair dists from dict and save the plots.
     """
@@ -77,6 +80,79 @@ def plot_histograms_from_data(data, directory_path):
     plt.tight_layout()
     plt.savefig(os.path.join(
         directory_path,
-        "output", "atomic_pair_histograms.png"), dpi=150)
+        "output", "histograms_label_pair.png"), dpi=150)
 
+    plt.close()
+
+
+def plot_histograms_from_element_dict(data, directory_path):
+    """
+    Plot histograms for atomic pair distances from dict and save the plots.
+    """
+    categories_colors = {
+        "1": "#d62728",  # brick red
+        "2": "#ff7f0e",  # safety orange
+        "3": "#2ca02c",  # cooked asparagus green
+        "4": "#1f77b4",  # muted blue
+    }
+
+    categories_mapping = {
+        "1": "Deficiency",
+        "2": "Full occupancy & atomic mixing",
+        "3": "Deficiency & no atomic mixing",
+        "4": "Full occupancy",
+    }
+
+    # Prepare for plotting
+    num_pairs = len(data)
+    max_columns = 4
+    num_rows = np.ceil(num_pairs / max_columns).astype(int)
+    plt.figure(figsize=(max_columns * 4, num_rows * 3))
+
+    # Collect all distances to establish global bins
+    distances = []
+    for atomic_pair, records in data.items():
+        for infos in records.values():
+            for info in infos:
+                distances.append(float(info['dist']))
+
+    all_distances = sorted(distances)
+    bins = np.linspace(min(all_distances), max(all_distances), 21)
+
+    # Iterate over each atomic pair and its list of records
+    for i, (atomic_pair, records) in enumerate(data.items(), start=1):
+        ax = plt.subplot(num_rows, max_columns, i)
+        ax.set_title(atomic_pair)
+
+        # Prepare data for the histogram
+        stacked_data = []
+        labels = []
+        for cat, color in categories_colors.items():
+            category_distances = [
+                float(info['dist']) for infos in records.values()
+                for info in infos if info['mixing'] == cat
+            ]
+            if category_distances:
+                stacked_data.append(category_distances)
+                labels.append(cat)
+
+        # Plot the stacked histogram
+        if stacked_data:
+            ax.hist(
+                stacked_data,
+                bins=bins,
+                color=[categories_colors[cat] for cat in labels],
+                label=[categories_mapping[cat] for cat in labels],
+                stacked=True,
+                edgecolor='black'
+            )
+
+        ax.set_xlabel("Distance (Å)")
+        ax.set_ylabel("Count")
+        ax.legend(loc='upper right')
+
+    plt.tight_layout()
+    output_dir = os.path.join(directory_path, "output")
+    os.makedirs(output_dir, exist_ok=True)  # Ensure output directory exists
+    plt.savefig(os.path.join(output_dir, "histograms_element_pair.png"), dpi=150)
     plt.close()

@@ -1,0 +1,24 @@
+Summary:
+Pair: Ge-Ge, Count: 3, Distances: 2.226, 2.280, 2.383
+Pair: Ce-Ge, Count: 2, Distances: 3.141, 3.227
+Pair: Ni-Ge, Count: 2, Distances: 2.226, 2.477
+Pair: Ni-Ni, Count: 2, Distances: 2.226, 2.477
+Pair: Ce-Ni, Count: 1, Distances: 3.141
+Pair: Eu-Ge, Count: 1, Distances: 3.182
+Pair: Ir-Ge, Count: 1, Distances: 2.537
+Pair: Ru-Ge, Count: 1, Distances: 2.543
+
+Missing pairs:
+Ce-Ce
+Ce-Eu
+Ce-Ir
+Ce-Ru
+Eu-Eu
+Eu-Ir
+Eu-Ni
+Eu-Ru
+Ir-Ir
+Ir-Ni
+Ru-Ir
+Ru-Ni
+Ru-Ru
