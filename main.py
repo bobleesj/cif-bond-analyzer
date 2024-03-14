@@ -164,7 +164,7 @@ def main(is_iteractive_mode=True, dir_path=None):
             dist_mix_pair_dict, "label", dir_path
         )
 
-        # Draw histograms with label pari
+        # Draw histograms with label pair
         histogram.plot_histograms_from_label_dict(dist_mix_pair_dict, dir_path)
 
         # Write elesummary-element.txt

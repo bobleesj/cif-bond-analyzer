@@ -46,7 +46,7 @@ Ga-U
 Co-Rh
 ```
 
-### Output 2. Histgorams
+### Output 2. Histograms
 
 In the `output` folder, histograms per shortest pair distance from each atom will be saved.
 
