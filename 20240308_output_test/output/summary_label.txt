@@ -1,24 +1,38 @@
 Summary:
-Pair: Ge-Ge, Count: 7 Distances: 2.233, 2.304, 2.323, 2.329, 2.352, 2.359, 2.396
-Pair: Rh-Ge, Count: 6 Distances: 2.481, 2.495, 2.499, 2.515, 2.519, 2.538
-Pair: Co-Ga, Count: 2 Distances: 2.482, 2.501
-Pair: Tb-Ge, Count: 2 Distances: 3.135, 3.187
-Pair: Co-Co, Count: 1 Distances: 2.482
-Pair: Eu-Ge, Count: 1 Distances: 3.179
-Pair: Ga-Ga, Count: 1 Distances: 2.401
-Pair: Ho-Ge, Count: 1 Distances: 3.120
-Pair: In-In, Count: 1 Distances: 2.825
-Pair: La-Co, Count: 1 Distances: 3.332
-Pair: La-Ga, Count: 1 Distances: 3.332
-Pair: Nd-Ge, Count: 1 Distances: 3.157
-Pair: Pr-Ge, Count: 1 Distances: 3.161
-Pair: Pt-Pt, Count: 1 Distances: 2.819
-Pair: Rh-In, Count: 1 Distances: 2.825
-Pair: Rh-Rh, Count: 1 Distances: 2.825
-Pair: Ru-Ge, Count: 1 Distances: 2.507
-Pair: Sm-Ge, Count: 1 Distances: 3.141
-Pair: U-In, Count: 1 Distances: 2.825
-Pair: U-Rh, Count: 1 Distances: 2.825
+Pair: Ge1-Ge1, Count: 10 Distances: 2.233, 2.233, 2.304, 2.323, 2.329, 2.352, 2.352, 2.359, 2.359, 2.396
+Pair: Rh1-Ge1, Count: 8 Distances: 2.481, 2.495, 2.499, 2.515, 2.515, 2.519, 2.519, 2.538
+Pair: Co2A-Ga1B, Count: 4 Distances: 2.482, 2.482, 2.501, 2.501
+Pair: Ga1B-Ga2B, Count: 4 Distances: 2.482, 2.482, 2.501, 2.501
+Pair: Tb1-Ge1, Count: 3 Distances: 3.135, 3.187, 3.187
+Pair: Co1A-Co2A, Count: 2 Distances: 2.501, 2.501
+Pair: Co1A-Ga2B, Count: 2 Distances: 2.501, 2.501
+Pair: Co2A-CoA, Count: 2 Distances: 2.482, 2.482
+Pair: CoA-CoA, Count: 2 Distances: 2.401, 2.401
+Pair: CoA-Ga1B, Count: 2 Distances: 2.401, 2.401
+Pair: CoA-Ga2B, Count: 2 Distances: 2.482, 2.482
+Pair: Ga1B-Ga1B, Count: 2 Distances: 2.401, 2.401
+Pair: La-Co1A, Count: 2 Distances: 2.979, 2.979
+Pair: La-Ga1B, Count: 2 Distances: 2.979, 2.979
+Pair: La1-CoA, Count: 2 Distances: 3.332, 3.332
+Pair: La1-Ga1B, Count: 2 Distances: 3.332, 3.332
+Pair: Nd1-Ge1, Count: 2 Distances: 3.157, 3.157
+Pair: Pr1-Ge1, Count: 2 Distances: 3.161, 3.161
+Pair: Ru1-Ge1, Count: 2 Distances: 2.507, 2.507
+Pair: Co1B-Ga1, Count: 1 Distances: 2.601
+Pair: Eu1-Ge1, Count: 1 Distances: 3.179
+Pair: Ga1-Ga1, Count: 1 Distances: 2.358
+Pair: Ga1-Ga1A, Count: 1 Distances: 2.601
+Pair: Ho1-Ge1, Count: 1 Distances: 3.120
+Pair: In2-In2, Count: 1 Distances: 2.825
+Pair: La1-Ga1, Count: 1 Distances: 3.291
+Pair: Pt,Sn1-Pt,Sn1, Count: 1 Distances: 2.819
+Pair: Pt,Sn1-Pt,Sn2, Count: 1 Distances: 2.819
+Pair: Pt,Sn2-Pt,Sn2, Count: 1 Distances: 2.819
+Pair: Rh1-In2, Count: 1 Distances: 2.825
+Pair: Rh1-Rh1, Count: 1 Distances: 2.825
+Pair: Sm1-Ge1, Count: 1 Distances: 3.141
+Pair: U-In2, Count: 1 Distances: 2.825
+Pair: U-Rh1, Count: 1 Distances: 2.825
 
 Missing pairs:
 Co1A-Co1A

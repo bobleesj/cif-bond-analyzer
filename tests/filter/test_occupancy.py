@@ -4,7 +4,7 @@ import preprocess.cif_parser_handler as cif_parser_handler
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_info(get_cif_527000_loop_values):
+def test_get_atom_site_mixing_info_1(get_cif_527000_loop_values):
     atom_mixing_type = occupancy.get_atom_site_mixing_info(
         get_cif_527000_loop_values
     )
@@ -12,7 +12,7 @@ def test_get_atom_site_mixing_info(get_cif_527000_loop_values):
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_info(get_cif_1803318_loop_values):
+def test_get_atom_site_mixing_info_2(get_cif_1803318_loop_values):
     atom_mixing_type = occupancy.get_atom_site_mixing_info(
         get_cif_1803318_loop_values
     )
