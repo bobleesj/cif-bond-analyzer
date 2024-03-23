@@ -37,8 +37,8 @@ def order_pair_by_mendeleev(label_pair_tuple):
     first_label = label_pair_tuple[0]
     second_label = label_pair_tuple[1]
 
-    first_mendeleev_num, second_mendeleev_num = get_mendeleev_num_from_tuple(
-        label_pair_tuple
+    first_mendeleev_num, second_mendeleev_num = (
+        get_mendeleev_num_from_tuple(label_pair_tuple)
     )
 
     # First element num must be smaller
