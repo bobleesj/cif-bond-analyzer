@@ -308,10 +308,12 @@ def get_atomic_pair_list(flattened_points, cell_lengths, angles):
             if i != j:
                 pair = tuple(sorted([i, j]))
                 if pair not in pairs_set:
-                    distance, atom_label1, atom_label2 = (
-                        calculate_distance(
-                            point1, point2, cell_lengths, angles
-                        )
+                    (
+                        distance,
+                        atom_label1,
+                        atom_label2,
+                    ) = calculate_distance(
+                        point1, point2, cell_lengths, angles
                     )
                     if abs(distance) > 1e-3:
                         distances_from_point_i.append(
