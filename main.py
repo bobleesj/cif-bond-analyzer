@@ -124,7 +124,7 @@ def main(is_iteractive_mode=True, dir_path=None):
         }
         log_list.append(data)
 
-    prompt.print_dict_in_json(dist_mix_pair_dict)
+    
 
     # PART 3: OUTPUT
 
@@ -132,10 +132,9 @@ def main(is_iteractive_mode=True, dir_path=None):
     dist_mix_element_pair_dict = bond.get_dist_mix_element_pair_dict(
         dist_mix_pair_dict
     )
-
-    prompt.print_dict_in_json(dist_mix_element_pair_dict)
-
-    # missing_label_pairs = bond.get_sorted_missing_pairs(dist_mix_pair_dict)
+    
+    # prompt.print_dict_in_json(dist_mix_pair_dict)
+    # prompt.print_dict_in_json(dist_mix_element_pair_dict)
 
     missing_element_pairs = bond.get_sorted_missing_pairs(
         dist_mix_element_pair_dict
@@ -161,6 +160,19 @@ def main(is_iteractive_mode=True, dir_path=None):
             dist_mix_element_pair_dict, "element", dir_path
         )
 
+        # Save text file (1/1) with element pairs
+        writer.write_summary_and_missing_pairs_with_element_dict(
+            dist_mix_element_pair_dict,
+            missing_element_pairs,
+            "summary_element.txt",
+            dir_path,
+        )
+
+        # Draw histograms (1/1) with element pair
+        histogram.plot_histograms_from_element_dict(
+            dist_mix_element_pair_dict, dir_path
+        )
+
 
         # Write label-pair
         # writer.write_summary_and_missing_pairs(
@@ -173,20 +185,9 @@ def main(is_iteractive_mode=True, dir_path=None):
         # Draw histograms with label pair
         # histogram.plot_histograms_from_label_dict(dist_mix_pair_dict, dir_path)
 
-        # Write elesummary-element.txt
-        # writer.write_summary_and_missing_pairs_with_element_dict(
-        #     dist_mix_element_pair_dict,
-        #     missing_element_pairs,
-        #     "summary_element.txt",
-        #     dir_path,
-        # )
+ 
 
-
-        # Draw histograms with element pair
-        # histogram.plot_histograms_from_element_dict(
-        #     dist_mix_element_pair_dict, dir_path
-        # )
-
+    
         total_elapsed_time = time.perf_counter() - overall_start_time
         print(f"Total processing time: {total_elapsed_time:.2f}s")
 
