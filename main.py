@@ -168,22 +168,15 @@ def main(is_iteractive_mode=True, dir_path=None):
             dir_path,
         )
 
-        # Draw histograms (1/1) with element pair
-        histogram.plot_histograms_from_element_dict(
+        # Draw histograms (1/2) with element pair
+        histogram.plot_element_pair_histograms(
             dist_mix_element_pair_dict, dir_path
         )
-
-
-        # Write label-pair
-        # writer.write_summary_and_missing_pairs(
-        #     dist_mix_pair_dict,
-        #     missing_label_pairs,
-        #     "summary_site.txt",
-        #     dir_path,
-        # )
         
-        # Draw histograms with label pair
-        # histogram.plot_histograms_from_label_dict(dist_mix_pair_dict, dir_path)
+        # # Draw histograms (1/2) with site pair
+        # histogram.plot_site_pair_histograms(
+        #     dist_mix_element_pair_dict, dir_path
+            
 
  
 
