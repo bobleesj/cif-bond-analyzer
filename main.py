@@ -72,7 +72,7 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         CIF_loop_values = cif_parser_handler.get_cif_loop_values(file_path)
 
-        _, lenghts, angles_rad, _, all_points, _, atom_site_list = result
+        _, lenghts, angles_rad, _, all_points, _, _ = result
 
         num_of_atoms = len(all_points)
         index = f"({i+1}/{len(file_path_list)})"
@@ -135,7 +135,7 @@ def main(is_iteractive_mode=True, dir_path=None):
 
     prompt.print_dict_in_json(dist_mix_element_pair_dict)
 
-    missing_label_pairs = bond.get_sorted_missing_pairs(dist_mix_pair_dict)
+    # missing_label_pairs = bond.get_sorted_missing_pairs(dist_mix_pair_dict)
 
     missing_element_pairs = bond.get_sorted_missing_pairs(
         dist_mix_element_pair_dict
@@ -151,39 +151,41 @@ def main(is_iteractive_mode=True, dir_path=None):
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
 
-        # Write label-pair
-        writer.write_summary_and_missing_pairs(
-            dist_mix_pair_dict,
-            missing_label_pairs,
-            "summary_label.txt",
-            dir_path,
+        # Save Excel file (1/2) with site pair
+        excel.write_site_pair_dict_to_excel_json(
+            dist_mix_element_pair_dict, "site", dir_path
         )
 
-        # Save Excel file with label pair
-        excel.write_label_pair_dict_to_excel_json(
-            dist_mix_pair_dict, "label", dir_path
-        )
-
-        # Draw histograms with label pair
-        histogram.plot_histograms_from_label_dict(dist_mix_pair_dict, dir_path)
-
-        # Write elesummary-element.txt
-        writer.write_summary_and_missing_pairs_with_element_dict(
-            dist_mix_element_pair_dict,
-            missing_element_pairs,
-            "summary_element.txt",
-            dir_path,
-        )
-
-        # Save Excel file with element pair
+        # Save Excel file (2/2) with shortest element pair
         excel.write_element_pair_dict_to_excel_json(
             dist_mix_element_pair_dict, "element", dir_path
         )
 
+
+        # Write label-pair
+        # writer.write_summary_and_missing_pairs(
+        #     dist_mix_pair_dict,
+        #     missing_label_pairs,
+        #     "summary_site.txt",
+        #     dir_path,
+        # )
+        
+        # Draw histograms with label pair
+        # histogram.plot_histograms_from_label_dict(dist_mix_pair_dict, dir_path)
+
+        # Write elesummary-element.txt
+        # writer.write_summary_and_missing_pairs_with_element_dict(
+        #     dist_mix_element_pair_dict,
+        #     missing_element_pairs,
+        #     "summary_element.txt",
+        #     dir_path,
+        # )
+
+
         # Draw histograms with element pair
-        histogram.plot_histograms_from_element_dict(
-            dist_mix_element_pair_dict, dir_path
-        )
+        # histogram.plot_histograms_from_element_dict(
+        #     dist_mix_element_pair_dict, dir_path
+        # )
 
         total_elapsed_time = time.perf_counter() - overall_start_time
         print(f"Total processing time: {total_elapsed_time:.2f}s")
@@ -196,3 +198,5 @@ def main(is_iteractive_mode=True, dir_path=None):
 
 if __name__ == "__main__":
     main()
+
+

@@ -12,13 +12,19 @@ def get_coord_occupancy_sum(cif_loop_values):
     """
     Calculates sum of occupancies for each set of coordinates
     """
-    num_atom_labels = cif_parser.get_num_of_atom_labels(cif_loop_values)
+    num_atom_labels = cif_parser.get_num_of_atom_labels(
+        cif_loop_values
+    )
     # Check for full occupancy
     coord_occupancy_sum = {}
 
     for i in range(num_atom_labels):
-        _, occupancy, coordinates = cif_parser.get_atom_info(cif_loop_values, i)
-        occupancy_num = coord_occupancy_sum.get(coordinates, 0) + occupancy
+        _, occupancy, coordinates = cif_parser.get_atom_info(
+            cif_loop_values, i
+        )
+        occupancy_num = (
+            coord_occupancy_sum.get(coordinates, 0) + occupancy
+        )
         coord_occupancy_sum[coordinates] = occupancy_num
 
     return coord_occupancy_sum
@@ -69,7 +75,9 @@ def get_all_possible_ordered_label_pairs(cif_loop_values):
     all_possible_label_pairs = list(product(label_list, repeat=2))
 
     # Step 1: Sort each pair to standardize order
-    sorted_pairs = pair_order.sort_tuple_in_list(all_possible_label_pairs)
+    sorted_pairs = pair_order.sort_tuple_in_list(
+        all_possible_label_pairs
+    )
 
     # Step 2: Get only the unique pairs
     unique_sorted_pairs = list(set(sorted_pairs))
@@ -84,7 +92,9 @@ def get_all_possible_ordered_label_pairs(cif_loop_values):
 
 
 # Get atom site mixing label for all pairs possible
-def get_atom_site_mixing_dict(atom_site_mixing_file_info, cif_loop_values):
+def get_atom_site_mixing_dict(
+    atom_site_mixing_file_info, cif_loop_values
+):
     """
     Gets atomic site mixing dictionary for all possible label pairs using cif loop values.
     """
@@ -100,18 +110,28 @@ def get_atom_site_mixing_dict(atom_site_mixing_file_info, cif_loop_values):
             atom_site_pair_dict[pair] = "4"
 
     # Get label dict info and site occupancy sum
-    cif_loop_value_dict = cif_parser.get_cif_loop_value_dict(cif_loop_values)
+    cif_loop_value_dict = cif_parser.get_cif_loop_value_dict(
+        cif_loop_values
+    )
     occupancy_sum = get_coord_occupancy_sum(cif_loop_values)
 
     # Step 2. If not, loop through every ordered label pair per file
     if atom_site_mixing_file_info != "4":
         for pair in unique_ordered_label_pairs:
             # Step 1: For the given pair, get the coordinate and occupany info
-            first_label_coord = cif_loop_value_dict[pair[0]]["coordinates"]
-            second_label_coord = cif_loop_value_dict[pair[1]]["coordinates"]
+            first_label_coord = cif_loop_value_dict[pair[0]][
+                "coordinates"
+            ]
+            second_label_coord = cif_loop_value_dict[pair[1]][
+                "coordinates"
+            ]
 
-            first_label_occ = cif_loop_value_dict[pair[0]]["occupancy"]
-            second_label_occ = cif_loop_value_dict[pair[1]]["occupancy"]
+            first_label_occ = cif_loop_value_dict[pair[0]][
+                "occupancy"
+            ]
+            second_label_occ = cif_loop_value_dict[pair[1]][
+                "occupancy"
+            ]
 
             # Step 3. Check full occupacny at the pair level
 
@@ -144,12 +164,16 @@ def get_atom_site_mixing_dict(atom_site_mixing_file_info, cif_loop_values):
             is_first_label_atomic_mixed = None
             is_second_label_atomic_mixed = None
 
-            if (occupancy_sum[first_label_coord] - first_label_occ) == 0:
+            if (
+                occupancy_sum[first_label_coord] - first_label_occ
+            ) == 0:
                 is_first_label_atomic_mixed = False
             else:
                 is_first_label_atomic_mixed = True
 
-            if (occupancy_sum[second_label_coord] - second_label_occ) == 0:
+            if (
+                occupancy_sum[second_label_coord] - second_label_occ
+            ) == 0:
                 is_second_label_atomic_mixed = False
             else:
                 is_second_label_atomic_mixed = True
@@ -160,7 +184,8 @@ def get_atom_site_mixing_dict(atom_site_mixing_file_info, cif_loop_values):
             # Check 1. One of the labels is deficient
             # Check 2. Both labels are not atomic mixed
             if (
-                is_first_label_site_deficient or is_second_label_deficient
+                is_first_label_site_deficient
+                or is_second_label_deficient
             ) and (
                 not is_first_label_atomic_mixed
                 and not is_second_label_atomic_mixed
@@ -173,15 +198,22 @@ def get_atom_site_mixing_dict(atom_site_mixing_file_info, cif_loop_values):
             if (
                 not is_first_label_site_deficient
                 and not is_second_label_deficient
-            ) and (is_first_label_atomic_mixed or is_second_label_atomic_mixed):
+            ) and (
+                is_first_label_atomic_mixed
+                or is_second_label_atomic_mixed
+            ):
                 atom_site_pair_dict[pair] = "2"
 
             # Assign "1" for "deficiency"
             # Check 1. At least one label is deficient
             # Check 2. At least one label mixed
             if (
-                is_first_label_site_deficient or is_second_label_deficient
-            ) and (is_first_label_atomic_mixed or is_second_label_atomic_mixed):
+                is_first_label_site_deficient
+                or is_second_label_deficient
+            ) and (
+                is_first_label_atomic_mixed
+                or is_second_label_atomic_mixed
+            ):
                 atom_site_pair_dict[pair] = "1"
 
     return atom_site_pair_dict

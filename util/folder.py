@@ -19,7 +19,9 @@ def choose_CIF_directory(script_directory):
     ]
 
     if not directories:
-        print("No directories found in the current path containing .cif files!")
+        print(
+            "No directories found in the current path containing .cif files!"
+        )
         return None
     print("\nAvailable folders containing CIF files:")
     for idx, dir_name in enumerate(directories, start=1):
@@ -27,7 +29,9 @@ def choose_CIF_directory(script_directory):
         print(f"{idx}. {dir_name}, {num_of_cif_files} files")
     while True:
         try:
-            choice = int(input("\nEnter folder # having .cif files: "))
+            choice = int(
+                input("\nEnter folder # having .cif files: ")
+            )
             if 1 <= choice <= len(directories):
                 return join(script_directory, directories[choice - 1])
             else:

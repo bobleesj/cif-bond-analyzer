@@ -25,7 +25,10 @@ def process_and_order_pairs(all_points, atomic_pair_list):
         min_dist = float("inf")
 
         for pair in atomic_pair_list:
-            if pair_idx in pair["point_pair"] and pair["distance"] < min_dist:
+            if (
+                pair_idx in pair["point_pair"]
+                and pair["distance"] < min_dist
+            ):
                 min_dist = pair["distance"]
                 min_dist_pair = pair
 
@@ -64,7 +67,8 @@ def get_all_ordered_pairs_from_set(pair_dict):
 
     # Order pairs based on Mendeleev ordering
     all_pairs_ordered = [
-        tuple(pair_order.order_pair_by_mendeleev(pair)) for pair in all_pairs
+        tuple(pair_order.order_pair_by_mendeleev(pair))
+        for pair in all_pairs
     ]
 
     # Remove duplicates from all possible pairs
@@ -81,7 +85,9 @@ def get_sorted_missing_pairs(pair_dict):
     all_pairs = get_all_ordered_pairs_from_set(pair_dict)
 
     pairs_found = set(
-        tuple(pair_order.order_pair_by_mendeleev(tuple(pair.split("-"))))
+        tuple(
+            pair_order.order_pair_by_mendeleev(tuple(pair.split("-")))
+        )
         for pair in pair_dict.keys()
     )
 
@@ -147,7 +153,9 @@ def get_dist_mix_pair_dict(
 
             # Convert dist back to float for comparison
             pair_key = f"{label_1}-{label_2}"
-            pair_mixing_category = label_pair_mixing_dict[pair_tuple_ordered]
+            pair_mixing_category = label_pair_mixing_dict[
+                pair_tuple_ordered
+            ]
 
             # Initialize pair_key if not exists
             if pair_key not in dist_pair_dict:
@@ -156,7 +164,9 @@ def get_dist_mix_pair_dict(
             # Check if the file is already associated with the pair_key
             if filename in dist_pair_dict[pair_key]:
                 # Update only if the new distance is shorter
-                if dist < float(dist_pair_dict[pair_key][filename]["dist"]):
+                if dist < float(
+                    dist_pair_dict[pair_key][filename]["dist"]
+                ):
                     dist_pair_dict[pair_key][filename] = {
                         "mixing": pair_mixing_category,
                         "dist": dist_str,
@@ -199,7 +209,9 @@ def get_dist_mix_element_pair_dict(input_dict):
                 output_dict[new_key][id] = []
             # Check if the current id_value (as a dict) is already in the list
             # So if the mixing is different, it is stored
-            if not any(v == id_value for v in output_dict[new_key][id]):
+            if not any(
+                v == id_value for v in output_dict[new_key][id]
+            ):
                 output_dict[new_key][id].append(id_value)
 
     return output_dict

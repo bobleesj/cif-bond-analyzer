@@ -57,7 +57,9 @@ def get_user_input_on_supercell_method():
                 "You've selected: +-1, +-1, +-1 shifts (2x2x2 supercell, slowest)\n"
             )
         else:
-            click.echo("Invalid option. Defaulting to No shift (fastest)\n")
+            click.echo(
+                "Invalid option. Defaulting to No shift (fastest)\n"
+            )
             method = 1
     else:
         method = None
@@ -65,7 +67,9 @@ def get_user_input_on_supercell_method():
     return method
 
 
-def print_progress(filename_with_ext, num_of_atoms, elapsed_time, is_finished):
+def print_progress(
+    filename_with_ext, num_of_atoms, elapsed_time, is_finished
+):
     if is_finished:
         echo(
             style(
