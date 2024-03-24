@@ -67,6 +67,15 @@ def get_user_input_on_supercell_method():
     return method
 
 
+def get_user_input_on_format():
+    click.echo(
+        "\nDo you want to format and move unspported files?"
+    )
+    is_supercell_generation_method_modified = click.confirm(
+        "(Default: N)", default=False
+    )
+
+
 def print_progress(
     filename_with_ext, num_of_atoms, elapsed_time, is_finished
 ):

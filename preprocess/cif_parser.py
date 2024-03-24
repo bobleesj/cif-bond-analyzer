@@ -180,3 +180,51 @@ def get_cif_loop_value_dict(ci_loop_values):
         cif_loop_value_dict[label]["coordinates"] = coordinates
 
     return cif_loop_value_dict
+
+
+# Index is one lower than the actual line number
+def get_line_start_end_line_indexes(file_path, start_keyword):
+    """
+    Finds the starting and ending indexes of the lines in atom_site_loop
+    """
+
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+
+    start_index = None
+    end_index = None
+
+    # Find the start index
+    for i, line in enumerate(lines):
+        if start_keyword in line:
+            start_index = i + 1
+            break
+
+    if start_index is None:
+        return None, None
+
+    # Find the end index
+    for i in range(start_index, len(lines)):
+        if lines[i].strip() == "":
+            end_index = i
+            break
+
+    return start_index, end_index
+
+
+def get_loop_content(file_path, start_keyword):
+    start_index, end_index = get_line_start_end_line_indexes(
+        file_path, start_keyword
+    )
+
+    if start_index is None or end_index is None:
+        print("Section starting with", start_keyword, "not found.")
+        return None
+
+    with open(file_path, "r") as f:
+        lines = f.readlines()
+
+    # Extract the content between start_index and end_index
+    content_lines = lines[start_index:end_index]
+
+    return content_lines

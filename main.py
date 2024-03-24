@@ -28,9 +28,9 @@ def main(is_iteractive_mode=True, dir_path=None):
     """
     Runs the Python script
     """
-    prompt.print_intro_prompt()
     # PART 1: Choose the folder & get user input
-
+    prompt.print_intro_prompt()
+    
     log_list = []
     file_path_list = None
 
@@ -54,6 +54,10 @@ def main(is_iteractive_mode=True, dir_path=None):
     file_path_list = folder.get_cif_file_path_list(dir_path)
 
     # PART 2: PREPROCESS
+    
+    # # Format CIF files first
+    # format.move_files_based_on_format_error(dir_path)
+
 
     dist_mix_pair_dict = {}
 
@@ -70,7 +74,7 @@ def main(is_iteractive_mode=True, dir_path=None):
             file_path, cif_parser.get_loop_tags(), supercell_method
         )
 
-        CIF_loop_values = cif_parser_handler.get_cif_loop_values(
+        cif_loop_values = cif_parser_handler.get_cif_loop_values(
             file_path
         )
 
@@ -93,12 +97,12 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         # Get atomic site mixing info -> String
         atom_site_mixing_file_info = (
-            occupancy.get_atom_site_mixing_info(CIF_loop_values)
+            occupancy.get_atom_site_mixing_info(cif_loop_values)
         )
 
         # Get atom site pair information
         label_pair_mixing_dict = occupancy.get_atom_site_mixing_dict(
-            atom_site_mixing_file_info, CIF_loop_values
+            atom_site_mixing_file_info, cif_loop_values
         )
 
         # Find the shortest pair from each reference atom
