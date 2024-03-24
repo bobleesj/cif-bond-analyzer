@@ -43,9 +43,9 @@ def write_site_pair_dict_to_excel_json(
                     info
                 ) in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
-                    info_copy["File"] = (
-                        f"{file_id}.cif"  # Add the file ID as 'File'
-                    )
+                    info_copy[
+                        "File"
+                    ] = f"{file_id}.cif"  # Add the file ID as 'File'
                     aggregated_info.append(info_copy)
 
             # Create a DataFrame from the aggregated information
@@ -141,9 +141,9 @@ def write_element_pair_dict_to_excel_json(
                     info
                 ) in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
-                    info_copy["File"] = (
-                        f"{file_id}.cif"  # Add the file ID as 'File'
-                    )
+                    info_copy[
+                        "File"
+                    ] = f"{file_id}.cif"  # Add the file ID as 'File'
                     aggregated_info.append(info_copy)
 
             # Create a DataFrame from the aggregated information

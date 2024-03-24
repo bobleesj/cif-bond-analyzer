@@ -1,7 +1,9 @@
 # CIF Bond Analyzer
+
 Analyze and visualize bonding pairs in CIF files: Processes CIFs to identify unique atomic pairs, their frequencies, distances, missing pairs, and generates histograms for distance distribution
 
 ## What CIF Bond Anaylzer does
+
 1. processes Crystallographic Information Files (CIF) from selected folder
 2. determines shortest distance and pair from one reference atom all other atoms
 3. indicates frequency and distances of bonding pairs across all files
@@ -56,31 +58,38 @@ In the `output` folder, histograms per shortest pair distance from each atom wil
 
 ```json
 {
-    "Ga1-Ga1": {
-        "539016": {
-            "mixing": "4",
-            "dist": "2.358"
-        }
+    "Ni-Ni": {
+        "1830597": [
+            {
+                "mixing": "4",
+                "dist": "2.477"
+            }
+        ]
     },
-    "La1-Ga1": {
-        "539016": {
-            "mixing": "4",
-            "dist": "3.291"
-        }
-    },
-    "Co1B-Ga1": {
-        "539016": {
-            "mixing": "2",
-            "dist": "2.601"
-        }
-    },
-    "Ga1-Ga1A": {
-        "539016": {
-            "mixing": "2",
-            "dist": "2.601"
-        }
+    "Ni-Ga": {
+        "1830597": [
+            {
+                "mixing": "4",
+                "dist": "2.53"
+            },
+            {
+                "mixing": "3",
+                "dist": "2.424"
+            }
+        ]
     }
 }
+```
+
+
+
+```json
+categories_mapping = {
+      "1": "Deficiency",
+      "2": "Full occupancy & atomic mixing",
+      "3": "Deficiency & no atomic mixing",
+      "4": "Full occupancy",
+  }
 ```
 
 ## Installation
