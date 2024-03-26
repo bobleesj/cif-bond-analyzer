@@ -47,7 +47,9 @@ def get_cif_loop_values(file_path: str) -> list:
     return cif_loop_values
 
 
-def get_folder_and_files_info(script_directory: str, is_interactive_mode: bool):
+def get_folder_and_files_info(
+    script_directory: str, is_interactive_mode: bool
+):
     """
     Get info about folders and files.
     """

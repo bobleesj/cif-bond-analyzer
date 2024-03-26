@@ -15,7 +15,9 @@ def get_sorted_missing_pairs(global_element_pair_dict):
     )
 
     # Sort the pairs in the data as well before comparison
-    missing_label_pairs = [pair for pair in all_pairs if pair not in pairs_found]
+    missing_label_pairs = [
+        pair for pair in all_pairs if pair not in pairs_found
+    ]
 
     return missing_label_pairs
 

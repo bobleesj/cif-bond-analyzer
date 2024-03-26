@@ -29,17 +29,25 @@ def get_atom_site_labeled_dict(
         current_site_label = point_1[3]
 
         if current_site_label not in atom_site_dict:
-            atom_site_dict[current_site_label] = {"min_dist": float("inf"), "pairs": []}
+            atom_site_dict[current_site_label] = {
+                "min_dist": float("inf"),
+                "pairs": [],
+            }
 
         for j, point_2 in enumerate(all_points):
             if i == j:
                 continue  # Skip the identical index
 
-            dist_result = supercell.calculate_dist(point_1, point_2, lengths, angles)
+            dist_result = supercell.calculate_dist(
+                point_1, point_2, lengths, angles
+            )
             dist, _, label_2 = dist_result
             dist = abs(
                 np.round(dist, 3)
             )  # Round and take absolute value of the distance
+
+            if dist < 0.01:
+                continue
 
             if dist < atom_site_dict[current_site_label]["min_dist"]:
                 atom_site_dict[current_site_label]["min_dist"] = dist
@@ -104,7 +112,9 @@ def transform_to_list(atom_site_dict):
     return pairs_list
 
 
-def postprocess_atom_site_dict(atom_site_dict, atom_site_mixing_dict, filename):
+def postprocess_atom_site_dict(
+    atom_site_dict, atom_site_mixing_dict, filename
+):
     pairs_list = transform_to_list(atom_site_dict)
     atom_site_dict_processed = {}
 
@@ -114,7 +124,9 @@ def postprocess_atom_site_dict(atom_site_dict, atom_site_mixing_dict, filename):
         pair_label = f"{ordered_pair[0]}-{ordered_pair[1]}"
 
         # Determine the mixing value from atom_site_mixing_dict
-        mixing = atom_site_mixing_dict[tuple([ordered_pair[0], ordered_pair[1]])]
+        mixing = atom_site_mixing_dict[
+            tuple([ordered_pair[0], ordered_pair[1]])
+        ]
 
         if pair_label not in atom_site_dict_processed:
             atom_site_dict_processed[pair_label] = {}
@@ -147,6 +159,7 @@ def get_shortest_distance(values):
             shortest_mixing = mixing
     return shortest_dist, shortest_mixing
 
+
 def get_atom_site_dict_with_no_number(input_dict):
     """
     Strips numbers in each label and collection pairs
@@ -162,6 +175,7 @@ def get_atom_site_dict_with_no_number(input_dict):
                     output_dict[element_pair_key][id].append(value)
     return output_dict
 
+
 def get_element_dict(input_dict):
     """
     Strips numbers in each label and collection pairs and finds the shortest distance value for each pair and ID while maintaining mixing information
@@ -172,7 +186,9 @@ def get_element_dict(input_dict):
         output_dict.setdefault(element_pair_key, {})
         for id, id_values in values.items():
             shortest_dist, shortest_mixing = get_shortest_distance(id_values)
-            output_dict[element_pair_key][id] = [{"dist": str(shortest_dist), "mixing": str(shortest_mixing)}]
+            output_dict[element_pair_key][id] = [
+                {"dist": str(shortest_dist), "mixing": str(shortest_mixing)}
+            ]
     return output_dict
 
 
@@ -194,6 +210,7 @@ def append_atom_site_dict(global_atom_site_pair_dict, atom_site_pair_dict):
                     global_atom_site_pair_dict[pair_key][id].append(value)
 
     return global_atom_site_pair_dict
+
 
 def append_element_site_dict(global_element_pair_dict, atom_site_pair_dict):
     """

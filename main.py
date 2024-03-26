@@ -48,11 +48,11 @@ def main(is_iteractive_mode=True, dir_path=None):
                 "\nYour default option is generating a 2-2-2 supercell for",
                 "files more than 100 atoms in the unit cell.",
             )
-            supercell_method = 1
+            supercell_method = 3
 
     if not is_iteractive_mode:
         file_path_list = folder.get_cif_file_path_list(dir_path)
-        supercell_method = 1
+        supercell_method = 3
 
     file_path_list = folder.get_cif_file_path_list(dir_path)
 
@@ -115,9 +115,6 @@ def main(is_iteractive_mode=True, dir_path=None):
         # Get the shortest element-element pair
         atom_element_pair_dict = bond.get_element_dict(atom_site_pair_dict)
 
-        # prompt.print_dict_in_json(atom_site_pair_dict)
-        # prompt.print_dict_in_json(atom_element_pair_dict)
-
 
         elapsed_time = time.perf_counter() - start_time
 
@@ -143,8 +140,8 @@ def main(is_iteractive_mode=True, dir_path=None):
             global_element_pair_dict, atom_element_pair_dict
         )
 
-    prompt.print_dict_in_json(global_site_pair_dict)
-    prompt.print_dict_in_json(global_element_pair_dict)
+    # prompt.print_dict_in_json(global_site_pair_dict)
+    # prompt.print_dict_in_json(global_element_pair_dict)
     
     # PART 3: OUTPUT
     missing_element_pairs = bond_missing.get_sorted_missing_pairs(

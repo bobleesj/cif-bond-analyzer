@@ -16,8 +16,12 @@ def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     os.makedirs(output_dir, exist_ok=True)
 
     folder_name = os.path.basename(os.path.normpath(dir_path))
-    excel_file_path = os.path.join(output_dir, f"{folder_name}_{pair_type}_pairs.xlsx")
-    json_file_path = os.path.join(output_dir, f"{folder_name}_{pair_type}_pairs.json")
+    excel_file_path = os.path.join(
+        output_dir, f"{folder_name}_{pair_type}_pairs.xlsx"
+    )
+    json_file_path = os.path.join(
+        output_dir, f"{folder_name}_{pair_type}_pairs.json"
+    )
 
     category_mapping = {
         "1": "deficiency",
@@ -33,7 +37,9 @@ def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
             for file_id, infos in files_info.items():
                 for info in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
-                    info_copy["File"] = f"{file_id}.cif"  # Add the file ID as 'File'
+                    info_copy[
+                        "File"
+                    ] = f"{file_id}.cif"  # Add the file ID as 'File'
                     aggregated_info.append(info_copy)
 
             # Create a DataFrame from the aggregated information
@@ -51,7 +57,10 @@ def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
             # Apply numeric transformation and category mapping
             df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
             df["Atomic Mixing"] = (
-                df["Atomic Mixing"].astype(str).map(category_mapping).fillna("Unknown")
+                df["Atomic Mixing"]
+                .astype(str)
+                .map(category_mapping)
+                .fillna("Unknown")
             )
             df.sort_values(by="Distance", inplace=True)
 
@@ -78,8 +87,12 @@ def write_element_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     os.makedirs(output_dir, exist_ok=True)
 
     folder_name = os.path.basename(os.path.normpath(dir_path))
-    excel_file_path = os.path.join(output_dir, f"{folder_name}_{pair_type}_pairs.xlsx")
-    json_file_path = os.path.join(output_dir, f"{folder_name}_{pair_type}_pairs.json")
+    excel_file_path = os.path.join(
+        output_dir, f"{folder_name}_{pair_type}_pairs.xlsx"
+    )
+    json_file_path = os.path.join(
+        output_dir, f"{folder_name}_{pair_type}_pairs.json"
+    )
 
     category_mapping = {
         "1": "deficiency",
@@ -108,7 +121,9 @@ def write_element_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
             for file_id, infos in files_info.items():
                 for info in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
-                    info_copy["File"] = f"{file_id}.cif"  # Add the file ID as 'File'
+                    info_copy[
+                        "File"
+                    ] = f"{file_id}.cif"  # Add the file ID as 'File'
                     aggregated_info.append(info_copy)
 
             # Create a DataFrame from the aggregated information
@@ -126,7 +141,10 @@ def write_element_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
             # Apply numeric transformation and category mapping
             df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
             df["Atomic Mixing"] = (
-                df["Atomic Mixing"].astype(str).map(category_mapping).fillna("Unknown")
+                df["Atomic Mixing"]
+                .astype(str)
+                .map(category_mapping)
+                .fillna("Unknown")
             )
             df.sort_values(by="Distance", inplace=True)
 

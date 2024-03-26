@@ -246,7 +246,9 @@ def plot_site_pair_histograms(data, directory_path):
         output_dir = os.path.join(directory_path, "output")
         os.makedirs(output_dir, exist_ok=True)
         fig.savefig(
-            os.path.join(output_dir, f"histogram_site_pair_{image_num + 1}.png"),
+            os.path.join(
+                output_dir, f"histogram_site_pair_{image_num + 1}.png"
+            ),
             dpi=150,
         )
         plt.close(fig)
