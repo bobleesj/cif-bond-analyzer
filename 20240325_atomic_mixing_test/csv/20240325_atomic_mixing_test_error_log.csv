@@ -1,1 +1,2 @@
-
+filename,error_message
+/Users/macbook/Documents/GitHub/cif-bond-analyzer/20240325_atomic_mixing_test/1830597.cif,module 'preprocess.cif_parser' has no attribute 'get_CIF_block'

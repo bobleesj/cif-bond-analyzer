@@ -9,7 +9,7 @@ Usage:
 
 Author: Sangjoon Bob Lee
 
-Last update: Mar 24, 2024
+Last update: Mar 26, 2024
 Release date: Mar 10, 2024
 
 """
@@ -18,9 +18,9 @@ import os
 import time
 import pandas as pd
 from click import style, echo
-from cifcleaner.filter import format
 
-from preprocess import cif_parser, cif_parser_handler, supercell
+
+from preprocess import cif_parser, cif_parser_handler, supercell, format
 from postprocess import bond, bond_missing, excel, histogram, writer
 from util import folder, prompt
 from filter import occupancy

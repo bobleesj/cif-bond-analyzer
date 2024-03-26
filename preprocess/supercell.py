@@ -231,7 +231,7 @@ def get_coords_after_sym_operations(
 
 
 def get_points_and_labels(
-    all_coords_list, loop_values, supercell_generation_method
+    all_coords_list, loop_values, supercell_generation_method=3
 ):
     """
     Process coordinates and loop values to extract points, labels, and atom types.

@@ -1,6 +1,7 @@
 import re
 import gemmi
 from util.string_parser import remove_string_braket
+from preprocess import cif_parser
 from util.unit import get_radians_from_degrees
 
 
@@ -224,3 +225,49 @@ def get_loop_content(file_path, start_keyword):
     content_lines = lines[start_index:end_index]
 
     return content_lines
+
+
+def extract_formula_and_tag(compound_formula_tag):
+    parts = compound_formula_tag.split()
+
+    # First part is the compound formula
+    compound_formula = parts[0]
+
+    # The rest are tags
+    tags = "_".join(parts[1:])
+
+    return compound_formula, tags
+
+
+
+def get_compound_phase_tag_id_from_third_line(file_path):
+    """
+    Extracts the compound name and tag from the provided CIF file path.
+    """
+    with open(file_path, "r") as f:
+        # Read first three lines
+        f.readline()  # First line
+        f.readline()  # Second line
+        third_line = f.readline().strip()  # Thrid line
+        third_line = third_line.replace(",", "")
+
+        # Split based on '#' and filter out empty strings
+        third_line_parts = [
+            part.strip() for part in third_line.split("#") if part.strip()
+        ]
+        CIF_id = third_line_parts[-1]
+        if not CIF_id.isdigit():
+            raise RuntimeError(
+                "The CIF file is wrongly formatted in the third line"
+            )
+
+        # If the thrid line does not contain the CIF ID, then it's wrongly formatted
+        # if third_line_parts[0] not in third_line_parts[1]
+
+        compound_phase = third_line_parts[0]
+        compound_formala_tag = third_line_parts[1]
+        compound_id = third_line_parts[2]
+
+        compound_formula, tags = extract_formula_and_tag(compound_formala_tag)
+        return compound_phase, compound_formula, tags, compound_id
+
