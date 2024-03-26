@@ -1,9 +1,10 @@
 import numpy as np
 import gemmi
 from preprocess import cif_parser
+from util import prompt
 
 
-def calculate_distance(point1, point2, cell_lengths, angles):
+def calculate_dist(point1, point2, cell_lengths, angles):
     """
     Calculates distance between two points using cell lengths and angles.
     """
@@ -23,28 +24,13 @@ def calculate_distance(point1, point2, cell_lengths, angles):
 
     # Calculate cross terms
     cross_x = (
-        2
-        * cell_lengths[1]
-        * cell_lengths[2]
-        * np.cos(angles[0])
-        * delta_y
-        * delta_z
+        2 * cell_lengths[1] * cell_lengths[2] * np.cos(angles[0]) * delta_y * delta_z
     )
     cross_y = (
-        2
-        * cell_lengths[2]
-        * cell_lengths[0]
-        * np.cos(angles[1])
-        * delta_z
-        * delta_x
+        2 * cell_lengths[2] * cell_lengths[0] * np.cos(angles[1]) * delta_z * delta_x
     )
     cross_z = (
-        2
-        * cell_lengths[0]
-        * cell_lengths[1]
-        * np.cos(angles[2])
-        * delta_x
-        * delta_y
+        2 * cell_lengths[0] * cell_lengths[1] * np.cos(angles[2]) * delta_x * delta_y
     )
 
     # Calculate squared distance
@@ -71,10 +57,7 @@ def shift_and_append_points(
     # Method 2 - +1 +1 +1 shifts
     # Method 3 - +-1 +-1 +-1 shifts
 
-    if (
-        num_unitcell_atom
-        > translation_op_unit_cell_atom_num_threshold
-    ):
+    if num_unitcell_atom > translation_op_unit_cell_atom_num_threshold:
         if supercell_generation_method == 1:
             shifts = np.array([[0, 0, 0]])
             shifted_points = points[:, None, :] + shifts[None, :, :]
@@ -178,25 +161,17 @@ def get_coords_list(block, loop_values):
     loop_length = len(loop_values[0])
     coords_list = []
     for i in range(loop_length):
-        atom_site_x = cif_parser.remove_string_braket(
-            loop_values[4][i]
-        )
-        atom_site_y = cif_parser.remove_string_braket(
-            loop_values[5][i]
-        )
-        atom_site_z = cif_parser.remove_string_braket(
-            loop_values[6][i]
-        )
+        atom_site_x = cif_parser.remove_string_braket(loop_values[4][i])
+        atom_site_y = cif_parser.remove_string_braket(loop_values[5][i])
+        atom_site_z = cif_parser.remove_string_braket(loop_values[6][i])
         atom_site_label = loop_values[0][i]
 
-        coords_after_symmetry_operations = (
-            get_coords_after_sym_operations(
-                block,
-                float(atom_site_x),
-                float(atom_site_y),
-                float(atom_site_z),
-                atom_site_label,
-            )
+        coords_after_symmetry_operations = get_coords_after_sym_operations(
+            block,
+            float(atom_site_x),
+            float(atom_site_y),
+            float(atom_site_z),
+            atom_site_label,
         )
         coords_list.append(coords_after_symmetry_operations)
 
@@ -214,9 +189,7 @@ def get_coords_after_sym_operations(
     Generates a list of coordinates for each atom site
     """
     all_coords = set()
-    for operation in block.find_loop(
-        "_space_group_symop_operation_xyz"
-    ):
+    for operation in block.find_loop("_space_group_symop_operation_xyz"):
         operation = operation.replace("'", "")
         try:
             op = gemmi.Op(operation)
@@ -242,9 +215,7 @@ def get_coords_after_sym_operations(
     return list(all_coords)
 
 
-def get_points_and_labels(
-    all_coords_list, loop_values, supercell_generation_method
-):
+def get_points_and_labels(all_coords_list, loop_values, supercell_generation_method):
     """
     Process coordinates and loop values to extract points, labels, and atom types.
     """
@@ -256,15 +227,11 @@ def get_points_and_labels(
     num_unitcell_atom = 0
 
     for i, all_coords in enumerate(all_coords_list):
-        points = np.array(
-            [list(map(float, coord[:-1])) for coord in all_coords]
-        )
+        points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
         num_unitcell_atom += len(points)
 
     for i, all_coords in enumerate(all_coords_list):
-        points = np.array(
-            [list(map(float, coord[:-1])) for coord in all_coords]
-        )
+        points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
         atom_site_label = loop_values[0][i]
         atom_site_type = loop_values[1][i]
 
@@ -283,53 +250,7 @@ def get_points_and_labels(
         if atom_site_type in atom_site_label:
             continue
 
-        if (
-            cif_parser.get_atom_type(atom_site_label)
-            != atom_site_type
-        ):
-            raise RuntimeError(
-                "Different elements found in atom site and label"
-            )
+        if cif_parser.get_atom_type(atom_site_label) != atom_site_type:
+            raise RuntimeError("Different elements found in atom site and label")
 
     return list(set(all_points)), unique_labels, unique_atoms_tuple
-
-
-def get_atomic_pair_list(flattened_points, cell_lengths, angles):
-    """
-    Calculate atomic distances and properties between pairs of points.
-    """
-    atomic_info_list = []
-    pairs_set = set()
-
-    for i, point1 in enumerate(flattened_points):
-        distances_from_point_i = []
-
-        for j, point2 in enumerate(flattened_points):
-            if i != j:
-                pair = tuple(sorted([i, j]))
-                if pair not in pairs_set:
-                    (
-                        distance,
-                        atom_label1,
-                        atom_label2,
-                    ) = calculate_distance(
-                        point1, point2, cell_lengths, angles
-                    )
-                    if abs(distance) > 1e-3:
-                        distances_from_point_i.append(
-                            {
-                                "point_pair": (i + 1, j + 1),
-                                "labels": (atom_label1, atom_label2),
-                                "coordinates": (
-                                    point1[:3],
-                                    point2[:3],
-                                ),
-                                "distance": np.round(distance, 5),
-                            }
-                        )
-                        pairs_set.add(pair)
-
-        distances_from_point_i.sort(key=lambda x: x["distance"])
-        atomic_info_list.extend(distances_from_point_i)
-
-    return atomic_info_list

@@ -49,38 +49,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Bodak O.I.'
+''
 ;
-Lviv Ivan Franko State University
-Department of Inorganic Chemistry
-Lviv
-Ukraine
-;
-'Gladyshevskii E.I.'
-;
-Lviv Ivan Franko State University
-Department of Inorganic Chemistry
-Lviv
-Ukraine
-;
-'Yarovets V.I.'
-;
-Lviv Ivan Franko State University
-Lviv
-Ukraine
-;
-'Davydov V.M.'
-;
-Lviv Ivan Franko State University
-Department of Inorganic Chemistry
-Lviv
-Ukraine
-;
-'Il'chuk T.V.'
-;
-Lviv Ivan Franko State University
-Lviv
-Ukraine
 ;
 
 # Standardized crystallographic data

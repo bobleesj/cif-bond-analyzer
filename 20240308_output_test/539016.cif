@@ -52,33 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Grin Y.'
+''
 ;
-Lviv Ivan Franko State University
-Department of Inorganic Chemistry
-Lviv
-Ukraine
-;
-'Hiebl K.'
-;
-Vienna University
-Institut fur Physikalische Chemie
-Vienna
-Austria
-;
-'Rogl P.'
-;
-Vienna University
-Institut fur Physikalische Chemie
-Vienna
-Austria
-;
-'Noel H.'
-;
-Rennes I University
-Laboratoire de Chimie Minerale
-Rennes
-France
 ;
 
 # Standardized crystallographic data

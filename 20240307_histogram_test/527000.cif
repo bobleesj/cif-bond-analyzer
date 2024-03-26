@@ -50,54 +50,8 @@ _journal_language                        German
 loop_
  _publ_author_name
  _publ_author_address
-'Schubert K.'
+''
 ;
-Max Planck Society (MPG)
-Max Planck Institut (MPI) fur Metallforschung
-Stuttgart
-Germany
-;
-'Bhan S.'
-;
-Max Planck Society (MPG)
-Max Planck Institut (MPI) fur Metallforschung
-Stuttgart
-Germany
-;
-'Burkhardt W.'
-;
-Max Planck Society (MPG)
-Max Planck Institut (MPI) fur Metallforschung
-Stuttgart
-Germany
-;
-'Gohle R.'
-;
-Max Planck Society (MPG)
-Max Planck Institut (MPI) fur Metallforschung
-Stuttgart
-Germany
-;
-'Meissner H.G.'
-;
-Max Planck Society (MPG)
-Max Planck Institut (MPI) fur Metallforschung
-Stuttgart
-Germany
-;
-'Potzschke M.'
-;
-Max Planck Society (MPG)
-Max Planck Institut (MPI) fur Metallforschung
-Stuttgart
-Germany
-;
-'Stolz E.'
-;
-Max Planck Society (MPG)
-Max Planck Institut (MPI) fur Metallforschung
-Stuttgart
-Germany
 ;
 
 # Standardized crystallographic data

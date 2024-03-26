@@ -53,33 +53,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Moze O.'
+''
 ;
-Parma University (UNIPR)
-Istituto Nazionale per la Fisica della Materia (INFM)
-Parma
-Italy
-;
-'Pareti L.'
-;
-National Research Council (CNR)
-Istituto dei Materiali per l'Elettronica ed il Magnetismo (IMEM)
-Parma
-Italy
-;
-'Paoluzi A.'
-;
-National Research Council (CNR)
-Istituto dei Materiali per l'Elettronica ed il Magnetismo (IMEM)
-Parma
-Italy
-;
-'Buschow K.H.J.'
-;
-Amsterdam University
-Van der Waals-Zeeman Laboratorium
-Amsterdam
-Netherlands
 ;
 
 # Standardized crystallographic data

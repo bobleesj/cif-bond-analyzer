@@ -53,32 +53,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Rodewald U.C.'
+''
 ;
-Munster University (WWU)
-Institut fur Anorganische und Analytische Chemie
-Munster
-Germany
-;
-'Lukachuk M.O.'
-;
-Max Planck Society (MPG)
-Stuttgart
-Germany
-;
-'Heying B.'
-;
-Munster University (WWU)
-Institut fur Anorganische und Analytische Chemie
-Munster
-Germany
-;
-'Pottgen R.'
-;
-Munster University (WWU)
-Institut fur Anorganische und Analytische Chemie
-Munster
-Germany
 ;
 
 # Standardized crystallographic data

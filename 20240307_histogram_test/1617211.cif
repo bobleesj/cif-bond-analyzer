@@ -51,29 +51,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Sabirzyanov A.V.'
+''
 ;
-Ural Polytechnic Institute
-Yekaterinburg
-Russia
-;
-'Shumilov M.A.'
-;
-Ural Polytechnic Institute
-Yekaterinburg
-Russia
-;
-'Gel'd P.V.'
-;
-Ural Polytechnic Institute
-Yekaterinburg
-Russia
-;
-'Ozhgikhina G.V.'
-;
-Ural Polytechnic Institute
-Yekaterinburg
-Russia
 ;
 
 # Standardized crystallographic data

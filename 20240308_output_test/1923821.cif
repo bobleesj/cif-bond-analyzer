@@ -52,12 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Tsiakaras P.E.'
+''
 ;
-Thessaly University (UTH)
-Department of Mechanical Engineering
-Volos
-Greece
 ;
 
 # Standardized crystallographic data

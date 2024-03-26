@@ -51,26 +51,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Schurer P.J.'
+''
 ;
-Manitoba University (U of M)
-Department of Physics
-Winnipeg
-Canada
-;
-'Hall N.J.G.'
-;
-Manitoba University (U of M)
-Department of Physics
-Winnipeg
-Canada
-;
-'Morrish A.H.'
-;
-Manitoba University (U of M)
-Department of Physics
-Winnipeg
-Canada
 ;
 
 # Standardized crystallographic data

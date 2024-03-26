@@ -14,9 +14,7 @@ def get_cif_info(file_path, loop_tags, supercell_generation_method=3):
         cell_angles_rad,
     ) = cif_parser.get_cell_lenghts_angles_rad(cif_block)
     cif_loop_values = cif_parser.get_loop_values(cif_block, loop_tags)
-    all_coords_list = supercell.get_coords_list(
-        cif_block, cif_loop_values
-    )
+    all_coords_list = supercell.get_coords_list(cif_block, cif_loop_values)
     (
         all_points,
         unique_labels,
@@ -49,9 +47,7 @@ def get_cif_loop_values(file_path: str) -> list:
     return cif_loop_values
 
 
-def get_folder_and_files_info(
-    script_directory: str, is_interactive_mode: bool
-):
+def get_folder_and_files_info(script_directory: str, is_interactive_mode: bool):
     """
     Get info about folders and files.
     """

@@ -52,35 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Cava R.J.'
+''
 ;
-AT&T Bell Laboratories Inc.
-Murray Hill
-U.S.A. New Jersey
-;
-'Ramirez A.P.'
-;
-AT&T Bell Laboratories Inc.
-Murray Hill
-U.S.A. New Jersey
-;
-'Takagi H.'
-;
-AT&T Bell Laboratories Inc.
-Murray Hill
-U.S.A. New Jersey
-;
-'Krajewski J.J.'
-;
-AT&T Bell Laboratories Inc.
-Murray Hill
-U.S.A. New Jersey
-;
-'Peck W.F. Jr.'
-;
-AT&T Bell Laboratories Inc.
-Murray Hill
-U.S.A. New Jersey
 ;
 
 # Standardized crystallographic data
