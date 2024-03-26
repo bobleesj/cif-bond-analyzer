@@ -2,7 +2,9 @@ import re
 from preprocess import cif_parser
 
 
+
 def preprocess_cif_file_on_label_element(file_path):
+
     is_cif_file_updated = False
 
     cif_block = cif_parser.get_cif_block(file_path)
@@ -20,6 +22,7 @@ def preprocess_cif_file_on_label_element(file_path):
         file_path, "_atom_site_occupancy"
     )
 
+
     if content_lines is None:
         raise RuntimeError("Could not find atom site loop.")
 
@@ -30,7 +33,8 @@ def preprocess_cif_file_on_label_element(file_path):
         line = line.strip()
         site_label, atom_type_symbol = line.split()[:2]
         atom_type_from_label = cif_parser.get_atom_type(site_label)
-        
+
+
         """
         Type 8.
         Ex) 1817279.cif
@@ -57,6 +61,28 @@ def preprocess_cif_file_on_label_element(file_path):
             modified_label = atom_type_symbol + site_label
 
             line = line.replace(site_label_original, modified_label)
+            is_cif_file_updated = True
+
+        """
+        Type 9.
+        Ex) 1200981
+        Snb Sn 4 c 0.0595 0.25 0.0952 1
+        -> SnB Sn 4 c 0.0595 0.25 0.0952 1
+        """
+       
+        # Check 3 letter, all of them are alphabets
+        
+        if (
+            len(site_label) == 3
+            and site_label[0].isalpha()
+            and site_label[1].isalpha()
+            and site_label[2].isalpha()
+        ):
+            # Uppercase the last character
+            modified_label = site_label[0] + site_label[1] + site_label[2].upper()
+
+            # Modify the label
+            line = line.replace(site_label, modified_label)  # Modify the line
             is_cif_file_updated = True
 
         if atom_type_symbol != atom_type_from_label:
@@ -197,8 +223,6 @@ def preprocess_cif_file_on_label_element(file_path):
                     modified_label = atom_type_symbol + site_label[2]
                     line = line.replace(site_label, modified_label)
                     is_cif_file_updated = True
-
-
 
         modified_lines.append(line + "\n")
 

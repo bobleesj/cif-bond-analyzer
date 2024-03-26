@@ -1,51 +1,53 @@
 ##############################################################################
 #                                                                            #
-# Nd-Si            # Nd5Si3 tet                                    # 1720931 #
+# Ni-Sn            # Ni3Sn2 rt                                     # 1200981 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
 #                           Pearson's Crystal Data                           #
 #      Crystal Structure Database for Inorganic Compounds (on DVD)           #
-#                              Release 2022/23                               #
+#                              Release 2023/24                               #
 #                  Editors: Pierre Villars and Karin Cenzual                 #
 #                                                                            #
 #   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
-# Switzerland & National Institute for Materials Science (NIMS), Japan, 2022 #
-#                   All rights reserved. Version 2022.07                     #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
 #                                                                            #
 #   This copy of Pearson's Crystal Data is licensed to:                      #
-#   University of Alberta, Chemistry Department, 1-5 Installations License         #
+#   Hunter College - City University of New York                             #
 #                                                                            #
 ##############################################################################
 
-data_1720931
-_audit_creation_date                     2023-07-06
+data_1200981
+_audit_creation_date                     2024-02-17
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      1720931
+#_database_code_PCD                      1200981
 _database_code_PDF                       ?
 
 # Entry summary
 
-_chemical_formula_structural             'Nd~5~ Si~3~'
-_chemical_formula_sum                    'Nd5 Si3'
+_chemical_formula_structural             'Ni~3~ Sn~2~'
+_chemical_formula_sum                    'Ni3 Sn2'
 _chemical_name_mineral                   ?
 _chemical_compound_source                ?
-_chemical_name_structure_type            Cr~5~B~3~,tI32,140
-_chemical_formula_weight                 805.5
+_chemical_name_structure_type            Ni~3~Sn~2~,oP20,62
+_chemical_formula_weight                 413.5
 
 # Bibliographic data
 
 _publ_section_title
-'Isothermal section of Nd-Zr-Si ternary system at 773 K'                      
-_journal_coden_ASTM                      JREAE6
-_journal_name_full                       'J. Rare Earths'
-_journal_year                            2012
-_journal_volume                          30
-_journal_page_first                      79
-_journal_page_last                       83
+;
+Variation of the crystal structures of incommensurate LT'-Ni~1+d~Sn (d= 0.35, 0.38, 0.41) and commensurate LT-Ni~1+d~Sn (d= 0.47, 0.50) with composition and annealing temperature
+;
+_journal_coden_ASTM                      JSSCBI
+_journal_name_full                       'J. Solid State Chem.'
+_journal_year                            2004
+_journal_volume                          177
+_journal_page_first                      1197
+_journal_page_last                       1212
 _journal_language                        English
 loop_
  _publ_author_name
@@ -56,58 +58,31 @@ loop_
 
 # Standardized crystallographic data
 
-_cell_length_a                           7.7924
-_cell_length_b                           7.7924
-_cell_length_c                           13.748
+_cell_length_a                           7.1248
+_cell_length_b                           5.1961
+_cell_length_c                           8.1479
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
 _cell_angle_gamma                        90
-_cell_volume                             834.8
+_cell_volume                             301.6
 _cell_formula_units_Z                    4
-_space_group_IT_number                   140
-_space_group_name_H-M_alt                'I 4/m c m'
+_space_group_IT_number                   62
+_space_group_name_H-M_alt                'P n m a'
 loop_
  _space_group_symop_id
  _space_group_symop_operation_xyz
  1 'x, y, z'
- 2 '-x, -y, -z'
- 3 '-x, -y, z'
- 4 '-x, y, 1/2-z'
- 5 '-x, y, 1/2+z'
- 6 '-y, -x, 1/2-z'
- 7 '-y, -x, 1/2+z'
- 8 '-y, x, -z'
- 9 '-y, x, z'
- 10 'x, -y, 1/2-z'
- 11 'x, -y, 1/2+z'
- 12 'x, y, -z'
- 13 'y, -x, -z'
- 14 'y, -x, z'
- 15 'y, x, 1/2-z'
- 16 'y, x, 1/2+z'
- 17 '1/2+x, 1/2+y, 1/2+z'
- 18 '1/2-x, 1/2-y, 1/2-z'
- 19 '1/2-x, 1/2-y, 1/2+z'
- 20 '1/2-x, 1/2+y, 1-z'
- 21 '1/2-x, 1/2+y, 1+z'
- 22 '1/2-y, 1/2-x, 1-z'
- 23 '1/2-y, 1/2-x, 1+z'
- 24 '1/2-y, 1/2+x, 1/2-z'
- 25 '1/2-y, 1/2+x, 1/2+z'
- 26 '1/2+x, 1/2-y, 1-z'
- 27 '1/2+x, 1/2-y, 1+z'
- 28 '1/2+x, 1/2+y, 1/2-z'
- 29 '1/2+y, 1/2-x, 1/2-z'
- 30 '1/2+y, 1/2-x, 1/2+z'
- 31 '1/2+y, 1/2+x, 1-z'
- 32 '1/2+y, 1/2+x, 1+z'
-
-# Atomic positions taken from type-defining entry
-
+ 2 '1/2-x, -y, 1/2+z'
+ 3 '1/2-x, 1/2+y, 1/2+z'
+ 4 '-x, -y, -z'
+ 5 '-x, 1/2+y, -z'
+ 6 '1/2+x, 1/2-y, 1/2-z'
+ 7 '1/2+x, y, 1/2-z'
+ 8 'x, 1/2-y, z'
 loop_
  _atom_type_symbol
- Nd
- Si
+ Ni
+ Sn
 loop_
  _atom_site_label
  _atom_site_type_symbol
@@ -117,30 +92,40 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- Nd1 Nd 16 l 0.166 0.666 0.15 1
- Si1 Si 8 h 0.625 0.125 0 1
- Nd2 Nd 4 c 0 0 0 1
- Si2 Si 4 a 0 0 0.25 1
+ Ni1 Ni 8 d 0.2341 0.0046 0.3749 1
+ Snb Sn 4 c 0.0595 0.25 0.0952 1
+ Sna Sn 4 c 0.0983 0.25 0.6419 1
+ Ni2a Ni 4 c 0.4089 0.25 0.1271 1
 
 
 _exptl_crystal_colour                    ?
 _exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            6.41
+_exptl_crystal_density_diffrn            9.11
 _cell_measurement_temperature            ?
 _cell_measurement_radiation              'X-rays, Cu Ka'
 _cell_measurement_reflns_used            ?
 _diffrn_ambient_temperature              ?
 _diffrn_measurement_device               'automatic diffractometer'
-_diffrn_measurement_device_type          ?
-_diffrn_radiation_type                   ?
+_diffrn_measurement_device_type
+;
+Philips X'Pert MPD
+;
+_diffrn_radiation_type                   'X-rays, Cu Ka'
 _diffrn_reflns_number                    ?
+_diffrn_reflns_theta_min                 5
+_diffrn_reflns_theta_max                 65
+_pd_proc_2theta_range_min                10
+_pd_proc_2theta_range_max                130
 _exptl_absorpt_coefficient_mu            ?
 _exptl_absorpt_correction_type           ?
-_computing_structure_solution            ?
+_computing_structure_solution            'starting values from the literature'
 _refine_ls_number_parameters             ?
 _refine_ls_number_reflns                 ?
 _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
+_pd_proc_ls_proof_R_factor               ?
+_pd_proc_ls_proof_wR_factor              ?
+_refine_ls_R_I_factor                    ?
 
-# End of data set 1720931
+# End of data set 1200981
 

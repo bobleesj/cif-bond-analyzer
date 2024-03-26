@@ -1,2 +1,0 @@
-filename,error_message
-/Users/macbook/Documents/GitHub/cif-bond-analyzer/20240325_same_site_short_dist/1946440.cif,get_points_and_labels() missing 1 required positional argument: 'supercell_generation_method'

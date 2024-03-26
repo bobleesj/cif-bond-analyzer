@@ -1,0 +1,24 @@
+Summary:
+Pair: Nd-Si, Count: 1, Distances: 3.080
+Pair: Os-Os, Count: 1, Distances: 2.728
+Pair: Rh-Sb, Count: 1, Distances: 2.516
+Pair: Si-Si, Count: 1, Distances: 2.755
+Pair: Th-Os, Count: 1, Distances: 3.198
+
+Missing pairs:
+Nd-Nd
+Nd-Os
+Nd-Rh
+Nd-Sb
+Os-Rh
+Os-Sb
+Os-Si
+Rh-Rh
+Rh-Si
+Sb-Sb
+Si-Sb
+Th-Nd
+Th-Rh
+Th-Sb
+Th-Si
+Th-Th
