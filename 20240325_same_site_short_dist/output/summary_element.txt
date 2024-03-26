@@ -1,0 +1,6 @@
+Summary:
+Pair: Cu-Au, Count: 1, Distances: 2.649
+Pair: Cu-Cu, Count: 1, Distances: 2.649
+
+Missing pairs:
+Au-Au

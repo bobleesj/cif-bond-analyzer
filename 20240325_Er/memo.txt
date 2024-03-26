@@ -1,35 +1,29 @@
-
-Anton Oliynyk
-Attachments
-Sat, Mar 23, 9:22 PM (2 days ago)
-to me, Emil
-
-Sounds good!
-
-I noticed a problem with 1814810.  There is Co-In in the output 4.732 full_occupancy.  When checking, I see that In2 (the only full occupancy In) has the shortest distance with another In2 at 3.009 (included in the report).  I do not know where 4.732 Co comes from.  Co-In is not the shortest distance for any site.  Any chance we could track where this comes from?
-
 The same file output has In-In at 5.079 full_occupancy_atomic_mixing.  It definitely cannot be the shortest.  The shortest In-In (full_occupancy_atomic_mixing) should be 3.2, which I do not see in the report.
 
-For this file the unique site output should be: Er7-Co1 2.742, Er6-Co2 2.623, In2-In2 3.010, Co1-Er3 2.662, Er4-In? (mixing) 3.055, Er4-Co? (mixing) 3.055, Er5-In2 3.294, Er2-Co1 2.727, Er?-In2 (mixing) 3.200, In?-In2 (mixing) 3.200, In?-Co1 (mixing) 2.964, Co?-Co1 (mixing) 2.964.
+For this file the unique site output should be: 
+Er6-Co2 2.623,
+Er7-Co1 2.742,
+In2-In2 3.010,
+Co1-Er3 2.662,
+Er4-In? (mixing) 3.055,
+Er4-Co? (mixing) 3.055,
+Er5-In2 3.294,
+Er2-Co1 2.727,
+Er?-In2 (mixing) 3.200,
+In?-In2 (mixing) 3.200,
+In?-Co1 (mixing) 2.964,
+Co?-Co1(mixing) 2.964.
 
-The atom output should be: In2-In2 3.010, Co1-Er3 2.662, Er4-In? (mixing) 3.055, Er4-Co? (mixing) 3.055, Er5-In2 3.294, In?-In2 (mixing) 3.200, In?-Co1 (mixing) 2.964, Co?-Co1 (mixing) 2.964.  Hope these are correct.
-
-I believe the problem could be in the labels, that is why I put ? for the labels I do not know.  
-
-
-For instance, there is an original site label Er1,In3A and I do not know how this is handled.  Was it renamed to Er3?  If that is the case, Er3 already exists.
-
-Maybe you can help me to figure it out.
+The atom output should be:
+Co1-Er3 2.662
+In2-In2 3.010
+Er4-In? (mixing) 3.055
+Co?-Co1 (mixing) 2.964
+In?-Co1 (mixing) 2.964
 
 
-Anton Oliynyk
-Attachments
-Mar 24, 2024, 8:23 PM (12 hours ago)
-to me, Emil
-
-Hi Bob,
-
-I did some testing, and I am not sure why the mistake occurred in 1803318, where no labels were standardized/changed/modified and some of the distances are wrong.  For instance, Er-Co at 4.658 and In-In at 5.078
-
-There are other incorrect reports, but let's try to figure out this one first, since it is the simplest.
+- Not the shortest
+Er5-In2 3.294
+Er4-Co? (mixing) 3.055
+In?-In2 (mixing) 3.200
 
