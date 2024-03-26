@@ -21,9 +21,7 @@ def write_summary_and_missing_pairs(
     # Step 1: Collect data
     data = []
     for pair, files in dist_mix_pair_dict.items():
-        distances = sorted(
-            float(info["dist"]) for info in files.values()
-        )
+        distances = sorted(float(info["dist"]) for info in files.values())
         count = len(distances)
         dists = ", ".join(f"{distance:.3f}" for distance in distances)
         data.append((pair, count, dists))
@@ -35,9 +33,7 @@ def write_summary_and_missing_pairs(
     with open(file_path, "w", encoding="utf-8") as file:
         file.write("Summary:\n")
         for pair, count, dists in sorted_data:
-            file.write(
-                f"Pair: {pair}, Count: {count} Distances: {dists}\n"
-            )
+            file.write(f"Pair: {pair}, Count: {count} Distances: {dists}\n")
 
         # x[0][0] - use 1st cha of the first element
         # x[0] - use the first element to sort
@@ -53,7 +49,7 @@ def write_summary_and_missing_pairs(
             file.write(f"{atom_1}-{atom_2}\n")
             # print((f"{atom_1}-{atom_2}"))
 
-    print(f"\nSummary and missing pairs saved to {file_path}")
+    print(f"Summary and missing pairs .txt saved to {file_path}")
 
 
 def write_summary_and_missing_pairs_with_element_dict(
@@ -76,9 +72,7 @@ def write_summary_and_missing_pairs_with_element_dict(
     for pair, files in dist_mix_pair_dict.items():
         distances = []
         for file_infos in files.values():
-            for (
-                info
-            ) in file_infos:  # Access each list in the dictionary
+            for info in file_infos:  # Access each list in the dictionary
                 distances.append(float(info["dist"]))
         distances = sorted(distances)
         count = len(distances)
@@ -93,9 +87,7 @@ def write_summary_and_missing_pairs_with_element_dict(
         # print("\nMissing pairs:")
         file.write("Summary:\n")
         for pair, count, dists in sorted_data:
-            file.write(
-                f"Pair: {pair}, Count: {count}, Distances: {dists}\n"
-            )
+            file.write(f"Pair: {pair}, Count: {count}, Distances: {dists}\n")
 
         file.write("\nMissing pairs:\n")
         missing_pairs_sorted = sorted(

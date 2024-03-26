@@ -52,40 +52,8 @@ _journal_language                        French
 loop_
  _publ_author_name
  _publ_author_address
-'Francois M.'
+''
 ;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
-;
-'Venturini G.'
-;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
-;
-'Mareche J.F.'
-;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
-;
-'Malaman B.'
-;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
-;
-'Roques B.'
-;
-Nancy I Henri Poincare University
-Laboratoire de Chimie du Solide Mineral (LCSM)
-Vandoeuvre-les-Nancy
-France
 ;
 
 # Standardized crystallographic data

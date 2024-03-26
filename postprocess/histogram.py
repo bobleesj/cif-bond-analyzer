@@ -62,22 +62,16 @@ def plot_element_pair_histograms(data, directory_path):
 
     # Calculate total number of images needed
     num_pairs = len(data)
-    total_images = np.ceil(num_pairs / histograms_per_image).astype(
-        int
-    )
+    total_images = np.ceil(num_pairs / histograms_per_image).astype(int)
     element_pairs = list(data.items())
 
     for image_num in range(total_images):
         start_index = image_num * histograms_per_image
-        end_index = min(
-            (image_num + 1) * histograms_per_image, num_pairs
-        )
+        end_index = min((image_num + 1) * histograms_per_image, num_pairs)
         current_pairs = element_pairs[start_index:end_index]
 
         # Prepare for plotting with a fixed grid of subplots
-        num_rows = np.ceil(histograms_per_image / max_columns).astype(
-            int
-        )
+        num_rows = np.ceil(histograms_per_image / max_columns).astype(int)
         fig, axes = plt.subplots(
             num_rows,
             max_columns,
@@ -118,12 +112,8 @@ def plot_element_pair_histograms(data, directory_path):
                     ax.hist(
                         stacked_data,
                         bins=bins,
-                        color=[
-                            categories_colors[cat] for cat in labels
-                        ],
-                        label=[
-                            categories_mapping[cat] for cat in labels
-                        ],
+                        color=[categories_colors[cat] for cat in labels],
+                        label=[categories_mapping[cat] for cat in labels],
                         stacked=True,
                         edgecolor="black",
                     )
@@ -179,22 +169,16 @@ def plot_site_pair_histograms(data, directory_path):
 
     # Calculate total number of images needed
     num_pairs = len(data)
-    total_images = np.ceil(num_pairs / histograms_per_image).astype(
-        int
-    )
+    total_images = np.ceil(num_pairs / histograms_per_image).astype(int)
     element_pairs = list(data.items())
 
     for image_num in range(total_images):
         start_index = image_num * histograms_per_image
-        end_index = min(
-            (image_num + 1) * histograms_per_image, num_pairs
-        )
+        end_index = min((image_num + 1) * histograms_per_image, num_pairs)
         current_pairs = element_pairs[start_index:end_index]
 
         # Prepare for plotting with a fixed grid of subplots
-        num_rows = np.ceil(histograms_per_image / max_columns).astype(
-            int
-        )
+        num_rows = np.ceil(histograms_per_image / max_columns).astype(int)
         fig, axes = plt.subplots(
             num_rows,
             max_columns,
@@ -235,12 +219,8 @@ def plot_site_pair_histograms(data, directory_path):
                     ax.hist(
                         stacked_data,
                         bins=bins,
-                        color=[
-                            categories_colors[cat] for cat in labels
-                        ],
-                        label=[
-                            categories_mapping[cat] for cat in labels
-                        ],
+                        color=[categories_colors[cat] for cat in labels],
+                        label=[categories_mapping[cat] for cat in labels],
                         stacked=True,
                         edgecolor="black",
                     )

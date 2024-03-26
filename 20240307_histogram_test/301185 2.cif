@@ -52,19 +52,8 @@ _journal_language                        German
 loop_
  _publ_author_name
  _publ_author_address
-'Buchholz W.'
+''
 ;
-Cologne University
-Institut fur Anorganische Chemie
-Cologne
-Germany
-;
-'Schuster H.U.'
-;
-Cologne University
-Institut fur Anorganische Chemie
-Cologne
-Germany
 ;
 
 # Standardized crystallographic data

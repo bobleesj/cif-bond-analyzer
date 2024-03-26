@@ -50,26 +50,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Jin T.'
+''
 ;
-Beijing University of Aeronautics and Astronautics (BUAA)
-School of Materials Science and Engineering
-Beijing
-China
-;
-'Wu W.'
-;
-Beijing University of Aeronautics and Astronautics (BUAA)
-School of Materials Science and Engineering
-Beijing
-China
-;
-'Jiang C.'
-;
-Beijing University of Aeronautics and Astronautics (BUAA)
-School of Materials Science and Engineering
-Beijing
-China
 ;
 
 # Standardized crystallographic data

@@ -8,9 +8,7 @@ import json
 import pandas as pd
 
 
-def write_site_pair_dict_to_excel_json(
-    input_dict, pair_type, dir_path
-):
+def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     """
     Writes JSON and Excel files containing pair info, adjusted.
     """
@@ -32,16 +30,12 @@ def write_site_pair_dict_to_excel_json(
         "4": "full_occupancy",
     }
 
-    with pd.ExcelWriter(
-        excel_file_path, engine="openpyxl"
-    ) as excel_writer:
+    with pd.ExcelWriter(excel_file_path, engine="openpyxl") as excel_writer:
         for pair, files_info in input_dict.items():
             # Aggregate all info into a list of dictionaries to form a DataFrame
             aggregated_info = []
             for file_id, infos in files_info.items():
-                for (
-                    info
-                ) in infos:  # Here infos is a list of dictionaries
+                for info in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
                     info_copy[
                         "File"
@@ -61,9 +55,7 @@ def write_site_pair_dict_to_excel_json(
             )
 
             # Apply numeric transformation and category mapping
-            df["Distance"] = pd.to_numeric(
-                df["Distance"], errors="coerce"
-            )
+            df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
             df["Atomic Mixing"] = (
                 df["Atomic Mixing"]
                 .astype(str)
@@ -77,20 +69,16 @@ def write_site_pair_dict_to_excel_json(
 
             # Write DataFrame to Excel
             sheet_name = pair[:31]  # Excel sheet name limit
-            df.to_excel(
-                excel_writer, sheet_name=sheet_name, index=False
-            )
+            df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
 
     # Save JSON
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump(input_dict, json_file, indent=4)
 
-    print(f"Data has been saved to Excel and JSON in {output_dir}")
+    print(f"Site Pair Excel and JSON saved to {output_dir}")
 
 
-def write_element_pair_dict_to_excel_json(
-    input_dict, pair_type, dir_path
-):
+def write_element_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     """
     Writes JSON and Excel files containing pair info,
     keeping only the shortest distance for each atomic mixing type.
@@ -120,26 +108,18 @@ def write_element_pair_dict_to_excel_json(
             for info in infos:
                 mixing_type = info["mixing"]
                 distance = float(info["dist"])
-                if (
-                    mixing_type not in shortest_distances
-                    or distance
-                    < float(shortest_distances[mixing_type]["dist"])
+                if mixing_type not in shortest_distances or distance < float(
+                    shortest_distances[mixing_type]["dist"]
                 ):
                     shortest_distances[mixing_type] = info
-            input_dict[pair][file_id] = list(
-                shortest_distances.values()
-            )
+            input_dict[pair][file_id] = list(shortest_distances.values())
 
-    with pd.ExcelWriter(
-        excel_file_path, engine="openpyxl"
-    ) as excel_writer:
+    with pd.ExcelWriter(excel_file_path, engine="openpyxl") as excel_writer:
         for pair, files_info in input_dict.items():
             # Aggregate all info into a list of dictionaries to form a DataFrame
             aggregated_info = []
             for file_id, infos in files_info.items():
-                for (
-                    info
-                ) in infos:  # Here infos is a list of dictionaries
+                for info in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
                     info_copy[
                         "File"
@@ -159,9 +139,7 @@ def write_element_pair_dict_to_excel_json(
             )
 
             # Apply numeric transformation and category mapping
-            df["Distance"] = pd.to_numeric(
-                df["Distance"], errors="coerce"
-            )
+            df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
             df["Atomic Mixing"] = (
                 df["Atomic Mixing"]
                 .astype(str)
@@ -175,12 +153,10 @@ def write_element_pair_dict_to_excel_json(
 
             # Write DataFrame to Excel
             sheet_name = pair[:31]  # Excel sheet name limit
-            df.to_excel(
-                excel_writer, sheet_name=sheet_name, index=False
-            )
+            df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
 
     # Save JSON
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump(input_dict, json_file, indent=4)
 
-    print(f"Data has been saved to Excel and JSON in {output_dir}")
+    print(f"Element Pair Excel and JSON saved to {output_dir}")

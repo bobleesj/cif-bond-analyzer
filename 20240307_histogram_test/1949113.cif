@@ -52,33 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Sereni J.G.'
+''
 ;
-National Atomic Energy Commission (CNEA)
-Centro Atomico Bariloche
-San Carlos de Bariloche
-Argentina
-;
-'Giovannini M.'
-;
-Genoa University (UniGe)
-Dipartimento di Chimica e Chimica Industriale
-Genoa
-Italy
-;
-'Gomez Berisso M.'
-;
-National Atomic Energy Commission (CNEA)
-Centro Atomico Bariloche
-San Carlos de Bariloche
-Argentina
-;
-'Gastaldo F.'
-;
-Genoa University (UniGe)
-Dipartimento di Chimica e Chimica Industriale
-Genoa
-Italy
 ;
 
 # Standardized crystallographic data

@@ -52,40 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Weitzer F.'
+''
 ;
-Vienna University
-Institut fur Physikalische Chemie
-Vienna
-Austria
-;
-'Hiebl K.'
-;
-Vienna University
-Institut fur Physikalische Chemie
-Vienna
-Austria
-;
-'Grin Y.'
-;
-Vienna University
-Institut fur Physikalische Chemie
-Vienna
-Austria
-;
-'Rogl P.'
-;
-Vienna University
-Institut fur Physikalische Chemie
-Vienna
-Austria
-;
-'Noel H.'
-;
-Rennes I University
-Laboratoire de Chimie Minerale
-Rennes
-France
 ;
 
 # Standardized crystallographic data

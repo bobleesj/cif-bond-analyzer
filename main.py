@@ -9,17 +9,19 @@ Usage:
 
 Author: Sangjoon Bob Lee
 
-Date: Mar 10, 2024
+Last update: Mar 24, 2024
+Release date: Mar 10, 2024
 
 """
 
 import os
 import time
-from click import style, echo
 import pandas as pd
+from click import style, echo
+from cifcleaner.filter import format
 
 from preprocess import cif_parser, cif_parser_handler, supercell
-from postprocess import bond, excel, histogram, writer
+from postprocess import bond, bond_missing, excel, histogram, writer
 from util import folder, prompt
 from filter import occupancy
 
@@ -30,9 +32,10 @@ def main(is_iteractive_mode=True, dir_path=None):
     """
     # PART 1: Choose the folder & get user input
     prompt.print_intro_prompt()
-    
+
     log_list = []
     file_path_list = None
+    supercell_method = None
 
     if is_iteractive_mode:
         script_directory = os.path.dirname(os.path.abspath(__file__))
@@ -45,21 +48,22 @@ def main(is_iteractive_mode=True, dir_path=None):
                 "\nYour default option is generating a 2-2-2 supercell for",
                 "files more than 100 atoms in the unit cell.",
             )
-            supercell_method = 1
+            supercell_method = 3
 
     if not is_iteractive_mode:
         file_path_list = folder.get_cif_file_path_list(dir_path)
-        supercell_method = 1
+        supercell_method = 3
 
     file_path_list = folder.get_cif_file_path_list(dir_path)
 
     # PART 2: PREPROCESS
-    
+
     # # Format CIF files first
-    # format.move_files_based_on_format_error(dir_path)
+    format.move_files_based_on_format_error(dir_path)
+    print("\nPreprocessing has finished. Begin extracting bond lengths.\n")
 
-
-    dist_mix_pair_dict = {}
+    global_site_pair_dict = {}
+    global_element_pair_dict = {}
 
     overall_start_time = time.perf_counter()
     # For each file in the list of files
@@ -74,9 +78,7 @@ def main(is_iteractive_mode=True, dir_path=None):
             file_path, cif_parser.get_loop_tags(), supercell_method
         )
 
-        cif_loop_values = cif_parser_handler.get_cif_loop_values(
-            file_path
-        )
+        cif_loop_values = cif_parser_handler.get_cif_loop_values(file_path)
 
         _, lenghts, angles_rad, _, all_points, _, _ = result
 
@@ -85,41 +87,34 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         echo(
             style(
-                f"Processing {filename_with_ext} with "
-                f"{num_of_atoms} atoms {index}",
+                f"Processing {filename_with_ext} with " f"{num_of_atoms} atoms {index}",
                 fg="yellow",
             )
         )
 
-        atomic_pair_list = supercell.get_atomic_pair_list(
-            all_points, lenghts, angles_rad
-        )
-
         # Get atomic site mixing info -> String
-        atom_site_mixing_file_info = (
-            occupancy.get_atom_site_mixing_info(cif_loop_values)
+        atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+            cif_loop_values
         )
 
         # Get atom site pair information
-        label_pair_mixing_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_dict = occupancy.get_atom_site_mixing_dict(
             atom_site_mixing_file_info, cif_loop_values
         )
 
-        # Find the shortest pair from each reference atom
-        ordered_pairs = bond.process_and_order_pairs(
-            all_points, atomic_pair_list
+        # Get atom site labeled dict
+        atom_site_labeled_dict = bond.get_atom_site_labeled_dict(
+            all_points, lenghts, angles_rad, atom_site_mixing_dict, filename
         )
 
-        # Determine unique pairs and get the shortest dist for each pair
-        unique_pairs_dict = bond.get_unique_pairs_dict(
-            ordered_pairs, filename
+        # Get atom site dict without the numbers on the label
+        atom_site_pair_dict = bond.get_atom_site_dict_with_no_number(
+            atom_site_labeled_dict
         )
 
-        dist_mix_pair_dict = bond.get_dist_mix_pair_dict(
-            dist_mix_pair_dict,
-            unique_pairs_dict,
-            label_pair_mixing_dict,
-        )
+        # Get the shortest element-element pair
+        atom_element_pair_dict = bond.get_element_dict(atom_site_pair_dict)
+
 
         elapsed_time = time.perf_counter() - start_time
 
@@ -137,17 +132,23 @@ def main(is_iteractive_mode=True, dir_path=None):
         }
         log_list.append(data)
 
+        # Collect site pairs across CIF files
+        global_site_pair_dict = bond.append_atom_site_dict(
+            global_site_pair_dict, atom_site_pair_dict
+        )
+        global_element_pair_dict = bond.append_element_site_dict(
+            global_element_pair_dict, atom_element_pair_dict
+        )
+
+    # prompt.print_dict_in_json(global_site_pair_dict)
+    # prompt.print_dict_in_json(global_element_pair_dict)
+    
     # PART 3: OUTPUT
-    # For Element-Pair Display
-    dist_mix_element_pair_dict = bond.get_dist_mix_element_pair_dict(
-        dist_mix_pair_dict
+    missing_element_pairs = bond_missing.get_sorted_missing_pairs(
+        global_element_pair_dict
     )
-
-    missing_element_pairs = bond.get_sorted_missing_pairs(
-        dist_mix_element_pair_dict
-    )
-
-    # # PART 4: SAVE & PLOT
+    
+    # PART 4: SAVE & PLOT
 
     if len(file_path_list) > 0:
         # Create a directory if needed
@@ -159,12 +160,17 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         # Save Excel file (1/2) with site pair
         excel.write_site_pair_dict_to_excel_json(
-            dist_mix_element_pair_dict, "site", dir_path
+            global_site_pair_dict, "site", dir_path
+        )
+        
+        # Save Excel file (2/2) with shortest element pair
+        excel.write_element_pair_dict_to_excel_json(
+            global_element_pair_dict, "element", dir_path
         )
 
         # Save text file with element pairs
         writer.write_summary_and_missing_pairs_with_element_dict(
-            dist_mix_element_pair_dict,
+            global_element_pair_dict,
             missing_element_pairs,
             "summary_element.txt",
             dir_path,
@@ -172,28 +178,20 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         # Draw histograms (1/2) with site pair
         histogram.plot_site_pair_histograms(
-            dist_mix_element_pair_dict, dir_path
-        )
-
-        # Save Excel file (2/2) with shortest element pair
-        excel.write_element_pair_dict_to_excel_json(
-            dist_mix_element_pair_dict, "element", dir_path
+            global_site_pair_dict, dir_path
         )
 
         # Draw histograms (1/2) with element pair
         histogram.plot_element_pair_histograms(
-            dist_mix_element_pair_dict, dir_path
+            global_element_pair_dict, dir_path
         )
-
-        total_elapsed_time = time.perf_counter() - overall_start_time
-        print(f"Total processing time: {total_elapsed_time:.2f}s")
 
         # Save log csv
         folder.save_to_csv_directory(
             dir_path, pd.DataFrame(log_list), "log"
         )
-
-    # print("\nAll files successfully processed.")
+        total_elapsed_time = time.perf_counter() - overall_start_time
+        print(f"Total processing time: {total_elapsed_time:.2f}s")
 
 
 if __name__ == "__main__":

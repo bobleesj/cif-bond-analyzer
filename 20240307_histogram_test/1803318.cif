@@ -52,25 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Zaremba V.I.'
+''
 ;
-Lviv Ivan Franko State University
-Lviv
-Ukraine
-;
-'Kalychak Y.M.'
-;
-Lviv Ivan Franko State University
-Department of Inorganic Chemistry
-Lviv
-Ukraine
-;
-'Zavalii P.Y.'
-;
-Lviv Ivan Franko State University
-Department of Inorganic Chemistry
-Lviv
-Ukraine
 ;
 
 # Standardized crystallographic data

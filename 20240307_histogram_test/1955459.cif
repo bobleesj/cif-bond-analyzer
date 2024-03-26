@@ -52,47 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Pakhira S.'
+''
 ;
-Saha Institute of Nuclear Physics (SINP)
-Condensed Matter Physics Division
-Kolkata / West Bengal
-India
-;
-'Mazumdar C.'
-;
-Saha Institute of Nuclear Physics (SINP)
-Condensed Matter Physics Division
-Kolkata / West Bengal
-India
-;
-'Basu A.'
-;
-Saha Institute of Nuclear Physics (SINP)
-Condensed Matter Physics Division
-Kolkata / West Bengal
-India
-;
-'Ranganathan R.'
-;
-Saha Institute of Nuclear Physics (SINP)
-Condensed Matter Physics Division
-Kolkata / West Bengal
-India
-;
-'Bhowmik R.N.'
-;
-Pondicherry University
-Department of Physics
-Puducherry / Pondicherry
-India
-;
-'Satpati B.'
-;
-Saha Institute of Nuclear Physics (SINP)
-Surface Physics and Material Science Division
-Kolkata / West Bengal
-India
 ;
 
 # Standardized crystallographic data

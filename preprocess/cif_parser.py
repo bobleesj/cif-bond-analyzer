@@ -51,12 +51,10 @@ def get_unit_cell_lengths_angles(block):
     ]
 
     lengths = [
-        remove_string_braket(block.find_value(key))
-        for key in keys_lengths
+        remove_string_braket(block.find_value(key)) for key in keys_lengths
     ]
     angles = [
-        remove_string_braket(block.find_value(key))
-        for key in keys_angles
+        remove_string_braket(block.find_value(key)) for key in keys_angles
     ]
 
     return tuple(lengths + angles)
@@ -172,9 +170,7 @@ def get_cif_loop_value_dict(ci_loop_values):
     num_of_atom_labels = get_num_of_atom_labels(ci_loop_values)
 
     for i in range(num_of_atom_labels):
-        label, occupancy, coordinates = get_atom_info(
-            ci_loop_values, i
-        )
+        label, occupancy, coordinates = get_atom_info(ci_loop_values, i)
         cif_loop_value_dict[label] = {}
         cif_loop_value_dict[label]["occupancy"] = occupancy
         cif_loop_value_dict[label]["coordinates"] = coordinates

@@ -52,61 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Cao C.'
+''
 ;
-Leibniz Association
-Leibniz Institut fur Festkorper- und Werkstoffforschung (IFW Dresden)
-Dresden
-Germany
-;
-'Blum C.G.F.'
-;
-Leibniz Association
-Leibniz Institut fur Festkorper- und Werkstoffforschung (IFW Dresden)
-Dresden
-Germany
-;
-'Ritschel T.'
-;
-Leibniz Association
-Leibniz Institut fur Festkorper- und Werkstoffforschung (IFW Dresden)
-Dresden
-Germany
-;
-'Rodan S.'
-;
-Leibniz Association
-Leibniz Institut fur Festkorper- und Werkstoffforschung (IFW Dresden)
-Dresden
-Germany
-;
-'Giebeler L.'
-;
-Leibniz Association
-Leibniz Institut fur Festkorper- und Werkstoffforschung (IFW Dresden)
-Dresden
-Germany
-;
-'Bombor D.'
-;
-Leibniz Association
-Leibniz Institut fur Festkorper- und Werkstoffforschung (IFW Dresden)
-Dresden
-Germany
-;
-'Wurmehl S.'
-;
-Leibniz Association
-Leibniz Institut fur Festkorper- und Werkstoffforschung (IFW Dresden)
-Dresden
-Germany
-;
-'Loser W.'
-;
-Leibniz Association
-Leibniz Institut fur Festkorper- und Werkstoffforschung (IFW Dresden)
-Dresden
-Germany
 ;
 
 # Standardized crystallographic data

@@ -53,26 +53,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Ochiai S.'
+''
 ;
-Tokyo Institute of Technology
-Department of Materials Science and Engineering
-Yokohama / Kanagawa
-Japan
-;
-'Mishima Y.'
-;
-Tokyo Institute of Technology
-Department of Materials Science and Engineering
-Yokohama / Kanagawa
-Japan
-;
-'Suzuki T.'
-;
-Tokyo Institute of Technology
-Department of Materials Science and Engineering
-Yokohama / Kanagawa
-Japan
 ;
 
 # Standardized crystallographic data
