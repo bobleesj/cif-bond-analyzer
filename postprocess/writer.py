@@ -99,4 +99,3 @@ def write_summary_and_missing_pairs_with_element_dict(
             # print((f"{atom_1}-{atom_2}"))
 
     print(f"\nSummary and missing pairs saved to {file_path}")
-

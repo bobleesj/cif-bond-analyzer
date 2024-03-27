@@ -20,7 +20,7 @@ import pandas as pd
 from click import style, echo
 
 
-from preprocess import cif_parser, cif_parser_handler, supercell, format
+from preprocess import cif_parser, cif_parser_handler, format
 from postprocess import bond, bond_missing, excel, histogram, writer
 from util import folder, prompt
 from filter import occupancy
@@ -87,7 +87,8 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         echo(
             style(
-                f"Processing {filename_with_ext} with " f"{num_of_atoms} atoms {index}",
+                f"Processing {filename_with_ext} with "
+                f"{num_of_atoms} atoms {index}",
                 fg="yellow",
             )
         )
@@ -115,7 +116,6 @@ def main(is_iteractive_mode=True, dir_path=None):
         # Get the shortest element-element pair
         atom_element_pair_dict = bond.get_element_dict(atom_site_pair_dict)
 
-
         elapsed_time = time.perf_counter() - start_time
 
         prompt.print_progress(
@@ -142,12 +142,12 @@ def main(is_iteractive_mode=True, dir_path=None):
 
     # prompt.print_dict_in_json(global_site_pair_dict)
     # prompt.print_dict_in_json(global_element_pair_dict)
-    
+
     # PART 3: OUTPUT
     missing_element_pairs = bond_missing.get_sorted_missing_pairs(
         global_element_pair_dict
     )
-    
+
     # PART 4: SAVE & PLOT
 
     if len(file_path_list) > 0:
@@ -162,7 +162,7 @@ def main(is_iteractive_mode=True, dir_path=None):
         excel.write_site_pair_dict_to_excel_json(
             global_site_pair_dict, "site", dir_path
         )
-        
+
         # Save Excel file (2/2) with shortest element pair
         excel.write_element_pair_dict_to_excel_json(
             global_element_pair_dict, "element", dir_path
@@ -176,21 +176,18 @@ def main(is_iteractive_mode=True, dir_path=None):
             dir_path,
         )
 
-        print("Generating histrograms... (this may take some time)")
+        print("Generating histograms...")
         # Draw histograms (1/2) with site pair
-        histogram.plot_site_pair_histograms(
-            global_site_pair_dict, dir_path
-        )
+        histogram.plot_site_pair_histograms(global_site_pair_dict, dir_path)
 
         # Draw histograms (1/2) with element pair
         histogram.plot_element_pair_histograms(
             global_element_pair_dict, dir_path
         )
+        print("Histograms generated.")
 
         # Save log csv
-        folder.save_to_csv_directory(
-            dir_path, pd.DataFrame(log_list), "log"
-        )
+        folder.save_to_csv_directory(dir_path, pd.DataFrame(log_list), "log")
         total_elapsed_time = time.perf_counter() - overall_start_time
         print(f"Total processing time: {total_elapsed_time:.2f}s")
 

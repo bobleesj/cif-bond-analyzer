@@ -5,7 +5,7 @@ Plot histograms for atomic pair dists from dict and save the plots.
 
 import os
 import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
+from matplotlib.ticker import MaxNLocator
 import numpy as np
 
 
@@ -39,7 +39,7 @@ def get_colors_category_mappings():
     }
 
     return categories_colors, categories_mapping
-from matplotlib.ticker import MaxNLocator
+
 
 def plot_histograms(data, directory_path, output_filename):
     categories_colors, categories_mapping = get_colors_category_mappings()
@@ -94,7 +94,9 @@ def plot_histograms(data, directory_path, output_filename):
                     if category_distances:
                         stacked_data.append(category_distances)
                         labels.append(cat)
-                        max_count = max(max_count, len(category_distances))  # Update max_count
+                        max_count = max(
+                            max_count, len(category_distances)
+                        )  # Update max_count
 
                 if stacked_data:
                     ax.hist(
@@ -114,7 +116,9 @@ def plot_histograms(data, directory_path, output_filename):
 
         # Adjust the y-axis tick interval based on the max_count
         for ax in axes:
-            ax.yaxis.set_major_locator(MaxNLocator(nbins=4, integer=True))  # Adjust 'nbins' as needed
+            ax.yaxis.set_major_locator(
+                MaxNLocator(nbins=4, integer=True)
+            )  # Adjust 'nbins' as needed
 
         fig.legend(
             legend_handles,
@@ -132,7 +136,6 @@ def plot_histograms(data, directory_path, output_filename):
             dpi=150,
         )
         plt.close(fig)
-
 
 
 def plot_element_pair_histograms(data, directory_path):
