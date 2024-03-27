@@ -25,27 +25,27 @@ Enter the number corresponding to the folder containing .cif files: 3
 
 ```txt
 Summary:
-Pair: Co-Ga, Count: 1, Distances: 2.601
-Pair: Ga-Ga, Count: 1, Distances: 2.601
-Pair: Ga-La, Count: 1, Distances: 3.291
-Pair: In-In, Count: 1, Distances: 2.825
-Pair: In-U, Count: 1, Distances: 2.825
-Pair: In-Rh, Count: 1, Distances: 2.825
-Pair: Rh-U, Count: 1, Distances: 2.825
-Pair: Rh-Rh, Count: 1, Distances: 2.825
-Pair: Co-Co, Count: 1, Distances: 2.501
-Pair: Co-La, Count: 1, Distances: 2.979
+Pair: Ge-Ge, Count: 4, Distances: 0.427, 2.489, 2.545, 2.672
+Pair: In-In, Count: 4, Distances: 2.736, 2.782, 2.785, 2.793
+Pair: Pd-Ge, Count: 4, Distances: 2.449, 2.455, 2.489, 2.672
+Pair: Pd-Sb, Count: 4, Distances: 2.505, 2.700, 2.737, 2.793
+Pair: Si-Si, Count: 4, Distances: 1.975, 2.289, 2.325, 2.533
+Pair: Rh-Ge, Count: 2, Distances: 2.484, 2.495
+Pair: Ru-Si, Count: 2, Distances: 2.394, 2.519
+Pair: Sb-Sb, Count: 2, Distances: 2.573, 2.793
+Pair: Co-Ga, Count: 1, Distances: 2.485
+Pair: Co-Sb, Count: 1, Distances: 2.594
+Pair: Co-Sn, Count: 1, Distances: 2.737
 
 Missing pairs:
-La-Rh
-Co-U
-Ga-In
-La-U
 Co-In
-Ga-Rh
-In-La
-Ga-U
+Co-Ir
+Co-Ni
+Co-Pd
+Co-Pt
 Co-Rh
+Co-Si
+Fe-Co
 ```
 
 ### Output 2. Histograms
@@ -81,13 +81,13 @@ In the `output` folder, histograms per shortest pair distance from each atom wil
 }
 ```
 
-
+Atomic mixing info mapping:
 
 ```json
 categories_mapping = {
       "1": "Deficiency",
-      "2": "Full occupancy & atomic mixing",
-      "3": "Deficiency & no atomic mixing",
+      "2": "Full occupancy and atomic mixing",
+      "3": "Deficiency without atomic mixing",
       "4": "Full occupancy",
   }
 ```
@@ -134,16 +134,10 @@ python -m pytest
 
 Please feel free to reach out via sl5400@columbia.edu for any questions. 
 
-## To-do
-
-- [x] Test shortest distances identified with formatted `1612190.cif`, `539016.cif`
-- [x] Add suport for binary and quarternary cif compounds
-- [x] Handle a case where more than two elements appear with a comman `1923821.cif`
-- [x] Add option to apply +/-1 shifts in xyz directions or +1 shift based on supercell atom
-- [x] Test missing pairs identified
 
 ## Changelog
 
+- 20240326 - support automatic preprocessing and moving of unsupported CIF files
 - 20240311 - support PEP8 linting with `black` ([Pull #12](https://github.com/bobleesj/cif-bond-analyzer/pull/12))
 - 20240310 - support both element-based and label-based outputs for Excel, JSON, histgorams ([Pull #11](https://github.com/bobleesj/cif-bond-analyzer/pull/11))
 - 20240301 - For files with more than 200 atoms in the unit cell, we let the user choose whether to apply translation in all +-1, +-1, +-1 directions or just +1 +1 +1 directions. 
