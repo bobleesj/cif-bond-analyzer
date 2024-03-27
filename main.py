@@ -41,6 +41,9 @@ def main(is_iteractive_mode=True, dir_path=None):
         script_directory = os.path.dirname(os.path.abspath(__file__))
         dir_path = folder.choose_CIF_directory(script_directory)
         supercell_method = prompt.get_user_input_on_supercell_method()
+        # Format CIF files first
+        format.move_files_based_on_format_error(dir_path)
+        print("\nPreprocessing has finished. Begin extracting bond lengths.\n")
 
         # If the user chooses no option, then it's simply 3
         if not supercell_method:
@@ -57,10 +60,6 @@ def main(is_iteractive_mode=True, dir_path=None):
     file_path_list = folder.get_cif_file_path_list(dir_path)
 
     # PART 2: PREPROCESS
-
-    # # Format CIF files first
-    format.move_files_based_on_format_error(dir_path)
-    print("\nPreprocessing has finished. Begin extracting bond lengths.\n")
 
     global_site_pair_dict = {}
     global_element_pair_dict = {}

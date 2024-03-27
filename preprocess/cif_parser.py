@@ -239,7 +239,6 @@ def extract_formula_and_tag(compound_formula_tag):
     return compound_formula, tags
 
 
-
 def get_compound_phase_tag_id_from_third_line(file_path):
     """
     Extracts the compound name and tag from the provided CIF file path.
@@ -270,4 +269,3 @@ def get_compound_phase_tag_id_from_third_line(file_path):
 
         compound_formula, tags = extract_formula_and_tag(compound_formala_tag)
         return compound_phase, compound_formula, tags, compound_id
-

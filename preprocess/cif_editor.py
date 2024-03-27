@@ -2,9 +2,7 @@ import re
 from preprocess import cif_parser
 
 
-
 def preprocess_cif_file_on_label_element(file_path):
-
     is_cif_file_updated = False
 
     cif_block = cif_parser.get_cif_block(file_path)
@@ -12,16 +10,18 @@ def preprocess_cif_file_on_label_element(file_path):
         cif_block, cif_parser.get_loop_tags()
     )
     num_element_labels = len(cif_loop_values[0])
-    _, compound_formula, _, _ = (
-        cif_parser.get_compound_phase_tag_id_from_third_line(file_path)
-    )
+    (
+        _,
+        compound_formula,
+        _,
+        _,
+    ) = cif_parser.get_compound_phase_tag_id_from_third_line(file_path)
 
     # Get lines in _atom_site_occupancy only
     modified_lines = []
     content_lines = cif_parser.get_loop_content(
         file_path, "_atom_site_occupancy"
     )
-
 
     if content_lines is None:
         raise RuntimeError("Could not find atom site loop.")
@@ -33,7 +33,6 @@ def preprocess_cif_file_on_label_element(file_path):
         line = line.strip()
         site_label, atom_type_symbol = line.split()[:2]
         atom_type_from_label = cif_parser.get_atom_type(site_label)
-
 
         """
         Type 8.
@@ -69,9 +68,9 @@ def preprocess_cif_file_on_label_element(file_path):
         Snb Sn 4 c 0.0595 0.25 0.0952 1
         -> SnB Sn 4 c 0.0595 0.25 0.0952 1
         """
-       
+
         # Check 3 letter, all of them are alphabets
-        
+
         if (
             len(site_label) == 3
             and site_label[0].isalpha()
@@ -79,7 +78,9 @@ def preprocess_cif_file_on_label_element(file_path):
             and site_label[2].isalpha()
         ):
             # Uppercase the last character
-            modified_label = site_label[0] + site_label[1] + site_label[2].upper()
+            modified_label = (
+                site_label[0] + site_label[1] + site_label[2].upper()
+            )
 
             # Modify the label
             line = line.replace(site_label, modified_label)  # Modify the line

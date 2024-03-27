@@ -270,7 +270,6 @@ def get_points_and_labels(
 
         if atom_site_type in atom_site_label:
             continue
-        
 
         if cif_parser.get_atom_type(atom_site_label) != atom_site_type:
             raise RuntimeError(

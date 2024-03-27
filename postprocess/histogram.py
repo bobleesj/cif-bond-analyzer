@@ -47,9 +47,11 @@ def plot_histograms(data, directory_path, output_filename):
 
     # Specify the desired order for legend
     ordered_keys = ["4", "2", "1", "3"]
-    legend_handles = [plt.Rectangle((0, 0), 1, 1, color=categories_colors[cat]) for cat in ordered_keys]
+    legend_handles = [
+        plt.Rectangle((0, 0), 1, 1, color=categories_colors[cat])
+        for cat in ordered_keys
+    ]
     legend_labels = [categories_mapping[cat] for cat in ordered_keys]
-
 
     num_pairs = len(data)
     total_images = np.ceil(num_pairs / histograms_per_image).astype(int)
