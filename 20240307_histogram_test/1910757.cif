@@ -94,12 +94,12 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- Er Er 4 k 0.32389 0.16112 0.5 1
- Ni Ni 4 j 0.1283 0.3794 0 0.92
- In2,Er2A In 1 c 0.5 0.5 0 0.51(2)
- In2,Er2B Er 1 c 0.5 0.5 0 0.49(2)
- In1,Er1A In 1 a 0 0 0 0.90(2)
- In1,Er1B Er 1 a 0 0 0 0.10(2)
+Er Er 4 k 0.32389 0.16112 0.5 1
+Ni Ni 4 j 0.1283 0.3794 0 0.92
+In22A In 1 c 0.5 0.5 0 0.51(2)
+Er22B Er 1 c 0.5 0.5 0 0.49(2)
+In11A In 1 a 0 0 0 0.90(2)
+Er11B Er 1 a 0 0 0 0.10(2)
 
 
 _exptl_crystal_colour                    'gray silver'

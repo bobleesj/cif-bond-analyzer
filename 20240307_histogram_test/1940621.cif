@@ -109,9 +109,9 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- Si1,Pd1A Si 2 d 0.333333 0.666667 0.5 0.754746
- Si1,Pd1B Pd 2 d 0.333333 0.666667 0.5 0.236254
- Lu1 Lu 1 a 0 0 0 1
+Si11A Si 2 d 0.333333 0.666667 0.5 0.754746
+Pd11B Pd 2 d 0.333333 0.666667 0.5 0.236254
+Lu1 Lu 1 a 0 0 0 1
 
 
 _exptl_crystal_colour                    ?

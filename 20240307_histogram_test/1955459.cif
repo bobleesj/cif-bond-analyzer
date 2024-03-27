@@ -109,9 +109,9 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- Si,Ni1 Si 2 d 0.333333 0.666667 0.5 0.736561
- Si,Ni2 Ni 2 d 0.333333 0.666667 0.5 0.236439
- Pr Pr 1 a 0 0 0 1
+Si1 Si 2 d 0.333333 0.666667 0.5 0.736561
+Ni2 Ni 2 d 0.333333 0.666667 0.5 0.236439
+Pr Pr 1 a 0 0 0 1
 
 
 _exptl_crystal_colour                    ?
