@@ -85,8 +85,8 @@ Atomic mixing info mapping:
 
 ```python
 categories_mapping = {
-      "1": "Deficiency",
-      "2": "Full occupancy and atomic mixing",
+      "1": "Deficiency with atomic mixing",
+      "2": "Full occupancy with atomic mixing",
       "3": "Deficiency without atomic mixing",
       "4": "Full occupancy",
   }
