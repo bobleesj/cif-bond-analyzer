@@ -83,7 +83,7 @@ In the `output` folder, histograms per shortest pair distance from each atom wil
 
 Atomic mixing info mapping:
 
-```json
+```python
 categories_mapping = {
       "1": "Deficiency",
       "2": "Full occupancy and atomic mixing",
