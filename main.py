@@ -176,6 +176,7 @@ def main(is_iteractive_mode=True, dir_path=None):
             dir_path,
         )
 
+        print("Generating histrograms... (this may take some time)")
         # Draw histograms (1/2) with site pair
         histogram.plot_site_pair_histograms(
             global_site_pair_dict, dir_path
