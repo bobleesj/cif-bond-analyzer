@@ -15,7 +15,7 @@ def get_histogram_config():
 
     max_columns = 4
     histograms_per_image = 16
-    bin_width = 0.10 # Å
+    bin_width = 0.05 # Å
 
     return histograms_per_image, max_columns, bin_width
 
