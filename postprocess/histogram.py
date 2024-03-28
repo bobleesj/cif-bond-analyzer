@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import numpy as np
 
-
 def get_histogram_config():
     """
     Configure the maximum number of histograms per image.
@@ -16,8 +15,9 @@ def get_histogram_config():
 
     max_columns = 4
     histograms_per_image = 16
+    bin_width = 0.10 # Å
 
-    return histograms_per_image, max_columns
+    return histograms_per_image, max_columns, bin_width
 
 
 def get_colors_category_mappings():
@@ -40,10 +40,16 @@ def get_colors_category_mappings():
 
     return categories_colors, categories_mapping
 
+def get_bins_from_distances(bin_width, all_distances):
+    data_range = max(all_distances) - min(all_distances)
+    bin_size = int(np.ceil(data_range / bin_width))
+    bins = np.linspace(min(all_distances), max(all_distances), bin_size + 1)
+    return bins
+
 
 def plot_histograms(data, directory_path, output_filename):
     categories_colors, categories_mapping = get_colors_category_mappings()
-    histograms_per_image, max_columns = get_histogram_config()
+    histograms_per_image, max_columns, bin_width = get_histogram_config()
 
     # Specify the desired order for legend
     ordered_keys = ["4", "2", "1", "3"]
@@ -62,8 +68,10 @@ def plot_histograms(data, directory_path, output_filename):
         for infos in records.values():
             for info in infos:
                 all_distances.append(float(info["dist"]))
-
-    bins = np.linspace(min(all_distances), max(all_distances), 21)
+    
+    bins = get_bins_from_distances(bin_width, all_distances)
+    # If bin_size is 20, then it evenly divides into 20 within the range
+    # bins = np.linspace(min(all_distances), max(all_distances), bin_size)
 
     for image_num in range(total_images):
         start_index = image_num * histograms_per_image
