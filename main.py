@@ -172,7 +172,7 @@ def main(is_iteractive_mode=True, dir_path=None):
         # Draw histograms (1/2) with site pair
         histogram.draw_histograms(global_site_pair_dict, global_element_pair_dict, dir_path)
  
-        print("Histograms generated.")
+        print("Histograms saved.")
 
         # Save log csv
         folder.save_to_csv_directory(dir_path, pd.DataFrame(log_list), "log")

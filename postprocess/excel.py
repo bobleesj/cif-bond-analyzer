@@ -10,15 +10,17 @@ import pandas as pd
 
 def save_excel_json(global_site_pair_dict, global_element_pair_dict, dir_path):
     # Save Excel file (1/2) with site pair
-    write_site_pair_dict_to_excel_json(global_site_pair_dict, "site", dir_path)
+    write_pair_dict_to_excel_json(global_site_pair_dict, "site", dir_path)
 
     # Save Excel file (2/2) with shortest element pair
-    write_site_pair_dict_to_excel_json(global_element_pair_dict, "element", dir_path)
+    write_pair_dict_to_excel_json(global_element_pair_dict, "element", dir_path)
+    print("JSON and Excel saved.")
 
 
-def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
+def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     """
     Writes JSON and Excel files containing pair info, adjusted.
+    Computes and saves the average and standard deviation for the distance.
     """
     output_dir = os.path.join(dir_path, "output")
     os.makedirs(output_dir, exist_ok=True)
@@ -28,26 +30,22 @@ def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     json_file_path = os.path.join(output_dir, f"{folder_name}_{pair_type}_pairs.json")
 
     category_mapping = {
-        "1": "deficiency",
-        "2": "full_occupancy_atomic_mixing",
-        "3": "deficiency_no_atomic_mixing",
-        "4": "full_occupancy",
+        "1": "Deficiency with atomic mixing",
+        "2": "Full occupancy with atomic mixing",
+        "3": "Deficiency without atomic mixing",
+        "4": "Full occupancy",
     }
 
     with pd.ExcelWriter(excel_file_path, engine="openpyxl") as excel_writer:
         for pair, files_info in input_dict.items():
-            # Aggregate all info into a list of dictionaries to form a DataFrame
             aggregated_info = []
             for file_id, infos in files_info.items():
                 for info in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
-                    info_copy["File"] = f"{file_id}.cif"  # Add the file ID as 'File'
+                    info_copy["File"] = f"{file_id}.cif"
                     aggregated_info.append(info_copy)
 
-            # Create a DataFrame from the aggregated information
             df = pd.DataFrame(aggregated_info)
-
-            # Rename columns to match the expected format
             df.rename(
                 columns={
                     "dist": "Distance",
@@ -55,24 +53,34 @@ def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
                 },
                 inplace=True,
             )
-
-            # Apply numeric transformation and category mapping
+            
             df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
             df["Atomic Mixing"] = (
                 df["Atomic Mixing"].astype(str).map(category_mapping).fillna("Unknown")
             )
             df.sort_values(by="Distance", inplace=True)
-
-            # Specify the desired column order
             df = df[["File", "Distance", "Atomic Mixing"]]
 
-            # Write DataFrame to Excel
+            # Calculate average and standard deviation for Distance
+            average = round(df["Distance"].mean(), 3)
+            std_dev = round(df["Distance"].std(), 3)
+            
+            # Create a blank row and summary rows
+            blank_row = {"File": None, "Distance": None, "Atomic Mixing": None}
+            summary_rows = [
+                blank_row,
+                {"File": "Average", "Distance": average, "Atomic Mixing": None},
+                {"File": "SD", "Distance": std_dev, "Atomic Mixing": None}
+            ]
+            
+            # Append the summary rows to the DataFrame
+            summary_df = pd.DataFrame(summary_rows)
+            final_df = pd.concat([df, summary_df], ignore_index=True)
+            
             sheet_name = pair[:31]  # Excel sheet name limit
-            df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
+            final_df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
 
-    # Save JSON
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump(input_dict, json_file, indent=4)
 
-    print(f"Excel saved to {excel_file_path}")
-    print(f"JSON saved to {json_file_path}")
+    print(f"{excel_file_path} \n{json_file_path}")
