@@ -24,28 +24,13 @@ def calculate_dist(point1, point2, cell_lengths, angles):
 
     # Calculate cross terms
     cross_x = (
-        2
-        * cell_lengths[1]
-        * cell_lengths[2]
-        * np.cos(angles[0])
-        * delta_y
-        * delta_z
+        2 * cell_lengths[1] * cell_lengths[2] * np.cos(angles[0]) * delta_y * delta_z
     )
     cross_y = (
-        2
-        * cell_lengths[2]
-        * cell_lengths[0]
-        * np.cos(angles[1])
-        * delta_z
-        * delta_x
+        2 * cell_lengths[2] * cell_lengths[0] * np.cos(angles[1]) * delta_z * delta_x
     )
     cross_z = (
-        2
-        * cell_lengths[0]
-        * cell_lengths[1]
-        * np.cos(angles[2])
-        * delta_x
-        * delta_y
+        2 * cell_lengths[0] * cell_lengths[1] * np.cos(angles[2]) * delta_x * delta_y
     )
 
     # Calculate squared distance
@@ -230,9 +215,7 @@ def get_coords_after_sym_operations(
     return list(all_coords)
 
 
-def get_points_and_labels(
-    all_coords_list, loop_values, supercell_generation_method=3
-):
+def get_points_and_labels(all_coords_list, loop_values, supercell_generation_method=3):
     """
     Process coordinates and loop values to extract points, labels, and atom types.
     """
@@ -244,15 +227,11 @@ def get_points_and_labels(
     num_unitcell_atom = 0
 
     for i, all_coords in enumerate(all_coords_list):
-        points = np.array(
-            [list(map(float, coord[:-1])) for coord in all_coords]
-        )
+        points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
         num_unitcell_atom += len(points)
 
     for i, all_coords in enumerate(all_coords_list):
-        points = np.array(
-            [list(map(float, coord[:-1])) for coord in all_coords]
-        )
+        points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
         atom_site_label = loop_values[0][i]
         atom_site_type = loop_values[1][i]
 
@@ -272,8 +251,6 @@ def get_points_and_labels(
             continue
 
         if cif_parser.get_atom_type(atom_site_label) != atom_site_type:
-            raise RuntimeError(
-                "Different elements found in atom site and label"
-            )
+            raise RuntimeError("Different elements found in atom site and label")
 
     return list(set(all_points)), unique_labels, unique_atoms_tuple

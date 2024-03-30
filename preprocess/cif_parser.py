@@ -51,12 +51,8 @@ def get_unit_cell_lengths_angles(block):
         "_cell_angle_gamma",
     ]
 
-    lengths = [
-        remove_string_braket(block.find_value(key)) for key in keys_lengths
-    ]
-    angles = [
-        remove_string_braket(block.find_value(key)) for key in keys_angles
-    ]
+    lengths = [remove_string_braket(block.find_value(key)) for key in keys_lengths]
+    angles = [remove_string_braket(block.find_value(key)) for key in keys_angles]
 
     return tuple(lengths + angles)
 
@@ -79,11 +75,7 @@ def get_loop_values(block, loop_tags):
     loop_values = [block.find_loop(tag) for tag in loop_tags]
 
     # Check for zero or missing coordinates
-    if (
-        len(loop_values[4]) == 0
-        or len(loop_values[5]) == 0
-        or len(loop_values[6]) == 0
-    ):
+    if len(loop_values[4]) == 0 or len(loop_values[5]) == 0 or len(loop_values[6]) == 0:
         raise RuntimeError("Missing atomic coordinates")
 
     return loop_values
@@ -210,9 +202,7 @@ def get_line_start_end_line_indexes(file_path, start_keyword):
 
 
 def get_loop_content(file_path, start_keyword):
-    start_index, end_index = get_line_start_end_line_indexes(
-        file_path, start_keyword
-    )
+    start_index, end_index = get_line_start_end_line_indexes(file_path, start_keyword)
 
     if start_index is None or end_index is None:
         print("Section starting with", start_keyword, "not found.")
@@ -256,9 +246,7 @@ def get_compound_phase_tag_id_from_third_line(file_path):
         ]
         CIF_id = third_line_parts[-1]
         if not CIF_id.isdigit():
-            raise RuntimeError(
-                "The CIF file is wrongly formatted in the third line"
-            )
+            raise RuntimeError("The CIF file is wrongly formatted in the third line")
 
         # If the thrid line does not contain the CIF ID, then it's wrongly formatted
         # if third_line_parts[0] not in third_line_parts[1]

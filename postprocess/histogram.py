@@ -90,10 +90,12 @@ def get_bins_from_distances(bin_width, all_distances):
     bins = np.linspace(min(all_distances), max(all_distances), bin_size + 1)
     return bins
 
+
 def get_dist_fig_text(all_distances):
     min_dist = np.round(min(all_distances), 2)
     max_dist = np.round(max(all_distances), 2)
     return f"Distance range: {min_dist}-{max_dist} Å"
+
 
 def plot_histograms(data, dir_path, bins, all_distances, output_filename):
     categories_colors, categories_mapping = get_colors_category_mappings()
@@ -128,7 +130,6 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
         start_index = image_num * histograms_per_image
         end_index = min((image_num + 1) * histograms_per_image, num_pairs)
         current_pairs = data_pairs[start_index:end_index]
-
 
         fig, axes = plt.subplots(num_rows, max_columns, figsize=sheet_size)
         axes = np.atleast_2d(axes).flatten()
@@ -176,15 +177,6 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
                 single_ax.set_xlabel("Distance (Å)")
                 single_ax.set_ylabel("Count")
                 single_ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-                # single_ax.legend(
-                #     legend_handles,
-                #     legend_labels,
-                #     loc="lower center",
-                #     ncol=len(legend_labels),
-                # )
-                # plt.figtext(0.5, -0.1, dist_fig_text, ha="center", va="top")
-
-                # single_fig.tight_layout(rect=[0, 0.1, 1, 1])
                 single_fig.tight_layout(rect=[0, 0, 1, 1])
                 single_fig.savefig(
                     os.path.join(single_histogram_dir, f"{pair_key}.png"),
@@ -194,10 +186,10 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
 
             else:
                 ax.set_visible(False)
-        
+
         # Hide unused axes
         for i in range(len(current_pairs), len(axes)):
-            axes[i].set_visible(False)  
+            axes[i].set_visible(False)
 
         # Code for the composite figure remains the same
         fig.legend(
@@ -207,7 +199,10 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
             ncol=len(legend_labels),
             bbox_to_anchor=(0.5, 0.02),
         )
-        plt.figtext(0.5, 0.02, dist_fig_text, ha="center", va="top")
+        
+        bin_width = str(get_histogram_config()["bin_width"])
+        bin_width_text = f", Bin width: {bin_width} Å"
+        plt.figtext(0.5, 0.02, dist_fig_text + bin_width_text, ha="center", va="top")
         plt.tight_layout(rect=[0, 0.05, 1, 1])
 
         output_dir = os.path.join(dir_path, "output")
@@ -219,8 +214,7 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
         plt.close(fig)
 
 
-
-'''
+"""
         for i in range(len(current_pairs), len(axes)):
             axes[i].set_visible(False)  # Hide unused axes
 
@@ -229,4 +223,4 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
             ax.yaxis.set_major_locator(
                 MaxNLocator(nbins=4, integer=True)
             )  # Adjust 'nbins' as needed
-'''
+"""
