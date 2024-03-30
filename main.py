@@ -157,15 +157,8 @@ def main(is_iteractive_mode=True, dir_path=None):
         if not os.path.exists(output_directory_path):
             os.makedirs(output_directory_path)
 
-        # Save Excel file (1/2) with site pair
-        excel.write_site_pair_dict_to_excel_json(
-            global_site_pair_dict, "site", dir_path
-        )
-
-        # Save Excel file (2/2) with shortest element pair
-        excel.write_element_pair_dict_to_excel_json(
-            global_element_pair_dict, "element", dir_path
-        )
+        excel.save_excel_json(global_site_pair_dict, global_element_pair_dict, dir_path)
+  
 
         # Save text file with element pairs
         writer.write_summary_and_missing_pairs_with_element_dict(
