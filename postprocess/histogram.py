@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import numpy as np
 
+
 def get_histogram_config():
     """
     Configure the maximum number of histograms per image.
@@ -15,9 +16,15 @@ def get_histogram_config():
 
     max_columns = 4
     histograms_per_image = 16
-    bin_width = 0.10 # Å
+    bin_width = 0.10  # Å
+    
+    config = {
+        "histograms_per_image": histograms_per_image,
+        "max_columns": max_columns,
+        "bin_width": bin_width
+    }
 
-    return histograms_per_image, max_columns, bin_width
+    return config
 
 
 def get_colors_category_mappings():
@@ -40,16 +47,47 @@ def get_colors_category_mappings():
 
     return categories_colors, categories_mapping
 
+def draw_histograms(site_pair_dict, element_pair_dict, dir_path):
+    all_distances = get_distances_from_site_pair(site_pair_dict)
+    config = get_histogram_config()
+    bin_width = config["bin_width"]
+    bins = get_bins_from_distances(bin_width, all_distances)
+    
+    plot_histograms(site_pair_dict, dir_path, bins, all_distances, "histogram_site_pair")
+    plot_histograms(element_pair_dict, dir_path, bins, all_distances, "histogram_element_pair")
+
+
+def get_distances_from_site_pair(data):
+    """
+    Get all distances from the site pair dict
+    """
+    element_pairs = list(data.items())
+
+    all_distances = []
+    for _, records in element_pairs:
+        for infos in records.values():
+            for info in infos:
+                all_distances.append(float(info["dist"]))
+
+    return all_distances
+
+
 def get_bins_from_distances(bin_width, all_distances):
+    """
+    Get bin information from bin width and distances
+    """  
     data_range = max(all_distances) - min(all_distances)
     bin_size = int(np.ceil(data_range / bin_width))
     bins = np.linspace(min(all_distances), max(all_distances), bin_size + 1)
     return bins
 
 
-def plot_histograms(data, directory_path, output_filename):
+def plot_histograms(data, dir_path, bins, all_distances, output_filename):
     categories_colors, categories_mapping = get_colors_category_mappings()
-    histograms_per_image, max_columns, bin_width = get_histogram_config()
+    
+    config = get_histogram_config()
+    histograms_per_image = config["histograms_per_image"]
+    max_columns = config["max_columns"]
 
     # Specify the desired order for legend
     ordered_keys = ["4", "2", "1", "3"]
@@ -61,22 +99,13 @@ def plot_histograms(data, directory_path, output_filename):
 
     num_pairs = len(data)
     total_images = np.ceil(num_pairs / histograms_per_image).astype(int)
-    element_pairs = list(data.items())
-
-    all_distances = []
-    for _, records in element_pairs:
-        for infos in records.values():
-            for info in infos:
-                all_distances.append(float(info["dist"]))
     
-    bins = get_bins_from_distances(bin_width, all_distances)
-    # If bin_size is 20, then it evenly divides into 20 within the range
-    # bins = np.linspace(min(all_distances), max(all_distances), bin_size)
-
+    data_pairs = list(data.items())
+    
     for image_num in range(total_images):
         start_index = image_num * histograms_per_image
         end_index = min((image_num + 1) * histograms_per_image, num_pairs)
-        current_pairs = element_pairs[start_index:end_index]
+        current_pairs = data_pairs[start_index:end_index]
 
         num_rows = np.ceil(histograms_per_image / max_columns).astype(int)
         fig, axes = plt.subplots(
@@ -129,6 +158,11 @@ def plot_histograms(data, directory_path, output_filename):
                 MaxNLocator(nbins=4, integer=True)
             )  # Adjust 'nbins' as needed
 
+        # Create a custom legend entry
+        min_dist = np.round(min(all_distances), 2)
+        max_dist = np.round(max(all_distances), 2)
+        dist_label = f"Distance range: {min_dist}-{max_dist} Å"
+     
         fig.legend(
             legend_handles,
             legend_labels,
@@ -136,9 +170,15 @@ def plot_histograms(data, directory_path, output_filename):
             ncol=len(legend_labels),
             bbox_to_anchor=(0.5, 0.02),
         )
+        plt.figtext(
+            0.5, 0.02,  # X, Y coordinates in figure fraction
+            dist_label,
+            ha='center',  # horizontal alignment
+            va='top'  # vertical alignment
+        )
         plt.tight_layout(rect=[0, 0.05, 1, 1])
 
-        output_dir = os.path.join(directory_path, "output")
+        output_dir = os.path.join(dir_path, "output")
         os.makedirs(output_dir, exist_ok=True)
         fig.savefig(
             os.path.join(output_dir, f"{output_filename}_{image_num + 1}.png"),
@@ -146,10 +186,3 @@ def plot_histograms(data, directory_path, output_filename):
         )
         plt.close(fig)
 
-
-def plot_element_pair_histograms(data, directory_path):
-    plot_histograms(data, directory_path, "histogram_element_pair")
-
-
-def plot_site_pair_histograms(data, directory_path):
-    plot_histograms(data, directory_path, "histogram_site_pair")

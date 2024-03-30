@@ -177,12 +177,8 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         print("Generating histograms...")
         # Draw histograms (1/2) with site pair
-        histogram.plot_site_pair_histograms(global_site_pair_dict, dir_path)
-
-        # Draw histograms (1/2) with element pair
-        histogram.plot_element_pair_histograms(
-            global_element_pair_dict, dir_path
-        )
+        histogram.draw_histograms(global_site_pair_dict, global_element_pair_dict, dir_path)
+ 
         print("Histograms generated.")
 
         # Save log csv

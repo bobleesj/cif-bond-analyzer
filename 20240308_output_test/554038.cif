@@ -280,11 +280,11 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- CoA Co 96 i 0 0.11924 0.18063 0.840
- Ga1B Ga 96 i 0 0.11924 0.18063 0.160
- Co2A Co 8 b 0 0 0 0.840
- Ga2B Ga 8 b 0 0 0 0.160
- La1 La 8 a 0.25 0.25 0.25 1
+CoA Co 96 i 0 0.11924 0.18063 0.840
+Ga1B Ga 96 i 0 0.11924 0.18063 0.160
+Co2A Co 8 b 0 0 0 0.840
+Ga2B Ga 8 b 0 0 0 0.160
+La1 La 8 a 0.25 0.25 0.25 1
 
 
 _exptl_crystal_colour                    ?
