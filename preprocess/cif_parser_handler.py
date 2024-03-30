@@ -47,13 +47,15 @@ def get_cif_loop_values(file_path: str) -> list:
     return cif_loop_values
 
 
-def get_folder_and_files_info(script_directory: str, is_interactive_mode: bool):
+def get_folder_and_files_info(
+    script_directory: str, is_interactive_mode: bool
+):
     """
     Get info about folders and files.
     """
     # With graphic user interface
     if is_interactive_mode:
-        folder_info = folder.choose_CIF_directory(script_directory)
+        folder_info = folder.choose_cif_dir(script_directory)
         folder_name = os.path.basename(folder_info)
 
     # No graphic user interface

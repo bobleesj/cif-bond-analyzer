@@ -15,8 +15,12 @@ def move_files_based_on_format_error(dir_path):
     dir_path_bad_op = os.path.join(dir_path, f"{dir_name}_error_op")
     dir_path_bad_coords = os.path.join(dir_path, f"{dir_name}_error_coords")
     dir_path_bad_label = os.path.join(dir_path, f"{dir_name}_error_label")
-    dir_path_bad_third_line = os.path.join(dir_path, f"{dir_name}_error_third_line")
-    dir_path_bad_other_error = os.path.join(dir_path, f"{dir_name}_error_others")
+    dir_path_bad_third_line = os.path.join(
+        dir_path, f"{dir_name}_error_third_line"
+    )
+    dir_path_bad_other_error = os.path.join(
+        dir_path, f"{dir_name}_error_others"
+    )
 
     # Initialize counters for each error directory
     num_files_bad_op = 0
@@ -31,7 +35,9 @@ def move_files_based_on_format_error(dir_path):
     total_files = len(files)
     file_errors = []
 
-    for idx, file_path in enumerate(files, start=1):  # Use enumerate to get the index
+    for idx, file_path in enumerate(
+        files, start=1
+    ):  # Use enumerate to get the index
         filename = os.path.basename(file_path)
 
         try:
@@ -45,7 +51,9 @@ def move_files_based_on_format_error(dir_path):
             cif_loop_values = cif_parser.get_loop_values(
                 cif_block, cif_parser.get_loop_tags()
             )
-            all_coords_list = supercell.get_coords_list(cif_block, cif_loop_values)
+            all_coords_list = supercell.get_coords_list(
+                cif_block, cif_loop_values
+            )
             supercell.get_points_and_labels(all_coords_list, cif_loop_values)
 
         except Exception as e:
@@ -53,9 +61,14 @@ def move_files_based_on_format_error(dir_path):
             print(error_message)
 
             # Append file and error details to the list
-            file_errors.append({"filename": file_path, "error_message": error_message})
+            file_errors.append(
+                {"filename": file_path, "error_message": error_message}
+            )
 
-            if "An error occurred while processing symmetry operation" in error_message:
+            if (
+                "An error occurred while processing symmetry operation"
+                in error_message
+            ):
                 os.makedirs(dir_path_bad_op, exist_ok=True)
                 debug_filename = os.path.join(dir_path_bad_op, filename)
                 os.rename(file_path, debug_filename)
@@ -70,19 +83,29 @@ def move_files_based_on_format_error(dir_path):
                 debug_filename = os.path.join(dir_path_bad_coords, filename)
                 os.rename(file_path, debug_filename)
                 num_files_bad_coords += 1
-            elif "Different elements found in atom site and label" in error_message:
+            elif (
+                "Different elements found in atom site and label"
+                in error_message
+            ):
                 os.makedirs(dir_path_bad_label, exist_ok=True)
                 debug_filename = os.path.join(dir_path_bad_label, filename)
                 os.rename(file_path, debug_filename)
                 num_files_bad_label += 1
-            elif "The CIF file is wrongly formatted in the third line" in error_message:
+            elif (
+                "The CIF file is wrongly formatted in the third line"
+                in error_message
+            ):
                 os.makedirs(dir_path_bad_third_line, exist_ok=True)
-                debug_filename = os.path.join(dir_path_bad_third_line, filename)
+                debug_filename = os.path.join(
+                    dir_path_bad_third_line, filename
+                )
                 os.rename(file_path, debug_filename)
                 num_files_bad_third_line += 1
             else:
                 os.makedirs(dir_path_bad_other_error, exist_ok=True)
-                debug_filename = os.path.join(dir_path_bad_other_error, filename)
+                debug_filename = os.path.join(
+                    dir_path_bad_other_error, filename
+                )
                 os.rename(file_path, debug_filename)
                 num_files_bad_others += 1
             print()
@@ -93,7 +116,9 @@ def move_files_based_on_format_error(dir_path):
     print(f"# of files moved to 'error_format' folder: {num_files_bad_cif}")
     print(f"# of files moved to 'error_coords' folder: {num_files_bad_coords}")
     print(f"# of files moved to 'error_label' folder: {num_files_bad_label}")
-    print(f"# of files moved to 'error_third_line' folder: {num_files_bad_third_line}")
+    print(
+        f"# of files moved to 'error_third_line' folder: {num_files_bad_third_line}"
+    )
     print(f"# of files moved to 'error_others' folder: {num_files_bad_others}")
 
     df_errors = pd.DataFrame(file_errors)

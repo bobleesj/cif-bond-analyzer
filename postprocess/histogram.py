@@ -199,10 +199,12 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
             ncol=len(legend_labels),
             bbox_to_anchor=(0.5, 0.02),
         )
-        
+
         bin_width = str(get_histogram_config()["bin_width"])
         bin_width_text = f", Bin width: {bin_width} Å"
-        plt.figtext(0.5, 0.02, dist_fig_text + bin_width_text, ha="center", va="top")
+        plt.figtext(
+            0.5, 0.02, dist_fig_text + bin_width_text, ha="center", va="top"
+        )
         plt.tight_layout(rect=[0, 0.05, 1, 1])
 
         output_dir = os.path.join(dir_path, "output")

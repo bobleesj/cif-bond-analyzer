@@ -13,7 +13,9 @@ def save_excel_json(global_site_pair_dict, global_element_pair_dict, dir_path):
     write_pair_dict_to_excel_json(global_site_pair_dict, "site", dir_path)
 
     # Save Excel file (2/2) with shortest element pair
-    write_pair_dict_to_excel_json(global_element_pair_dict, "element", dir_path)
+    write_pair_dict_to_excel_json(
+        global_element_pair_dict, "element", dir_path
+    )
     print("JSON and Excel saved.")
 
 
@@ -26,8 +28,12 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     os.makedirs(output_dir, exist_ok=True)
 
     folder_name = os.path.basename(os.path.normpath(dir_path))
-    excel_file_path = os.path.join(output_dir, f"{folder_name}_{pair_type}_pairs.xlsx")
-    json_file_path = os.path.join(output_dir, f"{folder_name}_{pair_type}_pairs.json")
+    excel_file_path = os.path.join(
+        output_dir, f"{folder_name}_{pair_type}_pairs.xlsx"
+    )
+    json_file_path = os.path.join(
+        output_dir, f"{folder_name}_{pair_type}_pairs.json"
+    )
 
     category_mapping = {
         "1": "Deficiency with atomic mixing",
@@ -53,10 +59,13 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
                 },
                 inplace=True,
             )
-            
+
             df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
             df["Atomic Mixing"] = (
-                df["Atomic Mixing"].astype(str).map(category_mapping).fillna("Unknown")
+                df["Atomic Mixing"]
+                .astype(str)
+                .map(category_mapping)
+                .fillna("Unknown")
             )
             df.sort_values(by="Distance", inplace=True)
             df = df[["File", "Distance", "Atomic Mixing"]]
@@ -64,19 +73,23 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
             # Calculate average and standard deviation for Distance
             average = round(df["Distance"].mean(), 3)
             std_dev = round(df["Distance"].std(), 3)
-            
+
             # Create a blank row and summary rows
             blank_row = {"File": None, "Distance": None, "Atomic Mixing": None}
             summary_rows = [
                 blank_row,
-                {"File": "Average", "Distance": average, "Atomic Mixing": None},
-                {"File": "SD", "Distance": std_dev, "Atomic Mixing": None}
+                {
+                    "File": "Average",
+                    "Distance": average,
+                    "Atomic Mixing": None,
+                },
+                {"File": "SD", "Distance": std_dev, "Atomic Mixing": None},
             ]
-            
+
             # Append the summary rows to the DataFrame
             summary_df = pd.DataFrame(summary_rows)
             final_df = pd.concat([df, summary_df], ignore_index=True)
-            
+
             sheet_name = pair[:31]  # Excel sheet name limit
             final_df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
 

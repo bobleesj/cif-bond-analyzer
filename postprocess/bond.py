@@ -38,7 +38,9 @@ def get_atom_site_labeled_dict(
             if i == j:
                 continue  # Skip the identical index
 
-            dist_result = supercell.calculate_dist(point_1, point_2, lengths, angles)
+            dist_result = supercell.calculate_dist(
+                point_1, point_2, lengths, angles
+            )
             dist, _, label_2 = dist_result
             dist = abs(
                 np.round(dist, 3)
@@ -110,7 +112,9 @@ def transform_to_list(atom_site_dict):
     return pairs_list
 
 
-def postprocess_atom_site_dict(atom_site_dict, atom_site_mixing_dict, filename):
+def postprocess_atom_site_dict(
+    atom_site_dict, atom_site_mixing_dict, filename
+):
     pairs_list = transform_to_list(atom_site_dict)
     atom_site_dict_processed = {}
 
@@ -120,7 +124,9 @@ def postprocess_atom_site_dict(atom_site_dict, atom_site_mixing_dict, filename):
         pair_label = f"{ordered_pair[0]}-{ordered_pair[1]}"
 
         # Determine the mixing value from atom_site_mixing_dict
-        mixing = atom_site_mixing_dict[tuple([ordered_pair[0], ordered_pair[1]])]
+        mixing = atom_site_mixing_dict[
+            tuple([ordered_pair[0], ordered_pair[1]])
+        ]
 
         if pair_label not in atom_site_dict_processed:
             atom_site_dict_processed[pair_label] = {}
