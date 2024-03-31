@@ -25,7 +25,7 @@ from util import folder, prompt
 from filter import occupancy
 
 
-def main(is_iteractive_mode=True, dir_path=None):
+def main(is_iteractive_mode=True, given_dir_path=None):
     """
     Runs the Python script
     """
@@ -34,6 +34,8 @@ def main(is_iteractive_mode=True, dir_path=None):
     supercell_method = None
     dir_names_with_cif = None
     main_script_path = None
+    selected_dirs = None
+    
 
     if is_iteractive_mode:
         main_script_path = os.path.dirname(os.path.abspath(__file__))
@@ -59,9 +61,14 @@ def main(is_iteractive_mode=True, dir_path=None):
             )
             supercell_method = 3
 
-    # if not is_iteractive_mode:
-    #     file_path_list = folder.get_cif_file_path_list(dir_path)
-    #     supercell_method = 3
+    # If this is not the interactive mode, use the given cif directory path
+    if not is_iteractive_mode:
+        given_dir_path
+        selected_dirs = {
+            1: given_dir_path
+        }
+        # Use +1 +1 +1 shfits by default
+        supercell_method = 2
 
     num_selected_dirs = len(selected_dirs)
     for idx, dir_name in enumerate(selected_dirs.values(), start=1):
@@ -69,7 +76,11 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         log_list = []
         file_path_list = None
-        dir_path = os.path.join(main_script_path, dir_name)
+        dir_path = None
+        if is_iteractive_mode:
+            dir_path = os.path.join(main_script_path, dir_name)
+        else:
+            dir_path = given_dir_path
 
         # PART 1: REFORMAT
         format.move_files_based_on_format_error(dir_path)
