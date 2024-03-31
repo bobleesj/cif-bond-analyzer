@@ -57,24 +57,24 @@ def get_folder_indices(dir_names_with_cif):
             )
 
 
-def get_user_input_folder_processing(dir_names_with_cif):
-    click.echo("Folders with .cif files:")
-    for idx, dir_name in enumerate(dir_names_with_cif, start=1):
+def get_user_input_folder_processing(dir_names, file_type):
+    click.echo(f"\nFolders with {file_type} files:")
+    for idx, dir_name in enumerate(dir_names, start=1):
         num_of_cif_files = folder.get_cif_file_count_from_directory(dir_name)
         click.echo(f"{idx}. {dir_name}, {num_of_cif_files} files")
 
-    click.echo("\nWould you like to process each folder sequentially?")
+    click.echo("\nWould you like to process each folder above sequentially?")
     is_sequentially_processed = click.confirm("(Default: Y)", default=True)
 
     if is_sequentially_processed:
         selected_dirs = {
-            idx: name for idx, name in enumerate(dir_names_with_cif, start=1)
+            idx: name for idx, name in enumerate(dir_names, start=1)
         }
     else:
-        selected_dirs = get_folder_indices(dir_names_with_cif)
+        selected_dirs = get_folder_indices(dir_names)
 
     # Print the selected folders
-    if len(selected_dirs) == len(dir_names_with_cif):
+    if len(selected_dirs) == len(dir_names):
         click.echo("> Good! Let's process all the folders.")
     else:
         click.echo("> Good! You chose the following folders:")
@@ -123,7 +123,7 @@ def get_user_input_on_supercell_method():
 def echo_folder_progress(idx, dir_name, num_selected_dirs):
     echo("\n")
     echo("=" * 50)  # Top line of '=' characters
-    echo(f"Process {dir_name} ({idx} out of {num_selected_dirs})")
+    echo(f"Processing {dir_name} ({idx} out of {num_selected_dirs})")
     echo("=" * 50)  # Bottom line of '=' characters
 
 

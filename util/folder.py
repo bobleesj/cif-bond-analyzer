@@ -4,7 +4,7 @@ from os.path import join, exists
 from shutil import rmtree, move
 
 
-def get_cif_dir_paths(script_path):
+def get_cif_dir_names(script_path):
     dir_name_list = [
         d
         for d in os.listdir(script_path)
@@ -18,6 +18,29 @@ def get_cif_dir_paths(script_path):
         print(
             "No directories found in the current path containing .cif files!"
         )
+        return None
+
+    return dir_name_list
+
+
+def get_json_dir_names(script_path):
+    directories = os.listdir(script_path)
+
+    dir_name_list = []
+    for d in directories:
+        dir_path = os.path.join(script_path, d)
+        if os.path.isdir(dir_path):
+            output_dir_path = os.path.join(dir_path, 'output')
+            if os.path.exists(output_dir_path) and os.path.isdir(output_dir_path):
+                files = os.listdir(output_dir_path)
+                for file in files:
+                    if file.endswith(".json"):
+                        parent_dir_name = os.path.basename(dir_path)  # Get the parent directory name
+                        dir_name_list.append(parent_dir_name)
+                        break  # Found a JSON file, no need to check further in this directory
+
+    if not dir_name_list:
+        print("No directories found in the current path containing JSON files!")
         return None
 
     return dir_name_list

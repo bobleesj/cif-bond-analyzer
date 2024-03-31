@@ -191,6 +191,12 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
         for i in range(len(current_pairs), len(axes)):
             axes[i].set_visible(False)
 
+        # Adjust the y-axis tick interval based on the max_count
+        for ax in axes:
+            ax.yaxis.set_major_locator(
+                MaxNLocator(nbins=4, integer=True)
+            )  # Adjust 'nbins' as needed
+            
         # Code for the composite figure remains the same
         fig.legend(
             legend_handles,
@@ -220,9 +226,5 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
         for i in range(len(current_pairs), len(axes)):
             axes[i].set_visible(False)  # Hide unused axes
 
-        # Adjust the y-axis tick interval based on the max_count
-        for ax in axes:
-            ax.yaxis.set_major_locator(
-                MaxNLocator(nbins=4, integer=True)
-            )  # Adjust 'nbins' as needed
+
 """

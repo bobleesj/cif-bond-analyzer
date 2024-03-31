@@ -37,7 +37,7 @@ def main(is_iteractive_mode=True, dir_path=None):
 
     if is_iteractive_mode:
         main_script_path = os.path.dirname(os.path.abspath(__file__))
-        dir_names_with_cif = folder.get_cif_dir_paths(main_script_path)
+        dir_names_with_cif = folder.get_cif_dir_names(main_script_path)
 
         # If no folders containing .cif files found, exit
         if not dir_names_with_cif:
@@ -45,7 +45,7 @@ def main(is_iteractive_mode=True, dir_path=None):
 
         # Ask input on folder processing
         selected_dirs = prompt.get_user_input_folder_processing(
-            dir_names_with_cif
+            dir_names_with_cif, ".cif"
         )
 
         # Ask input on supercell generation method
