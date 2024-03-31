@@ -1,5 +1,7 @@
 # CIF Bond Analyzer
 
+![Header](https://s9.gifyu.com/images/SViLp.png)
+
 Analyze and visualize bonding pairs in CIF files: Processes CIFs to identify unique atomic pairs, their frequencies, distances, missing pairs, and generates histograms for distance distribution
 
 ## What CIF Bond Anaylzer does
