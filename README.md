@@ -4,11 +4,10 @@ Analyze and visualize bonding pairs in CIF files: Processes CIFs to identify uni
 
 ## What CIF Bond Anaylzer does
 
-1. processes Crystallographic Information Files (CIF) from selected folder
-2. determines shortest distance and pair from one reference atom all other atoms
+1. processes Crystallographic Information Files (CIF) from selected folder(s)
+2. determines shortest distance and pair from each atomic site
 3. indicates frequency and distances of bonding pairs across all files
-4. identifies missing atomic pairs not observed across all CIF files.
-5. generates histograms for each unique atomic pair to visualize distribution of distances.
+4. generates histograms for each unique atomic pair to visualize distribution of distances.
 
 When you run `python main.py`, it identifies folders containing `.cif` files.
 
@@ -146,6 +145,7 @@ Please feel free to reach out via sl5400@columbia.edu for any questions.
 
 ## Changelog
 
+- 20240331 - Added integration test for JSON result verification.
 - 20240330 - Added sequential folder processing and customizable histogram generation. See [Pull #16](https://github.com/bobleesj/cif-bond-analyzer/pull/16).
 - 20240326 - Implemented automatic preprocessing and relocation of unsupported CIF files.
 - 20240311 - Integrated PEP8 linting with `black`. See [Pull #12](https://github.com/bobleesj/cif-bond-analyzer/pull/12).
