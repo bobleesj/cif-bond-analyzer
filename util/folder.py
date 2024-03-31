@@ -30,17 +30,23 @@ def get_json_dir_names(script_path):
     for d in directories:
         dir_path = os.path.join(script_path, d)
         if os.path.isdir(dir_path):
-            output_dir_path = os.path.join(dir_path, 'output')
-            if os.path.exists(output_dir_path) and os.path.isdir(output_dir_path):
+            output_dir_path = os.path.join(dir_path, "output")
+            if os.path.exists(output_dir_path) and os.path.isdir(
+                output_dir_path
+            ):
                 files = os.listdir(output_dir_path)
                 for file in files:
                     if file.endswith(".json"):
-                        parent_dir_name = os.path.basename(dir_path)  # Get the parent directory name
+                        parent_dir_name = os.path.basename(
+                            dir_path
+                        )  # Get the parent directory name
                         dir_name_list.append(parent_dir_name)
                         break  # Found a JSON file, no need to check further in this directory
 
     if not dir_name_list:
-        print("No directories found in the current path containing JSON files!")
+        print(
+            "No directories found in the current path containing JSON files!"
+        )
         return None
 
     return dir_name_list

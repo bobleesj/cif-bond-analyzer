@@ -196,7 +196,7 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
             ax.yaxis.set_major_locator(
                 MaxNLocator(nbins=4, integer=True)
             )  # Adjust 'nbins' as needed
-            
+
         # Code for the composite figure remains the same
         fig.legend(
             legend_handles,

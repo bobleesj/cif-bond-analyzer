@@ -103,7 +103,7 @@ pip install pandas click gemmi matplotlib pytest sympy openpyxl
 python main.py
 ```
 
-The above method had no issue so far. But If you are interested in using `Conda` with a fresh new environment
+The above method had no issue so far. But If you are interested in using `Conda` with a new environment run the following:
 
 ```bash
 git clone https://github.com/bobleesj/cif-bond-analyzer.git
@@ -114,15 +114,24 @@ pip install -r requirements.txt
 python main.py
 ```
 
+## Usage
+
+This command will start the program and prompt you to select a folder containing .`cif` files for analysis.
+
+```python
+python main.py
+```
+
+To modify the histogram width and customize histogram generation, use `plot-histogram.py`. This script allows you to interactively specify parameters, such as the bin width and x-axis range:
+
+```python
+python plot-histogram.py
+```
+
 ## Tutorial
 
 > If you are new to Conda (Python package manager), I have written a tutorial for you here [Intro to Python package manager for beginners (Ft. Conda with Cheatsheet](https://bobleesj.github.io/tutorial/2024/02/26/intro-to-python-package-manager.html).
 
-## Test
-
-```bash
-python -m pytest           
-```
 
 ## Contributors
 
@@ -137,9 +146,10 @@ Please feel free to reach out via sl5400@columbia.edu for any questions.
 
 ## Changelog
 
-- 20240326 - support automatic preprocessing and moving of unsupported CIF files
-- 20240311 - support PEP8 linting with `black` ([Pull #12](https://github.com/bobleesj/cif-bond-analyzer/pull/12))
-- 20240310 - support both element-based and label-based outputs for Excel, JSON, histgorams ([Pull #11](https://github.com/bobleesj/cif-bond-analyzer/pull/11))
-- 20240301 - For files with more than 200 atoms in the unit cell, we let the user choose whether to apply translation in all +-1, +-1, +-1 directions or just +1 +1 +1 directions. 
-- 20240301 - show # of atoms and execution time per file on Terminal, save csv for logging at the end
-- 20240229 - include support for binary, ternary, and quaternary CIF files
+- 20240330 - Added sequential folder processing and customizable histogram generation. See [Pull #16](https://github.com/bobleesj/cif-bond-analyzer/pull/16).
+- 20240326 - Implemented automatic preprocessing and relocation of unsupported CIF files.
+- 20240311 - Integrated PEP8 linting with `black`. See [Pull #12](https://github.com/bobleesj/cif-bond-analyzer/pull/12).
+- 20240310 - Enhanced output options to include both element-based and label-based data for Excel, JSON, and histograms. See [Pull #11](https://github.com/bobleesj/cif-bond-analyzer/pull/11).
+- 20240301 - Provided translation options for unit cells with more than 100 atoms, either in all ±1 directions or just +1 in each.
+- 20240301 - Displayed atom counts and execution time per file in Terminal; added CSV logging.
+- 20240229 - Expanded file support to include all CIF files.
