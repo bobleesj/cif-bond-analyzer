@@ -8,9 +8,21 @@ import json
 import pandas as pd
 
 
-def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
+def save_excel_json(global_site_pair_dict, global_element_pair_dict, dir_path):
+    # Save Excel file (1/2) with site pair
+    write_pair_dict_to_excel_json(global_site_pair_dict, "site", dir_path)
+
+    # Save Excel file (2/2) with shortest element pair
+    write_pair_dict_to_excel_json(
+        global_element_pair_dict, "element", dir_path
+    )
+    print("JSON and Excel saved.")
+
+
+def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     """
     Writes JSON and Excel files containing pair info, adjusted.
+    Computes and saves the average and standard deviation for the distance.
     """
     output_dir = os.path.join(dir_path, "output")
     os.makedirs(output_dir, exist_ok=True)
@@ -24,28 +36,22 @@ def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
     )
 
     category_mapping = {
-        "1": "deficiency",
-        "2": "full_occupancy_atomic_mixing",
-        "3": "deficiency_no_atomic_mixing",
-        "4": "full_occupancy",
+        "1": "Deficiency with atomic mixing",
+        "2": "Full occupancy with atomic mixing",
+        "3": "Deficiency without atomic mixing",
+        "4": "Full occupancy",
     }
 
     with pd.ExcelWriter(excel_file_path, engine="openpyxl") as excel_writer:
         for pair, files_info in input_dict.items():
-            # Aggregate all info into a list of dictionaries to form a DataFrame
             aggregated_info = []
             for file_id, infos in files_info.items():
                 for info in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
-                    info_copy[
-                        "File"
-                    ] = f"{file_id}.cif"  # Add the file ID as 'File'
+                    info_copy["File"] = f"{file_id}.cif"
                     aggregated_info.append(info_copy)
 
-            # Create a DataFrame from the aggregated information
             df = pd.DataFrame(aggregated_info)
-
-            # Rename columns to match the expected format
             df.rename(
                 columns={
                     "dist": "Distance",
@@ -54,7 +60,6 @@ def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
                 inplace=True,
             )
 
-            # Apply numeric transformation and category mapping
             df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
             df["Atomic Mixing"] = (
                 df["Atomic Mixing"]
@@ -63,100 +68,32 @@ def write_site_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
                 .fillna("Unknown")
             )
             df.sort_values(by="Distance", inplace=True)
-
-            # Specify the desired column order
             df = df[["File", "Distance", "Atomic Mixing"]]
 
-            # Write DataFrame to Excel
-            sheet_name = pair[:31]  # Excel sheet name limit
-            df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
+            # Calculate average and standard deviation for Distance
+            average = round(df["Distance"].mean(), 3)
+            std_dev = round(df["Distance"].std(), 3)
 
-    # Save JSON
-    with open(json_file_path, "w", encoding="utf-8") as json_file:
-        json.dump(input_dict, json_file, indent=4)
-
-    print(f"Site Pair Excel and JSON saved to {output_dir}")
-
-
-def write_element_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
-    """
-    Writes JSON and Excel files containing pair info,
-    keeping only the shortest distance for each atomic mixing type.
-    """
-    output_dir = os.path.join(dir_path, "output")
-    os.makedirs(output_dir, exist_ok=True)
-
-    folder_name = os.path.basename(os.path.normpath(dir_path))
-    excel_file_path = os.path.join(
-        output_dir, f"{folder_name}_{pair_type}_pairs.xlsx"
-    )
-    json_file_path = os.path.join(
-        output_dir, f"{folder_name}_{pair_type}_pairs.json"
-    )
-
-    category_mapping = {
-        "1": "deficiency",
-        "2": "full_occupancy_atomic_mixing",
-        "3": "deficiency_no_atomic_mixing",
-        "4": "full_occupancy",
-    }
-
-    # Preprocess the input_dict to keep only the shortest distances for each atomic mixing
-    for pair, files_info in input_dict.items():
-        for file_id, infos in files_info.items():
-            shortest_distances = {}
-            for info in infos:
-                mixing_type = info["mixing"]
-                distance = float(info["dist"])
-                if mixing_type not in shortest_distances or distance < float(
-                    shortest_distances[mixing_type]["dist"]
-                ):
-                    shortest_distances[mixing_type] = info
-            input_dict[pair][file_id] = list(shortest_distances.values())
-
-    with pd.ExcelWriter(excel_file_path, engine="openpyxl") as excel_writer:
-        for pair, files_info in input_dict.items():
-            # Aggregate all info into a list of dictionaries to form a DataFrame
-            aggregated_info = []
-            for file_id, infos in files_info.items():
-                for info in infos:  # Here infos is a list of dictionaries
-                    info_copy = info.copy()
-                    info_copy[
-                        "File"
-                    ] = f"{file_id}.cif"  # Add the file ID as 'File'
-                    aggregated_info.append(info_copy)
-
-            # Create a DataFrame from the aggregated information
-            df = pd.DataFrame(aggregated_info)
-
-            # Rename columns to match the expected format
-            df.rename(
-                columns={
-                    "dist": "Distance",
-                    "mixing": "Atomic Mixing",
+            # Create a blank row and summary rows
+            blank_row = {"File": None, "Distance": None, "Atomic Mixing": None}
+            summary_rows = [
+                blank_row,
+                {
+                    "File": "Average",
+                    "Distance": average,
+                    "Atomic Mixing": None,
                 },
-                inplace=True,
-            )
+                {"File": "SD", "Distance": std_dev, "Atomic Mixing": None},
+            ]
 
-            # Apply numeric transformation and category mapping
-            df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
-            df["Atomic Mixing"] = (
-                df["Atomic Mixing"]
-                .astype(str)
-                .map(category_mapping)
-                .fillna("Unknown")
-            )
-            df.sort_values(by="Distance", inplace=True)
+            # Append the summary rows to the DataFrame
+            summary_df = pd.DataFrame(summary_rows)
+            final_df = pd.concat([df, summary_df], ignore_index=True)
 
-            # Specify the desired column order
-            df = df[["File", "Distance", "Atomic Mixing"]]
-
-            # Write DataFrame to Excel
             sheet_name = pair[:31]  # Excel sheet name limit
-            df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
+            final_df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
 
-    # Save JSON
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump(input_dict, json_file, indent=4)
 
-    print(f"Element Pair Excel and JSON saved to {output_dir}")
+    print(f"{excel_file_path} \n{json_file_path}")

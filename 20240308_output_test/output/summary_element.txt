@@ -13,10 +13,12 @@ Pair: In-In, Count: 1, Distances: 2.825
 Pair: Nd-Ge, Count: 1, Distances: 3.157
 Pair: Pr-Ge, Count: 1, Distances: 3.161
 Pair: Pt-Pt, Count: 1, Distances: 2.819
+Pair: Pt-Sn, Count: 1, Distances: 2.819
 Pair: Rh-In, Count: 1, Distances: 2.825
 Pair: Rh-Rh, Count: 1, Distances: 2.825
 Pair: Ru-Ge, Count: 1, Distances: 2.507
 Pair: Sm-Ge, Count: 1, Distances: 3.141
+Pair: Sn-Sn, Count: 1, Distances: 2.819
 Pair: U-In, Count: 1, Distances: 2.825
 Pair: U-Rh, Count: 1, Distances: 2.825
 
@@ -25,6 +27,7 @@ Co-Ge
 Co-In
 Co-Pt
 Co-Rh
+Co-Sn
 Eu-Co
 Eu-Eu
 Eu-Ga
@@ -33,9 +36,12 @@ Eu-In
 Eu-Pt
 Eu-Rh
 Eu-Ru
+Eu-Sn
 Eu-Tb
 Ga-Ge
 Ga-In
+Ga-Sn
+Ge-Sn
 Ho-Co
 Ho-Ga
 Ho-Ho
@@ -43,7 +49,9 @@ Ho-In
 Ho-Pt
 Ho-Rh
 Ho-Ru
+Ho-Sn
 In-Ge
+In-Sn
 La-Eu
 La-Ge
 La-Ho
@@ -55,6 +63,7 @@ La-Pt
 La-Rh
 La-Ru
 La-Sm
+La-Sn
 La-Tb
 La-U
 Nd-Co
@@ -67,6 +76,7 @@ Nd-Pt
 Nd-Rh
 Nd-Ru
 Nd-Sm
+Nd-Sn
 Nd-Tb
 Nd-U
 Pr-Co
@@ -80,6 +90,7 @@ Pr-Pt
 Pr-Rh
 Pr-Ru
 Pr-Sm
+Pr-Sn
 Pr-Tb
 Pr-U
 Pt-Ga
@@ -87,12 +98,14 @@ Pt-Ge
 Pt-In
 Rh-Ga
 Rh-Pt
+Rh-Sn
 Ru-Co
 Ru-Ga
 Ru-In
 Ru-Pt
 Ru-Rh
 Ru-Ru
+Ru-Sn
 Sm-Co
 Sm-Eu
 Sm-Ga
@@ -102,6 +115,7 @@ Sm-Pt
 Sm-Rh
 Sm-Ru
 Sm-Sm
+Sm-Sn
 Sm-Tb
 Tb-Co
 Tb-Ga
@@ -110,6 +124,7 @@ Tb-In
 Tb-Pt
 Tb-Rh
 Tb-Ru
+Tb-Sn
 Tb-Tb
 U-Co
 U-Eu
@@ -119,5 +134,6 @@ U-Ho
 U-Pt
 U-Ru
 U-Sm
+U-Sn
 U-Tb
 U-U

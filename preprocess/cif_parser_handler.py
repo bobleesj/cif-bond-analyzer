@@ -55,7 +55,7 @@ def get_folder_and_files_info(
     """
     # With graphic user interface
     if is_interactive_mode:
-        folder_info = folder.choose_CIF_directory(script_directory)
+        folder_info = folder.choose_cif_dir(script_directory)
         folder_name = os.path.basename(folder_info)
 
     # No graphic user interface

@@ -276,8 +276,8 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- Pt,Sn1 Pt 4 a 0 0 0 0.5
- Pt,Sn2 Sn 4 a 0 0 0 0.5
+Pt1 Pt 4 a 0 0 0 0.5
+Sn2 Sn 4 a 0 0 0 0.5
 
 
 _exptl_crystal_colour                    ?

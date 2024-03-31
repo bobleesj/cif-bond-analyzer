@@ -4,17 +4,58 @@ from os.path import join, exists
 from shutil import rmtree, move
 
 
-def choose_CIF_directory(script_directory):
+def get_cif_dir_names(script_path):
+    dir_name_list = [
+        d
+        for d in os.listdir(script_path)
+        if os.path.isdir(join(script_path, d))
+        and any(
+            file.endswith(".cif") for file in os.listdir(join(script_path, d))
+        )
+    ]
+
+    if not dir_name_list:
+        print(
+            "No directories found in the current path containing .cif files!"
+        )
+        return None
+
+    return dir_name_list
+
+
+def get_json_dir_names(script_path):
+    directories = os.listdir(script_path)
+
+    dir_name_list = []
+    for d in directories:
+        dir_path = os.path.join(script_path, d)
+        if os.path.isdir(dir_path):
+            output_dir_path = os.path.join(dir_path, 'output')
+            if os.path.exists(output_dir_path) and os.path.isdir(output_dir_path):
+                files = os.listdir(output_dir_path)
+                for file in files:
+                    if file.endswith(".json"):
+                        parent_dir_name = os.path.basename(dir_path)  # Get the parent directory name
+                        dir_name_list.append(parent_dir_name)
+                        break  # Found a JSON file, no need to check further in this directory
+
+    if not dir_name_list:
+        print("No directories found in the current path containing JSON files!")
+        return None
+
+    return dir_name_list
+
+
+def choose_cif_dir(script_path):
     """
     Allows the user to select a directory from the given path.
     """
     directories = [
         d
-        for d in os.listdir(script_directory)
-        if os.path.isdir(join(script_directory, d))
+        for d in os.listdir(script_path)
+        if os.path.isdir(join(script_path, d))
         and any(
-            file.endswith(".cif")
-            for file in os.listdir(join(script_directory, d))
+            file.endswith(".cif") for file in os.listdir(join(script_path, d))
         )
     ]
 
@@ -29,11 +70,9 @@ def choose_CIF_directory(script_directory):
         print(f"{idx}. {dir_name}, {num_of_cif_files} files")
     while True:
         try:
-            choice = int(
-                input("\nEnter folder # having .cif files: ")
-            )
+            choice = int(input("\nEnter folder # having .cif files: "))
             if 1 <= choice <= len(directories):
-                return join(script_directory, directories[choice - 1])
+                return join(script_path, directories[choice - 1])
             else:
                 print(
                     f"Please enter a number between 1 and {len(directories)}."
