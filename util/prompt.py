@@ -77,9 +77,10 @@ def get_user_input_folder_processing(dir_names, file_type):
     if len(selected_dirs) == len(dir_names):
         click.echo("> Good! Let's process all the folders.")
     else:
-        click.echo("> Good! You chose the following folders:")
+        click.echo("> Good! You've chosen the following folders:")
         for idx, dir_name in selected_dirs.items():
             click.echo(f"{idx}. {dir_name}")
+
 
     return selected_dirs
 
