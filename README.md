@@ -12,13 +12,32 @@ Analyze and visualize bonding pairs in CIF files: Processes CIFs to identify uni
 When you run `python main.py`, it identifies folders containing `.cif` files.
 
 ```bash
-Available folders containing CIF files:
-1. binary_files, 3 files
-2. backup_cif_files, 1 files
-3. 20240229_oliynyk_test_atom_mixing_formatted, 3 files
+Folders with .cif files:
+1. 20240308_output_test, 12 files
+2. 20240307_histogram_test, 41 files
 
-Enter the number corresponding to the folder containing .cif files: 3
+Would you like to process each folder above sequentially?
+(Default: Y) [Y/n]: y
 ```
+
+## Usage
+
+This command will start the program and prompt you to select a folder containing .`cif` files for analysis.
+
+```python
+python main.py
+```
+
+To modify the histogram width and customize histogram generation, use `plot-histogram.py`. This script allows you to interactively specify parameters, such as the bin width and x-axis range:
+
+```python
+python plot-histogram.py
+```
+
+
+## Demo
+
+![CIF Bond Analyzer execution process](https://s12.gifyu.com/images/SViMw.gif)
 
 ### Output 1. Text file
 
@@ -51,7 +70,7 @@ Fe-Co
 
 In the `output` folder, histograms per shortest pair distance from each atom will be saved.
 
-![Histograms for label pair](https://bobleesj.github.io/files/research/oliynyk-cif-bond-analyzer/histograms.png)
+![Histograms for label pair](https://s9.gifyu.com/images/SViMv.png)
 
 ### Output 3. Excel and JSON
 
@@ -113,20 +132,6 @@ pip install -r requirements.txt
 python main.py
 ```
 
-## Usage
-
-This command will start the program and prompt you to select a folder containing .`cif` files for analysis.
-
-```python
-python main.py
-```
-
-To modify the histogram width and customize histogram generation, use `plot-histogram.py`. This script allows you to interactively specify parameters, such as the bin width and x-axis range:
-
-```python
-python plot-histogram.py
-```
-
 ## Tutorial
 
 > If you are new to Conda (Python package manager), I have written a tutorial for you here [Intro to Python package manager for beginners (Ft. Conda with Cheatsheet](https://bobleesj.github.io/tutorial/2024/02/26/intro-to-python-package-manager.html).
@@ -141,7 +146,6 @@ python plot-histogram.py
 ## Questions?
 
 Please feel free to reach out via sl5400@columbia.edu for any questions. 
-
 
 ## Changelog
 
