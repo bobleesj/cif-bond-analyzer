@@ -1,4 +1,4 @@
-# CIF Bond Analyzer
+# CIF Bond Analyzer (CBA)
 
 ![Header](https://s9.gifyu.com/images/SViLp.png)
 
