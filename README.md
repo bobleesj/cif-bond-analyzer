@@ -2,7 +2,9 @@
 
 ![Header](https://s9.gifyu.com/images/SViLp.png)
 
-Analyze and visualize bonding pairs in CIF files: Processes CIFs to identify unique atomic pairs, their frequencies, distances, missing pairs, and generates histograms for distance distribution
+## Description
+
+CIF Bond Analyzer (CBA) is an interactive, command-line Python application designed for the high-throughput extraction of minimum bond length and atomic mixing information from a CIF (Crystallographic Information File) file. CBA constructs a supercell and determines the minimum bond length from each atomic site. CBA repeats the extraction process for each file in the selected folder. The outputs are saved in both JSON and Excel formats. Additionally, CBA generates histograms for a graphical overview of bond lengths and a text file that enumerates bond pair counts and unobserved bonding pairs.
 
 ## What CIF Bond Anaylzer does
 
@@ -10,6 +12,14 @@ Analyze and visualize bonding pairs in CIF files: Processes CIFs to identify uni
 2. determines shortest distance and pair from each atomic site
 3. indicates frequency and distances of bonding pairs across all files
 4. generates histograms for each unique atomic pair to visualize distribution of distances.
+
+## Usage
+
+This command will start the program and prompt you to select a folder containing .`cif` files for analysis.
+
+```python
+python main.py
+```
 
 When you run `python main.py`, it identifies folders containing `.cif` files.
 
@@ -22,19 +32,12 @@ Would you like to process each folder above sequentially?
 (Default: Y) [Y/n]: y
 ```
 
-## Usage
-
-This command will start the program and prompt you to select a folder containing .`cif` files for analysis.
-
-```python
-python main.py
-```
-
 To modify the histogram width and customize histogram generation, use `plot-histogram.py`. This script allows you to interactively specify parameters, such as the bin width and x-axis range:
 
 ```python
 python plot-histogram.py
 ```
+
 
 
 ## Demo
