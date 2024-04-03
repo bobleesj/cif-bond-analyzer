@@ -8,10 +8,9 @@ CIF Bond Analyzer (CBA) is an interactive, command-line Python application desig
 
 ## What CIF Bond Anaylzer does
 
-1. processes Crystallographic Information Files (CIF) from selected folder(s)
-2. determines shortest distance and pair from each atomic site
-3. indicates frequency and distances of bonding pairs across all files
-4. generates histograms for each unique atomic pair to visualize distribution of distances.
+1. Preprocess Crystallographic Information Files (CIF) from selected folders.
+2. Generate a supercell for each file and determine the shortest distance and pair from each atomic site.
+3. Generate histograms and save the data in text and Excel file formats.
 
 ## Usage
 
@@ -48,7 +47,6 @@ python plot-histogram.py
 
 ```txt
 Summary:
-Pair: Ge-Ge, Count: 4, Distances: 0.427, 2.489, 2.545, 2.672
 Pair: In-In, Count: 4, Distances: 2.736, 2.782, 2.785, 2.793
 Pair: Pd-Ge, Count: 4, Distances: 2.449, 2.455, 2.489, 2.672
 Pair: Pd-Sb, Count: 4, Distances: 2.505, 2.700, 2.737, 2.793
@@ -150,7 +148,11 @@ python main.py
 
 ## Questions?
 
-Please feel free to reach out via sl5400@columbia.edu for any questions. 
+Please feel free to reach out via sl5400@columbia.edu for any questions 
+
+## How to contribute or report a bug
+
+Please feel free to report an issue or contribute by making a new issue [here](https://github.com/bobleesj/cif-bond-analyzer/issues)
 
 ## Changelog
 
