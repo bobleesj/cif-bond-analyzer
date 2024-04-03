@@ -143,8 +143,8 @@ python main.py
 ## Contributors
 
 - Anton Oliynyk
-- Sangjoon Bob Lee
 - Emil Jaffal
+- Sangjoon Bob Lee
 
 ## Questions?
 
