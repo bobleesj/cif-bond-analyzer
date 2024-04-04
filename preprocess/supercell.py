@@ -278,3 +278,80 @@ def get_points_and_labels(
             )
 
     return list(set(all_points)), unique_labels, unique_atoms_tuple
+
+
+
+def distance_to_origin(point):
+    """
+    Calculate the Euclidean distance from a given
+    point to the origin in 3D space.
+    """
+
+    x, y, z, _ = point
+    return (x**2 + y**2 + z**2) ** 0.5
+
+
+def calc_dist_two_cart_points(point1, point2):
+    """
+    Calculate the Euclidean distance between two points
+    in Cartesian coordinates.
+    """
+    point1 = np.array(point1)
+    point2 = np.array(point2)
+    diff = point2 - point1
+    distance = np.linalg.norm(diff)
+
+    return distance
+
+
+def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
+    """
+    Converts fractional coordinates to Cartesian
+    coordinates using cell lengths and angles.
+    """
+    alpha, beta, gamma = rad_angles
+
+    # Calculate the components of the transformation matrix
+    a, b, c = cell_lengths
+    cos_alpha = np.cos(alpha)
+    cos_beta = np.cos(beta)
+    cos_gamma = np.cos(gamma)
+    sin_gamma = np.sin(gamma)
+
+    # The volume of the unit cell
+    volume = (
+        a
+        * b
+        * c
+        * np.sqrt(
+            1
+            - cos_alpha**2
+            - cos_beta**2
+            - cos_gamma**2
+            + 2 * cos_alpha * cos_beta * cos_gamma
+        )
+    )
+
+    # Transformation matrix from fractional to Cartesian coordinates
+    matrix = np.array(
+        [
+            [a, b * cos_gamma, c * cos_beta],
+            [
+                0,
+                b * sin_gamma,
+                c * (cos_alpha - cos_beta * cos_gamma) / sin_gamma,
+            ],
+            [0, 0, volume / (a * b * sin_gamma)],
+        ]
+    )
+
+    # Convert fractional coordinates to Cartesian coordinates
+    fractional_coords = np.array(fractional_coords)
+    if fractional_coords.ndim == 1:
+        fractional_coords = fractional_coords[
+            :, np.newaxis
+        ]  # Convert to column vector if necessary
+
+    cartesian_coords = np.dot(matrix, fractional_coords).flatten()
+
+    return cartesian_coords

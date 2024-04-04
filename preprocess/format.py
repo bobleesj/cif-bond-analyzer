@@ -45,7 +45,7 @@ def move_files_based_on_format_error(dir_path):
             cif_editor.preprocess_cif_file_on_label_element(file_path)
             cif_parser.get_compound_phase_tag_id_from_third_line(file_path)
 
-            print(f"Preprocessing {filename} ({idx} out of {total_files})")
+            print(f"Preprocessed {filename} ({idx} out of {total_files})")
             # Apply operations that would be done in practice
             cif_block = cif_parser.get_cif_block(file_path)
             cif_loop_values = cif_parser.get_loop_values(
@@ -124,4 +124,7 @@ def move_files_based_on_format_error(dir_path):
     df_errors = pd.DataFrame(file_errors)
 
     # Use the save_to_csv_directory function to save the DataFrame
-    folder.save_to_csv_directory(dir_path, df_errors, "error_log")
+
+    if len(df_errors) > 1:
+        # Use the save_to_csv_directory function to save the DataFrame
+        folder.save_to_csv_directory(dir_path, df_errors, "error_log")
