@@ -1,0 +1,6 @@
+Summary:
+Pair: Rh-Sb, Count: 1, Distances: 2.516
+
+Missing pairs:
+Rh-Rh
+Sb-Sb

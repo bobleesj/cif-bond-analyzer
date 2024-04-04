@@ -61,7 +61,8 @@ def main(is_iteractive_mode=True, given_dir_path=None):
             )
             supercell_method = 3
 
-    # If this is not the interactive mode, use the given cif directory path
+    # If this is not the interactive mode, use
+    # the given cif directory path
     if not is_iteractive_mode:
         given_dir_path
         selected_dirs = {
@@ -169,16 +170,12 @@ def main(is_iteractive_mode=True, given_dir_path=None):
                 global_element_pair_dict, atom_element_pair_dict
             )
 
-        # prompt.print_dict_in_json(global_site_pair_dict)
-        # prompt.print_dict_in_json(global_element_pair_dict)
-
         # PART 3: OUTPUT
         missing_element_pairs = bond_missing.get_sorted_missing_pairs(
             global_element_pair_dict
         )
 
         # PART 4: SAVE & PLOT
-
         if len(file_path_list) > 0:
             # Create a directory if needed
             output_directory_path = os.path.join(dir_path, "output")
@@ -200,7 +197,7 @@ def main(is_iteractive_mode=True, given_dir_path=None):
             )
 
             echo("Generating histograms...")
-            # Draw histograms (1/2) with site pair
+            # Draw histograms
             histogram.draw_histograms(
                 global_site_pair_dict, global_element_pair_dict, dir_path
             )
