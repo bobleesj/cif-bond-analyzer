@@ -28,9 +28,10 @@ def calc_dist_two_cart_points(point1, point2):
 
 def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
     """
-    Converts fractional coordinates to Cartesian coordinates using cell lengths and angles.
+    Converts fractional coordinates to Cartesian
+    coordinates using cell lengths and angles.
     """
-    alpha, beta, gamma = rad_angles  # Assuming these angles are already in radians
+    alpha, beta, gamma = rad_angles
 
     # Calculate the components of the transformation matrix
     a, b, c = cell_lengths
@@ -76,25 +77,27 @@ def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
 
 
 def get_cutoff_dist_info():
-    # Select the CIF file - Example with "RhSb2.cif"
     file_path = "RhSb2.cif"
-    cutoff_radius = 4.0  # Define the cutoff radius in Ångströms
+    cutoff_radius = 10.0  # Define the cutoff radius in Ångströms
     result = cif_parser_handler.get_cif_info(file_path, cif_parser.get_loop_tags())
     _, lengths, angles_rad, _, all_points, unique_labels, _ = result
 
     # Initialize the dictionary to hold cutoff distance information
     cutoff_dist_info = {}
 
-    # Loop over unique labels to find the closest points and their distances
     for label in unique_labels:
-        cutoff_dist_info[label] = []
         point1 = next((point for point in all_points if point[3] == label), None)
-
         if not point1:
             continue
 
         fractional_coord_1 = [point1[0], point1[1], point1[2]]
         cart_coords_point_1 = fractional_to_cartesian(fractional_coord_1, lengths, angles_rad)
+
+        # Store point1_coord once per label
+        cutoff_dist_info[label] = {
+            "coord": np.round(cart_coords_point_1, 3).tolist(),
+            "connections": []
+        }
 
         for point2 in all_points:
             if point1[:3] == point2[:3]:
@@ -105,19 +108,16 @@ def get_cutoff_dist_info():
 
             dist = calc_dist_two_cart_points(cart_coords_point_1, cart_coords_point_2)
             if dist <= cutoff_radius:
-                cutoff_dist_info[label].append({
+                cutoff_dist_info[label]["connections"].append({
                     "label": point2[3],
-                    "point1_coord": cart_coords_point_1.tolist(),
-                    "point2_coord": cart_coords_point_2.tolist(),
-                    "distance": dist
+                    "coord": np.round(cart_coords_point_2, 3).tolist(),
+                    "distance": np.round(dist, 3)
                 })
 
     # Write the information to a JSON file
     with open(f'shortest_dist_{cutoff_radius}.json', 'w') as outfile:
         json.dump(cutoff_dist_info, outfile, indent=4)
 
-# Call the function to execute
-get_cutoff_dist_info()
 
 
 if __name__ == "__main__":
