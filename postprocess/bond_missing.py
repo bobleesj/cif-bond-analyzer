@@ -45,3 +45,29 @@ def get_all_ordered_pairs_from_set(pair_dict):
     all_pairs_ordered_unique = list(set(all_pairs_ordered))
 
     return all_pairs_ordered_unique
+
+
+def get_all_ordered_pairs_from_list(pair_list):
+    """
+    Generates all possible unique ordered pairs
+    """
+    unique_labels = set()
+
+    for pair in pair_list:
+        element_1, element_2 = pair.split("-")
+        unique_labels.add(element_1)
+        unique_labels.add(element_2)
+
+    # Generate all possible pairs (with ordering matter)
+    all_pairs = list(product(unique_labels, repeat=2))
+
+    # Order pairs based on Mendeleev ordering
+    all_pairs_ordered = [
+        tuple(pair_order.order_pair_by_mendeleev(pair)) for pair in all_pairs
+    ]
+
+    # Remove duplicates from all possible pairs
+    all_pairs_ordered_unique = list(set(all_pairs_ordered))
+
+    return all_pairs_ordered_unique
+
