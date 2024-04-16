@@ -4,37 +4,7 @@ import pandas as pd
 from util import prompt
 from preprocess import cif_parser
 from postprocess import bond_missing
-
-
-def remove_structures_with_zero_counts(dict):
-    """
-    Remove structure types from the system_analysis dictionary where all bond types
-    associated with a structure type have a file count of 0.
-
-    Parameters:
-    - system_analysis: A dictionary containing the system analysis data.
-
-    Returns:
-    - A modified dictionary with the specified structure types removed.
-    """
-
-    structures_to_remove = []
-
-    # Iterate over the items and check the file counts
-    for formula, structures in dict.items():
-        for structure_type, bonds in structures.items():
-            if all(
-                bond_info["file_count"] == 0 for bond_info in bonds.values()
-            ):
-                structures_to_remove.append(
-                    (formula, structure_type)
-                )  # Mark for removal
-
-    # Remove the marked structure types
-    for formula, structure_type in structures_to_remove:
-        del dict[formula][structure_type]
-
-    return dict
+from postprocess import system_analysis
 
 
 def conduct_system_analysis():
@@ -43,10 +13,6 @@ def conduct_system_analysis():
     # Specify the path to the original JSON file
     json_file_path = "20240411_system_analysis/output/20240411_system_analysis_site_pairs.json"
     updated_json_file_path = "20240411_system_analysis/output/updated_20240411_system_analysis_site_pairs.json"
-
-    unique_pairs = []
-    unique_structure_types = []
-    unique_formulas = []
 
     # Read the JSON file
     with open(json_file_path, "r") as file:
@@ -59,56 +25,22 @@ def conduct_system_analysis():
     Step 1. Update JSON with formula and structural info
     """
 
-    for key, site_pairs in data.items():
-        print(f"Processing data for: {key}")
-        unique_pairs.append(key)
-        for cif_id, cif_data_list in site_pairs.items():
-            cif_file_path = os.path.join(cif_directory, f"{cif_id}.cif")
+    data = system_analysis.read_json_data(json_file_path)
+    (
+        updated_data,
+        unique_pairs,
+        unique_structure_types,
+        unique_formulas,
+    ) = system_analysis.update_json_data(data, cif_directory)
+    system_analysis.write_json_data(updated_json_file_path, updated_data)
 
-            if os.path.exists(cif_file_path):
-                print(f"Processing {cif_file_path}")
-                try:
-                    # Load the CIF file
-                    block = cif_parser.get_cif_block(cif_file_path)
-
-                    # Extract and clean the desired fields
-                    chemical_formula_structural = block.find_value(
-                        "_chemical_formula_structural"
-                    )
-                    chemical_formula_structural = (
-                        chemical_formula_structural.replace("~", "")
-                        .replace(" ", "")
-                        .replace("'", "")
-                    )
-
-                    chemical_name_structure_type = (
-                        block.find_value("_chemical_name_structure_type")
-                        .split(",")[0]
-                        .replace("~", "")
-                    )
-                    # Append to the global set
-                    for pair in cif_data_list:
-                        pair["formula"] = chemical_formula_structural
-                        pair["structure_type"] = chemical_name_structure_type
-
-                        unique_structure_types.append(
-                            chemical_name_structure_type
-                        )
-                        unique_formulas.append(chemical_formula_structural)
-
-                except Exception as e:
-                    print(f"Failed to process {cif_file_path}: {e}")
-            else:
-                print(f"File not found: {cif_file_path}")
-
-    # Write the updated data back to a new JSON file
     with open(updated_json_file_path, "w") as file:
         json.dump(data, file, indent=4)
 
     print("Updated JSON data has been saved to a new file.")
 
     """
-    Step 2. Use updated JSON to determine
+    Step 2. Use updated JSON to conduct system analysis
     """
 
     all_pairs_in_the_system = bond_missing.get_all_ordered_pairs_from_list(
@@ -117,81 +49,39 @@ def conduct_system_analysis():
     # Generate column names based on all_pairs
     bond_types = ["{}-{}".format(*pair) for pair in all_pairs_in_the_system]
 
-    # Keep track of the number of structure types for each formula
-    structure_duplicate_dict = {
-        formula: {
-            structure_type: {
-                "file_count": 0
-            }  # Initialize each bond type with an empty list
-            for structure_type in unique_structure_types
-        }
-        for formula in unique_formulas
-    }
-
-    # Initialize the dictionary with nested dictionaries for each bond type
-    system_analysis_dict = {
-        formula: {
-            structure_type: {
-                bond: {"bond_count": 0} for bond in bond_types
-            }  # Initialize each bond type with an empty list
-            for structure_type in unique_structure_types
-        }
-        for formula in unique_formulas
-    }
+    # Initialize dictionaries
+    structure_duplicate_dict = (
+        system_analysis.initialize_structure_duplicate_dict(
+            unique_formulas, unique_structure_types
+        )
+    )
+    system_analysis_dict = system_analysis.initialize_system_analysis_dict(
+        unique_formulas, unique_structure_types, bond_types
+    )
 
     # Read the JSON file
-    with open(updated_json_file_path, "r") as file:
-        data = json.load(file)
+    # Process data and update dictionaries
+    (
+        system_analysis_dict,
+        structure_duplicate_dict,
+    ) = system_analysis.process_json_data(
+        updated_json_file_path, system_analysis_dict, structure_duplicate_dict
+    )
 
-    for bond_pair, pair_data in data.items():
-        print("Start with", bond_pair)
-
-        for cif_id, cif_data_list in pair_data.items():
-            is_file_counted = False
-
-            for data in cif_data_list:
-                formula = data["formula"]
-                structure_type = data["structure_type"]
-                system_analysis_dict[formula][structure_type][bond_pair][
-                    "bond_count"
-                ] += 1
-
-                if not is_file_counted:
-                    structure_duplicate_dict[formula][structure_type][
-                        "file_count"
-                    ] += 1
-                    is_file_counted = True
-
-    # Try to determine bond_count after remoivng duplicates
-    for formula, pair_data in system_analysis_dict.items():
-        for structure, structure_data in pair_data.items():
-            file_count = structure_duplicate_dict[formula][structure][
-                "file_count"
-            ]
-
-            for bond_pair, bond_count_data in structure_data.items():
-                bond_count = bond_count_data["bond_count"]
-                system_analysis_dict[formula][structure][bond_pair][
-                    "file_count"
-                ] = file_count
-                if file_count > 1:
-                    bond_count_no_duplicates = int(bond_count / file_count)
-                    system_analysis_dict[formula][structure][bond_pair][
-                        "bond_count_no_duplicates"
-                    ] = bond_count_no_duplicates
-                else:
-                    system_analysis_dict[formula][structure][bond_pair][
-                        "bond_count_no_duplicates"
-                    ] = bond_count
+    system_analysis_dict = system_analysis.add_bond_count_to_dict(
+        system_analysis_dict, structure_duplicate_dict
+    )
 
     """
-    Save Save EXCEL
+    Save Save EXCEL sheet
     """
 
-    system_analysis_dict = remove_structures_with_zero_counts(
+    system_analysis_dict = system_analysis.remove_structures_with_zero_counts(
         system_analysis_dict
     )
     prompt.print_dict_in_json(system_analysis_dict)
+
+    # Save the file
 
     rows_list = []
 
@@ -225,15 +115,18 @@ def conduct_system_analysis():
                 }
             )
 
-    # Create DataFrame
     df = pd.DataFrame(rows_list)
-    # Writing to Excel
-    df.to_excel("system_analysis_v.xlsx", index=False)
-
+    df.to_excel(
+        "system_analysis_v.xlsx",
+        index=False,
+        sheet_name="Structures in the System",
+    )
     print("Excel file has been created successfully.")
-
     print(df.head(20))
 
+
+# Task
+# Save another sheet that shows all the CIF files and the bonds
 
 if __name__ == "__main__":
     conduct_system_analysis()
