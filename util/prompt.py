@@ -81,7 +81,6 @@ def get_user_input_folder_processing(dir_names, file_type):
         for idx, dir_name in selected_dirs.items():
             click.echo(f"{idx}. {dir_name}")
 
-
     return selected_dirs
 
 

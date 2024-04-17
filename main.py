@@ -35,7 +35,6 @@ def main(is_iteractive_mode=True, given_dir_path=None):
     dir_names_with_cif = None
     main_script_path = None
     selected_dirs = None
-    
 
     if is_iteractive_mode:
         main_script_path = os.path.dirname(os.path.abspath(__file__))
@@ -65,9 +64,7 @@ def main(is_iteractive_mode=True, given_dir_path=None):
     # the given cif directory path
     if not is_iteractive_mode:
         given_dir_path
-        selected_dirs = {
-            1: given_dir_path
-        }
+        selected_dirs = {1: given_dir_path}
         # Use +1 +1 +1 shfits by default
         supercell_method = 2
 

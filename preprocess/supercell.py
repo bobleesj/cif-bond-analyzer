@@ -8,7 +8,7 @@ def calculate_dist(point1, point2, cell_lengths, angles):
     """
     Calculates distance between two points using cell lengths and angles.
     """
-    
+
     # Unpack points
     x1, y1, z1, label1 = point1
     x2, y2, z2, label2 = point2
@@ -278,7 +278,6 @@ def get_points_and_labels(
             )
 
     return list(set(all_points)), unique_labels, unique_atoms_tuple
-
 
 
 def distance_to_origin(point):

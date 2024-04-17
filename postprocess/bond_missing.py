@@ -49,25 +49,23 @@ def get_all_ordered_pairs_from_set(pair_dict):
 
 def get_all_ordered_pairs_from_list(pair_list):
     """
-    Generates all possible unique ordered pairs
+    Generates all possible unique ordered pairs following a specific order.
     """
-    unique_labels = set()
-
-    for pair in pair_list:
-        element_1, element_2 = pair.split("-")
-        unique_labels.add(element_1)
-        unique_labels.add(element_2)
+    unique_labels = sorted(
+        set(element for pair in pair_list for element in pair.split("-"))
+    )
 
     # Generate all possible pairs (with ordering matter)
     all_pairs = list(product(unique_labels, repeat=2))
 
-    # Order pairs based on Mendeleev ordering
-    all_pairs_ordered = [
-        tuple(pair_order.order_pair_by_mendeleev(pair)) for pair in all_pairs
-    ]
+    # Order pairs based on Mendeleev ordering and remove duplicates
+    # Sort the list of unique ordered pairs based on the first element index
+    all_pairs_ordered = sorted(
+        set(
+            tuple(pair_order.order_pair_by_mendeleev(pair))
+            for pair in all_pairs
+        ),
+        key=lambda x: (unique_labels.index(x[0]), unique_labels.index(x[1])),
+    )
 
-    # Remove duplicates from all possible pairs
-    all_pairs_ordered_unique = list(set(all_pairs_ordered))
-
-    return all_pairs_ordered_unique
-
+    return all_pairs_ordered

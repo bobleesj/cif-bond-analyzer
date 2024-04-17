@@ -8,8 +8,6 @@ from postprocess import system_analysis
 
 
 def conduct_system_analysis():
-    print("Hello world")
-
     # Specify the path to the original JSON file
     json_file_path = "20240411_system_analysis/output/20240411_system_analysis_site_pairs.json"
     updated_json_file_path = "20240411_system_analysis/output/updated_20240411_system_analysis_site_pairs.json"
@@ -25,7 +23,6 @@ def conduct_system_analysis():
     Step 1. Update JSON with formula and structural info
     """
 
-    data = system_analysis.read_json_data(json_file_path)
     (
         updated_data,
         unique_pairs,
@@ -46,6 +43,7 @@ def conduct_system_analysis():
     all_pairs_in_the_system = bond_missing.get_all_ordered_pairs_from_list(
         unique_pairs
     )
+
     # Generate column names based on all_pairs
     bond_types = ["{}-{}".format(*pair) for pair in all_pairs_in_the_system]
 
@@ -60,7 +58,6 @@ def conduct_system_analysis():
     )
 
     # Read the JSON file
-    # Process data and update dictionaries
     (
         system_analysis_dict,
         structure_duplicate_dict,
@@ -79,54 +76,25 @@ def conduct_system_analysis():
     system_analysis_dict = system_analysis.remove_structures_with_zero_counts(
         system_analysis_dict
     )
-    prompt.print_dict_in_json(system_analysis_dict)
 
     # Save the file
-
-    rows_list = []
-
-    for formula, structures in system_analysis_dict.items():
-        for structure_type, bonds in structures.items():
-            # Temporary list to hold a chunk of rows
-            temp_structure_rows = []
-
-            for bond_type, bond_info in bonds.items():
-                bond_count = bond_info.get("bond_count", 0)
-
-                # Create a row for each bond type only if bond count is non-zero
-                row = {
-                    "Formula": formula,
-                    "Structure": structure_type,
-                    "Bond type": bond_type,
-                    "Bond count": bond_count,
-                    "Unique bond count": bond_info.get(
-                        "bond_count_no_duplicates", 0
-                    ),
-                }
-                temp_structure_rows.append(row)
-            rows_list.extend(temp_structure_rows)
-            rows_list.append(
-                {
-                    "Formula": "",
-                    "Structure": "",
-                    "Bond type": "",
-                    "Bond count": "",
-                    "Unique bond count": "",
-                }
-            )
-
-    df = pd.DataFrame(rows_list)
-    df.to_excel(
-        "system_analysis_v.xlsx",
+    structure_df = system_analysis.create_bond_dataframe(system_analysis_dict)
+    structure_df.to_excel(
+        "system_analysis_structures.xlsx",
         index=False,
-        sheet_name="Structures in the System",
+        sheet_name="system structures",
     )
-    print("Excel file has been created successfully.")
-    print(df.head(20))
 
+    # Save the overview Excel sheet
+    original_json_dict = system_analysis.read_json_data(json_file_path)
 
-# Task
-# Save another sheet that shows all the CIF files and the bonds
+    overview_df = system_analysis.create_excel_from_bond_data(
+        original_json_dict, all_pairs_in_the_system, structure_df
+    )
+
+    print(structure_df.head(20))
+    print(overview_df.head(20))
+
 
 if __name__ == "__main__":
     conduct_system_analysis()
