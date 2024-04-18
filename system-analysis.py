@@ -4,7 +4,7 @@ import pandas as pd
 from util import prompt
 from preprocess import cif_parser
 from postprocess import bond_missing
-from postprocess import system_analysis
+from postprocess import system_analysis, system_analysis_excel
 
 
 def conduct_system_analysis():
@@ -53,54 +53,46 @@ def conduct_system_analysis():
         unique_formulas, unique_structure_types, bond_types
     )
 
-    # Read the JSON file
+    # Add bond count average to structure dict
     (
         structure_dict,
         formula_dict,
-    ) = system_analysis.add_no_duplicate_file_count(
+    ) = system_analysis.add_bond_count_avg_std(
         updated_json_file_path, structure_dict, formula_dict
     )
 
-    # Add file and bond count to the structure dict
+    # Add the number of no duplicate bond counts to structure dict
     structure_dict = system_analysis.add_bond_count_to_structure_dict(
         structure_dict, formula_dict
     )
+    # Remove structures with zero bonding count
+    structure_dict = system_analysis.remove_structures_with_zero_counts(
+        structure_dict
+    )
+
+    """
+    Save Save EXCEL sheet
+    """
+
+    # Save the file
+    structure_df = system_analysis_excel.create_structure_sheet(structure_dict)
+    structure_df.to_excel(
+        "system_analysis_structures.xlsx",
+        index=False,
+        sheet_name="system structures",
+    )
+
+    prompt.print_dict_in_json(formula_dict)
     prompt.print_dict_in_json(structure_dict)
+    # Save the overview Excel sheet
+    original_json_dict = system_analysis.read_json_data(json_file_path)
 
-    # """
-    # Save Save EXCEL sheet
-    # """
-    # # Remove structures with zero bonding count
-    # structure_dict = system_analysis.remove_structures_with_zero_counts(
-    #     structure_dict
-    # )
+    overview_df = system_analysis_excel.create_overview_sheet(
+        original_json_dict, all_pairs_in_the_system, structure_df
+    )
 
-    # with open(updated_json_file_path, "r") as file:
-    #     updated_site_pair_dict = json.load(file)
-
-    # # Add average, std for each bond for each structure
-
-    # # system_analysis.add_bond_dist_to_structure_dict(
-    # #     structure_dict, updated_site_pair_dict
-    # # )
-
-    # # Save the file
-    # structure_df = system_analysis.create_structure_sheet(structure_dict)
-    # structure_df.to_excel(
-    #     "system_analysis_structures.xlsx",
-    #     index=False,
-    #     sheet_name="system structures",
-    # )
-
-    # # Save the overview Excel sheet
-    # original_json_dict = system_analysis.read_json_data(json_file_path)
-
-    # overview_df = system_analysis.create_overview_sheet(
-    #     original_json_dict, all_pairs_in_the_system, structure_df
-    # )
-
-    # print(structure_df.head(20))
-    # print(overview_df.head(20))
+    print(structure_df.head(20))
+    print(overview_df.head(20))
 
 
 if __name__ == "__main__":
