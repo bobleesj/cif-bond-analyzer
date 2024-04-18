@@ -31,9 +31,6 @@ def conduct_system_analysis():
     ) = system_analysis.update_json_data(data, cif_directory)
     system_analysis.write_json_data(updated_json_file_path, updated_data)
 
-    with open(updated_json_file_path, "w") as file:
-        json.dump(data, file, indent=4)
-
     print("Updated JSON data has been saved to a new file.")
 
     """
@@ -48,52 +45,62 @@ def conduct_system_analysis():
     bond_types = ["{}-{}".format(*pair) for pair in all_pairs_in_the_system]
 
     # Initialize dictionaries
-    structure_duplicate_dict = (
-        system_analysis.initialize_structure_duplicate_dict(
-            unique_formulas, unique_structure_types
-        )
+    formula_dict = system_analysis.initialize_structure_duplicate_dict(
+        unique_formulas, unique_structure_types
     )
-    system_analysis_dict = system_analysis.initialize_system_analysis_dict(
+
+    structure_dict = system_analysis.initialize_system_analysis_dict(
         unique_formulas, unique_structure_types, bond_types
     )
 
     # Read the JSON file
     (
-        system_analysis_dict,
-        structure_duplicate_dict,
-    ) = system_analysis.process_json_data(
-        updated_json_file_path, system_analysis_dict, structure_duplicate_dict
+        structure_dict,
+        formula_dict,
+    ) = system_analysis.add_no_duplicate_file_count(
+        updated_json_file_path, structure_dict, formula_dict
     )
 
-    system_analysis_dict = system_analysis.add_bond_count_to_dict(
-        system_analysis_dict, structure_duplicate_dict
+    # Add file and bond count to the structure dict
+    structure_dict = system_analysis.add_bond_count_to_structure_dict(
+        structure_dict, formula_dict
     )
+    prompt.print_dict_in_json(structure_dict)
 
-    """
-    Save Save EXCEL sheet
-    """
+    # """
+    # Save Save EXCEL sheet
+    # """
+    # # Remove structures with zero bonding count
+    # structure_dict = system_analysis.remove_structures_with_zero_counts(
+    #     structure_dict
+    # )
 
-    system_analysis_dict = system_analysis.remove_structures_with_zero_counts(
-        system_analysis_dict
-    )
+    # with open(updated_json_file_path, "r") as file:
+    #     updated_site_pair_dict = json.load(file)
 
-    # Save the file
-    structure_df = system_analysis.create_bond_dataframe(system_analysis_dict)
-    structure_df.to_excel(
-        "system_analysis_structures.xlsx",
-        index=False,
-        sheet_name="system structures",
-    )
+    # # Add average, std for each bond for each structure
 
-    # Save the overview Excel sheet
-    original_json_dict = system_analysis.read_json_data(json_file_path)
+    # # system_analysis.add_bond_dist_to_structure_dict(
+    # #     structure_dict, updated_site_pair_dict
+    # # )
 
-    overview_df = system_analysis.create_excel_from_bond_data(
-        original_json_dict, all_pairs_in_the_system, structure_df
-    )
+    # # Save the file
+    # structure_df = system_analysis.create_structure_sheet(structure_dict)
+    # structure_df.to_excel(
+    #     "system_analysis_structures.xlsx",
+    #     index=False,
+    #     sheet_name="system structures",
+    # )
 
-    print(structure_df.head(20))
-    print(overview_df.head(20))
+    # # Save the overview Excel sheet
+    # original_json_dict = system_analysis.read_json_data(json_file_path)
+
+    # overview_df = system_analysis.create_overview_sheet(
+    #     original_json_dict, all_pairs_in_the_system, structure_df
+    # )
+
+    # print(structure_df.head(20))
+    # print(overview_df.head(20))
 
 
 if __name__ == "__main__":
