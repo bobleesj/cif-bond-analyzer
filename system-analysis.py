@@ -4,7 +4,11 @@ import pandas as pd
 from util import prompt
 from preprocess import cif_parser
 from postprocess import bond_missing
-from postprocess import system_analysis, system_analysis_excel
+from postprocess import (
+    system_analysis,
+    system_analysis_excel,
+    system_analysis_figure,
+)
 
 
 def conduct_system_analysis():
@@ -90,6 +94,9 @@ def conduct_system_analysis():
     overview_df = system_analysis_excel.create_overview_sheet(
         original_json_dict, all_pairs_in_the_system, structure_df
     )
+
+    # Draw the figure
+    system_analysis_figure.draw_line(structure_dict)
 
     print(structure_df.head(20))
     print(overview_df.head(20))
