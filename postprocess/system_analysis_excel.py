@@ -21,7 +21,9 @@ def create_structure_sheet(structure_dict):
                     "No duplicate bond count": bond_info.get(
                         "bond_count_no_duplicates", 0
                     ),
-                    "Average bond length": bond_info.get("bond_avg_dist", 0),
+                    "Average bond length": bond_info.get(
+                        "bond_avg_dist", 0
+                    ),
                     "Std dev": bond_info.get("bond_std_dev", 0),
                 }
                 temp_structure_rows.append(row)
@@ -53,14 +55,18 @@ def create_overview_sheet(
     excel_file_name="system_analysis_overview.xlsx",
 ):
     # Define the column order based on bond_pairs_list
-    columns = ["CIF #"] + [f"{pair[0]}-{pair[1]}" for pair in bond_pairs_list]
+    columns = ["CIF #"] + [
+        f"{pair[0]}-{pair[1]}" for pair in bond_pairs_list
+    ]
 
     # Initialize an empty list to hold all CIF entries
     cif_entries = []
 
     # Create a set of all CIF IDs across all bond types
     cif_ids = {
-        cif_id for bond_type in json_data for cif_id in json_data[bond_type]
+        cif_id
+        for bond_type in json_data
+        for cif_id in json_data[bond_type]
     }
 
     # Iterate over each CIF ID
@@ -79,7 +85,9 @@ def create_overview_sheet(
 
     # Extract the totals from the structure_df
     bond_count_totals = (
-        structure_df.groupby("Bond type")["Bond count"].sum().to_dict()
+        structure_df.groupby("Bond type")["Bond count"]
+        .sum()
+        .to_dict()
     )
     unique_bond_count_totals = (
         structure_df.groupby("Bond type")["No duplicate bond count"]
@@ -109,9 +117,13 @@ def create_overview_sheet(
     df = pd.concat([df, total_df, unique_total_df], ignore_index=True)
 
     # Calculate the fraction based on the "Total" row
-    total_bonds = df.loc[df["CIF #"] == "Total", df.columns[1:]].iloc[0]
+    total_bonds = df.loc[df["CIF #"] == "Total", df.columns[1:]].iloc[
+        0
+    ]
     fraction_row = (
-        total_bonds / total_bonds.sum() if total_bonds.sum() != 0 else 0
+        total_bonds / total_bonds.sum()
+        if total_bonds.sum() != 0
+        else 0
     )
     fraction_df = pd.DataFrame([fraction_row], columns=df.columns[1:])
     fraction_df["CIF #"] = "Fraction"

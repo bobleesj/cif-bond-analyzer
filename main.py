@@ -38,7 +38,9 @@ def main(is_iteractive_mode=True, given_dir_path=None):
 
     if is_iteractive_mode:
         main_script_path = os.path.dirname(os.path.abspath(__file__))
-        dir_names_with_cif = folder.get_cif_dir_names(main_script_path)
+        dir_names_with_cif = folder.get_cif_dir_names(
+            main_script_path
+        )
 
         # If no folders containing .cif files found, exit
         if not dir_names_with_cif:
@@ -60,8 +62,6 @@ def main(is_iteractive_mode=True, given_dir_path=None):
             )
             supercell_method = 3
 
-    # If this is not the interactive mode, use
-    # the given cif directory path
     if not is_iteractive_mode:
         given_dir_path
         selected_dirs = {1: given_dir_path}
@@ -98,10 +98,14 @@ def main(is_iteractive_mode=True, given_dir_path=None):
 
             # Process CIF files and return a list of coordinates
             result = cif_parser_handler.get_cif_info(
-                file_path, cif_parser.get_loop_tags(), supercell_method
+                file_path,
+                cif_parser.get_loop_tags(),
+                supercell_method,
             )
 
-            cif_loop_values = cif_parser_handler.get_cif_loop_values(file_path)
+            cif_loop_values = cif_parser_handler.get_cif_loop_values(
+                file_path
+            )
 
             _, lenghts, angles_rad, _, all_points, _, _ = result
 
@@ -117,13 +121,15 @@ def main(is_iteractive_mode=True, given_dir_path=None):
             )
 
             # Get atomic site mixing info -> String
-            atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
-                cif_loop_values
+            atom_site_mixing_file_info = (
+                occupancy.get_atom_site_mixing_info(cif_loop_values)
             )
 
             # Get atom site pair information
-            atom_site_mixing_dict = occupancy.get_atom_site_mixing_dict(
-                atom_site_mixing_file_info, cif_loop_values
+            atom_site_mixing_dict = (
+                occupancy.get_atom_site_mixing_dict(
+                    atom_site_mixing_file_info, cif_loop_values
+                )
             )
 
             # Get atom site labeled dict
@@ -136,12 +142,16 @@ def main(is_iteractive_mode=True, given_dir_path=None):
             )
 
             # Get atom site dict without the numbers on the label
-            atom_site_pair_dict = bond.get_atom_site_dict_with_no_number(
-                atom_site_labeled_dict
+            atom_site_pair_dict = (
+                bond.get_atom_site_dict_with_no_number(
+                    atom_site_labeled_dict
+                )
             )
 
             # Get the shortest element-element pair
-            atom_element_pair_dict = bond.get_element_dict(atom_site_pair_dict)
+            atom_element_pair_dict = bond.get_element_dict(
+                atom_site_pair_dict
+            )
 
             elapsed_time = time.perf_counter() - start_time
 
@@ -182,7 +192,9 @@ def main(is_iteractive_mode=True, given_dir_path=None):
                 os.makedirs(output_directory_path)
 
             excel.save_excel_json(
-                global_site_pair_dict, global_element_pair_dict, dir_path
+                global_site_pair_dict,
+                global_element_pair_dict,
+                dir_path,
             )
 
             # Save text file with element pairs
@@ -196,7 +208,9 @@ def main(is_iteractive_mode=True, given_dir_path=None):
             echo("Generating histograms...")
             # Draw histograms
             histogram.draw_histograms(
-                global_site_pair_dict, global_element_pair_dict, dir_path
+                global_site_pair_dict,
+                global_element_pair_dict,
+                dir_path,
             )
 
             echo("Histograms saved.")
@@ -205,7 +219,9 @@ def main(is_iteractive_mode=True, given_dir_path=None):
             folder.save_to_csv_directory(
                 dir_path, pd.DataFrame(log_list), "log"
             )
-            total_elapsed_time = time.perf_counter() - overall_start_time
+            total_elapsed_time = (
+                time.perf_counter() - overall_start_time
+            )
             echo(f"Total processing time: {total_elapsed_time:.2f}s")
 
 

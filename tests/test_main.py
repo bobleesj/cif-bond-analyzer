@@ -34,10 +34,14 @@ def run_test_for_directory(cif_dir):
 
     # Paths for expected and actual output files
     expected_element_pairs_file = os.path.join(
-        cif_dir, "output", f"{os.path.basename(cif_dir)}_element_pairs.json"
+        cif_dir,
+        "output",
+        f"{os.path.basename(cif_dir)}_element_pairs.json",
     )
     expected_site_pairs_file = os.path.join(
-        cif_dir, "output", f"{os.path.basename(cif_dir)}_site_pairs.json"
+        cif_dir,
+        "output",
+        f"{os.path.basename(cif_dir)}_site_pairs.json",
     )
     actual_element_pairs_file = os.path.join(
         temp_cif_dir,
@@ -45,11 +49,17 @@ def run_test_for_directory(cif_dir):
         f"{os.path.basename(cif_dir)}_element_pairs.json",
     )
     actual_site_pairs_file = os.path.join(
-        temp_cif_dir, "output", f"{os.path.basename(cif_dir)}_site_pairs.json"
+        temp_cif_dir,
+        "output",
+        f"{os.path.basename(cif_dir)}_site_pairs.json",
     )
 
-    compare_json_files(expected_element_pairs_file, actual_element_pairs_file)
-    compare_json_files(expected_site_pairs_file, actual_site_pairs_file)
+    compare_json_files(
+        expected_element_pairs_file, actual_element_pairs_file
+    )
+    compare_json_files(
+        expected_site_pairs_file, actual_site_pairs_file
+    )
 
 
 @pytest.mark.fast

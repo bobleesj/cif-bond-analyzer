@@ -32,15 +32,21 @@ def update_json_data(data, cif_directory):
         print(f"Processing data for: {key}")
         unique_pairs.append(key)
         for cif_id, cif_data_list in site_pairs.items():
-            cif_file_path = os.path.join(cif_directory, f"{cif_id}.cif")
+            cif_file_path = os.path.join(
+                cif_directory, f"{cif_id}.cif"
+            )
             if os.path.exists(cif_file_path):
                 try:
                     block = cif_parser.get_cif_block(cif_file_path)
                     formula = clean_formula(
-                        block.find_value("_chemical_formula_structural")
+                        block.find_value(
+                            "_chemical_formula_structural"
+                        )
                     )
                     structure_type = clean_structure_type(
-                        block.find_value("_chemical_name_structure_type")
+                        block.find_value(
+                            "_chemical_name_structure_type"
+                        )
                     )
                     for pair in cif_data_list:
                         pair["formula"] = formula
@@ -66,7 +72,8 @@ def remove_structures_with_zero_counts(dict):
     for formula, structures in dict.items():
         for structure_type, bonds in structures.items():
             if all(
-                bond_info["bond_count"] == 0 for bond_info in bonds.values()
+                bond_info["bond_count"] == 0
+                for bond_info in bonds.values()
             ):
                 structures_to_remove.append(
                     (formula, structure_type)
@@ -84,7 +91,9 @@ def add_bond_count_to_structure_dict(structure_dict, formula_dict):
     # formula dict is used to get the file count
     for formula, pair_data in structure_dict.items():
         for structure, structure_data in pair_data.items():
-            file_count = formula_dict[formula][structure]["file_count"]
+            file_count = formula_dict[formula][structure][
+                "file_count"
+            ]
             print(file_count)
 
             for bond_pair, bond_count_data in structure_data.items():
@@ -93,7 +102,9 @@ def add_bond_count_to_structure_dict(structure_dict, formula_dict):
                     "file_count"
                 ] = file_count
                 if file_count > 1:
-                    bond_count_no_duplicates = int(bond_count / file_count)
+                    bond_count_no_duplicates = int(
+                        bond_count / file_count
+                    )
                     structure_dict[formula][structure][bond_pair][
                         "bond_count_no_duplicates"
                     ] = bond_count_no_duplicates
@@ -137,7 +148,9 @@ def initialize_system_analysis_dict(
     }
 
 
-def add_bond_count_avg_std(json_file_path, structure_dict, formula_dict):
+def add_bond_count_avg_std(
+    json_file_path, structure_dict, formula_dict
+):
     # Read the JSON file
     with open(json_file_path, "r") as file:
         data = json.load(file)
@@ -145,9 +158,7 @@ def add_bond_count_avg_std(json_file_path, structure_dict, formula_dict):
     # Iterate through data to update dictionaries
     for bond_pair, pair_data in data.items():
         for cif_data in pair_data.values():
-            file_count_updated = (
-                False  # Tracker to ensure file is counted once per bond_pair
-            )
+            file_count_updated = False  # Tracker to ensure file is counted once per bond_pair
 
             for data_item in cif_data:
                 formula = data_item["formula"]
@@ -155,7 +166,9 @@ def add_bond_count_avg_std(json_file_path, structure_dict, formula_dict):
 
                 # Ensure the structure dictionary structure
                 formula_info = structure_dict.setdefault(formula, {})
-                structure_info = formula_info.setdefault(structure_type, {})
+                structure_info = formula_info.setdefault(
+                    structure_type, {}
+                )
                 bond_info = structure_info.setdefault(
                     bond_pair,
                     {
@@ -175,7 +188,8 @@ def add_bond_count_avg_std(json_file_path, structure_dict, formula_dict):
                 # Calculate average and standard deviation
                 if bond_info["bond_count"] > 1:
                     bond_info["bond_avg_dist"] = np.round(
-                        bond_info["bond_total_dist"] / bond_info["bond_count"],
+                        bond_info["bond_total_dist"]
+                        / bond_info["bond_count"],
                         3,
                     )
                     bond_info["bond_std_dev"] = np.round(

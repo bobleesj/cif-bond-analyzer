@@ -33,7 +33,9 @@ def conduct_system_analysis():
         unique_structure_types,
         unique_formulas,
     ) = system_analysis.update_json_data(data, cif_directory)
-    system_analysis.write_json_data(updated_json_file_path, updated_data)
+    system_analysis.write_json_data(
+        updated_json_file_path, updated_data
+    )
 
     print("Updated JSON data has been saved to a new file.")
 
@@ -41,16 +43,20 @@ def conduct_system_analysis():
     Step 2. Use updated JSON to conduct system analysis
     """
 
-    all_pairs_in_the_system = bond_missing.get_all_ordered_pairs_from_list(
-        unique_pairs
+    all_pairs_in_the_system = (
+        bond_missing.get_all_ordered_pairs_from_list(unique_pairs)
     )
 
     # Generate column names based on all_pairs
-    bond_types = ["{}-{}".format(*pair) for pair in all_pairs_in_the_system]
+    bond_types = [
+        "{}-{}".format(*pair) for pair in all_pairs_in_the_system
+    ]
 
     # Initialize dictionaries
-    formula_dict = system_analysis.initialize_structure_duplicate_dict(
-        unique_formulas, unique_structure_types
+    formula_dict = (
+        system_analysis.initialize_structure_duplicate_dict(
+            unique_formulas, unique_structure_types
+        )
     )
 
     structure_dict = system_analysis.initialize_system_analysis_dict(
@@ -70,8 +76,10 @@ def conduct_system_analysis():
         structure_dict, formula_dict
     )
     # Remove structures with zero bonding count
-    structure_dict = system_analysis.remove_structures_with_zero_counts(
-        structure_dict
+    structure_dict = (
+        system_analysis.remove_structures_with_zero_counts(
+            structure_dict
+        )
     )
 
     """
@@ -79,7 +87,9 @@ def conduct_system_analysis():
     """
 
     # Save the file
-    structure_df = system_analysis_excel.create_structure_sheet(structure_dict)
+    structure_df = system_analysis_excel.create_structure_sheet(
+        structure_dict
+    )
     structure_df.to_excel(
         "system_analysis_structures.xlsx",
         index=False,
@@ -89,7 +99,9 @@ def conduct_system_analysis():
     prompt.print_dict_in_json(formula_dict)
     prompt.print_dict_in_json(structure_dict)
     # Save the overview Excel sheet
-    original_json_dict = system_analysis.read_json_data(json_file_path)
+    original_json_dict = system_analysis.read_json_data(
+        json_file_path
+    )
 
     overview_df = system_analysis_excel.create_overview_sheet(
         original_json_dict, all_pairs_in_the_system, structure_df

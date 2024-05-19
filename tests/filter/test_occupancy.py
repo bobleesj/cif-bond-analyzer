@@ -23,8 +23,10 @@ def test_get_atom_site_mixing_info_2(get_cif_1803318_loop_values):
 def test_get_all_possible_ordered_label_pair_tuples_300160(
     get_cif_300160_loop_values,
 ):
-    ordered_label_pairs = occupancy.get_all_possible_ordered_label_pairs(
-        get_cif_300160_loop_values
+    ordered_label_pairs = (
+        occupancy.get_all_possible_ordered_label_pairs(
+            get_cif_300160_loop_values
+        )
     )
     assert len(ordered_label_pairs) == 6
     assert sorted(ordered_label_pairs) == sorted(
@@ -43,8 +45,10 @@ def test_get_all_possible_ordered_label_pair_tuples_300160(
 def test_get_all_possible_ordered_label_pair_tuples_URhIn(
     get_cif_URhIn_loop_values,
 ):
-    ordered_label_pairs = occupancy.get_all_possible_ordered_label_pairs(
-        get_cif_URhIn_loop_values
+    ordered_label_pairs = (
+        occupancy.get_all_possible_ordered_label_pairs(
+            get_cif_URhIn_loop_values
+        )
     )
 
     # Mendelee # of U 20, Rh 59, In 75

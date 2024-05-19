@@ -5,6 +5,33 @@ from fractions import Fraction
 import matplotlib.pyplot as plt
 
 
+def get_element_fractions(compound_formulas_in_dict):
+    # Get fraction of atoms from the formula
+    fractions_dict = {}
+
+    for formula in compound_formulas_in_dict:
+        # Find all capital letters followed by any digits, using regex
+        elements_counts = re.findall(r"([A-Z][a-z]*)(\d*)", formula)
+        fractions_info = {}
+
+        # Initialize count for each element
+        element_counts = {
+            element: int(count) if count else 1
+            for element, count in elements_counts
+        }
+
+        # Calculate fraction of element B (In)
+        total_atoms = sum(element_counts.values())
+        fraction_B = Fraction(
+            element_counts["In"], total_atoms
+        ).limit_denominator()
+        fractions_info["fraction_B"] = np.round(float(fraction_B), 3)
+
+        # Store in dictionary
+        fractions_dict[formula] = fractions_info
+    return fractions_dict
+
+
 # Function to create rotated hexagon points
 def hexagon_points(center, size):
     """Generate the vertices of a regular hexagon given a center and size."""
@@ -45,31 +72,8 @@ def draw_line(structure_dict):
         print("This is not a either binary or ternary. Terminate.")
         return
 
-    # Get fraction of atoms from the formula
-    fractions_dict = {}
-
-    for formula in compound_formulas_in_dict:
-        # Find all capital letters followed by any digits, using regex
-        elements_counts = re.findall(r"([A-Z][a-z]*)(\d*)", formula)
-        fractions_info = {}
-
-        # Initialize count for each element
-        element_counts = {
-            element: int(count) if count else 1
-            for element, count in elements_counts
-        }
-
-        # Calculate fraction of element B (In)
-        total_atoms = sum(element_counts.values())
-        fraction_B = Fraction(
-            element_counts["In"], total_atoms
-        ).limit_denominator()
-        fractions_info["fraction_B"] = np.round(float(fraction_B), 3)
-
-        # Store in dictionary
-        fractions_dict[formula] = fractions_info
-
     # Output the dictionary to check results
+    fractions_dict = get_element_fractions(compound_formulas_in_dict)
     print(fractions_dict)
 
     # Calculate the hexagon points
@@ -78,7 +82,9 @@ def draw_line(structure_dict):
     points = hexagon_points(center, size)
 
     # Rotate the hexagon 90 degrees to stand on a vertex
-    rotation_angle = np.radians(-90)  # Negative for clockwise rotation
+    rotation_angle = np.radians(
+        -90
+    )  # Negative for clockwise rotation
     rotation_matrix = np.array(
         [
             [np.cos(rotation_angle), -np.sin(rotation_angle)],
@@ -125,13 +131,22 @@ def draw_line(structure_dict):
             5,
         ]  # Indices for the vertices to make transparent
     else:
-        labels = ["Co-Co", "Co-In", "In-In", "Co-Ru", "In-Ru", "Ru-Ru"]
+        labels = [
+            "Co-Co",
+            "Co-In",
+            "In-In",
+            "Co-Ru",
+            "In-Ru",
+            "Ru-Ru",
+        ]
         transparency_indices = []
 
     # Get random overlay lenghts
     random_lengths = [random.uniform(0, 1) for _ in labels]
     # Draw the hexagon outline (ensure it is closed)
-    ax.plot(x_closed, y_closed, "o-", lw=2)  # Hexagon outline and vertices
+    ax.plot(
+        x_closed, y_closed, "o-", lw=2
+    )  # Hexagon outline and vertices
 
     # Draw lines from the origin to each vertex, with some possibly transparent
     for i in range(len(x)):
@@ -176,3 +191,7 @@ def draw_line(structure_dict):
 
     # Show the plot
     plt.show()
+
+    # Add colors for each bond
+    # Generate a sample dict
+    # Generate a horizontal graph

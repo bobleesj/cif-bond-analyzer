@@ -10,7 +10,8 @@ def get_cif_dir_names(script_path):
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
         and any(
-            file.endswith(".cif") for file in os.listdir(join(script_path, d))
+            file.endswith(".cif")
+            for file in os.listdir(join(script_path, d))
         )
     ]
 
@@ -61,7 +62,8 @@ def choose_cif_dir(script_path):
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
         and any(
-            file.endswith(".cif") for file in os.listdir(join(script_path, d))
+            file.endswith(".cif")
+            for file in os.listdir(join(script_path, d))
         )
     ]
 
@@ -76,7 +78,9 @@ def choose_cif_dir(script_path):
         print(f"{idx}. {dir_name}, {num_of_cif_files} files")
     while True:
         try:
-            choice = int(input("\nEnter folder # having .cif files: "))
+            choice = int(
+                input("\nEnter folder # having .cif files: ")
+            )
             if 1 <= choice <= len(directories):
                 return join(script_path, directories[choice - 1])
             else:
@@ -136,3 +140,19 @@ def remove_file(file_path):
     """Remove a single file."""
     if exists(file_path):
         os.remove(file_path)
+
+
+def create_output_folder_for_neighbor(dir_path, name):
+    output_folder_path = os.path.join(dir_path, "output")
+
+    if not os.path.exists(output_folder_path):
+        os.makedirs(output_folder_path)
+
+    # Define and create the nested folder based on the cutoff radius
+    nested_folder_name = f"shortest_dist_cutoff_{name}"
+    nested_folder_path = os.path.join(
+        output_folder_path, nested_folder_name
+    )
+
+    if not os.path.exists(nested_folder_path):
+        os.makedirs(nested_folder_path)

@@ -61,19 +61,23 @@ def calculate_dist(point1, point2, cell_lengths, angles):
 def shift_and_append_points(
     points,
     atom_site_label,
-    num_unitcell_atom,
     supercell_generation_method,
+    is_flatten_points_only=False,
 ):
     """
     Shift and duplicate points to create supercell.
     """
-
+    num_unit_cell_atom_count = len(points)
     translation_op_unit_cell_atom_num_threshold = 100
     # Method 1 - No sfhits
     # Method 2 - +1 +1 +1 shifts
     # Method 3 - +-1 +-1 +-1 shifts
 
-    if num_unitcell_atom > translation_op_unit_cell_atom_num_threshold:
+    if (
+        num_unit_cell_atom_count
+        > translation_op_unit_cell_atom_num_threshold
+        or is_flatten_points_only
+    ):
         if supercell_generation_method == 1:
             shifts = np.array([[0, 0, 0]])
             shifted_points = points[:, None, :] + shifts[None, :, :]
@@ -82,7 +86,6 @@ def shift_and_append_points(
                 for point in point_group:
                     new_point = (*np.round(point, 5), atom_site_label)
                     all_points.append(new_point)
-
             return all_points
 
         if supercell_generation_method == 2:
@@ -91,8 +94,8 @@ def shift_and_append_points(
                     [0, 0, 0],
                     [1, 0, 0],
                     [0, 1, 0],
-                    [1, 1, 0],
                     [0, 0, 1],
+                    [1, 1, 0],
                     [1, 0, 1],
                     [0, 1, 1],
                     [1, 1, 1],
@@ -113,17 +116,29 @@ def shift_and_append_points(
                     [0, 0, 0],
                     [1, 0, 0],
                     [0, 1, 0],
-                    [1, 1, 0],
                     [0, 0, 1],
-                    [1, 0, 1],
-                    [0, 1, 1],
-                    [1, 1, 1],
                     [-1, 0, 0],
                     [0, -1, 0],
-                    [-1, -1, 0],
                     [0, 0, -1],
+                    [1, 1, 0],
+                    [1, -1, 0],
+                    [-1, 1, 0],
+                    [-1, -1, 0],
+                    [1, 0, 1],
                     [1, 0, -1],
+                    [0, 1, 1],
+                    [0, 1, -1],
+                    [-1, 0, 1],
+                    [-1, 0, -1],
+                    [0, -1, 1],
                     [0, -1, -1],
+                    [1, 1, 1],
+                    [1, 1, -1],
+                    [1, -1, 1],
+                    [1, -1, -1],
+                    [-1, 1, 1],
+                    [-1, 1, -1],
+                    [-1, -1, 1],
                     [-1, -1, -1],
                 ]
             )
@@ -138,22 +153,36 @@ def shift_and_append_points(
             return all_points
 
     # General method for files below 100 atoms in the unit cell
+
     shifts = np.array(
         [
+            # Existing shifts for -1, 0, 1
             [0, 0, 0],
             [1, 0, 0],
             [0, 1, 0],
-            [1, 1, 0],
             [0, 0, 1],
-            [1, 0, 1],
-            [0, 1, 1],
-            [1, 1, 1],
             [-1, 0, 0],
             [0, -1, 0],
-            [-1, -1, 0],
             [0, 0, -1],
+            [1, 1, 0],
+            [1, -1, 0],
+            [-1, 1, 0],
+            [-1, -1, 0],
+            [1, 0, 1],
             [1, 0, -1],
+            [0, 1, 1],
+            [0, 1, -1],
+            [-1, 0, 1],
+            [-1, 0, -1],
+            [0, -1, 1],
             [0, -1, -1],
+            [1, 1, 1],
+            [1, 1, -1],
+            [1, -1, 1],
+            [1, -1, -1],
+            [-1, 1, 1],
+            [-1, 1, -1],
+            [-1, -1, 1],
             [-1, -1, -1],
         ]
     )
@@ -177,17 +206,25 @@ def get_coords_list(block, loop_values):
     loop_length = len(loop_values[0])
     coords_list = []
     for i in range(loop_length):
-        atom_site_x = cif_parser.remove_string_braket(loop_values[4][i])
-        atom_site_y = cif_parser.remove_string_braket(loop_values[5][i])
-        atom_site_z = cif_parser.remove_string_braket(loop_values[6][i])
+        atom_site_x = cif_parser.remove_string_braket(
+            loop_values[4][i]
+        )
+        atom_site_y = cif_parser.remove_string_braket(
+            loop_values[5][i]
+        )
+        atom_site_z = cif_parser.remove_string_braket(
+            loop_values[6][i]
+        )
         atom_site_label = loop_values[0][i]
 
-        coords_after_symmetry_operations = get_coords_after_sym_operations(
-            block,
-            float(atom_site_x),
-            float(atom_site_y),
-            float(atom_site_z),
-            atom_site_label,
+        coords_after_symmetry_operations = (
+            get_coords_after_sym_operations(
+                block,
+                float(atom_site_x),
+                float(atom_site_y),
+                float(atom_site_z),
+                atom_site_label,
+            )
         )
         coords_list.append(coords_after_symmetry_operations)
 
@@ -205,7 +242,9 @@ def get_coords_after_sym_operations(
     Generates a list of coordinates for each atom site
     """
     all_coords = set()
-    for operation in block.find_loop("_space_group_symop_operation_xyz"):
+    for operation in block.find_loop(
+        "_space_group_symop_operation_xyz"
+    ):
         operation = operation.replace("'", "")
         try:
             op = gemmi.Op(operation)
@@ -231,8 +270,18 @@ def get_coords_after_sym_operations(
     return list(all_coords)
 
 
+def flatten_original_coordinates(all_coords):
+    points = np.array(
+        [list(map(float, coord[:-1])) for coord in all_coords]
+    )
+    return points
+
+
 def get_points_and_labels(
-    all_coords_list, loop_values, supercell_generation_method=3
+    all_coords_list,
+    loop_values,
+    supercell_generation_method=3,
+    is_flatten_points_only=False,
 ):
     """
     Process coordinates and loop values to extract points, labels, and atom types.
@@ -242,37 +291,30 @@ def get_points_and_labels(
     unique_atoms_tuple = []
 
     # Get the total number of atoms in the unit cell
-    num_unitcell_atom = 0
 
     for i, all_coords in enumerate(all_coords_list):
-        points = np.array(
-            [list(map(float, coord[:-1])) for coord in all_coords]
-        )
-        num_unitcell_atom += len(points)
-
-    for i, all_coords in enumerate(all_coords_list):
-        points = np.array(
-            [list(map(float, coord[:-1])) for coord in all_coords]
-        )
+        points = flatten_original_coordinates(all_coords)
         atom_site_label = loop_values[0][i]
         atom_site_type = loop_values[1][i]
 
         unique_labels.append(atom_site_label)
         unique_atoms_tuple.append(atom_site_type)
-
         all_points.extend(
             shift_and_append_points(
                 points,
                 atom_site_label,
-                num_unitcell_atom,
                 supercell_generation_method,
+                is_flatten_points_only,
             )
         )
 
         if atom_site_type in atom_site_label:
             continue
 
-        if cif_parser.get_atom_type(atom_site_label) != atom_site_type:
+        if (
+            cif_parser.get_atom_type(atom_site_label)
+            != atom_site_type
+        ):
             raise RuntimeError(
                 "Different elements found in atom site and label"
             )
@@ -303,7 +345,9 @@ def calc_dist_two_cart_points(point1, point2):
     return distance
 
 
-def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
+def fractional_to_cartesian(
+    fractional_coords, cell_lengths, rad_angles
+):
     """
     Converts fractional coordinates to Cartesian
     coordinates using cell lengths and angles.
@@ -354,3 +398,52 @@ def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
     cartesian_coords = np.dot(matrix, fractional_coords).flatten()
 
     return cartesian_coords
+
+
+def get_atomic_pair_list(flattened_points, cell_lengths, angles):
+    """
+    Calculate atomic distances and properties between pairs of points.
+    The distance must be greater than 0.1 Å
+    """
+
+    atomic_info_list = []
+    seen_pairs = (
+        set()
+    )  # This set will track pairs that we've already processed
+
+    for i, point1 in enumerate(flattened_points):
+        distances_from_point_i = []
+
+        for j, point2 in enumerate(flattened_points):
+            if i != j:
+                pair = tuple(
+                    sorted([i, j])
+                )  # Sort the pair so (i, j) is treated as equivalent to (j, i)
+                if (
+                    pair not in seen_pairs
+                ):  # Check if we've already processed this pair
+                    distance, label1, label2 = calculate_dist(
+                        point1, point2, cell_lengths, angles
+                    )
+                    if (
+                        abs(distance) > 0.1
+                    ):  # Add the pair if the distance is greater than 0.1 Å
+                        distances_from_point_i.append(
+                            {
+                                "point_pair": (i + 1, j + 1),
+                                "labels": (label1, label2),
+                                "coords": (
+                                    point1[:3],
+                                    point2[:3],
+                                ),  # include coordinates
+                                "dist": np.round(distance, 3),
+                            }
+                        )
+                        seen_pairs.add(
+                            pair
+                        )  # Add the pair to the set of seen pairs
+
+        distances_from_point_i.sort(key=lambda x: x["dist"])
+        atomic_info_list.extend(distances_from_point_i)
+
+    return atomic_info_list
