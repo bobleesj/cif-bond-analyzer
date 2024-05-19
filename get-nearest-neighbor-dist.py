@@ -1,27 +1,43 @@
-import json
-import pandas as pd
+"""
+Determines the nearest neighbor distances from each atomic site
+based on the cutoff distance provided
+
+Author: Sangjoon Bob Lee
+Last update: May 18, 2024
+Release date: Mar 10, 2024
+"""
+
+import os
+import time
+from click import style, echo
 from preprocess import (
     cif_parser,
     cif_parser_handler,
     format,
 )
-from util import folder
+from util import folder, prompt
 from postprocess import neighbor
 
 
 def main():
     dir_path = "20240518_shortest_dist_test"
     file_path_list = folder.get_cif_file_path_list(dir_path)
-    # cutoff_radius = prompt.get_cutoff_radius()
-    cutoff_radius = 3.9
+    cutoff_radius = prompt.get_cutoff_radius()
 
     # PART 1: REFORMAT
     format.move_files_based_on_format_error(dir_path)
-    folder.create_output_folder_for_neighbor(dir_path, cutoff_radius)
+    output_folder = folder.create_output_folder_for_neighbor(
+        dir_path, cutoff_radius
+    )
 
     # Dictionary to store connections for each label
     all_labels_connections = {}
+
+    # PART 2: Process each file
     for i, file_path in enumerate(file_path_list):
+        start_time = time.perf_counter()
+        filename_with_ext = os.path.basename(file_path)
+        filename, _ = os.path.splitext(filename_with_ext)
         result = cif_parser_handler.get_cif_info(
             file_path, cif_parser.get_loop_tags()
         )
@@ -33,6 +49,15 @@ def main():
             )
         )
 
+        echo(
+            style(
+                f"Processing {filename_with_ext} with "
+                f"{len(supercell_points)} atoms {i+1}",
+                fg="yellow",
+            )
+        )
+
+        # PART 3: Process each atomic label
         for site_label in labels:
             filtered_unitcell_points = [
                 point
@@ -55,31 +80,24 @@ def main():
 
             all_labels_connections[label] = connections
 
-    # Print all collected results
-    print("All labels and their most connected points:")
-    for label, connections in all_labels_connections.items():
-        print(f"\nAtom site {label}:")
-        for coord, dist in connections:
-            print(f"{coord} {dist}")
+        # Save Excel
+        excel_file_path = os.path.join(
+            output_folder, filename + ".xlsx"
+        )
+        neighbor.print_conneted_points(all_labels_connections)
+        neighbor.save_to_excel(
+            all_labels_connections, excel_file_path
+        )
 
-    # Save the results to an Excel file
-    with pd.ExcelWriter(
-        "most_connected_points.xlsx", engine="openpyxl"
-    ) as writer:
-        for label, connections in all_labels_connections.items():
-            # Convert the data into a DataFrame
-            if (
-                connections
-            ):  # Check if there are any connections to save
-                df = pd.DataFrame(
-                    connections, columns=["Coordinate", "Distance"]
-                )
-                df.to_excel(writer, sheet_name=label, index=False)
-                print(f"Data for {label} saved to Excel sheet.")
-            else:
-                print(
-                    f"No data available for {label}, no sheet created."
-                )
+        # Print progress
+        elapsed_time = time.perf_counter() - start_time
+
+        prompt.print_progress(
+            filename_with_ext,
+            len(supercell_points),
+            elapsed_time,
+            is_finished=True,
+        )
 
 
 if __name__ == "__main__":

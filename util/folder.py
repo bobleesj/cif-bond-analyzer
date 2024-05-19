@@ -156,3 +156,5 @@ def create_output_folder_for_neighbor(dir_path, name):
 
     if not os.path.exists(nested_folder_path):
         os.makedirs(nested_folder_path)
+
+    return nested_folder_path

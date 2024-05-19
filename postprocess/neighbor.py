@@ -1,3 +1,4 @@
+import pandas as pd
 import numpy as np
 from preprocess import supercell
 
@@ -84,5 +85,40 @@ def get_most_connected_point(label, dist_dict, dist_set):
     # After determining the max, print the with the max count
     if max_ref_point is not None:
         return label, [
-            (coord, dist) for _, coord, dist in max_connections
+            (other_label, dist)
+            for _, other_label, dist in max_connections
         ]
+
+
+def print_conneted_points(all_labels_connections):
+    # Print all collected results
+    print("All labels and their most connected points:")
+    for label, connections in all_labels_connections.items():
+        print(f"\nAtom site {label}:")
+        for label, dist in connections:
+            print(f"{label} {dist}")
+    print()
+
+
+def save_to_excel(all_labels_connections, filename):
+    """
+    Saves the connection data for each label to an Excel file
+    """
+    # Create an Excel writer object using pandas
+    with pd.ExcelWriter(filename, engine="openpyxl") as writer:
+        for label, connections in all_labels_connections.items():
+            if (
+                connections
+            ):  # Check if there are any connections to save
+                # Convert the connection data into a DataFrame
+                df = pd.DataFrame(
+                    connections,
+                    columns=["site_label", "distance_angstrom"],
+                )
+                # Write the DataFrame to an Excel sheet named after the label
+                df.to_excel(writer, sheet_name=label, index=False)
+                print(f"Data for {label} saved to Excel sheet.")
+            else:
+                print(
+                    f"No data available for {label}, no sheet created."
+                )
