@@ -1,10 +1,8 @@
 import json
-import os
 import pandas as pd
 from util import prompt
-from preprocess import cif_parser
 from postprocess import bond_missing
-from postprocess import (
+from system_analysis import (
     system_analysis,
     system_analysis_excel,
     system_analysis_figure,
@@ -96,8 +94,6 @@ def conduct_system_analysis():
         sheet_name="system structures",
     )
 
-    prompt.print_dict_in_json(formula_dict)
-    prompt.print_dict_in_json(structure_dict)
     # Save the overview Excel sheet
     original_json_dict = system_analysis.read_json_data(
         json_file_path
@@ -107,11 +103,60 @@ def conduct_system_analysis():
         original_json_dict, all_pairs_in_the_system, structure_df
     )
 
-    # Draw the figure
-    system_analysis_figure.draw_line(structure_dict)
+    AA = bond_types[0]
+    AB = bond_types[1]
+    BB = bond_types[2]
 
+    def extract_and_normalize_bond_counts(data):
+        results = {}
+        for formula, structures in data.items():
+            if formula not in results:
+                results[formula] = [
+                    0,
+                    0,
+                    0,
+                ]  # Initialize Co-Co, Co-In, In-In counts
+            for structure, bonds in structures.items():
+                results[formula][0] += bonds[AA][
+                    "bond_count_no_duplicates"
+                ]
+                results[formula][1] += bonds[AB][
+                    "bond_count_no_duplicates"
+                ]
+                results[formula][2] += bonds[BB][
+                    "bond_count_no_duplicates"
+                ]
+        # Normalize counts to fractions of the total
+        normalized_results = []
+        for key, value in results.items():
+            total = sum(value)
+            if total > 0:
+                normalized_values = tuple(x / total for x in value)
+            else:
+                normalized_values = tuple(
+                    value
+                )  # Keep as is if total is 0
+            normalized_results.append((key, normalized_values))
+
+        return normalized_results
+
+    bond_fractions_list = extract_and_normalize_bond_counts(
+        structure_dict
+    )
     print(structure_df.head(20))
     print(overview_df.head(20))
+    print("System analysis:")
+
+    # Draw hexagon
+    for bond_fractions in bond_fractions_list:
+        system_analysis_figure.draw_hexagons(
+            bond_fractions, bond_types
+        )
+
+    # Draw line figure
+    system_analysis_figure.draw_rotated_hexagons_along_line(
+        bond_fractions_list
+    )
 
 
 if __name__ == "__main__":
