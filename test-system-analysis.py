@@ -61,66 +61,19 @@ def conduct_system_analysis():
     """
     prompt.print_dict_in_json(structure_dict)
 
-    data = []
-    structure_list = []
-
-    # Populate the data list with structured data from the dictionary
-    for structure, info in structure_dict.items():
-        first_formula = (
-            info["formulas"][0] if info["formulas"] else "N/A"
-        )
-        structure_list.append(
-            structure
-        )  # Keep track of structure changes
-
-        # Only add the formula and structure once, then add empty strings in their place
-        first_row = True
-        for bond_type, bond_info in info["bond_data"].items():
-            row = [
-                first_formula if first_row else "",
-                structure if first_row else "",
-                bond_type,
-                bond_info["unique_bond_count"],
-                bond_info["total_bond_count"],
-                bond_info["avg_bond_length"],
-                bond_info.get("std_dev_bond_length", 0)
-                if not np.isnan(
-                    bond_info.get("std_dev_bond_length", 0)
-                )
-                else 0,
-                bond_info.get("variance_bond_length", 0)
-                if not np.isnan(
-                    bond_info.get("variance_bond_length", 0)
-                )
-                else 0,
-            ]
-            data.append(row)
-            first_row = False
-
-        # Add an empty row to visually separate structures
-        data.append([""] * 8)  # Assuming there are 8 columns
-
-    # Create a DataFrame
-    df = pd.DataFrame(
-        data,
-        columns=[
-            "Formula",
-            "Structure Type",
-            "Bond Type",
-            "Unique Bond Count",
-            "Total Bond Count",
-            "Average Bond Length",
-            "Standard Deviation",
-            "Variance",
-        ],
+    # Save Structure Analysis Excel
+    system_analysis_excel.save_structure_analysis_excel(
+        structure_dict
     )
 
-    # Save DataFrame to an Excel file
-    df.to_excel("formatted_bond_data.xlsx", index=False)
+    system_analysis_excel.save_bond_overview_excel(structure_dict)
+
+    # Save Overview Excel
 
     """
     Step 4. Generate hexagonal figures
     """
+
     # # Draw hexagon
     # for bond_fractions in bond_fractions_list:
     #     system_analysis_figure.draw_hexagons(
