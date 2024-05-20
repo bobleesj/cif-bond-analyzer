@@ -3,13 +3,12 @@ Determines the nearest neighbor distances from each atomic site
 based on the cutoff distance provided
 
 Author: Sangjoon Bob Lee
-Last update: May 18, 2024
+Last update: May 19, 2024
 Release date: Mar 10, 2024
 """
 
 import os
 import time
-from click import style, echo
 from preprocess import (
     cif_parser,
     cif_parser_handler,

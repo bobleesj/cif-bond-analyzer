@@ -84,6 +84,20 @@
                 "structure_type": "RuIn3"
             }
         ],
+        "1152569": [
+            {
+                "dist": "2.745",
+                "mixing": "4",
+                "formula": "CoIn2",
+                "structure_type": "Mg2Cu"
+            },
+            {
+                "dist": "2.684",
+                "mixing": "4",
+                "formula": "CoIn2",
+                "structure_type": "Mg2Cu"
+            }
+        ],
         "457677": [
             {
                 "dist": "2.592",

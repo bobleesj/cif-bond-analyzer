@@ -11,7 +11,6 @@ import numpy as np
 from preprocess.cif_parser import get_atom_type
 from preprocess import supercell
 from postprocess import pair_order
-from util import prompt
 from preprocess import cif_parser_handler
 
 
