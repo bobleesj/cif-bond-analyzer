@@ -107,9 +107,9 @@ def main(is_iteractive_mode=True, given_dir_path=None):
                 file_path
             )
 
-            _, lenghts, angles_rad, _, all_points, _, _ = result
+            _, lenghts, angles_rad, _, supercell_points, _, _ = result
 
-            num_of_atoms = len(all_points)
+            num_of_atoms = len(supercell_points)
             index = f"({i+1}/{len(file_path_list)})"
 
             echo(
@@ -134,12 +134,15 @@ def main(is_iteractive_mode=True, given_dir_path=None):
 
             # Get atom site labeled dict
             atom_site_labeled_dict = bond.get_atom_site_labeled_dict(
-                all_points,
+                supercell_points,
                 lenghts,
                 angles_rad,
                 atom_site_mixing_dict,
                 filename,
+                file_path,
             )
+
+            print(atom_site_labeled_dict)
 
             # Get atom site dict without the numbers on the label
             atom_site_pair_dict = (

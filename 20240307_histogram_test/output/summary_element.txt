@@ -25,11 +25,12 @@ Pair: Ce-Ge, Count: 1, Distances: 3.227
 Pair: Ce-Ni, Count: 1, Distances: 3.242
 Pair: Ce-Pd, Count: 1, Distances: 3.033
 Pair: Ce-Si, Count: 1, Distances: 3.146
+Pair: Co-In, Count: 1, Distances: 2.975
 Pair: Dy-Dy, Count: 1, Distances: 2.514
 Pair: Dy-Fe, Count: 1, Distances: 2.514
 Pair: Dy-Ga, Count: 1, Distances: 2.514
 Pair: Er-Co, Count: 1, Distances: 2.644
-Pair: Er-In, Count: 1, Distances: 3.024
+Pair: Er-In, Count: 1, Distances: 3.051
 Pair: Er-Ni, Count: 1, Distances: 2.820
 Pair: Eu-Si, Count: 1, Distances: 3.125
 Pair: Fe-Ga, Count: 1, Distances: 2.514
@@ -82,7 +83,6 @@ Ce-Tb
 Ce-Yb
 Co-Co
 Co-Ga
-Co-In
 Co-Ir
 Co-Ni
 Co-Pd

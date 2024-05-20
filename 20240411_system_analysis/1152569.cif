@@ -52,53 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Gulay N.L.'
+''
 ;
-Munster University (WWU)
-Institut fur Anorganische und Analytische Chemie
-Munster
-Germany
-;
-'Kosters J.'
-;
-Munster University (WWU)
-Institut fur Anorganische und Analytische Chemie
-Munster
-Germany
-;
-'Kalychak Y.M.'
-;
-Lviv Ivan Franko National University
-Department of Analytical Chemistry
-Lviv
-Ukraine
-;
-'Matar S.F.'
-;
-Lebanese German University
-Jounieh
-Lebanon
-;
-'Rabenbauer A.'
-;
-Munich Technical University (TUM)
-Department of Chemistry
-Munich-Garching
-Germany
-;
-'Nilges T.'
-;
-Munich Technical University (TUM)
-Department of Chemistry
-Munich-Garching
-Germany
-;
-'Pottgen R.'
-;
-Munster University (WWU)
-Institut fur Anorganische und Analytische Chemie
-Munster
-Germany
 ;
 
 # Standardized crystallographic data

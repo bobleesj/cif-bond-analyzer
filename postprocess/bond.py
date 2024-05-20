@@ -6,17 +6,22 @@ unique ordered label pairs, identifying missing pairs not in CIF data,
 building dictionaries with shortest distance pairs and their mixing categories,
 and converting label to element pairs for analysis.
 """
-import json
 import numpy as np
 
 from preprocess.cif_parser import get_atom_type
 from preprocess import supercell
 from postprocess import pair_order
 from util import prompt
+from preprocess import cif_parser_handler
 
 
 def get_atom_site_labeled_dict(
-    all_points, lengths, angles, atom_site_mixing_dict, filename
+    supercell_points,
+    lengths,
+    angles,
+    atom_site_mixing_dict,
+    filename,
+    file_path,
 ):
     """
     Calculate the shortest distance from each atomic site and store only the labels
@@ -25,7 +30,13 @@ def get_atom_site_labeled_dict(
 
     atom_site_dict = {}
 
-    for i, point_1 in enumerate(all_points):
+    unitcell_points = (
+        cif_parser_handler.get_flattened_points_from_unitcell(
+            file_path
+        )
+    )
+
+    for i, point_1 in enumerate(unitcell_points):
         current_site_label = point_1[3]
 
         if current_site_label not in atom_site_dict:
@@ -34,7 +45,7 @@ def get_atom_site_labeled_dict(
                 "pairs": [],
             }
 
-        for j, point_2 in enumerate(all_points):
+        for j, point_2 in enumerate(supercell_points):
             if i == j:
                 continue  # Skip the identical index
 
@@ -46,7 +57,7 @@ def get_atom_site_labeled_dict(
                 np.round(dist, 3)
             )  # Round and take absolute value of the distance
 
-            if dist < 0.01:
+            if dist < 0.1:
                 continue
 
             if dist < atom_site_dict[current_site_label]["min_dist"]:
