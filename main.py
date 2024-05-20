@@ -82,7 +82,7 @@ def main(is_iteractive_mode=True, given_dir_path=None):
 
         # PART 1: REFORMAT
         format.move_files_based_on_format_error(dir_path)
-        file_path_list = folder.get_cif_file_path_list(dir_path)
+        file_path_list = folder.get_file_path_list(dir_path)
 
         # PART 2: PREPROCESS
         global_site_pair_dict = {}
@@ -155,7 +155,7 @@ def main(is_iteractive_mode=True, given_dir_path=None):
 
             elapsed_time = time.perf_counter() - start_time
 
-            prompt.print_progress(
+            prompt.print_progress_finished(
                 filename_with_ext,
                 num_of_atoms,
                 elapsed_time,

@@ -53,7 +53,7 @@ def get_json_dir_names(script_path):
     return dir_name_list
 
 
-def choose_cif_dir(script_path):
+def choose_dir(script_path, ext=".cif"):
     """
     Allows the user to select a directory from the given path.
     """
@@ -62,7 +62,7 @@ def choose_cif_dir(script_path):
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
         and any(
-            file.endswith(".cif")
+            file.endswith(ext)
             for file in os.listdir(join(script_path, d))
         )
     ]
@@ -118,9 +118,9 @@ def get_cif_file_count_from_directory(directory):
     return len(glob.glob(join(directory, "*.cif")))
 
 
-def get_cif_file_path_list(directory):
+def get_file_path_list(directory, ext="*.cif"):
     """Get all file path list from folde."""
-    return glob.glob(os.path.join(directory, "*.cif"))
+    return glob.glob(os.path.join(directory, ext))
 
 
 def remove_directories(directory_list):
@@ -142,14 +142,21 @@ def remove_file(file_path):
         os.remove(file_path)
 
 
-def create_output_folder_for_neighbor(dir_path, name):
+def create_output_folder_for_neighbor(
+    dir_path, radius, is_coordination_num_used
+):
     output_folder_path = os.path.join(dir_path, "output")
 
     if not os.path.exists(output_folder_path):
         os.makedirs(output_folder_path)
 
+    nested_folder_name = None
     # Define and create the nested folder based on the cutoff radius
-    nested_folder_name = f"shortest_dist_cutoff_{name}"
+    if is_coordination_num_used:
+        nested_folder_name = "shortest_dist_CN"
+    else:
+        nested_folder_name = f"shortest_dist_cutoff_{radius}"
+
     nested_folder_path = os.path.join(
         output_folder_path, nested_folder_name
     )

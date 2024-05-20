@@ -144,7 +144,7 @@ def echo_folder_progress(idx, dir_name, num_selected_dirs):
     echo("=" * 50)  # Bottom line of '=' characters
 
 
-def print_progress(
+def print_progress_finished(
     filename_with_ext, num_of_atoms, elapsed_time, is_finished
 ):
     if is_finished:
@@ -157,9 +157,32 @@ def print_progress(
         )
 
 
+def print_progress_current(i, filename_with_ext, supercell_points):
+    echo(
+        style(
+            f"Processing {filename_with_ext} with "
+            f"{len(supercell_points)} atoms {i+1}",
+            fg="yellow",
+        )
+    )
+
+
+def get_is_coordination_num_used():
+    click.echo(
+        "\nDo you want to compute nearest neighbor distances"
+        " based on the coordination number?"
+    )
+
+    is_coordination_number_used = click.confirm(
+        "(Default: Y)",
+        default=True,
+    )
+    return is_coordination_number_used
+
+
 def get_cutoff_radius():
     cutoff_radius = click.prompt(
-        "\nEnter the cut-off distance from the ref atom site (Å) (Default 4 Å)",
+        "\nEnter the cutoff distance (Å) (Default 4 Å)",
         type=float,
         default=4,
         show_default=False,

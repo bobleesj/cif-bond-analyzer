@@ -9,6 +9,10 @@ nodemon.json
 
 # C extensions
 *.so
+# Ignore all CSV files
+*.csv
+*.xlsx
+*.cif
 
 # CIF files
 binary M-X CIF/
