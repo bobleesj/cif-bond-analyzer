@@ -70,10 +70,10 @@ def conduct_system_analysis():
 
     # Save Structure Analysis and Overview Excel
     system_analysis_excel.save_structure_analysis_excel(
-        structure_dict
+        structure_dict, output_dir
     )
     system_analysis_excel.save_bond_overview_excel(
-        structure_dict, possible_bond_pairs
+        structure_dict, possible_bond_pairs, output_dir
     )
     """
     Step 4. Generate hexagonal figures
@@ -84,7 +84,10 @@ def conduct_system_analysis():
     )
 
     system_analysis_figure.draw_individual_hexagon(
-        structure_dict, unique_structure_types, output_dir
+        structure_dict,
+        unique_structure_types,
+        output_dir,
+        is_individual_hexagonal=True,
     )
 
 

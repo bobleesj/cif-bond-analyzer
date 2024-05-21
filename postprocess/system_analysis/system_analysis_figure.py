@@ -14,10 +14,7 @@ def draw_ternary_figure(
     formula_offset = -0.07
     formula_font_size = 9
     v0, v1, v2 = ternary.generate_traingle_vertex_points()
-
     ternary.draw_ternary_frame(v0, v1, v2)
-
-    # Add smaller traingles at the vertexes
     ternary.draw_filled_edges(v0, v1, v2)
 
     for structure in unique_structure_types:
@@ -42,7 +39,7 @@ def draw_ternary_figure(
         X_label = parsed_normalized_formula[2][0]
         labels = [R_label, M_label, X_label]
 
-        center_point = ternary.get_point_in_traingle_from_norm_index(
+        center_point = ternary.get_point_in_triangle_from_norm_index(
             v0, v1, v2, float(R_norm_index), float(M_norm_index)
         )
         hexagon.draw_hexagon_per_center_point(
@@ -71,7 +68,10 @@ def draw_ternary_figure(
 
 
 def draw_individual_hexagon(
-    structure_dict, unique_structure_types, output_dir
+    structure_dict,
+    unique_structure_types,
+    output_dir,
+    is_individual_hexagonal=False,
 ):
     hexagon_image_files = []
     center_pt = (0, 0)
@@ -111,6 +111,7 @@ def draw_individual_hexagon(
             inner_line_width=inner_line_width,
             outer_line_width=outer_line_width,
             color_line_width=color_line_width,
+            is_individual_hexagonal=is_individual_hexagonal,
         )
 
         plt.scatter(0, 0, color="black", s=core_dot_radius, zorder=3)

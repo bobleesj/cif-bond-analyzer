@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
+from os.path import join
 
 
-def save_structure_analysis_excel(structure_dict):
+def save_structure_analysis_excel(structure_dict, output_dir):
     data = []
     structure_list = []
 
@@ -55,11 +56,14 @@ def save_structure_analysis_excel(structure_dict):
     )
 
     # Save DataFrame to an Excel file
-    df.to_excel("formatted_bond_data.xlsx", index=False)
+    output_file_path = join(output_dir, "system_analysis_main.xlsx")
+    df.to_excel(output_file_path, index=False)
     print(df.head(40))
 
 
-def save_bond_overview_excel(structure_dict, possible_bond_pairs):
+def save_bond_overview_excel(
+    structure_dict, possible_bond_pairs, output_dir
+):
     bond_types = [
         f"{pair[0]}-{pair[1]}" for pair in possible_bond_pairs
     ]
@@ -138,5 +142,6 @@ def save_bond_overview_excel(structure_dict, possible_bond_pairs):
     columns = ["Entry", "Structure"] + bond_types
     df = pd.DataFrame(data, columns=columns)
 
-    df.to_excel("unique_files_overview_bonds.xlsx", index=False)
+    output_file_path = join(output_dir, "system_analysis_files.xlsx")
+    df.to_excel(output_file_path, index=False)
     print(df.head(20))

@@ -3,16 +3,20 @@ import random
 import matplotlib.pyplot as plt
 
 
-def get_point_in_traingle_from_norm_index(
+def get_point_in_triangle_from_norm_index(
     v0, v1, v2, R_norm_index, M_norm_index
 ):
+    # R_norm_index corresponds to v2
+    # M_norm_index corresponds to v1
     R = R_norm_index
     M = M_norm_index
 
-    if R + M > 1:
-        R = 1 - R
-        M = 1 - M
-    return (1 - R - M) * v0 + M * v1 + R * v2
+    # Calculate the third weight for v0
+    X = 1 - R - M
+
+    # Compute the position using the barycentric coordinates
+    point_position = R * v0 + M * v1 + X * v2
+    return point_position
 
 
 def generate_traingle_vertex_points():

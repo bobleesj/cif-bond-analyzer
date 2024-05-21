@@ -12,7 +12,7 @@ def get_hexagon_points(center, size):
     x_hex = center[0] + size * np.cos(angles)
     y_hex = center[1] + size * np.sin(angles)
 
-    return np.around(x_hex, 3), np.around(y_hex, 3)
+    return np.around(x_hex, 5), np.around(y_hex, 5)
 
 
 def draw_hexagon_per_center_point(
@@ -24,6 +24,7 @@ def draw_hexagon_per_center_point(
     inner_line_width=0.5,
     outer_line_width=0.5,
     color_line_width=2.5,
+    is_individual_hexagonal=False,
 ):
     x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(
         center_pt, radius
@@ -64,4 +65,34 @@ def draw_hexagon_per_center_point(
             "-",
             lw=color_line_width,
             color=colors[i],
+            zorder=3,
         )
+
+        if is_individual_hexagonal:
+            start_offset = 0.05  # Distance to start from the actual endpoint, adjust as needed
+            outward_length = 0.01  # Adjust this value as needed
+
+            # Calculate the direction of the original line from the center to the endpoint and normalize
+            direction = np.array([norm_x, norm_y])
+            direction_norm = direction / np.linalg.norm(direction)
+
+            # Start the black line slightly away from the endpoint
+            start_point = (
+                np.array([norm_x, norm_y])
+                + direction_norm * start_offset
+            )
+
+            # Extend the endpoint outward along the same direction
+            extended_point = np.array(
+                [norm_x, norm_y]
+            ) + direction_norm * (outward_length + start_offset)
+
+            # Draw the line from the start point to the extended point
+            plt.plot(
+                [start_point[0], extended_point[0]],  # x
+                [start_point[1], extended_point[1]],  # y
+                "-",
+                lw=color_line_width,
+                # lw=2,
+                color="black",
+            )
