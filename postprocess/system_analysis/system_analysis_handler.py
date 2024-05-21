@@ -1,13 +1,14 @@
 from postprocess.system_analysis import system_analysis
+from util import prompt
 
 
 def get_structure_dict(
     unique_structure_types,
-    all_pairs_in_the_system,
+    possible_bond_pairs,
     updated_json_file_path,
 ):
     structure_dict = system_analysis.init_structure_dict(
-        unique_structure_types, all_pairs_in_the_system
+        unique_structure_types, possible_bond_pairs
     )
 
     # Add files and formulas

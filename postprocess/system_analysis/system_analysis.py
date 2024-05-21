@@ -3,7 +3,7 @@ import json
 import numpy as np
 import pandas as pd
 from preprocess import cif_parser
-from util import prompt
+from util import prompt, formula_parser, sort
 
 
 def clean_formula(formula):
@@ -65,16 +65,14 @@ def update_json_data(data, cif_directory):
     )
 
 
-# Function to initialize data for each pair
 def initialize_pair_data():
     return {
         "bond_lengths": [],  # List to store bond lengths
-        "total_bond_count": 0,  # Default bond count
-        "avg_bond_length": 0.0,  # Default average bond length
+        "total_bond_count": 0,  # Initialize bond count
+        "avg_bond_length": 0.0,  # Initialize average bond length
     }
 
 
-# Function to initialize bond data for each structure
 def init_structure_data(pairs):
     return {
         "files": [],
@@ -82,7 +80,7 @@ def init_structure_data(pairs):
         "file_count": 0,
         "bond_data": {
             f"{pair[0]}-{pair[1]}": initialize_pair_data()
-            for pair in pairs
+            for pair in pairs  # Iterate in order given for pairs
         },
     }
 
@@ -90,10 +88,12 @@ def init_structure_data(pairs):
 def init_structure_dict(
     unique_structure_types, all_pairs_in_the_system
 ):
+    print("All pairs in the system:", all_pairs_in_the_system)
     structure_dict = {
         structure: init_structure_data(all_pairs_in_the_system)
         for structure in unique_structure_types
     }
+
     return structure_dict
 
 
@@ -222,9 +222,86 @@ def add_bond_fractions_per_structure(structure_dict):
         # Add the bond fractions dictionary to the structure data
         data["bond_fractions"] = bond_fractions
 
-        # Optionally print each structure with its bond fractions for verification
-        print(
-            f"Structure: {structure}, Bond Fractions: {data['bond_fractions']}"
-        )
-
     return structure_dict
+
+
+def extract_structure_info(structure_dict, structure_key):
+    """
+    Extracts formula, bond type labels, and bond fractions
+    for a given structure.
+    """
+    info = structure_dict[structure_key]
+    formulas = info.get(
+        "formulas", ["N/A"]
+    )  # Default to ["N/A"] if no formulas are found
+
+    bond_labels = info["bond_fractions"].keys()
+    bond_fractions = [
+        info["bond_fractions"][bond] for bond in bond_labels
+    ]
+
+    return (formulas, bond_labels, bond_fractions)
+
+
+def get_all_unique_formulas(updated_json_file_path):
+    json_data = read_json_data(updated_json_file_path)
+    unique_formulas = set()  # Use a set to store unique formulas
+
+    # Iterate over the outer dictionary
+    for bond_pair, entries in json_data.items():
+        # Iterate over each ID in the bond pair
+        for entry_list in entries.values():
+            # Iterate over the list of dictionaries under each ID
+            for entry in entry_list:
+                formula = entry["formula"]
+                unique_formulas.add(formula)  # Add formula to the set
+
+    return list(
+        unique_formulas
+    )  # Convert the set back to a list if necessary
+
+
+def generate_bond_pairs(elements):
+    num_of_unique_elements = len(elements)
+
+    if num_of_unique_elements == 3:
+        print("3 unique elements in the system.")
+        R, M, X = elements
+        bond_pairs = [
+            (R, R),
+            (R, M),
+            (M, M),
+            (M, X),
+            (X, X),
+            (R, X),
+        ]
+        return bond_pairs
+
+    elif num_of_unique_elements == 2:
+        print("2 unique elements in the system")
+        R, M = elements
+        bond_pairs = [(R, R), (R, M), (M, M)]
+        return bond_pairs
+    else:
+        print(
+            f"Not valid. {num_of_unique_elements} unique elements founds."
+            " There should be either 2 or 3 unique elements in the folder."
+        )
+    return
+
+
+def generate_unique_pairs_from_formulas(updated_json_file_path):
+    # Get unique formulas
+    unique_formulas = get_all_unique_formulas(updated_json_file_path)
+
+    # Get unique elements
+    unique_elements = (
+        formula_parser.get_unique_elements_from_formulas(
+            unique_formulas
+        )
+    )
+
+    # Sort unique elements by Mendeeleve
+    sorted_unique_elements = sort.sort_by_mendeleev(unique_elements)
+    possible_bond_pairs = generate_bond_pairs(sorted_unique_elements)
+    return possible_bond_pairs

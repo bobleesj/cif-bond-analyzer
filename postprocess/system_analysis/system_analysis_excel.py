@@ -59,11 +59,13 @@ def save_structure_analysis_excel(structure_dict):
     print(df.head(40))
 
 
-def save_bond_overview_excel(structure_dict):
-    bond_types = set()
-    for info in structure_dict.values():
-        bond_types.update(info["bond_data"].keys())
-    bond_types = sorted(bond_types)
+def save_bond_overview_excel(structure_dict, possible_bond_pairs):
+    bond_types = [
+        f"{pair[0]}-{pair[1]}" for pair in possible_bond_pairs
+    ]
+
+    # Initialize structure bond counts
+    unique_structure_bond_counts = {bond: 0 for bond in bond_types}
 
     data = []
     file_to_structure = {}
@@ -138,6 +140,3 @@ def save_bond_overview_excel(structure_dict):
 
     df.to_excel("unique_files_overview_bonds.xlsx", index=False)
     print(df.head(20))
-
-
-# Example usage with adjusted structure_dict if necessary

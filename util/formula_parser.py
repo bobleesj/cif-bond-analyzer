@@ -38,3 +38,25 @@ def get_parsed_formula(formula):
     pattern = r"([A-Z][a-z]*)(\d*\.?\d*)"
     elements = re.findall(pattern, formula)
     return elements
+
+
+def get_parsed_norm_formula(formula):
+    normalized_formula = get_normalized_formula(formula)
+    parsed_normalized_formula = get_parsed_formula(normalized_formula)
+    return parsed_normalized_formula
+
+
+def get_unique_elements_from_formulas(formulas):
+    unique_elements = set()  # Create a set to store unique elements
+
+    for formula in formulas:
+        parsed_formula = get_parsed_formula(
+            formula
+        )  # Assume this function returns a list of tuples
+        for element, _ in parsed_formula:
+            if element:  # Ensure that element is not empty
+                unique_elements.add(
+                    element
+                )  # Add the element to the set
+
+    return unique_elements

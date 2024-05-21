@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 import numpy as np
-from util import prompt, folder
+from util import prompt, folder, formula_parser, sort
 from postprocess import bond_missing
 from postprocess.system_analysis import (
     system_analysis,
@@ -47,42 +47,40 @@ def conduct_system_analysis():
     """
     Step 2. Build dict containing bond/formula/file info per structure
     """
-    all_pairs_in_the_system = (
-        bond_missing.get_all_ordered_pairs_from_list(unique_pairs)
+
+    possible_bond_pairs = (
+        system_analysis.generate_unique_pairs_from_formulas(
+            updated_json_file_path
+        )
     )
     structure_dict = system_analysis_handler.get_structure_dict(
         unique_structure_types,
-        all_pairs_in_the_system,
+        possible_bond_pairs,
         updated_json_file_path,
     )
 
     """
     Step 3. Generate Excel file
     """
-    prompt.print_dict_in_json(structure_dict)
+    # prompt.print_dict_in_json(structure_dict)
 
-    # Save Structure Analysis Excel
+    # Save Structure Analysis and Overview Excel
     system_analysis_excel.save_structure_analysis_excel(
         structure_dict
     )
-
-    system_analysis_excel.save_bond_overview_excel(structure_dict)
-
-    # Save Overview Excel
-
+    system_analysis_excel.save_bond_overview_excel(
+        structure_dict, possible_bond_pairs
+    )
     """
     Step 4. Generate hexagonal figures
     """
 
-    # # Draw hexagon
-    # for bond_fractions in bond_fractions_list:
-    #     system_analysis_figure.draw_hexagons(
-    #         bond_fractions, bond_types
-    #     )
+    system_analysis_figure.draw_ternary_figure(
+        structure_dict, unique_structure_types
+    )
 
-    # # Draw line figure
-    # system_analysis_figure.draw_rotated_hexagons_along_line(
-    #     bond_fractions_list
+    # system_analysis_figure.draw_individual_hexagon(
+    #     structure_dict, unique_structure_types
     # )
 
 
