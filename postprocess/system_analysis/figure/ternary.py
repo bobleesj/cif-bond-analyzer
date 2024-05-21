@@ -27,8 +27,9 @@ def draw_ternary_frame(v0, v1, v2):
     # Plotting the enhanced triangle
     plt.figure(figsize=(8, 7))
     triangle = plt.Polygon(
-        [v0, v1, v2], edgecolor="k", facecolor="none"
+        [v0, v1, v2], edgecolor="k", facecolor="none", zorder=3
     )
+
     # Draw edges of the traingle
     plt.gca().add_patch(triangle)
 
@@ -69,6 +70,59 @@ def add_vertex_labels(v0, v1, v2, labels):
     plt.gca().set_aspect("equal", adjustable="box")
     plt.axis("off")
     plt.show()
+
+
+def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
+    # Calculate points along the edges at the given fraction of their lengths
+    p0_blue = [
+        (1 - fraction) * v0[0] + (1 - fraction) * v1[0],
+        (1 - fraction) * v0[1] + fraction * v1[1],
+    ]
+
+    p0_red = [
+        (1 - fraction) * v0[0] + fraction * v1[0],
+        (1 - fraction) * v0[1] + fraction * v1[1],
+    ]
+
+    p1_red = [
+        (1 - fraction) * v0[0] + fraction * v2[0],
+        (1 - fraction) * v0[1] + fraction * v2[1],
+    ]
+
+    p2_blue = [
+        (1 - fraction) * v1[0] + fraction * v2[0],
+        (1 - fraction) * v1[1] + fraction * v2[1],
+    ]
+
+    p1_green = [
+        (1 - fraction) * v2[0] + fraction * v0[0],  # x coordinate
+        (1 - fraction) * v2[1] + fraction * v0[1],  # y coordinate
+    ]
+    p2_green = [
+        (1 - fraction) * v2[0] + fraction * v1[0],  # x coordinate
+        (1 - fraction) * v2[1] + fraction * v1[1],  # y coordinate
+    ]
+
+    # Create filled polygons along the edges
+    filled_edge1 = plt.Polygon(
+        [v0, p0_red, p1_red], closed=True, color="blue", alpha=alpha
+    )
+    filled_edge2 = plt.Polygon(
+        [v1, p0_blue, p2_blue],
+        closed=True,
+        color="green",
+        alpha=alpha,
+    )
+    filled_edge3 = plt.Polygon(
+        [v2, p1_green, p2_green],
+        closed=True,
+        color="red",
+        alpha=alpha,
+    )
+
+    plt.gca().add_patch(filled_edge1)
+    plt.gca().add_patch(filled_edge2)
+    plt.gca().add_patch(filled_edge3)
 
 
 def draw_triangular_grid(v0, v1, v2, n_lines=10):

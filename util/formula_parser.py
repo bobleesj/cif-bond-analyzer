@@ -60,3 +60,11 @@ def get_unique_elements_from_formulas(formulas):
                 )  # Add the element to the set
 
     return unique_elements
+
+
+def get_subscripted_formula(formula):
+    # Use regular expression to find elements and numbers
+    formatted_formula = re.sub(
+        r"([A-Z][a-z]*)(\d*\.?\d*)", r"\1$_{\2}$", formula
+    )
+    return formatted_formula

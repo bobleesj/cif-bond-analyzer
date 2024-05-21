@@ -13,12 +13,19 @@ def draw_ternary_figure(structure_dict, unique_structure_types):
 
     ternary.draw_ternary_frame(v0, v1, v2)
 
+    # Add smaller traingles at the vertexes
+    ternary.draw_filled_edges(v0, v1, v2)
+
     for structure in unique_structure_types:
         result = system_analysis.extract_structure_info(
             structure_dict, structure
         )
         formulas, _, bond_fractions = result
         formula = formulas[0]
+        formula_formatted = formula_parser.get_subscripted_formula(
+            formula
+        )
+
         parsed_normalized_formula = (
             formula_parser.get_parsed_norm_formula(formula)
         )
@@ -41,7 +48,7 @@ def draw_ternary_figure(structure_dict, unique_structure_types):
         plt.text(
             center_point[0],
             center_point[1] + formula_offset,
-            formula,
+            formula_formatted,
             fontsize=formula_font_size,
             ha="center",
         )
