@@ -1,12 +1,16 @@
 import random
 import numpy as np
-from util import formula_parser, sort
+import os
+from os.path import join
+from util import formula_parser, sort, folder
 import matplotlib.pyplot as plt
 from postprocess.system_analysis import system_analysis
 from postprocess.system_analysis.figure import hexagon, ternary
 
 
-def draw_ternary_figure(structure_dict, unique_structure_types):
+def draw_ternary_figure(
+    structure_dict, unique_structure_types, output_dir
+):
     formula_offset = -0.07
     formula_font_size = 9
     v0, v1, v2 = ternary.generate_traingle_vertex_points()
@@ -42,7 +46,7 @@ def draw_ternary_figure(structure_dict, unique_structure_types):
             v0, v1, v2, float(R_norm_index), float(M_norm_index)
         )
         hexagon.draw_hexagon_per_center_point(
-            center_point, bond_fractions
+            center_point, bond_fractions, 0.05
         )
         # Write one of the chemical formulas
         plt.text(
@@ -61,53 +65,188 @@ def draw_ternary_figure(structure_dict, unique_structure_types):
         )
 
     ternary.add_vertex_labels(v0, v1, v2, labels)
+    output_filepath = join(output_dir, "ternary.png")
+    plt.savefig(output_filepath, dpi=300)
     plt.close()
 
 
-def draw_individual_hexagon(structure_dict, unique_structure_types):
-    # Get a hexagon points
+def draw_individual_hexagon(
+    structure_dict, unique_structure_types, output_dir
+):
+    hexagon_image_files = []
     center_pt = (0, 0)
-    for structure in unique_structure_types:
+
+    # Individual hexagon
+    radius = 1
+    radius_padding = 0.3
+    bond_label_font_size = 16
+    outer_line_width = 3
+    color_line_width = 8
+    inner_line_width = 2
+    core_dot_radius = 80
+
+    # Formula/structure label
+    label_offset = 0.5
+    formula_font_size = 15
+    formula_offset = -2.5
+    for index, structure in enumerate(unique_structure_types):
         result = system_analysis.extract_structure_info(
             structure_dict, structure
         )
         formulas, bond_labels, bond_fractions = result
-        formula = formulas[0]
+        formula = formula_parser.get_subscripted_formula(formulas[0])
+        structure = formula_parser.get_subscripted_formula(structure)
+
+        fig, ax = plt.subplots(figsize=(3, 3.5), dpi=300)
+        plt.subplots_adjust(
+            top=1.1
+        )  # Adjust this value to reduce the space at the top
+
         hexagon.draw_hexagon_per_center_point(
-            center_pt, bond_fractions, radius=0.04
+            center_pt,
+            bond_fractions,
+            radius=radius,
+            inner_alpha=0.3,
+            outer_alpha=1,
+            inner_line_width=inner_line_width,
+            outer_line_width=outer_line_width,
+            color_line_width=color_line_width,
         )
-        formula_offset = 0.05
-        # Write one of the chemical formulas
+
+        plt.scatter(0, 0, color="black", s=core_dot_radius, zorder=3)
 
         plt.text(
             center_pt[0],
             center_pt[1] + formula_offset,
             f"Formula: {formula}\nStructure: {structure}",
-            fontsize=8,
+            fontsize=formula_font_size,
             ha="center",
         )
 
-        plt.scatter(
-            center_pt[0], center_pt[1], color="black", s=5, zorder=3
+        label_radius = radius + label_offset
+
+        # Get the points for label positioning using the increased radius
+        x_label_pts, y_label_pts = hexagon.get_hexagon_points(
+            center_pt, label_radius
         )
-        x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(
-            center_pt, 0.05
-        )
-        # Place bond labels near each vertex
-        label_offset = 0.02  # Distance from vertex to label
+
+        # Find minimum and maximum for both x and y from the hexagon points
+        x_min, x_max = min(x_label_pts), max(x_label_pts)
+        y_min, y_max = min(y_label_pts), max(y_label_pts)
+
+        ax.set_xlim(x_min - radius_padding, x_max + radius_padding)
+        ax.set_ylim(y_min - radius_padding, y_max + radius_padding)
+
         for i, (x, y, label) in enumerate(
-            zip(x_hex_pts, y_hex_pts, bond_labels)
+            zip(x_label_pts, y_label_pts, bond_labels)
         ):
             plt.text(
-                x + label_offset * np.cos(i * np.pi / 3 + np.pi / 6),
-                y + label_offset * np.sin(i * np.pi / 3 + np.pi / 6),
+                x,
+                y,
                 label,
-                fontsize=6,
-                ha="center",
+                fontsize=bond_label_font_size,  # Adjust fontsize as needed
+                ha="center",  # Horizontal alignment
+                va="center",  # Vertical alignment
             )
 
-        # Add label to each
+        ax.set_aspect("equal", adjustable="box")
+        ax.axis("off")
 
-        plt.gca().set_aspect("equal", adjustable="box")
-        plt.axis("off")
-        plt.show()
+        # Saving each hexagon to a file
+        hexagon_filename = f"{formulas[0]}.png"
+        hexagon_filepath = join(output_dir, hexagon_filename)
+        fig.savefig(hexagon_filepath, dpi=300)
+        plt.close(fig)
+        hexagon_image_files.append(hexagon_filepath)
+
+    # Generate a composite image of all hexagons
+    fig, axs = plt.subplots(
+        nrows=int(np.ceil(len(hexagon_image_files) / 3)),
+        ncols=3,
+        figsize=(5, 8),
+    )
+    axs = axs.flatten()
+
+    for ax, hexagon_image in zip(axs, hexagon_image_files):
+        img = plt.imread(hexagon_image)
+        ax.imshow(img)
+        ax.axis("off")
+
+    # Remove empty subplots
+    for ax in axs[len(hexagon_image_files) :]:
+        ax.remove()
+
+    # Give padding for each subplot
+    #  plt.tight_layout()
+    plt.subplots_adjust(
+        left=0.1,
+        right=0.9,
+        top=0.85,
+        bottom=0.15,
+        wspace=0.2,  # Space between subplots, horizontally
+        hspace=0.0,  # Space between subplots, vertically
+    )
+
+    # Save the composite sheet
+    composite_filepath = join(output_dir, "composite_hexagons.png")
+    fig.savefig(composite_filepath, dpi=300)
+
+    plt.close(fig)
+
+    print(
+        f"Saved individual hexagon images and a composite image in {output_dir}"
+    )
+    # # Get a hexagon points
+    # center_pt = (0, 0)
+    # outer_line_width = 2
+    # color_line_width = 4
+    # inner_line_width = 1
+    # inner_alpha = 0.3
+    # outer_alpha = 1
+    # radius = 0.05
+
+    # for structure in unique_structure_types:
+    #     result = system_analysis.extract_structure_info(
+    #         structure_dict, structure
+    #     )
+    #     formulas, bond_labels, bond_fractions = result
+    #     formula = formula_parser.get_subscripted_formula(formulas[0])
+    #     structure = formula_parser.get_subscripted_formula(structure)
+
+    #     hexagon.draw_hexagon_per_center_point(
+    #         center_pt,
+    #         bond_fractions,
+    #         radius=radius,
+    #         inner_alpha=inner_alpha,
+    #         outer_alpha=outer_alpha,
+    #         inner_line_width=inner_line_width,
+    #         outer_line_width=outer_line_width,
+    #         color_line_width=color_line_width,
+    #     )
+
+    #     plt.scatter(
+    #         center_pt[0], center_pt[1], color="black", s=10, zorder=3
+    #     )
+
+    #     x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(
+    #         center_pt, radius
+    #     )
+    #     # Place bond labels near each vertex
+    #     label_offset = -0.015  # Distance from vertex to label
+    #     for i, (x, y, label) in enumerate(
+    #         zip(x_hex_pts, y_hex_pts, bond_labels)
+    #     ):
+    #         plt.text(
+    #             x + label_offset * np.cos(i * np.pi / 3 + np.pi / 6),
+    #             y + label_offset * np.sin(i * np.pi / 3 + np.pi / 6),
+    #             label,
+    #             fontsize=10,
+    #             ha="center",
+    #         )
+
+    #     # Add label to each
+
+    #     plt.gca().set_aspect("equal", adjustable="box")
+    #     plt.axis("off")
+    #     plt.show()
+    #     plt.close()

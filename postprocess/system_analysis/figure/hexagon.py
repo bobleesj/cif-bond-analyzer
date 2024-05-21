@@ -11,16 +11,20 @@ def get_hexagon_points(center, size):
     )  # Rotate by 30 degrees
     x_hex = center[0] + size * np.cos(angles)
     y_hex = center[1] + size * np.sin(angles)
+
     return np.around(x_hex, 3), np.around(y_hex, 3)
 
 
 def draw_hexagon_per_center_point(
-    center_pt, bond_fractions, radius=0.04
+    center_pt,
+    bond_fractions,
+    radius=0.04,
+    inner_alpha=0.3,
+    outer_alpha=0.3,
+    inner_line_width=0.5,
+    outer_line_width=0.5,
+    color_line_width=2.5,
 ):
-    alpha_value = 0.3
-    color_line_width = 2.5
-    radius = 0.05
-
     x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(
         center_pt, radius
     )
@@ -30,8 +34,8 @@ def draw_hexagon_per_center_point(
         x_hex_pts,
         y_hex_pts,
         "-",
-        lw=0.5,
-        alpha=alpha_value,
+        lw=outer_line_width,
+        alpha=outer_alpha,
         color="black",
     )
 
@@ -41,8 +45,8 @@ def draw_hexagon_per_center_point(
             [center_pt[0], x],
             [center_pt[1], y],
             "k",
-            alpha=alpha_value,
-            lw=0.3,
+            alpha=inner_alpha,
+            lw=inner_line_width,
         )
 
     colors = color.get_hexagon_vertex_colors()

@@ -24,7 +24,7 @@ def conduct_system_analysis():
         "20250519_ErCoIn_SA/output/20250519_ErCoIn_SA_site_pairs.json"
     )
     updated_json_file_path = "20250519_ErCoIn_SA/output/updated_20250519_ErCoIn_SA_site_pairs.json"
-    cif_directory = "20250519_ErCoIn_SA"
+    cif_dir = "20250519_ErCoIn_SA"
     # Read the JSON file
     with open(json_file_path, "r") as file:
         bond_data = json.load(file)
@@ -38,10 +38,14 @@ def conduct_system_analysis():
         unique_pairs,
         unique_structure_types,
         _,
-    ) = system_analysis.update_json_data(bond_data, cif_directory)
+    ) = system_analysis.update_json_data(bond_data, cif_dir)
 
     system_analysis.write_json_data(
         updated_json_file_path, updated_data
+    )
+
+    output_dir = folder.create_folder_under_output_dir(
+        cif_dir, "system_analysis"
     )
 
     """
@@ -76,12 +80,12 @@ def conduct_system_analysis():
     """
 
     system_analysis_figure.draw_ternary_figure(
-        structure_dict, unique_structure_types
+        structure_dict, unique_structure_types, output_dir
     )
 
-    # system_analysis_figure.draw_individual_hexagon(
-    #     structure_dict, unique_structure_types
-    # )
+    system_analysis_figure.draw_individual_hexagon(
+        structure_dict, unique_structure_types, output_dir
+    )
 
 
 if __name__ == "__main__":

@@ -69,7 +69,6 @@ def add_vertex_labels(v0, v1, v2, labels):
     plt.ylim(-0.1, 1.1)
     plt.gca().set_aspect("equal", adjustable="box")
     plt.axis("off")
-    plt.show()
 
 
 def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):

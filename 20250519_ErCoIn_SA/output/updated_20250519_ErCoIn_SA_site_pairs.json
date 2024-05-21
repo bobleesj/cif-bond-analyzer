@@ -1,162 +1,12 @@
 {
-    "Er-In": {
-        "1818414": [
-            {
-                "dist": "3.285",
-                "mixing": "4",
-                "formula": "Er6Co2.19In0.81",
-                "structure_type": "Ho6Co2Ga"
-            },
-            {
-                "dist": "2.962",
-                "mixing": "2",
-                "formula": "Er6Co2.19In0.81",
-                "structure_type": "Ho6Co2Ga"
-            }
-        ],
-        "1840445": [
-            {
-                "dist": "3.201",
-                "mixing": "4",
-                "formula": "Er11Co4In9",
-                "structure_type": "Nd11Pd4In9"
-            },
-            {
-                "dist": "3.174",
-                "mixing": "4",
-                "formula": "Er11Co4In9",
-                "structure_type": "Nd11Pd4In9"
-            }
-        ],
-        "1140826": [
-            {
-                "dist": "2.975",
-                "mixing": "4",
-                "formula": "Er8CoIn3",
-                "structure_type": "Pr8CoGa3"
-            },
-            {
-                "dist": "3.359",
-                "mixing": "4",
-                "formula": "Er8CoIn3",
-                "structure_type": "Pr8CoGa3"
-            }
-        ],
-        "1634753": [
-            {
-                "dist": "2.959",
-                "mixing": "4",
-                "formula": "ErCoIn5",
-                "structure_type": "HoCoGa5"
-            }
-        ],
-        "1803318": [
-            {
-                "dist": "3.239",
-                "mixing": "4",
-                "formula": "Er14Co2In3",
-                "structure_type": "Lu14Co2In3"
-            },
-            {
-                "dist": "3.314",
-                "mixing": "4",
-                "formula": "Er14Co2In3",
-                "structure_type": "Lu14Co2In3"
-            },
-            {
-                "dist": "3.051",
-                "mixing": "4",
-                "formula": "Er14Co2In3",
-                "structure_type": "Lu14Co2In3"
-            },
-            {
-                "dist": "3.207",
-                "mixing": "4",
-                "formula": "Er14Co2In3",
-                "structure_type": "Lu14Co2In3"
-            }
-        ],
-        "1234749": [
-            {
-                "dist": "2.859",
-                "mixing": "2",
-                "formula": "ErCo2.68In0.32",
-                "structure_type": "PuNi3"
-            },
-            {
-                "dist": "2.869",
-                "mixing": "2",
-                "formula": "ErCo2.68In0.32",
-                "structure_type": "PuNi3"
-            }
-        ],
-        "1234747": [
-            {
-                "dist": "3.035",
-                "mixing": "4",
-                "formula": "Er8CoIn3",
-                "structure_type": "Pr8CoGa3"
-            },
-            {
-                "dist": "3.346",
-                "mixing": "4",
-                "formula": "Er8CoIn3",
-                "structure_type": "Pr8CoGa3"
-            }
-        ],
-        "1229705": [
-            {
-                "dist": "3.205",
-                "mixing": "4",
-                "formula": "Er11Co4In9",
-                "structure_type": "Nd11Pd4In9"
-            },
-            {
-                "dist": "3.137",
-                "mixing": "4",
-                "formula": "Er11Co4In9",
-                "structure_type": "Nd11Pd4In9"
-            }
-        ],
-        "1814810": [
-            {
-                "dist": "3.200",
-                "mixing": "2",
-                "formula": "Er14Co3In3",
-                "structure_type": "Gd14Co3In2.7"
-            },
-            {
-                "dist": "3.294",
-                "mixing": "4",
-                "formula": "Er14Co3In3",
-                "structure_type": "Gd14Co3In2.7"
-            },
-            {
-                "dist": "3.055",
-                "mixing": "2",
-                "formula": "Er14Co3In3",
-                "structure_type": "Gd14Co3In2.7"
-            }
-        ],
-        "1710931": [
-            {
-                "dist": "3.199",
-                "mixing": "4",
-                "formula": "ErCoIn5",
-                "structure_type": "HoCoGa5"
-            }
-        ],
-        "1920543": [
-            {
-                "dist": "3.222",
-                "mixing": "4",
-                "formula": "Er2CoIn8",
-                "structure_type": "Ho2CoGa8"
-            }
-        ]
-    },
     "Er-Co": {
         "1818414": [
+            {
+                "dist": "2.758",
+                "mixing": "4",
+                "formula": "Er6Co2.19In0.81",
+                "structure_type": "Ho6Co2Ga"
+            },
             {
                 "dist": "2.888",
                 "mixing": "4",
@@ -170,12 +20,6 @@
                 "structure_type": "Ho6Co2Ga"
             },
             {
-                "dist": "2.758",
-                "mixing": "4",
-                "formula": "Er6Co2.19In0.81",
-                "structure_type": "Ho6Co2Ga"
-            },
-            {
                 "dist": "2.962",
                 "mixing": "2",
                 "formula": "Er6Co2.19In0.81",
@@ -183,12 +27,6 @@
             }
         ],
         "1840445": [
-            {
-                "dist": "2.691",
-                "mixing": "4",
-                "formula": "Er11Co4In9",
-                "structure_type": "Nd11Pd4In9"
-            },
             {
                 "dist": "2.925",
                 "mixing": "4",
@@ -200,17 +38,23 @@
                 "mixing": "4",
                 "formula": "Er11Co4In9",
                 "structure_type": "Nd11Pd4In9"
+            },
+            {
+                "dist": "2.691",
+                "mixing": "4",
+                "formula": "Er11Co4In9",
+                "structure_type": "Nd11Pd4In9"
             }
         ],
         "1233938": [
             {
-                "dist": "2.970",
+                "dist": "3.009",
                 "mixing": "4",
                 "formula": "Er10Co9In20",
                 "structure_type": "Ho10Ni9In20"
             },
             {
-                "dist": "3.009",
+                "dist": "2.881",
                 "mixing": "4",
                 "formula": "Er10Co9In20",
                 "structure_type": "Ho10Ni9In20"
@@ -222,7 +66,7 @@
                 "structure_type": "Ho10Ni9In20"
             },
             {
-                "dist": "2.881",
+                "dist": "2.970",
                 "mixing": "4",
                 "formula": "Er10Co9In20",
                 "structure_type": "Ho10Ni9In20"
@@ -236,13 +80,13 @@
                 "structure_type": "Pr8CoGa3"
             },
             {
-                "dist": "2.918",
+                "dist": "2.797",
                 "mixing": "4",
                 "formula": "Er8CoIn3",
                 "structure_type": "Pr8CoGa3"
             },
             {
-                "dist": "2.797",
+                "dist": "2.918",
                 "mixing": "4",
                 "formula": "Er8CoIn3",
                 "structure_type": "Pr8CoGa3"
@@ -250,13 +94,13 @@
         ],
         "1803318": [
             {
-                "dist": "2.644",
+                "dist": "2.774",
                 "mixing": "4",
                 "formula": "Er14Co2In3",
                 "structure_type": "Lu14Co2In3"
             },
             {
-                "dist": "2.774",
+                "dist": "2.644",
                 "mixing": "4",
                 "formula": "Er14Co2In3",
                 "structure_type": "Lu14Co2In3"
@@ -278,13 +122,13 @@
         ],
         "1234749": [
             {
-                "dist": "2.859",
+                "dist": "2.869",
                 "mixing": "2",
                 "formula": "ErCo2.68In0.32",
                 "structure_type": "PuNi3"
             },
             {
-                "dist": "2.869",
+                "dist": "2.859",
                 "mixing": "2",
                 "formula": "ErCo2.68In0.32",
                 "structure_type": "PuNi3"
@@ -292,13 +136,13 @@
         ],
         "1803512": [
             {
-                "dist": "2.976",
+                "dist": "2.882",
                 "mixing": "4",
                 "formula": "Er10Co9In20",
                 "structure_type": "Ho10Ni9In20"
             },
             {
-                "dist": "2.882",
+                "dist": "3.009",
                 "mixing": "4",
                 "formula": "Er10Co9In20",
                 "structure_type": "Ho10Ni9In20"
@@ -310,7 +154,7 @@
                 "structure_type": "Ho10Ni9In20"
             },
             {
-                "dist": "3.009",
+                "dist": "2.976",
                 "mixing": "4",
                 "formula": "Er10Co9In20",
                 "structure_type": "Ho10Ni9In20"
@@ -318,7 +162,7 @@
         ],
         "1234747": [
             {
-                "dist": "2.737",
+                "dist": "2.824",
                 "mixing": "4",
                 "formula": "Er8CoIn3",
                 "structure_type": "Pr8CoGa3"
@@ -330,7 +174,7 @@
                 "structure_type": "Pr8CoGa3"
             },
             {
-                "dist": "2.824",
+                "dist": "2.737",
                 "mixing": "4",
                 "formula": "Er8CoIn3",
                 "structure_type": "Pr8CoGa3"
@@ -344,13 +188,13 @@
                 "structure_type": "Nd11Pd4In9"
             },
             {
-                "dist": "2.863",
+                "dist": "2.872",
                 "mixing": "4",
                 "formula": "Er11Co4In9",
                 "structure_type": "Nd11Pd4In9"
             },
             {
-                "dist": "2.872",
+                "dist": "2.863",
                 "mixing": "4",
                 "formula": "Er11Co4In9",
                 "structure_type": "Nd11Pd4In9"
@@ -358,19 +202,19 @@
         ],
         "1814810": [
             {
-                "dist": "2.727",
-                "mixing": "3",
-                "formula": "Er14Co3In3",
-                "structure_type": "Gd14Co3In2.7"
-            },
-            {
-                "dist": "2.623",
-                "mixing": "4",
+                "dist": "3.055",
+                "mixing": "2",
                 "formula": "Er14Co3In3",
                 "structure_type": "Gd14Co3In2.7"
             },
             {
                 "dist": "2.662",
+                "mixing": "3",
+                "formula": "Er14Co3In3",
+                "structure_type": "Gd14Co3In2.7"
+            },
+            {
+                "dist": "2.727",
                 "mixing": "3",
                 "formula": "Er14Co3In3",
                 "structure_type": "Gd14Co3In2.7"
@@ -382,8 +226,8 @@
                 "structure_type": "Gd14Co3In2.7"
             },
             {
-                "dist": "3.055",
-                "mixing": "2",
+                "dist": "2.623",
+                "mixing": "4",
                 "formula": "Er14Co3In3",
                 "structure_type": "Gd14Co3In2.7"
             }
@@ -451,62 +295,52 @@
             }
         ]
     },
-    "Co-In": {
+    "Er-In": {
+        "1818414": [
+            {
+                "dist": "3.285",
+                "mixing": "4",
+                "formula": "Er6Co2.19In0.81",
+                "structure_type": "Ho6Co2Ga"
+            },
+            {
+                "dist": "2.962",
+                "mixing": "2",
+                "formula": "Er6Co2.19In0.81",
+                "structure_type": "Ho6Co2Ga"
+            }
+        ],
         "1840445": [
             {
-                "dist": "3.122",
+                "dist": "3.201",
                 "mixing": "4",
                 "formula": "Er11Co4In9",
                 "structure_type": "Nd11Pd4In9"
             },
             {
-                "dist": "2.813",
+                "dist": "3.174",
                 "mixing": "4",
                 "formula": "Er11Co4In9",
                 "structure_type": "Nd11Pd4In9"
             }
         ],
-        "1233938": [
+        "1140826": [
             {
-                "dist": "2.626",
+                "dist": "2.975",
                 "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
+                "formula": "Er8CoIn3",
+                "structure_type": "Pr8CoGa3"
             },
             {
-                "dist": "2.698",
+                "dist": "3.359",
                 "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
-            },
-            {
-                "dist": "2.725",
-                "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
-            },
-            {
-                "dist": "2.677",
-                "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
-            },
-            {
-                "dist": "2.715",
-                "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
-            },
-            {
-                "dist": "2.676",
-                "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
+                "formula": "Er8CoIn3",
+                "structure_type": "Pr8CoGa3"
             }
         ],
         "1634753": [
             {
-                "dist": "2.447",
+                "dist": "2.959",
                 "mixing": "4",
                 "formula": "ErCoIn5",
                 "structure_type": "HoCoGa5"
@@ -514,81 +348,67 @@
         ],
         "1803318": [
             {
-                "dist": "2.975",
+                "dist": "3.314",
+                "mixing": "4",
+                "formula": "Er14Co2In3",
+                "structure_type": "Lu14Co2In3"
+            },
+            {
+                "dist": "3.051",
+                "mixing": "4",
+                "formula": "Er14Co2In3",
+                "structure_type": "Lu14Co2In3"
+            },
+            {
+                "dist": "3.207",
+                "mixing": "4",
+                "formula": "Er14Co2In3",
+                "structure_type": "Lu14Co2In3"
+            },
+            {
+                "dist": "3.239",
                 "mixing": "4",
                 "formula": "Er14Co2In3",
                 "structure_type": "Lu14Co2In3"
             }
         ],
-        "1956508": [
-            {
-                "dist": "2.687",
-                "mixing": "3",
-                "formula": "Er3Co1.87In4",
-                "structure_type": "Lu3Co2In4"
-            }
-        ],
         "1234749": [
             {
-                "dist": "2.460",
+                "dist": "2.869",
                 "mixing": "2",
                 "formula": "ErCo2.68In0.32",
                 "structure_type": "PuNi3"
             },
             {
-                "dist": "2.482",
+                "dist": "2.859",
                 "mixing": "2",
                 "formula": "ErCo2.68In0.32",
                 "structure_type": "PuNi3"
             }
         ],
-        "1803512": [
+        "1234747": [
             {
-                "dist": "2.618",
+                "dist": "3.035",
                 "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
+                "formula": "Er8CoIn3",
+                "structure_type": "Pr8CoGa3"
             },
             {
-                "dist": "2.728",
+                "dist": "3.346",
                 "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
-            },
-            {
-                "dist": "2.678",
-                "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
-            },
-            {
-                "dist": "2.693",
-                "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
-            },
-            {
-                "dist": "2.674",
-                "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
-            },
-            {
-                "dist": "2.715",
-                "mixing": "4",
-                "formula": "Er10Co9In20",
-                "structure_type": "Ho10Ni9In20"
+                "formula": "Er8CoIn3",
+                "structure_type": "Pr8CoGa3"
             }
         ],
         "1229705": [
             {
-                "dist": "3.071",
+                "dist": "3.205",
                 "mixing": "4",
                 "formula": "Er11Co4In9",
                 "structure_type": "Nd11Pd4In9"
             },
             {
-                "dist": "2.930",
+                "dist": "3.137",
                 "mixing": "4",
                 "formula": "Er11Co4In9",
                 "structure_type": "Nd11Pd4In9"
@@ -596,23 +416,27 @@
         ],
         "1814810": [
             {
-                "dist": "2.964",
-                "mixing": "1",
+                "dist": "3.055",
+                "mixing": "2",
+                "formula": "Er14Co3In3",
+                "structure_type": "Gd14Co3In2.7"
+            },
+            {
+                "dist": "3.200",
+                "mixing": "2",
+                "formula": "Er14Co3In3",
+                "structure_type": "Gd14Co3In2.7"
+            },
+            {
+                "dist": "3.294",
+                "mixing": "4",
                 "formula": "Er14Co3In3",
                 "structure_type": "Gd14Co3In2.7"
             }
         ],
-        "1925389": [
-            {
-                "dist": "2.922",
-                "mixing": "4",
-                "formula": "ErCo4In",
-                "structure_type": "MgCu4Sn"
-            }
-        ],
         "1710931": [
             {
-                "dist": "2.691",
+                "dist": "3.199",
                 "mixing": "4",
                 "formula": "ErCoIn5",
                 "structure_type": "HoCoGa5"
@@ -620,18 +444,10 @@
         ],
         "1920543": [
             {
-                "dist": "2.687",
+                "dist": "3.222",
                 "mixing": "4",
                 "formula": "Er2CoIn8",
                 "structure_type": "Ho2CoGa8"
-            }
-        ],
-        "1000761": [
-            {
-                "dist": "2.705",
-                "mixing": "4",
-                "formula": "Er3Co2In4",
-                "structure_type": "Lu3Co2In4"
             }
         ]
     },
@@ -684,14 +500,14 @@
         ],
         "1814810": [
             {
-                "dist": "3.200",
-                "mixing": "2",
+                "dist": "3.009",
+                "mixing": "4",
                 "formula": "Er14Co3In3",
                 "structure_type": "Gd14Co3In2.7"
             },
             {
-                "dist": "3.009",
-                "mixing": "4",
+                "dist": "3.200",
+                "mixing": "2",
                 "formula": "Er14Co3In3",
                 "structure_type": "Gd14Co3In2.7"
             }
@@ -706,13 +522,13 @@
         ],
         "1920543": [
             {
-                "dist": "3.224",
+                "dist": "3.090",
                 "mixing": "4",
                 "formula": "Er2CoIn8",
                 "structure_type": "Ho2CoGa8"
             },
             {
-                "dist": "3.090",
+                "dist": "3.224",
                 "mixing": "4",
                 "formula": "Er2CoIn8",
                 "structure_type": "Ho2CoGa8"
@@ -721,6 +537,190 @@
         "1000761": [
             {
                 "dist": "2.948",
+                "mixing": "4",
+                "formula": "Er3Co2In4",
+                "structure_type": "Lu3Co2In4"
+            }
+        ]
+    },
+    "Co-In": {
+        "1840445": [
+            {
+                "dist": "2.813",
+                "mixing": "4",
+                "formula": "Er11Co4In9",
+                "structure_type": "Nd11Pd4In9"
+            },
+            {
+                "dist": "3.122",
+                "mixing": "4",
+                "formula": "Er11Co4In9",
+                "structure_type": "Nd11Pd4In9"
+            }
+        ],
+        "1233938": [
+            {
+                "dist": "2.626",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.725",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.676",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.698",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.715",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.677",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            }
+        ],
+        "1634753": [
+            {
+                "dist": "2.447",
+                "mixing": "4",
+                "formula": "ErCoIn5",
+                "structure_type": "HoCoGa5"
+            }
+        ],
+        "1803318": [
+            {
+                "dist": "2.975",
+                "mixing": "4",
+                "formula": "Er14Co2In3",
+                "structure_type": "Lu14Co2In3"
+            }
+        ],
+        "1956508": [
+            {
+                "dist": "2.687",
+                "mixing": "3",
+                "formula": "Er3Co1.87In4",
+                "structure_type": "Lu3Co2In4"
+            }
+        ],
+        "1234749": [
+            {
+                "dist": "2.460",
+                "mixing": "2",
+                "formula": "ErCo2.68In0.32",
+                "structure_type": "PuNi3"
+            },
+            {
+                "dist": "2.482",
+                "mixing": "2",
+                "formula": "ErCo2.68In0.32",
+                "structure_type": "PuNi3"
+            }
+        ],
+        "1803512": [
+            {
+                "dist": "2.674",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.728",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.693",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.618",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.715",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            },
+            {
+                "dist": "2.678",
+                "mixing": "4",
+                "formula": "Er10Co9In20",
+                "structure_type": "Ho10Ni9In20"
+            }
+        ],
+        "1229705": [
+            {
+                "dist": "2.930",
+                "mixing": "4",
+                "formula": "Er11Co4In9",
+                "structure_type": "Nd11Pd4In9"
+            },
+            {
+                "dist": "3.071",
+                "mixing": "4",
+                "formula": "Er11Co4In9",
+                "structure_type": "Nd11Pd4In9"
+            }
+        ],
+        "1814810": [
+            {
+                "dist": "2.964",
+                "mixing": "1",
+                "formula": "Er14Co3In3",
+                "structure_type": "Gd14Co3In2.7"
+            }
+        ],
+        "1925389": [
+            {
+                "dist": "2.922",
+                "mixing": "4",
+                "formula": "ErCo4In",
+                "structure_type": "MgCu4Sn"
+            }
+        ],
+        "1710931": [
+            {
+                "dist": "2.691",
+                "mixing": "4",
+                "formula": "ErCoIn5",
+                "structure_type": "HoCoGa5"
+            }
+        ],
+        "1920543": [
+            {
+                "dist": "2.687",
+                "mixing": "4",
+                "formula": "Er2CoIn8",
+                "structure_type": "Ho2CoGa8"
+            }
+        ],
+        "1000761": [
+            {
+                "dist": "2.705",
                 "mixing": "4",
                 "formula": "Er3Co2In4",
                 "structure_type": "Lu3Co2In4"

@@ -165,3 +165,21 @@ def create_output_folder_for_neighbor(
         os.makedirs(nested_folder_path)
 
     return nested_folder_path
+
+
+def create_folder_under_output_dir(cif_dir, folder_name):
+    # Define the path to the 'output' directory
+    output_dir = join(cif_dir, "output")
+
+    # Create the 'output' directory if it doesn't exist
+    if not os.path.exists(output_dir):
+        os.mkdir(output_dir)
+
+    # Define the path to the 'system_analysis' director
+    nested_output_dir = join(output_dir, folder_name)
+
+    # Create the 'system_analysis' directory if it doesn't exist
+    if not os.path.exists(nested_output_dir):
+        os.mkdir(nested_output_dir)
+
+    return nested_output_dir
