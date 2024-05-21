@@ -31,7 +31,7 @@ def get_normalized_formula(formula):
 
 def get_num_element(formula):
     elements = get_parsed_formula(formula)
-    return
+    return len(elements)
 
 
 def get_parsed_formula(formula):

@@ -2,6 +2,7 @@ import os
 import json
 import numpy as np
 import pandas as pd
+import click
 from preprocess import cif_parser
 from util import prompt, formula_parser, sort
 
@@ -250,6 +251,7 @@ def get_all_unique_formulas(updated_json_file_path):
     # Iterate over the outer dictionary
     for bond_pair, entries in json_data.items():
         # Iterate over each ID in the bond pair
+
         for entry_list in entries.values():
             # Iterate over the list of dictionaries under each ID
             for entry in entry_list:
@@ -305,3 +307,73 @@ def generate_unique_pairs_from_formulas(updated_json_file_path):
     sorted_unique_elements = sort.sort_by_mendeleev(unique_elements)
     possible_bond_pairs = generate_bond_pairs(sorted_unique_elements)
     return possible_bond_pairs
+
+
+def get_is_binary(json_file_path):
+    click.echo("All binary compounds are found.")
+    unique_formulas = get_all_unique_formulas(json_file_path)
+    return all(
+        formula_parser.get_num_element(formula) == 2
+        for formula in unique_formulas
+    )
+
+
+def get_is_ternary(json_file_path):
+    click.echo("All ternary compounds are found.")
+    unique_formulas = get_all_unique_formulas(json_file_path)
+    print(unique_formulas)
+    return all(
+        formula_parser.get_num_element(formula) == 3
+        for formula in unique_formulas
+    )
+
+
+def get_is_binary_ternary_combined(json_file_path):
+    click.echo("Files contain both binary and ternary compounds.")
+    unique_formulas = get_all_unique_formulas(json_file_path)
+    element_counts = [
+        formula_parser.get_num_element(formula)
+        for formula in unique_formulas
+    ]
+    return 2 in element_counts and 3 in element_counts
+
+
+def extract_bond_counts(structure_dict):
+    bond_count_dict = {}
+    # Iterate over each key in the structure_dict (assuming each key is a compound name or ID)
+    for compound in structure_dict:
+        bond_data = structure_dict[compound]["bond_data"]
+        formula = structure_dict[compound]["formulas"][
+            0
+        ]  # Assuming all entries in formulas list are the same
+
+        # Initialize dictionary for this compound if not already present
+        if formula not in bond_count_dict:
+            bond_count_dict[formula] = {
+                "Co-Co": 0,
+                "Co-In": 0,
+                "In-In": 0,
+            }
+
+        # Summarize the bond counts across different data entries for the same formula
+        for bond_type in bond_data:
+            bond_count = bond_data[bond_type]["unique_bond_count"]
+            bond_count_dict[formula][bond_type] += bond_count
+
+    return bond_count_dict
+
+
+def normalize_bond_counts(bond_count_dict):
+    normalized_bond_count_dict = {}
+    for formula, bonds in bond_count_dict.items():
+        total_bonds = sum(bonds.values())
+        if total_bonds == 0:  # Avoid division by zero
+            normalized_bond_count_dict[formula] = {
+                bond: 0 for bond in bonds
+            }
+        else:
+            normalized_bond_count_dict[formula] = {
+                bond: count / total_bonds
+                for bond, count in bonds.items()
+            }
+    return normalized_bond_count_dict

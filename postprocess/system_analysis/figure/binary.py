@@ -1,69 +1,71 @@
-# def draw_horizontal_line_with_marks(bond_fractions_list, bond_types):
-#     fig, ax = plt.subplots()  # Create a figure and an axes.
+import numpy as np
+from util import formula_parser
+import matplotlib.pyplot as plt
+from postprocess.system_analysis.figure import hexagon
 
-#     # Draw the horizontal line
-#     ax.plot(
-#         [0, 1], [0, 0], "k-", lw=2
-#     )  # Single line for both markers
 
-#     # Add labels at the ends of the line
-#     ax.text(
-#         0,
-#         0,
-#         "Co",
-#         fontsize=12,
-#         ha="right",
-#         va="center",
-#         backgroundcolor="white",
-#     )
-#     ax.text(
-#         1,
-#         0,
-#         "In",
-#         fontsize=12,
-#         ha="left",
-#         va="center",
-#         backgroundcolor="white",
-#     )
+def draw_horizontal_lines_with_multiple_marks(norm_bond_count_dict):
+    fig, ax = plt.subplots()  # Create a figure and an axes only once.
 
-#     my_parsed_formulas = []
-#     # Place marks along the line
-#     for bond_fractions in bond_fractions_list:
-#         form = bond_fractions[0]
-#         normalized_formula = formula_parser.get_normalized_formula(
-#             labels
-#         )
-#         parsed_normalized_formula = formula_parser.get_parsed_formula(
-#             normalized_formula
-#         )
-#         my_parsed_formulas.append((labels, parsed_normalized_formula))
+    # Draw the horizontal line
+    ax.plot([0, 1], [0, 0], "k-", lw=2)
+    # Process each formula
+    for formula, bond_counts in norm_bond_count_dict.items():
+        parsed_normalized_formula = (
+            formula_parser.get_parsed_norm_formula(formula)
+        )
+        A_label, _ = parsed_normalized_formula[0]
+        B_label, B_norm_index = parsed_normalized_formula[1]
 
-#     for formula, labels in my_parsed_formulas:
-#         # Find the position for 'In' from the formula and place a marker
-#         for element, fraction_str in labels:
-#             fraction = float(fraction_str)
-#             if element == "In":
-#                 ax.plot(
-#                     fraction,
-#                     0,
-#                     "ro",
-#                     label=f"{formula}",
-#                 )  # Place marker at the fraction
-#                 ax.text(
-#                     fraction,
-#                     0.05,
-#                     f"{formula}",
-#                     fontsize=7,
-#                     ha="center",
-#                     va="bottom",
-#                 )
+        bond_fractions = list(bond_counts.values())
+        print(bond_fractions)
+        marker_position = float(B_norm_index)
+        center_pt = [marker_position, 0]
+        hexagon.draw_hexagon_per_center_point(
+            center_pt, bond_fractions, is_binary=True
+        )
 
-#     # Set limits to slightly beyond the ends to ensure visibility of labels and markers
-#     ax.set_xlim(-0.1, 1.1)
-#     ax.set_ylim(-0.2, 0.2)
+        # Add labels for the first and last element
+        ax.text(
+            0,
+            -0.1,
+            A_label,
+            fontsize=12,
+            ha="right",
+            va="center",
+            backgroundcolor="white",
+        )
+        ax.text(
+            1,
+            -0.1,
+            B_label,
+            fontsize=12,
+            ha="left",
+            va="center",
+            backgroundcolor="white",
+        )
 
-#     # Remove axes and ticks
-#     ax.axis("off")
+        # Draw the marker for this formula
+        ax.plot(
+            float(marker_position),
+            0,
+            "ko",
+            markersize=4,
+            label=f"{formula} ({B_label})",
+        )
+        ax.text(
+            float(marker_position),
+            0.05,
+            f"{formula}",
+            fontsize=7,
+            ha="center",
+            va="bottom",
+        )
 
-#     # Show the plot
-#     plt.show()
+    # Set limits to slightly beyond the ends to ensure visibility of labels and markers
+    ax.set_xlim(-0.1, 1.1)
+    ax.set_ylim(-0.5, 0.2)
+
+    # Remove axes and ticks
+    plt.gca().set_aspect("equal", adjustable="box")
+    ax.axis("off")

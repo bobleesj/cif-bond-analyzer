@@ -2,10 +2,14 @@ import random
 import numpy as np
 import os
 from os.path import join
-from util import formula_parser, sort, folder
+from util import formula_parser, sort, folder, prompt
 import matplotlib.pyplot as plt
 from postprocess.system_analysis import system_analysis
-from postprocess.system_analysis.figure import hexagon, ternary
+from postprocess.system_analysis.figure import (
+    hexagon,
+    ternary,
+    binary,
+)
 
 
 def draw_ternary_figure(
@@ -197,57 +201,25 @@ def draw_individual_hexagon(
     print(
         f"Saved individual hexagon images and a composite image in {output_dir}"
     )
-    # # Get a hexagon points
-    # center_pt = (0, 0)
-    # outer_line_width = 2
-    # color_line_width = 4
-    # inner_line_width = 1
-    # inner_alpha = 0.3
-    # outer_alpha = 1
-    # radius = 0.05
 
-    # for structure in unique_structure_types:
-    #     result = system_analysis.extract_structure_info(
-    #         structure_dict, structure
-    #     )
-    #     formulas, bond_labels, bond_fractions = result
-    #     formula = formula_parser.get_subscripted_formula(formulas[0])
-    #     structure = formula_parser.get_subscripted_formula(structure)
 
-    #     hexagon.draw_hexagon_per_center_point(
-    #         center_pt,
-    #         bond_fractions,
-    #         radius=radius,
-    #         inner_alpha=inner_alpha,
-    #         outer_alpha=outer_alpha,
-    #         inner_line_width=inner_line_width,
-    #         outer_line_width=outer_line_width,
-    #         color_line_width=color_line_width,
-    #     )
+def draw_binary_figure(structure_dict, output_dir):
+    bond_count_dict = system_analysis.extract_bond_counts(
+        structure_dict
+    )
+    norm_bond_count_dict = system_analysis.normalize_bond_counts(
+        bond_count_dict
+    )
+    prompt.print_dict_in_json(norm_bond_count_dict)
 
-    #     plt.scatter(
-    #         center_pt[0], center_pt[1], color="black", s=10, zorder=3
-    #     )
+    binary.draw_horizontal_lines_with_multiple_marks(
+        norm_bond_count_dict
+    )
 
-    #     x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(
-    #         center_pt, radius
-    #     )
-    #     # Place bond labels near each vertex
-    #     label_offset = -0.015  # Distance from vertex to label
-    #     for i, (x, y, label) in enumerate(
-    #         zip(x_hex_pts, y_hex_pts, bond_labels)
-    #     ):
-    #         plt.text(
-    #             x + label_offset * np.cos(i * np.pi / 3 + np.pi / 6),
-    #             y + label_offset * np.sin(i * np.pi / 3 + np.pi / 6),
-    #             label,
-    #             fontsize=10,
-    #             ha="center",
-    #         )
+    # Show the plot
+    plt.show()
+    plt.close()
 
-    #     # Add label to each
-
-    #     plt.gca().set_aspect("equal", adjustable="box")
-    #     plt.axis("off")
-    #     plt.show()
-    #     plt.close()
+    # output_filepath = join(output_dir, "binary.png")
+    # plt.savefig(output_filepath, dpi=300)
+    # plt.close()
