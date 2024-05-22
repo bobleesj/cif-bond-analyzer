@@ -13,6 +13,7 @@ from preprocess import (
     cif_parser,
     cif_parser_handler,
     format,
+    supercell_handler,
 )
 from util import folder, prompt
 from postprocess import neighbor
@@ -52,7 +53,7 @@ def main():
         _, lengths, angles, _, supercell_points, labels, _ = result
 
         unitcell_points = (
-            cif_parser_handler.get_flattened_points_from_unitcell(
+            supercell_handler.get_flattened_points_from_unitcell(
                 file_path
             )
         )

@@ -62,10 +62,7 @@ def draw_horizontal_lines_with_multiple_marks(norm_bond_count_dict):
             va="bottom",
         )
 
-    # Set limits to slightly beyond the ends to ensure visibility of labels and markers
     ax.set_xlim(-0.1, 1.1)
     ax.set_ylim(-0.5, 0.2)
-
-    # Remove axes and ticks
     plt.gca().set_aspect("equal", adjustable="box")
     ax.axis("off")

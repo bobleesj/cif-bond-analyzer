@@ -11,7 +11,7 @@ import numpy as np
 from preprocess.cif_parser import get_atom_type
 from preprocess import supercell
 from postprocess import pair_order
-from preprocess import cif_parser_handler
+from preprocess import supercell_handler
 
 
 def get_atom_site_labeled_dict(
@@ -30,7 +30,7 @@ def get_atom_site_labeled_dict(
     atom_site_dict = {}
 
     unitcell_points = (
-        cif_parser_handler.get_flattened_points_from_unitcell(
+        supercell_handler.get_flattened_points_from_unitcell(
             file_path
         )
     )

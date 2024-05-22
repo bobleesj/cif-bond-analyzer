@@ -49,22 +49,6 @@ def get_cif_loop_values(file_path: str) -> list:
     return cif_loop_values
 
 
-def get_flattened_points_from_unitcell(file_path):
-    loop_tags = cif_parser.get_loop_tags()
-    cif_block = cif_parser.get_cif_block(file_path)
-    cif_loop_values = cif_parser.get_loop_values(cif_block, loop_tags)
-    all_coords_list = supercell.get_coords_list(
-        cif_block, cif_loop_values
-    )
-    points, _, _ = supercell.get_points_and_labels(
-        all_coords_list,
-        cif_loop_values,
-        1,
-        is_flatten_points_only=True,
-    )
-    return points
-
-
 def get_folder_and_files_info(
     script_directory: str, is_interactive_mode: bool
 ):

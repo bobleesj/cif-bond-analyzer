@@ -29,6 +29,7 @@ def draw_hexagon_per_center_point(
 ):
     # Get colors
     colors = color.get_hexagon_vertex_colors(is_binary)
+
     # Get hexagon poitns
     x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(
         center_pt, radius
@@ -84,6 +85,18 @@ def draw_hexagon_per_center_point(
             bond_fraction = bond_fractions[i]
             norm_x = center_pt[0] + bond_fraction * (x - center_pt[0])
             norm_y = center_pt[1] + bond_fraction * (y - center_pt[1])
+
+            # Draw black underneath color
+            plt.plot(
+                [center_pt[0], norm_x],
+                [center_pt[1], norm_y],
+                "-",
+                lw=color_line_width + 2,
+                color="black",
+                zorder=2,
+                alpha=1,
+            )
+
             plt.plot(
                 [center_pt[0], norm_x],
                 [center_pt[1], norm_y],
@@ -93,31 +106,36 @@ def draw_hexagon_per_center_point(
                 zorder=3,
             )
 
-            if is_individual_hexagonal:
-                start_offset = 0.05  # Distance to start from the actual endpoint, adjust as needed
-                outward_length = 0.01  # Adjust this value as needed
+            start_offset = 0.01  # Distance to start from the actual endpoint, adjust as needed
+            outward_length = 0.01  # Adjust this value as needed
 
-                # Calculate the direction of the original line from the center to the endpoint and normalize
-                direction = np.array([norm_x, norm_y])
-                direction_norm = direction / np.linalg.norm(direction)
+            # Calculate the direction of the original line from the center to the endpoint and normalize
+            direction = np.array([norm_x, norm_y])
+            direction_norm = direction / np.linalg.norm(direction)
 
-                # Start the black line slightly away from the endpoint
-                start_point = (
-                    np.array([norm_x, norm_y])
-                    + direction_norm * start_offset
-                )
+            # Extend the endpoint outward along the same direction
+            start_offset = 0.01  # Distance to start from the actual endpoint, adjust as needed
+            outward_length = 0.01  # Adjust this value as needed
 
-                # Extend the endpoint outward along the same direction
-                extended_point = np.array(
-                    [norm_x, norm_y]
-                ) + direction_norm * (outward_length + start_offset)
+            #     # Calculate the direction of the original line from the center to the endpoint and normalize
 
-                # Draw the line from the start point to the extended point
-                plt.plot(
-                    [start_point[0], extended_point[0]],  # x
-                    [start_point[1], extended_point[1]],  # y
-                    "-",
-                    lw=color_line_width,
-                    # lw=2,
-                    color="black",
-                )
+            # Start the black line slightly away from the endpoint
+            start_point = (
+                np.array([norm_x, norm_y])
+                + direction_norm * start_offset
+            )
+
+            # Extend the endpoint outward along the same direction
+            extended_point = np.array(
+                [norm_x, norm_y]
+            ) + direction_norm * (outward_length + start_offset)
+
+            # Draw the line from the start point to the extended point
+            # plt.plot(
+            #     [start_point[0], extended_point[0]],  # x
+            #     [start_point[1], extended_point[1]],  # y
+            #     "-",
+            #     lw=color_line_width,
+            #     color="black",
+            #     zorder=4,
+            # )

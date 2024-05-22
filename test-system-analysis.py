@@ -15,8 +15,10 @@ pd.set_option("display.max_rows", None)
 
 
 def conduct_system_analysis():
-    cif_dir = "20240512_SA_binary"
-    # cif_dir = "20250519_ErCoIn_SA"
+    cif_dir = "20250519_SA_ternary"
+    # cif_dir = "20240512_SA_binary"
+    # cif_dir = "20240519_ErCoIn_ternary_binary_combine"
+
     json_file_path = cif_dir + f"/output/{cif_dir}_site_pairs.json"
     updated_json_file_path = (
         f"{cif_dir}/output/updated_{cif_dir}_site_pairs.json"
@@ -96,6 +98,7 @@ def conduct_system_analysis():
         )
     print("\nTernary?", is_ternary)
     print("Binary?", is_binary)
+    print("Ternary and binary combined?", is_binary_ternary_combined)
 
     if is_ternary:
         system_analysis_figure.draw_ternary_figure(
@@ -104,12 +107,15 @@ def conduct_system_analysis():
             output_dir,
         )
 
-    # system_analysis_figure.draw_individual_hexagon(
-    #     structure_dict,
-    #     unique_structure_types,
-    #     output_dir,
-    #     is_individual_hexagonal=True,
-    # )
+    # if is_binary_ternary_combined:
+    #     system_analysis_figure.draw_ter
+    if is_binary or is_ternary or is_binary_ternary_combined:
+        system_analysis_figure.draw_individual_hexagon(
+            structure_dict,
+            unique_structure_types,
+            output_dir,
+            is_individual_hexagonal=True,
+        )
 
 
 if __name__ == "__main__":

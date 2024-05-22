@@ -142,8 +142,6 @@ def main(is_iteractive_mode=True, given_dir_path=None):
                 file_path,
             )
 
-            print(atom_site_labeled_dict)
-
             # Get atom site dict without the numbers on the label
             atom_site_pair_dict = (
                 bond.get_atom_site_dict_with_no_number(
