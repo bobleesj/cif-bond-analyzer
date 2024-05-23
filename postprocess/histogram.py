@@ -247,11 +247,3 @@ def plot_histograms(
             dpi=150,
         )
         plt.close(fig)
-
-
-"""
-        for i in range(len(current_pairs), len(axes)):
-            axes[i].set_visible(False)  # Hide unused axes
-
-
-"""

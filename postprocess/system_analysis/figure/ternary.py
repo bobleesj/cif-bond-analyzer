@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def get_point_in_triangle_from_ternary_norm_index(
+def get_point_in_triangle_from_ternary_index(
     v0, v1, v2, R_norm_index, M_norm_index
 ):
     # R_norm_index corresponds to v2

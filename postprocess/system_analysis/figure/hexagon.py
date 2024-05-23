@@ -15,36 +15,35 @@ def get_hexagon_points(center, size):
     return np.around(x_hex, 5), np.around(y_hex, 5)
 
 
-def draw_hexagon_per_center_point(
+def draw_single_hexagon_and_lines_per_center_point(
     center_pt,
     bond_fractions,
+    is_binary,
+    is_for_individual_hexagon,
     radius=0.05,
-    hex_outline_color="#D3D3D3",
+    hex_inner_color="#D3D3D3",
+    hex_outer_color="#D3D3D3",
     hex_inner_line_width=0.5,
     hex_outer_line_width=0.5,
     color_line_width=2.5,
-    is_individual_hexagonal=False,
-    is_binary=False,
 ):
     # Get colors
-    colors = color.get_hexagon_vertex_colors(is_binary)
-
+    colors = color.get_hexagon_vertex_colors(False)
     # Get hexagon poitns
     x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(
         center_pt, radius
     )
 
-    if is_individual_hexagonal:
-        black_line_width = color_line_width + 2
+    if is_for_individual_hexagon:
+        black_line_width = color_line_width + 2.5
     else:
         black_line_width = color_line_width + 1
 
     draw_hexagon_outline(
-        center_pt,
         x_hex_pts,
         y_hex_pts,
         hex_outer_line_width,
-        hex_outline_color,
+        hex_outer_color,
     )
 
     draw_hexagon_center_to_vertex(
@@ -52,11 +51,10 @@ def draw_hexagon_per_center_point(
         x_hex_pts,
         y_hex_pts,
         hex_inner_line_width,
-        hex_outline_color,
+        hex_inner_color,
     )
 
     draw_colored_and_black_lines(
-        is_binary,
         x_hex_pts,
         y_hex_pts,
         center_pt,
@@ -64,18 +62,13 @@ def draw_hexagon_per_center_point(
         colors,
         color_line_width,
         black_line_width,
+        is_for_individual_hexagon,
     )
 
 
-def draw_hexagon_outline(center_pt, x_hex_pts, y_hex_pts, lw, color):
+def draw_hexagon_outline(x_hex_pts, y_hex_pts, lw, color):
     # Draw hexagon outline
-    plt.plot(
-        x_hex_pts,
-        y_hex_pts,
-        "-",
-        lw=lw,
-        color=color,
-    )
+    plt.plot(x_hex_pts, y_hex_pts, "-", lw=lw, color=color, zorder=3)
 
 
 def draw_hexagon_center_to_vertex(
@@ -93,7 +86,6 @@ def draw_hexagon_center_to_vertex(
 
 
 def draw_colored_and_black_lines(
-    is_binary,
     x_hex_pts,
     y_hex_pts,
     center_pt,
@@ -101,41 +93,32 @@ def draw_colored_and_black_lines(
     colors,
     color_line_width,
     black_line_width,
+    is_for_individual_hexagon,
 ):
-    if is_binary:
-        num_points = 3
-        for i in range(num_points):
-            x = x_hex_pts[i]
-            y = y_hex_pts[i]
-            bond_fraction = bond_fractions[i]
-            norm_x, norm_y = get_norm_positions(
-                x, y, center_pt, bond_fraction
-            )
-            plot_colored_black_lines_with_fraction(
-                center_pt,
-                norm_x,
-                norm_y,
-                color_line_width,
-                colors[i],
-            )
+    num_of_point = 6
+    # print("let draw single hexagon")
+    # print(bond_fractions)
+    # print(np.round(center_pt, 3))
 
-    if not is_binary:
-        # Draw colored lins
-        for i, (x, y) in enumerate(
-            zip(x_hex_pts[:-1], y_hex_pts[:-1])
-        ):  # Exclude the last repeated point
-            bond_fraction = bond_fractions[i]
-            norm_x, norm_y = get_norm_positions(
-                x, y, center_pt, bond_fraction
-            )
+    for i in range(num_of_point):
+        x_hex_pt = x_hex_pts[i]
+        y_hex_pt = y_hex_pts[i]
+        bond_fraction = bond_fractions[i]
+        x_color_pt, y_color_pt = get_norm_positions(
+            x_hex_pt, y_hex_pt, center_pt, bond_fraction
+        )
 
-            plot_colored_black_lines_with_fraction(
-                center_pt,
-                norm_x,
-                norm_y,
-                color_line_width,
-                colors[i],
-            )
+        plot_colored_black_lines_with_fraction(
+            center_pt,
+            x_hex_pt,
+            y_hex_pt,
+            x_color_pt,
+            y_color_pt,
+            color_line_width,
+            black_line_width,
+            colors[i],
+            is_for_individual_hexagon,
+        )
 
 
 def get_norm_positions(x, y, center_pt, bond_fraction):
@@ -145,45 +128,117 @@ def get_norm_positions(x, y, center_pt, bond_fraction):
 
 
 def plot_colored_black_lines_with_fraction(
-    center_pt, x, y, lw, color
+    center_pt,
+    x_hex_pt,
+    y_hex_pt,
+    x_color_pt,
+    y_color_pt,
+    lw,
+    black_lw,
+    color,
+    is_for_individual_hexagon,
 ):
-    order = 3
-    # Calculate the distance between the points
-    dx = x - center_pt[0]
-    dy = y - center_pt[1]
-    dist = np.sqrt(dx**2 + dy**2)
+    if is_for_individual_hexagon:
+        order = 5
+        scale = 0.018
+        # Calculate the unit vector for the color point
+        dx = x_color_pt - center_pt[0]
+        dy = y_color_pt - center_pt[1]
+        dist = np.sqrt(dx**2 + dy**2)
+        unit_vector = np.array([dx, dy]) / dist
 
-    # Calculate the marker radius in data units
-    # Assuming the figure dpi is standard (could vary),
-    # and the axes are scaled equally
-    fig_dpi = plt.gcf().dpi
-    marker_radius_in_pixels = np.sqrt(lw)
-    marker_radius_in_data_units = (
-        marker_radius_in_pixels
-        * (dist / np.sqrt(dx**2 + dy**2))
-        / fig_dpi
-    )
+        # Calculate the unit vector for the hexagon vertex
+        dx_hex = x_hex_pt - center_pt[0]
+        dy_hex = (
+            y_hex_pt - center_pt[1]
+        )  # Corrected from center_pt[0] to center_pt[1]
+        dist_hex = np.sqrt(dx_hex**2 + dy_hex**2)
+        hex_unit_vector = np.array([dx_hex, dy_hex]) / dist_hex
 
-    # Calculate the new endpoint that subtracts the marker radius
-    new_x = x - (marker_radius_in_data_units / dist) * dx
-    new_y = y - (marker_radius_in_data_units / dist) * dy
+        # Adjust endpoint by half the marker radius
+        marker_adjustment = lw * scale
+        start_offset = marker_adjustment / 2  # Half the marker size
+        start_color_x = (
+            center_pt[0] + hex_unit_vector[0] * start_offset
+        )
+        start_color_y = (
+            center_pt[1] + hex_unit_vector[1] * start_offset
+        )
 
-    # Draw the line to the new endpoint
-    plt.plot(
-        [center_pt[0], new_x],
-        [center_pt[1], new_y],
-        "-",
-        lw=lw,
-        color=color,
-        zorder=order,
-    )
+        end_color_x = center_pt[0] + unit_vector[0] * (
+            dist - start_offset
+        )
+        end_color_y = center_pt[1] + unit_vector[1] * (
+            dist - start_offset
+        )
 
-    # Black lines underneath the colored lines
-    plt.plot(
-        [center_pt[0], new_x],
-        [center_pt[1], new_y],
-        "-",
-        lw=lw + 1,
-        color="black",
-        zorder=order - 1,
-    )
+        # Draw the colored line
+        plt.plot(
+            [start_color_x, end_color_x],
+            [start_color_y, end_color_y],
+            "-",
+            lw=lw,
+            color=color,
+            zorder=order,
+        )
+        # Black line
+        plt.plot(
+            [start_color_x, end_color_x],
+            [start_color_y, end_color_y],
+            "-",
+            lw=black_lw,
+            color="black",
+            zorder=order - 1,
+        )
+    if not is_for_individual_hexagon:
+        order = 5
+        scale = 0.003
+        # Calculate the unit vector for the color point
+        dx = x_color_pt - center_pt[0]
+        dy = y_color_pt - center_pt[1]
+        dist = np.sqrt(dx**2 + dy**2)
+        unit_vector = np.array([dx, dy]) / dist
+
+        # Calculate the unit vector for the hexagon vertex
+        dx_hex = x_hex_pt - center_pt[0]
+        dy_hex = (
+            y_hex_pt - center_pt[1]
+        )  # Corrected from center_pt[0] to center_pt[1]
+        dist_hex = np.sqrt(dx_hex**2 + dy_hex**2)
+        hex_unit_vector = np.array([dx_hex, dy_hex]) / dist_hex
+
+        # Adjust endpoint by half the marker radius
+        marker_adjustment = lw * scale
+        start_offset = marker_adjustment / 2  # Half the marker size
+        start_color_x = (
+            center_pt[0] + hex_unit_vector[0] * start_offset
+        )
+        start_color_y = (
+            center_pt[1] + hex_unit_vector[1] * start_offset
+        )
+
+        end_color_x = center_pt[0] + unit_vector[0] * (
+            dist - start_offset
+        )
+        end_color_y = center_pt[1] + unit_vector[1] * (
+            dist - start_offset
+        )
+
+        # Draw the colored line
+        plt.plot(
+            [start_color_x, end_color_x],
+            [start_color_y, end_color_y],
+            "-",
+            lw=lw,
+            color=color,
+            zorder=order,
+        )
+        # Black line
+        plt.plot(
+            [start_color_x, end_color_x],
+            [start_color_y, end_color_y],
+            "-",
+            lw=black_lw,
+            color="black",
+            zorder=order - 1,
+        )

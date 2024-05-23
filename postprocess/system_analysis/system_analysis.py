@@ -226,7 +226,7 @@ def add_bond_fractions_per_structure(structure_dict):
     return structure_dict
 
 
-def extract_structure_info(structure_dict, structure_key):
+def extract_info_per_structure(structure_dict, structure_key):
     """
     Extracts formula, bond type labels, and bond fractions
     for a given structure.
@@ -242,6 +242,32 @@ def extract_structure_info(structure_dict, structure_key):
     ]
 
     return (formulas, bond_labels, bond_fractions)
+
+
+def extract_bond_info_per_formula(formula, structure_dict):
+    """
+    Parses the structure and bond fractions for each formula across all occurrences in the dictionary.
+    """
+
+    # Initialize lists to store bond labels and fractions for the input formula
+    bond_fractions = []
+    structures_found = []
+
+    # Search through each structure in the dictionary
+    for structure_key, structure_info in structure_dict.items():
+        # Check if the formula is in the current structure's formula list
+        if formula in structure_info["formulas"]:
+            # Retrieve the bond fraction data for this structure
+            bond_data = structure_info.get("bond_fractions", {})
+            bond_fractions_temp = []
+            for bond, fraction in bond_data.items():
+                bond_fractions_temp.append(fraction)
+            bond_fractions.append(bond_fractions_temp)
+            structures_found.append(structure_key)
+
+    # Check if any structure was found containing the formula
+    if structures_found:
+        return bond_fractions, structures_found
 
 
 def get_all_unique_formulas(updated_json_file_path):
@@ -339,28 +365,20 @@ def get_is_binary_ternary_combined(json_file_path):
 
 
 def extract_bond_counts(structure_dict):
-    bond_count_dict = {}
+    bond_count_per_formula_dict = {}
     # Iterate over each key in the structure_dict (assuming each key is a compound name or ID)
-    for compound in structure_dict:
-        bond_data = structure_dict[compound]["bond_data"]
-        formula = structure_dict[compound]["formulas"][
-            0
-        ]  # Assuming all entries in formulas list are the same
-
-        # Initialize dictionary for this compound if not already present
-        if formula not in bond_count_dict:
-            bond_count_dict[formula] = {
-                "Co-Co": 0,
-                "Co-In": 0,
-                "In-In": 0,
-            }
+    for structure in structure_dict:
+        bond_data = structure_dict[structure]["bond_data"]
+        formula = structure_dict[structure]["formulas"][0]
 
         # Summarize the bond counts across different data entries for the same formula
         for bond_type in bond_data:
             bond_count = bond_data[bond_type]["unique_bond_count"]
-            bond_count_dict[formula][bond_type] += bond_count
+            bond_count_per_formula_dict[formula][
+                bond_type
+            ] += bond_count
 
-    return bond_count_dict
+    return bond_count_per_formula_dict
 
 
 def normalize_bond_counts(bond_count_dict):

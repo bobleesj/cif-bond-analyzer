@@ -18,11 +18,13 @@ def draw_horizontal_lines_with_multiple_marks(norm_bond_count_dict):
         B_label, B_norm_index = parsed_normalized_formula[1]
 
         bond_fractions = list(bond_counts.values())
-        print(bond_fractions)
         marker_position = float(B_norm_index)
         center_pt = [marker_position, 0]
-        hexagon.draw_hexagon_per_center_point(
-            center_pt, bond_fractions, is_binary=True
+        hexagon.draw_single_hexagon_and_lines_per_center_point(
+            center_pt,
+            bond_fractions,
+            is_binary=True,
+            is_for_individual_hexagon=False,
         )
 
         # Add labels for the first and last element

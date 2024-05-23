@@ -78,7 +78,7 @@ def conduct_system_analysis():
     """
     Step 3. Generate Excel file
     """
-    prompt.print_dict_in_json(structure_dict)
+    # prompt.print_dict_in_json(structure_dict)
 
     # Save Structure Analysis and Overview Excel
     system_analysis_excel.save_structure_analysis_excel(
@@ -92,10 +92,10 @@ def conduct_system_analysis():
     """
     # prompt.print_dict_in_json(structure_dict)
 
-    if is_binary:
-        system_analysis_figure.draw_binary_figure(
-            structure_dict, output_dir
-        )
+    # if is_binary:
+    #     system_analysis_figure.draw_binary_figure(
+    #         structure_dict, output_dir
+    #     )
     print("\nTernary?", is_ternary)
     print("Binary?", is_binary)
     print("Ternary and binary combined?", is_binary_ternary_combined)
@@ -104,19 +104,22 @@ def conduct_system_analysis():
         system_analysis_figure.draw_ternary_figure(
             structure_dict,
             unique_structure_types,
+            unique_formulas,
             output_dir,
             is_binary_ternary_combined,
         )
 
-        system_analysis_figure.draw_individual_hexagon(
+        system_analysis_figure.draw_hexagon_for_individual_figure(
             structure_dict,
             unique_structure_types,
             output_dir,
             is_binary,
             is_individual_hexagonal=True,
         )
-    # if is_binary or is_ternary or is_binary_ternary_combined:
-    #     system_analysis_figure.draw_individual_hexagon(
+    # if is_binary:
+    #     # system_analysis_figure.draw_binary_figure()
+
+    #     system_analysis_figure.draw_hexagon_for_individual_figure(
     #         structure_dict,
     #         unique_structure_types,
     #         output_dir,
