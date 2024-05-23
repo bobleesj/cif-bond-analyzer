@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def get_point_in_triangle_from_norm_index(
+def get_point_in_triangle_from_ternary_norm_index(
     v0, v1, v2, R_norm_index, M_norm_index
 ):
     # R_norm_index corresponds to v2
@@ -35,9 +35,6 @@ def draw_ternary_frame(v0, v1, v2):
 
     # Draw edges of the traingle
     plt.gca().add_patch(triangle)
-
-    # Draw traingular grid
-    draw_triangular_grid(v0, v1, v2, n_lines=10)
 
 
 def add_vertex_labels(v0, v1, v2, labels):
@@ -127,10 +124,8 @@ def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
     plt.gca().add_patch(filled_edge3)
 
 
-def draw_triangular_grid(v0, v1, v2, n_lines=10):
+def draw_triangular_grid(v0, v1, v2, alpha, line_width, n_lines=10):
     # Line parallel to v2v0 (right slant)
-    alpha = 0.2
-    line_width = 0.5
     for i in range(1, n_lines):
         t = i / n_lines
 

@@ -1,8 +1,6 @@
-import random
 import numpy as np
-import os
 from os.path import join
-from util import formula_parser, sort, folder, prompt
+from util import formula_parser, prompt
 import matplotlib.pyplot as plt
 from postprocess.system_analysis import system_analysis
 from postprocess.system_analysis.figure import (
@@ -13,19 +11,31 @@ from postprocess.system_analysis.figure import (
 
 
 def draw_ternary_figure(
-    structure_dict, unique_structure_types, output_dir
+    structure_dict,
+    unique_structure_types,
+    output_dir,
+    is_binary_ternary_combined,
 ):
+    # Hexagon
+    center_dot_radius = 5
     formula_offset = -0.07
     formula_font_size = 9
+
+    # Grid
+    grid_alpha = 0.2
+    grid_line_width = 0.5
+
     v0, v1, v2 = ternary.generate_traingle_vertex_points()
     ternary.draw_ternary_frame(v0, v1, v2)
     ternary.draw_filled_edges(v0, v1, v2)
-
+    ternary.draw_triangular_grid(
+        v0, v1, v2, grid_alpha, grid_line_width, n_lines=10
+    )
     for structure in unique_structure_types:
         result = system_analysis.extract_structure_info(
             structure_dict, structure
         )
-        formulas, _, bond_fractions = result
+        formulas, _, bond_fractions_per_structure = result
         formula = formulas[0]
         formula_formatted = formula_parser.get_subscripted_formula(
             formula
@@ -35,19 +45,46 @@ def draw_ternary_figure(
             formula_parser.get_parsed_norm_formula(formula)
         )
 
-        # Sort the formula based on Mendeeleeve
-        R_norm_index = parsed_normalized_formula[0][1]
-        M_norm_index = parsed_normalized_formula[1][1]
-        R_label = parsed_normalized_formula[0][0]
-        M_label = parsed_normalized_formula[1][0]
-        X_label = parsed_normalized_formula[2][0]
-        labels = [R_label, M_label, X_label]
+        num_of_elements = formula_parser.get_num_element(formula)
+        center_point = None
 
-        center_point = ternary.get_point_in_triangle_from_norm_index(
-            v0, v1, v2, float(R_norm_index), float(M_norm_index)
-        )
+        # For ternary
+        if num_of_elements == 3:
+            R_norm_index = parsed_normalized_formula[0][1]
+            M_norm_index = parsed_normalized_formula[1][1]
+            R_label = parsed_normalized_formula[0][0]
+            M_label = parsed_normalized_formula[1][0]
+            X_label = parsed_normalized_formula[2][0]
+            labels = [R_label, M_label, X_label]
+
+            center_point = (
+                ternary.get_point_in_triangle_from_ternary_norm_index(
+                    v0,
+                    v1,
+                    v2,
+                    float(R_norm_index),
+                    float(M_norm_index),
+                )
+            )
+            # Add vertex label using ternary formula
+            ternary.add_vertex_labels(v0, v1, v2, labels)
+
+        # For binary
+        if num_of_elements == 2:
+            A_norm_index = parsed_normalized_formula[0][1]
+            B_norm_index = parsed_normalized_formula[1][1]
+            A_label = parsed_normalized_formula[0][0]
+            B_label = parsed_normalized_formula[1][0]
+            labels = [A_label, B_label]
+
+            center_point = (
+                ternary.get_point_in_triangle_from_ternary_norm_index(
+                    v0, v1, v2, float(0), (1 - float(B_norm_index))
+                )
+            )
+
         hexagon.draw_hexagon_per_center_point(
-            center_point, bond_fractions, 0.05
+            center_point, bond_fractions_per_structure
         )
         # Write one of the chemical formulas
         plt.text(
@@ -57,15 +94,16 @@ def draw_ternary_figure(
             fontsize=formula_font_size,
             ha="center",
         )
+
+        # Add the "center dot" in each hexagon
         plt.scatter(
             center_point[0],
             center_point[1],
             color="black",
-            s=1,
+            s=center_dot_radius,
             zorder=3,
         )
 
-    ternary.add_vertex_labels(v0, v1, v2, labels)
     output_filepath = join(output_dir, "ternary.png")
     plt.savefig(output_filepath, dpi=300)
     plt.close()
@@ -75,6 +113,7 @@ def draw_individual_hexagon(
     structure_dict,
     unique_structure_types,
     output_dir,
+    is_binary,
     is_individual_hexagonal=False,
 ):
     hexagon_image_files = []
@@ -85,7 +124,9 @@ def draw_individual_hexagon(
     radius_padding = 0.3
     bond_label_font_size = 16
     outer_line_width = 3
+    inner_alpha = 0.3
     color_line_width = 8
+    outer_alpha = 1.0
     inner_line_width = 2
     core_dot_radius = 80
 
@@ -110,12 +151,11 @@ def draw_individual_hexagon(
             center_pt,
             bond_fractions,
             radius=radius,
-            inner_alpha=0.3,
-            outer_alpha=1,
-            inner_line_width=inner_line_width,
-            outer_line_width=outer_line_width,
+            hex_inner_line_width=inner_line_width,
+            hex_outer_line_width=outer_line_width,
             color_line_width=color_line_width,
             is_individual_hexagonal=is_individual_hexagonal,
+            is_binary=is_binary,
         )
 
         plt.scatter(0, 0, color="black", s=core_dot_radius, zorder=3)

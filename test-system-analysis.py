@@ -15,9 +15,9 @@ pd.set_option("display.max_rows", None)
 
 
 def conduct_system_analysis():
-    cif_dir = "20250519_SA_ternary"
+    # cif_dir = "20250519_SA_ternary"
     # cif_dir = "20240512_SA_binary"
-    # cif_dir = "20240519_ErCoIn_ternary_binary_combine"
+    cif_dir = "20240519_ErCoIn_ternary_binary_combine"
 
     json_file_path = cif_dir + f"/output/{cif_dir}_site_pairs.json"
     updated_json_file_path = (
@@ -78,15 +78,15 @@ def conduct_system_analysis():
     """
     Step 3. Generate Excel file
     """
-    # prompt.print_dict_in_json(structure_dict)
+    prompt.print_dict_in_json(structure_dict)
 
     # Save Structure Analysis and Overview Excel
-    # system_analysis_excel.save_structure_analysis_excel(
-    #     structure_dict, output_dir
-    # )
-    # system_analysis_excel.save_bond_overview_excel(
-    #     structure_dict, possible_bond_pairs, output_dir
-    # )
+    system_analysis_excel.save_structure_analysis_excel(
+        structure_dict, output_dir
+    )
+    system_analysis_excel.save_bond_overview_excel(
+        structure_dict, possible_bond_pairs, output_dir
+    )
     """
     Step 4. Generate hexagonal figures
     """
@@ -100,22 +100,29 @@ def conduct_system_analysis():
     print("Binary?", is_binary)
     print("Ternary and binary combined?", is_binary_ternary_combined)
 
-    if is_ternary:
+    if is_ternary or is_binary_ternary_combined:
         system_analysis_figure.draw_ternary_figure(
             structure_dict,
             unique_structure_types,
             output_dir,
+            is_binary_ternary_combined,
         )
 
-    # if is_binary_ternary_combined:
-    #     system_analysis_figure.draw_ter
-    if is_binary or is_ternary or is_binary_ternary_combined:
         system_analysis_figure.draw_individual_hexagon(
             structure_dict,
             unique_structure_types,
             output_dir,
+            is_binary,
             is_individual_hexagonal=True,
         )
+    # if is_binary or is_ternary or is_binary_ternary_combined:
+    #     system_analysis_figure.draw_individual_hexagon(
+    #         structure_dict,
+    #         unique_structure_types,
+    #         output_dir,
+    #         is_binary,
+    #         is_individual_hexagonal=True,
+    #     )
 
 
 if __name__ == "__main__":
