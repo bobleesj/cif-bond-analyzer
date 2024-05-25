@@ -149,9 +149,7 @@ def filter_connections_with_CN(
             max_gap = max(normalized_dist_diffs)
             max_gap_index = normalized_dist_diffs.index(max_gap) + 2
             print(max_gap_index)
-            filtered_connections[label] = limited_label_data[
-                :max_gap_index
-            ]
+            filtered_connections[label] = limited_label_data[:max_gap_index]
 
     return filtered_connections
 
@@ -187,9 +185,7 @@ def add_diff_after(all_labels_connections):
         updated_connections[label] = []
 
         # Calculate normalized distances and their differences
-        normalized_distances = calculate_normalized_distances(
-            connections
-        )
+        normalized_distances = calculate_normalized_distances(connections)
         normalized_dist_diffs = calculate_normalized_dist_diffs(
             normalized_distances
         )
@@ -210,9 +206,7 @@ def add_diff_after(all_labels_connections):
     return updated_connections
 
 
-def save_to_excel_json(
-    all_labels_connections, output_folder, filename
-):
+def save_to_excel_json(all_labels_connections, output_folder, filename):
     """
     Saves the connection data for each label to an Excel file
     """
@@ -238,9 +232,7 @@ def save_to_excel_json(
                 df.to_excel(writer, sheet_name=label, index=False)
                 print(f"Data for {label} saved to Excel sheet.")
             else:
-                print(
-                    f"No data available for {label}, no sheet created."
-                )
+                print(f"No data available for {label}, no sheet created.")
 
     # Save to JSON
     json_file_path = os.path.join(output_folder, filename + ".json")
@@ -289,17 +281,11 @@ def save_text_file(
                     ) = connection
 
                     # Format coordinates and norm_diff to 3 decimal places
-                    coord_1_str = ", ".join(
-                        f"{c:.3f}" for c in coord_1
-                    )
-                    coord_2_str = ", ".join(
-                        f"{c:.3f}" for c in coord_2
-                    )
+                    coord_1_str = ", ".join(f"{c:.3f}" for c in coord_1)
+                    coord_2_str = ", ".join(f"{c:.3f}" for c in coord_2)
                     distance_str = f"{distance:.3f}"
                     norm_diff_str = (
-                        f"{norm_diff:.3f}"
-                        if norm_diff is not None
-                        else ""
+                        f"{norm_diff:.3f}" if norm_diff is not None else ""
                     )
 
                     if is_verbose_output:

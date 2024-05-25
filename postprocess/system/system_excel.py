@@ -9,9 +9,7 @@ def save_structure_analysis_excel(structure_dict, output_dir):
 
     # Populate the data list with structured data from the dictionary
     for structure, info in structure_dict.items():
-        first_formula = (
-            info["formulas"][0] if info["formulas"] else "N/A"
-        )
+        first_formula = info["formulas"][0] if info["formulas"] else "N/A"
         structure_list.append(structure)
 
         first_row = True
@@ -24,14 +22,10 @@ def save_structure_analysis_excel(structure_dict, output_dir):
                 bond_info["total_bond_count"],
                 bond_info["avg_bond_length"],
                 bond_info.get("std_dev_bond_length", 0)
-                if not np.isnan(
-                    bond_info.get("std_dev_bond_length", 0)
-                )
+                if not np.isnan(bond_info.get("std_dev_bond_length", 0))
                 else 0,
                 bond_info.get("variance_bond_length", 0)
-                if not np.isnan(
-                    bond_info.get("variance_bond_length", 0)
-                )
+                if not np.isnan(bond_info.get("variance_bond_length", 0))
                 else 0,
             ]
             data.append(row)
@@ -61,12 +55,8 @@ def save_structure_analysis_excel(structure_dict, output_dir):
     print(df.head(40))
 
 
-def save_bond_overview_excel(
-    structure_dict, possible_bond_pairs, output_dir
-):
-    bond_types = [
-        f"{pair[0]}-{pair[1]}" for pair in possible_bond_pairs
-    ]
+def save_bond_overview_excel(structure_dict, possible_bond_pairs, output_dir):
+    bond_types = [f"{pair[0]}-{pair[1]}" for pair in possible_bond_pairs]
 
     # Initialize structure bond counts
     unique_structure_bond_counts = {bond: 0 for bond in bond_types}
@@ -80,9 +70,7 @@ def save_bond_overview_excel(
         if structure not in unique_structure_bond_counts:
             for bond in bond_types:
                 unique_structure_bond_counts[bond] += (
-                    info["bond_data"]
-                    .get(bond, {})
-                    .get("unique_bond_count", 0)
+                    info["bond_data"].get(bond, {}).get("unique_bond_count", 0)
                 )
 
         for file in info.get("files", []):
@@ -104,15 +92,10 @@ def save_bond_overview_excel(
 
     # Calculate total bond counts across all files
     total_bonds = {
-        bond: sum(
-            file_to_structure[file][bond]
-            for file in file_to_structure
-        )
+        bond: sum(file_to_structure[file][bond] for file in file_to_structure)
         for bond in bond_types
     }
-    total_row = ["", "All files"] + [
-        total_bonds[bond] for bond in bond_types
-    ]
+    total_row = ["", "All files"] + [total_bonds[bond] for bond in bond_types]
     data.append(total_row)
 
     # Use already summed unique structure bond counts
@@ -123,8 +106,7 @@ def save_bond_overview_excel(
 
     # Add bond fraction rows
     unique_total_bonds = {
-        bond: unique_structure_bond_counts[bond]
-        for bond in bond_types
+        bond: unique_structure_bond_counts[bond] for bond in bond_types
     }
     total_unique_bonds = sum(unique_total_bonds.values())
     bond_fractions = [

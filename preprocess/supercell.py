@@ -74,8 +74,7 @@ def shift_and_append_points(
     # Method 3 - +-1 +-1 +-1 shifts
 
     if (
-        num_unit_cell_atom_count
-        > translation_op_unit_cell_atom_num_threshold
+        num_unit_cell_atom_count > translation_op_unit_cell_atom_num_threshold
         or is_flatten_points_only
     ):
         if supercell_generation_method == 1:
@@ -206,25 +205,17 @@ def get_coords_list(block, loop_values):
     loop_length = len(loop_values[0])
     coords_list = []
     for i in range(loop_length):
-        atom_site_x = cif_parser.remove_string_braket(
-            loop_values[4][i]
-        )
-        atom_site_y = cif_parser.remove_string_braket(
-            loop_values[5][i]
-        )
-        atom_site_z = cif_parser.remove_string_braket(
-            loop_values[6][i]
-        )
+        atom_site_x = cif_parser.remove_string_braket(loop_values[4][i])
+        atom_site_y = cif_parser.remove_string_braket(loop_values[5][i])
+        atom_site_z = cif_parser.remove_string_braket(loop_values[6][i])
         atom_site_label = loop_values[0][i]
 
-        coords_after_symmetry_operations = (
-            get_coords_after_sym_operations(
-                block,
-                float(atom_site_x),
-                float(atom_site_y),
-                float(atom_site_z),
-                atom_site_label,
-            )
+        coords_after_symmetry_operations = get_coords_after_sym_operations(
+            block,
+            float(atom_site_x),
+            float(atom_site_y),
+            float(atom_site_z),
+            atom_site_label,
         )
         coords_list.append(coords_after_symmetry_operations)
 
@@ -242,9 +233,7 @@ def get_coords_after_sym_operations(
     Generates a list of coordinates for each atom site
     """
     all_coords = set()
-    for operation in block.find_loop(
-        "_space_group_symop_operation_xyz"
-    ):
+    for operation in block.find_loop("_space_group_symop_operation_xyz"):
         operation = operation.replace("'", "")
         try:
             op = gemmi.Op(operation)
@@ -271,9 +260,7 @@ def get_coords_after_sym_operations(
 
 
 def flatten_original_coordinates(all_coords):
-    points = np.array(
-        [list(map(float, coord[:-1])) for coord in all_coords]
-    )
+    points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
     return points
 
 
@@ -311,10 +298,7 @@ def get_points_and_labels(
         if atom_site_type in atom_site_label:
             continue
 
-        if (
-            cif_parser.get_atom_type(atom_site_label)
-            != atom_site_type
-        ):
+        if cif_parser.get_atom_type(atom_site_label) != atom_site_type:
             raise RuntimeError(
                 "Different elements found in atom site and label"
             )
@@ -345,9 +329,7 @@ def calc_dist_two_cart_points(point1, point2):
     return distance
 
 
-def fractional_to_cartesian(
-    fractional_coords, cell_lengths, rad_angles
-):
+def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
     """
     Converts fractional coordinates to Cartesian
     coordinates using cell lengths and angles.

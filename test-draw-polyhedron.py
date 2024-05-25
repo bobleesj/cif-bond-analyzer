@@ -4,14 +4,10 @@ from postprocess import polyhedron
 
 
 # Example usage
-json_file_path = (
-    "20240518_polyhedron_test/shortest_dist_CN/URhIn.json"
-)
+json_file_path = "20240518_polyhedron_test/shortest_dist_CN/URhIn.json"
 dir_path = "incremental_polyhedron_plots"
 
-polyhedron.draw_incremental_polyhedrons(
-    json_file_path, dir_path, dpi=300
-)
+polyhedron.draw_incremental_polyhedrons(json_file_path, dir_path, dpi=300)
 
 gif_dir = os.path.join(dir_path, "gif")
 
@@ -41,9 +37,7 @@ for prefix, image_list in images_dict.items():
         # Sort images based on step numbers
         image_list.sort()
         images = [iio.imread(filepath) for _, filepath in image_list]
-        gif_filename = os.path.join(
-            gif_dir, f"{prefix}_polyhedron.gif"
-        )
+        gif_filename = os.path.join(gif_dir, f"{prefix}_polyhedron.gif")
         iio.imwrite(gif_filename, images, duration=500, loop=0)
         print(f"Saved GIF: {gif_filename}")
 

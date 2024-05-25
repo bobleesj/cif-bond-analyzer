@@ -14,8 +14,8 @@ def draw_horizontal_lines_with_multiple_marks(
     plt.plot([0, 1], [0, 0], "k-", lw=2)
     # Process each formula
     for i, structure in enumerate(structures):
-        parsed_normalized_formula = (
-            formula_parser.get_parsed_norm_formula(formula)
+        parsed_normalized_formula = formula_parser.get_parsed_norm_formula(
+            formula
         )
         A_label, _ = parsed_normalized_formula[0]
         B_label, B_norm_index = parsed_normalized_formula[1]

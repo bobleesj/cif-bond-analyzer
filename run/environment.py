@@ -81,9 +81,7 @@ def run_atomic_environment(script_path):
             ) = result
 
             unitcell_points = (
-                supercell_handler.get_flattened_points_from_unitcell(
-                    file_path
-                )
+                supercell_handler.get_flattened_points_from_unitcell(file_path)
             )
 
             prompt.print_progress_current(
@@ -119,10 +117,8 @@ def run_atomic_environment(script_path):
 
             # Determine coordination number
             if is_cn_used:
-                all_labels_connections = (
-                    neighbor.filter_connections_with_CN(
-                        all_labels_connections
-                    )
+                all_labels_connections = neighbor.filter_connections_with_CN(
+                    all_labels_connections
                 )
 
             all_labels_connections = neighbor.add_diff_after(

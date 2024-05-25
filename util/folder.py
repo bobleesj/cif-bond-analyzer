@@ -12,8 +12,7 @@ def get_cif_dir_names(script_path):
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
         and any(
-            file.endswith(".cif")
-            for file in os.listdir(join(script_path, d))
+            file.endswith(".cif") for file in os.listdir(join(script_path, d))
         )
     ]
 
@@ -61,8 +60,7 @@ def get_dir_list(ext, script_path):
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
         and any(
-            file.endswith(ext)
-            for file in os.listdir(join(script_path, d))
+            file.endswith(ext) for file in os.listdir(join(script_path, d))
         )
     ]
 
@@ -107,12 +105,8 @@ def choose_binary_ternary_dir(script_path, ext=".cif"):
         try:
             choice = int(choice_input)
             if 1 <= choice <= len(unique_element_count_per_dir):
-                selected_dir = unique_element_count_per_dir[
-                    choice - 1
-                ][0]
-                selected_dir_path = os.path.join(
-                    script_path, selected_dir
-                )
+                selected_dir = unique_element_count_per_dir[choice - 1][0]
+                selected_dir_path = os.path.join(script_path, selected_dir)
                 print(f"You have selected: {selected_dir}")
                 return selected_dir_path
             else:
@@ -138,15 +132,11 @@ def choose_dir(script_path, ext=".cif"):
         print(f"{idx}. {dir_name}, {num_of_cif_files} files")
     while True:
         try:
-            choice = int(
-                input("\nEnter folder # having .cif files: ")
-            )
+            choice = int(input("\nEnter folder # having .cif files: "))
             if 1 <= choice <= len(dir_names):
                 return join(script_path, dir_names[choice - 1])
             else:
-                print(
-                    f"Please enter a number between 1 and {len(dir_names)}."
-                )
+                print(f"Please enter a number between 1 and {len(dir_names)}.")
         except ValueError:
             print("Invalid input. Please enter a number.")
 
@@ -217,9 +207,7 @@ def create_output_folder_for_neighbor(
     else:
         nested_folder_name = f"shortest_dist_cutoff_{radius}"
 
-    nested_folder_path = os.path.join(
-        output_folder_path, nested_folder_name
-    )
+    nested_folder_path = os.path.join(output_folder_path, nested_folder_name)
 
     if not os.path.exists(nested_folder_path):
         os.makedirs(nested_folder_path)

@@ -39,17 +39,13 @@ def draw_ternary_figure(
         (
             bond_fractions_per_formula,
             structures,
-        ) = system_util.extract_bond_info_per_formula(
-            formula, structure_dict
-        )
+        ) = system_util.extract_bond_info_per_formula(formula, structure_dict)
 
         for i, structure in enumerate(structures):
-            formula_formatted = (
-                formula_parser.get_subscripted_formula(formula)
-            )
+            formula_formatted = formula_parser.get_subscripted_formula(formula)
 
-            parsed_normalized_formula = (
-                formula_parser.get_parsed_norm_formula(formula)
+            parsed_normalized_formula = formula_parser.get_parsed_norm_formula(
+                formula
             )
 
             num_of_elements = formula_parser.get_num_element(formula)
@@ -65,14 +61,12 @@ def draw_ternary_figure(
                 X_label = parsed_normalized_formula[2][0]
                 labels = [R_label, M_label, X_label]
 
-                center_pt = (
-                    ternary.get_point_in_triangle_from_ternary_index(
-                        v0,
-                        v1,
-                        v2,
-                        float(R_norm_index),
-                        float(M_norm_index),
-                    )
+                center_pt = ternary.get_point_in_triangle_from_ternary_index(
+                    v0,
+                    v1,
+                    v2,
+                    float(R_norm_index),
+                    float(M_norm_index),
                 )
                 hexagon.draw_single_hexagon_and_lines_per_center_point(
                     center_pt,
@@ -91,14 +85,12 @@ def draw_ternary_figure(
                 B_label = parsed_normalized_formula[1][0]
                 labels = [A_label, B_label]
 
-                center_pt = (
-                    ternary.get_point_in_triangle_from_ternary_index(
-                        v0,
-                        v1,
-                        v2,
-                        float(0),
-                        (1 - float(B_norm_index)),
-                    )
+                center_pt = ternary.get_point_in_triangle_from_ternary_index(
+                    v0,
+                    v1,
+                    v2,
+                    float(0),
+                    (1 - float(B_norm_index)),
                 )
 
                 hexagon.draw_single_hexagon_and_lines_per_center_point(
@@ -258,9 +250,7 @@ def draw_hexagon_for_individual_figure(
 
     plt.close(fig)
 
-    print(
-        f"Saved individual hexagon images and a composite in {output_dir}"
-    )
+    print(f"Saved individual hexagon images and a composite in {output_dir}")
 
 
 def draw_binary_figure(formulas, structure_dict, output_dir):
@@ -268,9 +258,7 @@ def draw_binary_figure(formulas, structure_dict, output_dir):
         (
             bond_fractions_per_formula,
             structures,
-        ) = system_util.extract_bond_info_per_formula(
-            formula, structure_dict
-        )
+        ) = system_util.extract_bond_info_per_formula(formula, structure_dict)
         binary.draw_horizontal_lines_with_multiple_marks(
             formula,
             bond_fractions_per_formula,

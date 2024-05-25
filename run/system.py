@@ -82,20 +82,16 @@ def run_system_analysis(script_path):
     is_binary = system_util.get_is_binary(updated_json_file_path)
     is_ternary = system_util.get_is_ternary(updated_json_file_path)
 
-    is_binary_ternary_combined = (
-        system_util.get_is_binary_ternary_combined(
-            updated_json_file_path
-        )
+    is_binary_ternary_combined = system_util.get_is_binary_ternary_combined(
+        updated_json_file_path
     )
 
     """
     Step 2. Build dict containing bond/formula/file info per structure
     """
 
-    possible_bond_pairs = (
-        system_util.generate_unique_pairs_from_formulas(
-            updated_json_file_path
-        )
+    possible_bond_pairs = system_util.generate_unique_pairs_from_formulas(
+        updated_json_file_path
     )
 
     structure_dict = system_handler.get_structure_dict(
@@ -110,9 +106,7 @@ def run_system_analysis(script_path):
     # prompt.print_dict_in_json(structure_dict)
 
     # Save Structure Analysis and Overview Excel
-    system_excel.save_structure_analysis_excel(
-        structure_dict, output_dir
-    )
+    system_excel.save_structure_analysis_excel(structure_dict, output_dir)
     system_excel.save_bond_overview_excel(
         structure_dict, possible_bond_pairs, output_dir
     )

@@ -25,9 +25,7 @@ from util import folder, prompt
 from filter import occupancy
 
 
-def run_bond(
-    script_path, is_iteractive_mode=True, given_dir_path=None
-):
+def run_bond(script_path, is_iteractive_mode=True, given_dir_path=None):
     prompt.print_intro_prompt()
     supercell_method = None
     dir_names_with_cif = None
@@ -113,9 +111,7 @@ def get_bond_data(file_path_list, supercell_method=3):
             supercell_method,
         )
 
-        cif_loop_values = cif_parser_handler.get_cif_loop_values(
-            file_path
-        )
+        cif_loop_values = cif_parser_handler.get_cif_loop_values(file_path)
 
         _, lenghts, angles_rad, _, supercell_points, _, _ = result
 
@@ -126,8 +122,8 @@ def get_bond_data(file_path_list, supercell_method=3):
         )
 
         # Get atomic site mixing info -> String
-        atom_site_mixing_file_info = (
-            occupancy.get_atom_site_mixing_info(cif_loop_values)
+        atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+            cif_loop_values
         )
 
         # Get atom site pair information
@@ -151,9 +147,7 @@ def get_bond_data(file_path_list, supercell_method=3):
         )
 
         # Get the shortest element-element pair
-        atom_element_pair_dict = bond.get_element_dict(
-            atom_site_pair_dict
-        )
+        atom_element_pair_dict = bond.get_element_dict(atom_site_pair_dict)
 
         elapsed_time = time.perf_counter() - start_time
 
@@ -228,8 +222,6 @@ def save_outputs(
         echo("Histograms saved.")
 
         # Save log csv
-        folder.save_to_csv_directory(
-            dir_path, pd.DataFrame(log_list), "log"
-        )
+        folder.save_to_csv_directory(dir_path, pd.DataFrame(log_list), "log")
         total_elapsed_time = time.perf_counter() - overall_start_time
         echo(f"Total processing time: {total_elapsed_time:.2f}s")

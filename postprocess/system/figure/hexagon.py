@@ -30,9 +30,7 @@ def draw_single_hexagon_and_lines_per_center_point(
     # Get colors
     colors = color.get_hexagon_vertex_colors(False)
     # Get hexagon poitns
-    x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(
-        center_pt, radius
-    )
+    x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(center_pt, radius)
 
     if is_for_individual_hexagon:
         black_line_width = color_line_width + 2.5
@@ -71,9 +69,7 @@ def draw_hexagon_outline(x_hex_pts, y_hex_pts, lw, color):
     plt.plot(x_hex_pts, y_hex_pts, "-", lw=lw, color=color, zorder=3)
 
 
-def draw_hexagon_center_to_vertex(
-    center_pt, x_hex_pts, y_hex_pts, lw, color
-):
+def draw_hexagon_center_to_vertex(center_pt, x_hex_pts, y_hex_pts, lw, color):
     # Draw center to vertices
     for x, y in zip(x_hex_pts, y_hex_pts):
         plt.plot(
@@ -167,19 +163,11 @@ def plot_colored_black_lines_with_fraction(
         # Adjust endpoint by half the marker radius
         marker_adjustment = lw * scale
         start_offset = marker_adjustment / 2  # Half the marker size
-        start_color_x = (
-            center_pt[0] + hex_unit_vector[0] * start_offset
-        )
-        start_color_y = (
-            center_pt[1] + hex_unit_vector[1] * start_offset
-        )
+        start_color_x = center_pt[0] + hex_unit_vector[0] * start_offset
+        start_color_y = center_pt[1] + hex_unit_vector[1] * start_offset
 
-        end_color_x = center_pt[0] + unit_vector[0] * (
-            dist - start_offset
-        )
-        end_color_y = center_pt[1] + unit_vector[1] * (
-            dist - start_offset
-        )
+        end_color_x = center_pt[0] + unit_vector[0] * (dist - start_offset)
+        end_color_y = center_pt[1] + unit_vector[1] * (dist - start_offset)
 
         # Draw the colored line
         plt.plot(
@@ -214,19 +202,11 @@ def plot_colored_black_lines_with_fraction(
         # Adjust endpoint by half the marker radius
         marker_adjustment = lw * scale
         start_offset = marker_adjustment / 2  # Half the marker size
-        start_color_x = (
-            center_pt[0] + hex_unit_vector[0] * start_offset
-        )
-        start_color_y = (
-            center_pt[1] + hex_unit_vector[1] * start_offset
-        )
+        start_color_x = center_pt[0] + hex_unit_vector[0] * start_offset
+        start_color_y = center_pt[1] + hex_unit_vector[1] * start_offset
 
-        end_color_x = center_pt[0] + unit_vector[0] * (
-            dist - start_offset
-        )
-        end_color_y = center_pt[1] + unit_vector[1] * (
-            dist - start_offset
-        )
+        end_color_x = center_pt[0] + unit_vector[0] * (dist - start_offset)
+        end_color_y = center_pt[1] + unit_vector[1] * (dist - start_offset)
 
         # Draw the colored line
         plt.plot(

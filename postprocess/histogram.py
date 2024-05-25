@@ -91,9 +91,7 @@ def get_bins_from_distances(bin_width, all_distances):
     """
     data_range = max(all_distances) - min(all_distances)
     bin_size = int(np.ceil(data_range / bin_width))
-    bins = np.linspace(
-        min(all_distances), max(all_distances), bin_size + 1
-    )
+    bins = np.linspace(min(all_distances), max(all_distances), bin_size + 1)
     return bins
 
 
@@ -103,9 +101,7 @@ def get_dist_fig_text(all_distances):
     return f"Distance range: {min_dist}-{max_dist} Å"
 
 
-def plot_histograms(
-    data, dir_path, bins, all_distances, output_filename
-):
+def plot_histograms(data, dir_path, bins, all_distances, output_filename):
     (
         categories_colors,
         categories_mapping,
@@ -126,9 +122,7 @@ def plot_histograms(
     dist_fig_text = get_dist_fig_text(all_distances)
 
     num_pairs = len(data)
-    total_images = np.ceil(num_pairs / histograms_per_image).astype(
-        int
-    )
+    total_images = np.ceil(num_pairs / histograms_per_image).astype(int)
     data_pairs = list(data.items())
     # Calculate the number of rows based on the maximum histograms per image
     num_rows = np.ceil(histograms_per_image / max_columns).astype(int)
@@ -141,14 +135,10 @@ def plot_histograms(
 
     for image_num in range(total_images):
         start_index = image_num * histograms_per_image
-        end_index = min(
-            (image_num + 1) * histograms_per_image, num_pairs
-        )
+        end_index = min((image_num + 1) * histograms_per_image, num_pairs)
         current_pairs = data_pairs[start_index:end_index]
 
-        fig, axes = plt.subplots(
-            num_rows, max_columns, figsize=sheet_size
-        )
+        fig, axes = plt.subplots(num_rows, max_columns, figsize=sheet_size)
         axes = np.atleast_2d(axes).flatten()
 
         for i, (pair_key, records) in enumerate(current_pairs):
@@ -193,14 +183,10 @@ def plot_histograms(
                 single_ax.set_title(pair_key)
                 single_ax.set_xlabel("Distance (Å)")
                 single_ax.set_ylabel("Count")
-                single_ax.yaxis.set_major_locator(
-                    MaxNLocator(integer=True)
-                )
+                single_ax.yaxis.set_major_locator(MaxNLocator(integer=True))
                 single_fig.tight_layout(rect=[0, 0, 1, 1])
                 single_fig.savefig(
-                    os.path.join(
-                        single_histogram_dir, f"{pair_key}.png"
-                    ),
+                    os.path.join(single_histogram_dir, f"{pair_key}.png"),
                     dpi=150,
                 )
                 plt.close(single_fig)
@@ -241,9 +227,7 @@ def plot_histograms(
         output_dir = os.path.join(dir_path, "output")
         os.makedirs(output_dir, exist_ok=True)
         fig.savefig(
-            os.path.join(
-                output_dir, f"{output_filename}_{image_num + 1}.png"
-            ),
+            os.path.join(output_dir, f"{output_filename}_{image_num + 1}.png"),
             dpi=150,
         )
         plt.close(fig)

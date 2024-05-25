@@ -33,21 +33,15 @@ def update_json_data(data, cif_directory):
         print(f"Processing data for: {key}")
         unique_pairs.append(key)
         for cif_id, cif_data_list in site_pairs.items():
-            cif_file_path = os.path.join(
-                cif_directory, f"{cif_id}.cif"
-            )
+            cif_file_path = os.path.join(cif_directory, f"{cif_id}.cif")
             if os.path.exists(cif_file_path):
                 try:
                     block = cif_parser.get_cif_block(cif_file_path)
                     formula = clean_formula(
-                        block.find_value(
-                            "_chemical_formula_structural"
-                        )
+                        block.find_value("_chemical_formula_structural")
                     )
                     structure_type = clean_structure_type(
-                        block.find_value(
-                            "_chemical_name_structure_type"
-                        )
+                        block.find_value("_chemical_name_structure_type")
                     )
                     for pair in cif_data_list:
                         pair["formula"] = formula
@@ -86,9 +80,7 @@ def init_structure_data(pairs):
     }
 
 
-def init_structure_dict(
-    unique_structure_types, all_pairs_in_the_system
-):
+def init_structure_dict(unique_structure_types, all_pairs_in_the_system):
     print("All pairs in the system:", all_pairs_in_the_system)
     structure_dict = {
         structure: init_structure_data(all_pairs_in_the_system)
@@ -120,24 +112,18 @@ def add_files_and_formula(
                         dataset_id
                         not in structure_dict[structure_type]["files"]
                     ):
-                        structure_dict[structure_type][
-                            "files"
-                        ].append(dataset_id)
-                        structure_dict[structure_type][
-                            "file_count"
-                        ] += 1
-                        structure_dict[structure_type][
-                            "formulas"
-                        ].append(
+                        structure_dict[structure_type]["files"].append(
+                            dataset_id
+                        )
+                        structure_dict[structure_type]["file_count"] += 1
+                        structure_dict[structure_type]["formulas"].append(
                             formula
                         )  # Also append the formula
 
     return structure_dict
 
 
-def add_bond_lenghts_and_statistics(
-    structure_dict, updated_json_file_path
-):
+def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
     json_data = read_json_data(updated_json_file_path)
     for pair, datasets in json_data.items():
         for dataset_id, records in datasets.items():
@@ -147,9 +133,9 @@ def add_bond_lenghts_and_statistics(
                 bond_length = float(record["dist"])
 
                 # Update the bond_data for the bond type
-                bond_data = structure_dict[structure_type][
-                    "bond_data"
-                ][bond_type]
+                bond_data = structure_dict[structure_type]["bond_data"][
+                    bond_type
+                ]
                 bond_data["bond_lengths"].append(bond_length)
                 bond_data["total_bond_count"] += 1
 
@@ -237,9 +223,7 @@ def extract_info_per_structure(structure_dict, structure_key):
     )  # Default to ["N/A"] if no formulas are found
 
     bond_labels = info["bond_fractions"].keys()
-    bond_fractions = [
-        info["bond_fractions"][bond] for bond in bond_labels
-    ]
+    bond_fractions = [info["bond_fractions"][bond] for bond in bond_labels]
 
     return (formulas, bond_labels, bond_fractions)
 
@@ -284,9 +268,7 @@ def get_all_unique_formulas(updated_json_file_path):
                 formula = entry["formula"]
                 unique_formulas.add(formula)  # Add formula to the set
 
-    return list(
-        unique_formulas
-    )  # Convert the set back to a list if necessary
+    return list(unique_formulas)  # Convert the set back to a list if necessary
 
 
 def generate_bond_pairs(elements):
@@ -323,10 +305,8 @@ def generate_unique_pairs_from_formulas(updated_json_file_path):
     unique_formulas = get_all_unique_formulas(updated_json_file_path)
 
     # Get unique elements
-    unique_elements = (
-        formula_parser.get_unique_elements_from_formulas(
-            unique_formulas
-        )
+    unique_elements = formula_parser.get_unique_elements_from_formulas(
+        unique_formulas
     )
 
     # Sort unique elements by Mendeeleve
@@ -358,8 +338,7 @@ def get_is_binary_ternary_combined(json_file_path):
     click.echo("Files contain both binary and ternary compounds.")
     unique_formulas = get_all_unique_formulas(json_file_path)
     element_counts = [
-        formula_parser.get_num_element(formula)
-        for formula in unique_formulas
+        formula_parser.get_num_element(formula) for formula in unique_formulas
     ]
     return 2 in element_counts and 3 in element_counts
 

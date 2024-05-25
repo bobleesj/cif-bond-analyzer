@@ -9,9 +9,7 @@ import imageio.v3 as iio
 import re
 
 
-def draw_polyhedrons_from_json(
-    json_file_path, output_folder, dpi=300
-):
+def draw_polyhedrons_from_json(json_file_path, output_folder, dpi=300):
     # Load the JSON data
     with open(json_file_path, "r") as json_file:
         data = json.load(json_file)
@@ -45,9 +43,7 @@ def draw_polyhedrons_from_json(
         plt.close(fig)  # Close the figure to free up memory
 
 
-def draw_incremental_polyhedrons(
-    json_file_path, output_folder, dpi=300
-):
+def draw_incremental_polyhedrons(json_file_path, output_folder, dpi=300):
     # Load the JSON data
     with open(json_file_path, "r") as json_file:
         data = json.load(json_file)
@@ -118,9 +114,7 @@ def draw_polyhedron(ax, points, ref_coords, label):
     # Convert points to numpy array and perform Delaunay triangulation
     points = np.array(points)
     tri = Delaunay(points)
-    poly3d = [
-        [points[vertex] for vertex in face] for face in tri.simplices
-    ]
+    poly3d = [[points[vertex] for vertex in face] for face in tri.simplices]
 
     # Create a Poly3DCollection object
     poly = Poly3DCollection(poly3d, alpha=0.5, edgecolor="k")

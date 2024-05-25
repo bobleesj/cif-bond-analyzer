@@ -34,16 +34,12 @@ def get_folder_indices(dir_names_with_cif):
         )
         try:
             folder_indices = list(
-                set(
-                    int(number)
-                    for number in folder_numbers_str.split()
-                )
+                set(int(number) for number in folder_numbers_str.split())
             )
 
             # Check if all entered indices are valid
             if not all(
-                1 <= idx <= len(dir_names_with_cif)
-                for idx in folder_indices
+                1 <= idx <= len(dir_names_with_cif) for idx in folder_indices
             ):
                 raise ValueError(
                     "One or more numbers are out of the valid range."
@@ -51,8 +47,7 @@ def get_folder_indices(dir_names_with_cif):
 
             # Map the indices to directory names
             selected_dirs = {
-                idx: dir_names_with_cif[idx - 1]
-                for idx in folder_indices
+                idx: dir_names_with_cif[idx - 1] for idx in folder_indices
             }
             return selected_dirs
 
@@ -65,17 +60,11 @@ def get_folder_indices(dir_names_with_cif):
 def get_user_input_folder_processing(dir_names, file_type):
     click.echo(f"\nFolders with {file_type} files:")
     for idx, dir_name in enumerate(dir_names, start=1):
-        num_of_cif_files = folder.get_cif_file_count_from_directory(
-            dir_name
-        )
+        num_of_cif_files = folder.get_cif_file_count_from_directory(dir_name)
         click.echo(f"{idx}. {dir_name}, {num_of_cif_files} files")
 
-    click.echo(
-        "\nWould you like to process each folder above sequentially?"
-    )
-    is_sequentially_processed = click.confirm(
-        "(Default: Y)", default=True
-    )
+    click.echo("\nWould you like to process each folder above sequentially?")
+    is_sequentially_processed = click.confirm("(Default: Y)", default=True)
 
     if is_sequentially_processed:
         selected_dirs = {
@@ -108,9 +97,7 @@ def get_user_input_on_supercell_method():
         echo("\nChoose a supercell generation method:")
         echo("1. No shift (fastest)")
         echo("2. +1 +1 +1 shifts in x, y, z directions")
-        echo(
-            "3. +-1, +-1, +-1 shifts (2x2x2 supercell generation, slowest)"
-        )
+        echo("3. +-1, +-1, +-1 shifts (2x2x2 supercell generation, slowest)")
 
         method = click.prompt(
             "Choose your option by entering a number", type=int
@@ -119,17 +106,13 @@ def get_user_input_on_supercell_method():
         if method == 1:
             echo("> You've selected: No shift (fastest)\n")
         elif method == 2:
-            echo(
-                "> You've selected: +1 +1 +1 shifts in x, y, z directions\n"
-            )
+            echo("> You've selected: +1 +1 +1 shifts in x, y, z directions\n")
         elif method == 3:
             echo(
                 "> You've selected: +-1, +-1, +-1 shifts (2x2x2 supercell, slowest)\n"
             )
         else:
-            echo(
-                "> Invalid option. Defaulting to No shift (fastest)\n"
-            )
+            echo("> Invalid option. Defaulting to No shift (fastest)\n")
             method = 1
     else:
         method = None
@@ -157,7 +140,9 @@ def print_progress_finished(
         )
 
 
-def print_progress_current(i, filename_with_ext, supercell_points, num_of_files):
+def print_progress_current(
+    i, filename_with_ext, supercell_points, num_of_files
+):
     echo(
         style(
             f"Processing {filename_with_ext} with "
@@ -199,4 +184,3 @@ def system_analysis_intro_prompt():
         "\nNote: All of the .cif files must be either binary or ternary files"
         " or combined. Only up to 3 unique elements are allowed."
     )
-

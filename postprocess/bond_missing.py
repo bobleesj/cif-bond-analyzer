@@ -7,14 +7,10 @@ def get_sorted_missing_pairs(global_element_pair_dict):
     Returns label tuple list containing pairs not found from CIF.
     """
 
-    all_pairs = get_all_ordered_pairs_from_set(
-        global_element_pair_dict
-    )
+    all_pairs = get_all_ordered_pairs_from_set(global_element_pair_dict)
 
     pairs_found = set(
-        tuple(
-            pair_order.order_pair_by_mendeleev(tuple(pair.split("-")))
-        )
+        tuple(pair_order.order_pair_by_mendeleev(tuple(pair.split("-"))))
         for pair in global_element_pair_dict.keys()
     )
 
@@ -42,8 +38,7 @@ def get_all_ordered_pairs_from_set(pair_dict):
 
     # Order pairs based on Mendeleev ordering
     all_pairs_ordered = [
-        tuple(pair_order.order_pair_by_mendeleev(pair))
-        for pair in all_pairs
+        tuple(pair_order.order_pair_by_mendeleev(pair)) for pair in all_pairs
     ]
 
     # Remove duplicates from all possible pairs
@@ -57,11 +52,7 @@ def get_all_ordered_pairs_from_list(pair_list):
     Generates all possible unique ordered pairs following a specific order.
     """
     unique_labels = sorted(
-        set(
-            element
-            for pair in pair_list
-            for element in pair.split("-")
-        )
+        set(element for pair in pair_list for element in pair.split("-"))
     )
 
     # Generate all possible pairs (with ordering matter)

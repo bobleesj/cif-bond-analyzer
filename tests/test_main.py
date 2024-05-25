@@ -58,12 +58,8 @@ def run_test_for_directory(cif_dir):
         f"{os.path.basename(cif_dir)}_site_pairs.json",
     )
 
-    compare_json_files(
-        expected_element_pairs_file, actual_element_pairs_file
-    )
-    compare_json_files(
-        expected_site_pairs_file, actual_site_pairs_file
-    )
+    compare_json_files(expected_element_pairs_file, actual_element_pairs_file)
+    compare_json_files(expected_site_pairs_file, actual_site_pairs_file)
 
 
 @pytest.mark.fast

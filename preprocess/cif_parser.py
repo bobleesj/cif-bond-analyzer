@@ -52,12 +52,10 @@ def get_unit_cell_lengths_angles(block):
     ]
 
     lengths = [
-        remove_string_braket(block.find_value(key))
-        for key in keys_lengths
+        remove_string_braket(block.find_value(key)) for key in keys_lengths
     ]
     angles = [
-        remove_string_braket(block.find_value(key))
-        for key in keys_angles
+        remove_string_braket(block.find_value(key)) for key in keys_angles
     ]
 
     return tuple(lengths + angles)
@@ -173,9 +171,7 @@ def get_cif_loop_value_dict(ci_loop_values):
     num_of_atom_labels = get_num_of_atom_labels(ci_loop_values)
 
     for i in range(num_of_atom_labels):
-        label, occupancy, coordinates = get_atom_info(
-            ci_loop_values, i
-        )
+        label, occupancy, coordinates = get_atom_info(ci_loop_values, i)
         cif_loop_value_dict[label] = {}
         cif_loop_value_dict[label]["occupancy"] = occupancy
         cif_loop_value_dict[label]["coordinates"] = coordinates
@@ -256,9 +252,7 @@ def get_compound_phase_tag_id_from_third_line(file_path):
 
         # Split based on '#' and filter out empty strings
         third_line_parts = [
-            part.strip()
-            for part in third_line.split("#")
-            if part.strip()
+            part.strip() for part in third_line.split("#") if part.strip()
         ]
         CIF_id = third_line_parts[-1]
         if not CIF_id.isdigit():
@@ -273,7 +267,5 @@ def get_compound_phase_tag_id_from_third_line(file_path):
         compound_formala_tag = third_line_parts[1]
         compound_id = third_line_parts[2]
 
-        compound_formula, tags = extract_formula_and_tag(
-            compound_formala_tag
-        )
+        compound_formula, tags = extract_formula_and_tag(compound_formala_tag)
         return compound_phase, compound_formula, tags, compound_id

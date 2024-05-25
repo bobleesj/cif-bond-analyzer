@@ -5,15 +5,11 @@ import postprocess.pair_order as pair_order
 @pytest.mark.fast
 def test_sort_label_tuple():
     label_pair_tuple = ("Fe1B", "Fe1A")
-    sorted_label_pair_tuple = pair_order.sort_label_tuple(
-        label_pair_tuple
-    )
+    sorted_label_pair_tuple = pair_order.sort_label_tuple(label_pair_tuple)
     assert sorted_label_pair_tuple == ("Fe1A", "Fe1B")
 
     label_pair_tuple = ("Co2B", "Co2A")
-    sorted_label_pair_tuple = pair_order.sort_label_tuple(
-        label_pair_tuple
-    )
+    sorted_label_pair_tuple = pair_order.sort_label_tuple(label_pair_tuple)
     assert sorted_label_pair_tuple == ("Co2A", "Co2B")
 
 
