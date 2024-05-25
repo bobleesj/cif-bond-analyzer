@@ -157,11 +157,11 @@ def print_progress_finished(
         )
 
 
-def print_progress_current(i, filename_with_ext, supercell_points):
+def print_progress_current(i, filename_with_ext, supercell_points, num_of_files):
     echo(
         style(
             f"Processing {filename_with_ext} with "
-            f"{len(supercell_points)} atoms {i+1}",
+            f"{len(supercell_points)} atoms ({i+1}/{num_of_files})",
             fg="yellow",
         )
     )
@@ -200,19 +200,3 @@ def system_analysis_intro_prompt():
         " or combined. Only up to 3 unique elements are allowed."
     )
 
-
-def get_binary_ternary_cif_folders(script_path):
-    unique_element_count_per_dir = (
-        folder.get_binary_ternary_combined_cif_dir_list(script_path)
-    )
-    print(
-        "\nAvailable folders containing 2 or 3 unique elements across all CIF files:"
-    )
-    for index, (
-        folder_name,
-        unique_elements,
-        file_count,
-    ) in enumerate(unique_element_count_per_dir, start=1):
-        print(
-            f"{index}. {folder_name}, {unique_elements} unique elements, {file_count} files"
-        )

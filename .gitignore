@@ -11,10 +11,11 @@ nodemon.json
 *.so
 # Ignore all CSV files
 *.csv
-*.cif
+# *.cif
 
 # CIF files
-outputs/
+output/
+csv/
 
 # cif_files/
 debug/

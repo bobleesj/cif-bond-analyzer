@@ -122,7 +122,7 @@ def get_bond_data(file_path_list, supercell_method=3):
         num_of_atoms = len(supercell_points)
 
         prompt.print_progress_current(
-            i, filename_with_ext, supercell_points
+            i, filename_with_ext, supercell_points, len(file_path_list)
         )
 
         # Get atomic site mixing info -> String

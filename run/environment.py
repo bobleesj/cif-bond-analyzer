@@ -52,7 +52,6 @@ def run_atomic_environment(script_path):
     for idx, dir_name in enumerate(selected_dirs.values(), start=1):
         dir_path = os.path.join(script_path, dir_name)
         file_path_list = folder.get_file_path_list(dir_path)
-        overall_start_time = time.perf_counter()
         prompt.echo_folder_progress(idx, dir_name, num_selected_dirs)
 
         # PART 1: Pre-process
@@ -88,7 +87,7 @@ def run_atomic_environment(script_path):
             )
 
             prompt.print_progress_current(
-                i, filename_with_ext, supercell_points
+                i, filename_with_ext, supercell_points, len(file_path_list)
             )
 
             # PART 3: Process each atomic label
