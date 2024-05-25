@@ -27,7 +27,8 @@ def plot_histogram():
         )
 
         bin_width = click.prompt(
-            "(3/3) Enter the bin width (default is 0.10 Å)", type=float
+            "(3/3) Enter the bin width (default is 0.10 Å)",
+            type=float,
         )
 
     # 2. Choose folders contianing .json
@@ -50,9 +51,9 @@ def plot_histogram():
         site_pair_dict = None
 
         for file_name in os.listdir(dir_path):
-            if file_name.endswith("_element_pairs.json") or file_name.endswith(
-                "_site_pairs.json"
-            ):
+            if file_name.endswith(
+                "_element_pairs.json"
+            ) or file_name.endswith("_site_pairs.json"):
                 json_file_path = os.path.join(dir_path, file_name)
                 echo(f"Processing {json_file_path}")
 
@@ -65,15 +66,22 @@ def plot_histogram():
 
         # Ensure that both dictionaries are not None before proceeding
         histogram_output_dir = os.path.join(script_path, dir_name)
-        if site_pair_dict is not None and element_pair_dict is not None:
+        if (
+            site_pair_dict is not None
+            and element_pair_dict is not None
+        ):
             if not is_custom_design:
                 histogram.draw_histograms(
-                    site_pair_dict, element_pair_dict, histogram_output_dir
+                    site_pair_dict,
+                    element_pair_dict,
+                    histogram_output_dir,
                 )
 
             if is_custom_design:
                 distances = [min_x, max_x]
-                bins = histogram.get_bins_from_distances(bin_width, distances)
+                bins = histogram.get_bins_from_distances(
+                    bin_width, distances
+                )
 
                 histogram.plot_histograms(
                     site_pair_dict,

@@ -4,17 +4,18 @@ __pycache__/
 *$py.class
 .DS_Store
 
+# module
+nodemon.json
+
 # C extensions
 *.so
+# Ignore all CSV files
+*.csv
+# *.cif
 
 # CIF files
-binary M-X CIF/
-R-M_CIFs2/
-R-M-X_CIFs2/
-20240229_oliynyk_test_atom_mixing_formatted/
-20240302_jumbo_test/
-20240304_ternary_test/
-20240326_bigger_test_set
+output/
+csv/
 
 # cif_files/
 debug/

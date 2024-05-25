@@ -1,6 +1,0 @@
-Summary:
-Pair: Ni-Ga, Count: 1, Distances: 2.424
-Pair: Ni-Ni, Count: 1, Distances: 2.477
-
-Missing pairs:
-Ga-Ga

@@ -6,17 +6,21 @@ unique ordered label pairs, identifying missing pairs not in CIF data,
 building dictionaries with shortest distance pairs and their mixing categories,
 and converting label to element pairs for analysis.
 """
-import json
 import numpy as np
 
 from preprocess.cif_parser import get_atom_type
 from preprocess import supercell
 from postprocess import pair_order
-from util import prompt
+from preprocess import supercell_handler
 
 
 def get_atom_site_labeled_dict(
-    all_points, lengths, angles, atom_site_mixing_dict, filename
+    supercell_points,
+    lengths,
+    angles,
+    atom_site_mixing_dict,
+    filename,
+    file_path,
 ):
     """
     Calculate the shortest distance from each atomic site and store only the labels
@@ -25,7 +29,13 @@ def get_atom_site_labeled_dict(
 
     atom_site_dict = {}
 
-    for i, point_1 in enumerate(all_points):
+    unitcell_points = (
+        supercell_handler.get_flattened_points_from_unitcell(
+            file_path
+        )
+    )
+
+    for i, point_1 in enumerate(unitcell_points):
         current_site_label = point_1[3]
 
         if current_site_label not in atom_site_dict:
@@ -34,7 +44,7 @@ def get_atom_site_labeled_dict(
                 "pairs": [],
             }
 
-        for j, point_2 in enumerate(all_points):
+        for j, point_2 in enumerate(supercell_points):
             if i == j:
                 continue  # Skip the identical index
 
@@ -46,16 +56,25 @@ def get_atom_site_labeled_dict(
                 np.round(dist, 3)
             )  # Round and take absolute value of the distance
 
-            if dist < 0.01:
+            if dist < 0.1:
                 continue
 
             if dist < atom_site_dict[current_site_label]["min_dist"]:
                 atom_site_dict[current_site_label]["min_dist"] = dist
-                atom_site_dict[current_site_label]["pairs"] = [label_2]
-            elif dist == atom_site_dict[current_site_label]["min_dist"]:
+                atom_site_dict[current_site_label]["pairs"] = [
+                    label_2
+                ]
+            elif (
+                dist == atom_site_dict[current_site_label]["min_dist"]
+            ):
                 # Add the label to the pairs list if it's not already included
-                if label_2 not in atom_site_dict[current_site_label]["pairs"]:
-                    atom_site_dict[current_site_label]["pairs"].append(label_2)
+                if (
+                    label_2
+                    not in atom_site_dict[current_site_label]["pairs"]
+                ):
+                    atom_site_dict[current_site_label][
+                        "pairs"
+                    ].append(label_2)
 
     """
     Processing 1830597.cif with 333 atoms (1/1)
@@ -120,7 +139,9 @@ def postprocess_atom_site_dict(
 
     for site1, site2, min_dist in pairs_list:
         # Use the order_pair_by_mendeleev to order the pair
-        ordered_pair = pair_order.order_pair_by_mendeleev((site1, site2))
+        ordered_pair = pair_order.order_pair_by_mendeleev(
+            (site1, site2)
+        )
         pair_label = f"{ordered_pair[0]}-{ordered_pair[1]}"
 
         # Determine the mixing value from atom_site_mixing_dict
@@ -137,8 +158,13 @@ def postprocess_atom_site_dict(
         entry = {"dist": f"{min_dist:.3f}", "mixing": mixing}
 
         # Append the data and avoid duplicates
-        if entry not in atom_site_dict_processed[pair_label][filename]:
-            atom_site_dict_processed[pair_label][filename].append(entry)
+        if (
+            entry
+            not in atom_site_dict_processed[pair_label][filename]
+        ):
+            atom_site_dict_processed[pair_label][filename].append(
+                entry
+            )
 
     # prompt.print_dict_in_json(atom_site_dict_processed)
 
@@ -185,14 +211,21 @@ def get_element_dict(input_dict):
         element_pair_key = get_element_pair_from_label_pair(pair_key)
         output_dict.setdefault(element_pair_key, {})
         for id, id_values in values.items():
-            shortest_dist, shortest_mixing = get_shortest_distance(id_values)
+            shortest_dist, shortest_mixing = get_shortest_distance(
+                id_values
+            )
             output_dict[element_pair_key][id] = [
-                {"dist": str(shortest_dist), "mixing": str(shortest_mixing)}
+                {
+                    "dist": str(shortest_dist),
+                    "mixing": str(shortest_mixing),
+                }
             ]
     return output_dict
 
 
-def append_atom_site_dict(global_atom_site_pair_dict, atom_site_pair_dict):
+def append_atom_site_dict(
+    global_atom_site_pair_dict, atom_site_pair_dict
+):
     """
     Appends atom_site_pair_dict to global_atom_site_pair_dict
     """
@@ -206,13 +239,20 @@ def append_atom_site_dict(global_atom_site_pair_dict, atom_site_pair_dict):
                 global_atom_site_pair_dict[pair_key][id] = []
 
             for value in id_values:
-                if value not in global_atom_site_pair_dict[pair_key][id]:
-                    global_atom_site_pair_dict[pair_key][id].append(value)
+                if (
+                    value
+                    not in global_atom_site_pair_dict[pair_key][id]
+                ):
+                    global_atom_site_pair_dict[pair_key][id].append(
+                        value
+                    )
 
     return global_atom_site_pair_dict
 
 
-def append_element_site_dict(global_element_pair_dict, atom_site_pair_dict):
+def append_element_site_dict(
+    global_element_pair_dict, atom_site_pair_dict
+):
     """
     Appends element_site_pair to global_element_pair_dict
     """
@@ -226,8 +266,13 @@ def append_element_site_dict(global_element_pair_dict, atom_site_pair_dict):
                 global_element_pair_dict[pair_key][id] = []
 
             for value in id_values:
-                if value not in global_element_pair_dict[pair_key][id]:
-                    global_element_pair_dict[pair_key][id].append(value)
+                if (
+                    value
+                    not in global_element_pair_dict[pair_key][id]
+                ):
+                    global_element_pair_dict[pair_key][id].append(
+                        value
+                    )
 
     return global_element_pair_dict
 

@@ -8,9 +8,13 @@ import json
 import pandas as pd
 
 
-def save_excel_json(global_site_pair_dict, global_element_pair_dict, dir_path):
+def save_excel_json(
+    global_site_pair_dict, global_element_pair_dict, dir_path
+):
     # Save Excel file (1/2) with site pair
-    write_pair_dict_to_excel_json(global_site_pair_dict, "site", dir_path)
+    write_pair_dict_to_excel_json(
+        global_site_pair_dict, "site", dir_path
+    )
 
     # Save Excel file (2/2) with shortest element pair
     write_pair_dict_to_excel_json(
@@ -42,11 +46,15 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
         "4": "Full occupancy",
     }
 
-    with pd.ExcelWriter(excel_file_path, engine="openpyxl") as excel_writer:
+    with pd.ExcelWriter(
+        excel_file_path, engine="openpyxl"
+    ) as excel_writer:
         for pair, files_info in input_dict.items():
             aggregated_info = []
             for file_id, infos in files_info.items():
-                for info in infos:  # Here infos is a list of dictionaries
+                for (
+                    info
+                ) in infos:  # Here infos is a list of dictionaries
                     info_copy = info.copy()
                     info_copy["File"] = f"{file_id}.cif"
                     aggregated_info.append(info_copy)
@@ -60,7 +68,9 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
                 inplace=True,
             )
 
-            df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
+            df["Distance"] = pd.to_numeric(
+                df["Distance"], errors="coerce"
+            )
             df["Atomic Mixing"] = (
                 df["Atomic Mixing"]
                 .astype(str)
@@ -75,7 +85,11 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
             std_dev = round(df["Distance"].std(), 3)
 
             # Create a blank row and summary rows
-            blank_row = {"File": None, "Distance": None, "Atomic Mixing": None}
+            blank_row = {
+                "File": None,
+                "Distance": None,
+                "Atomic Mixing": None,
+            }
             summary_rows = [
                 blank_row,
                 {
@@ -83,7 +97,11 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
                     "Distance": average,
                     "Atomic Mixing": None,
                 },
-                {"File": "SD", "Distance": std_dev, "Atomic Mixing": None},
+                {
+                    "File": "SD",
+                    "Distance": std_dev,
+                    "Atomic Mixing": None,
+                },
             ]
 
             # Append the summary rows to the DataFrame
@@ -91,8 +109,9 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
             final_df = pd.concat([df, summary_df], ignore_index=True)
 
             sheet_name = pair[:31]  # Excel sheet name limit
-            final_df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
-
+            final_df.to_excel(
+                excel_writer, sheet_name=sheet_name, index=False
+            )
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump(input_dict, json_file, indent=4)
 

@@ -1,0 +1,139 @@
+##############################################################################
+#                                                                            #
+# Co-Er-In         # Er14Co3In3                                    # 1814810 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Hunter College - City University of New York                             #
+#                                                                            #
+##############################################################################
+
+data_1814810
+_audit_creation_date                     2024-03-05
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      1814810
+_database_code_PDF                       04-013-9175
+
+# Entry summary
+
+_chemical_formula_structural             'Er~14~ Co~3~ In~3~'
+_chemical_formula_sum                    'Co2.89 Er13.83 In3.10'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            Gd~14~Co~3~In~2.7~,tP80,137
+_chemical_formula_weight                 2862.9
+
+# Bibliographic data
+
+_publ_section_title
+'A single crystal study of RE~14~Co~3~In~3~ (RE= Y, Tb, Dy, Ho, Er)'          
+_journal_coden_ASTM                      ZNBSEN
+_journal_name_full                       'Z. Naturforsch., B: J. Chem. Sci.'
+_journal_year                            2006
+_journal_volume                          61
+_journal_page_first                      23
+_journal_page_last                       28
+_journal_language                        English
+loop_
+ _publ_author_name
+ _publ_author_address
+''
+;
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           9.41
+_cell_length_b                           9.41
+_cell_length_c                           22.742
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             2013.8
+_cell_formula_units_Z                    4
+_space_group_IT_number                   137
+_space_group_name_H-M_alt                'P 42/n m c (origin choice 2)'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '1/2-x, 1/2-y, z'
+ 3 '1/2-x, y, z'
+ 4 '-x, -y, -z'
+ 5 '-x, 1/2+y, -z'
+ 6 '1/2-y, 1/2-x, 1/2+z'
+ 7 '1/2-y, x, 1/2+z'
+ 8 '-y, -x, 1/2-z'
+ 9 '-y, 1/2+x, 1/2-z'
+ 10 '1/2+x, -y, -z'
+ 11 '1/2+x, 1/2+y, -z'
+ 12 'x, 1/2-y, z'
+ 13 '1/2+y, -x, 1/2-z'
+ 14 '1/2+y, 1/2+x, 1/2-z'
+ 15 'y, 1/2-x, 1/2+z'
+ 16 'y, x, 1/2+z'
+loop_
+ _atom_type_symbol
+ Er
+ In
+ Co
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+Er7 Er 16 h 0.06284 0.06662 0.39495 1
+Er6 Er 8 g 0.25 0.06066 0.03266 1
+In2 In 8 g 0.25 0.0901 0.64526 1
+Co1 Co 8 g 0.25 0.5328 0.3122 0.91
+Er3 Er 8 g 0.25 0.54687 0.1953 1
+Er4 Er 8 g 0.25 0.56014 0.5156 1
+Er5 Er 8 f 0.56196 0.43804 0.25 1
+Er2 Er 4 d 0.25 0.25 0.28601 1
+Co2 Co 4 d 0.25 0.25 0.448 1
+Er13A Er 4 c 0.75 0.25 0.14542 0.83(2)
+In13B In 4 c 0.75 0.25 0.14542 0.17(2)
+In13A In 4 c 0.75 0.25 0.59339 0.93(3)
+Co13B Co 4 c 0.75 0.25 0.59339 0.07(3)
+
+
+_exptl_crystal_colour                    'gray silver'
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            9.44
+_cell_measurement_temperature            293
+_cell_measurement_radiation              'X-rays, Mo Ka'
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              293
+_diffrn_measurement_device               'automatic diffractometer'
+_diffrn_measurement_device_type          'STOE IPDS II'
+_diffrn_radiation_type                   'X-rays, Mo Ka'
+_diffrn_reflns_number                    29132
+_diffrn_reflns_theta_min                 2
+_diffrn_reflns_theta_max                 36
+_exptl_absorpt_coefficient_mu            63.3
+_exptl_absorpt_correction_type           numerical
+_computing_structure_solution            'starting values from the literature'
+_refine_ls_number_parameters             65
+_refine_ls_number_reflns                 2450
+_refine_ls_R_factor_gt                   0.054
+_refine_ls_wR_factor_gt                  0.135
+
+# End of data set 1814810
+

@@ -1,9 +1,0 @@
-Summary:
-Pair: Co-Co, Count: 1, Distances: 2.964
-Pair: Co-In, Count: 1, Distances: 2.964
-Pair: Er-Co, Count: 1, Distances: 2.623
-Pair: Er-In, Count: 1, Distances: 3.055
-Pair: In-In, Count: 1, Distances: 3.009
-
-Missing pairs:
-Er-Er
