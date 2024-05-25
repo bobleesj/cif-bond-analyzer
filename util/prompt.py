@@ -29,10 +29,10 @@ def print_intro_prompt():
 def get_folder_indices(dir_names_with_cif):
     while True:
         folder_numbers_str = click.prompt(
-            "Enter the numbers corresponding to the folders listed above, separated by spaces. Ex) 1 2 3"
+            "Enter the numbers corresponding to the folders listed above,"
+            " separated by spaces. Ex) 1 2 3"
         )
         try:
-            # Split the input by spaces, convert to integers, and filter out duplicates
             folder_indices = list(
                 set(
                     int(number)
@@ -192,3 +192,27 @@ def get_cutoff_radius():
 
 def print_dict_in_json(data):
     print(json.dumps(data, indent=4, sort_keys=True))
+
+
+def system_analysis_intro_prompt():
+    echo(
+        "\nNote: All of the .cif files must be either binary or ternary files"
+        " or combined. Only up to 3 unique elements are allowed."
+    )
+
+
+def get_binary_ternary_cif_folders(script_path):
+    unique_element_count_per_dir = (
+        folder.get_binary_ternary_combined_cif_dir_list(script_path)
+    )
+    print(
+        "\nAvailable folders containing 2 or 3 unique elements across all CIF files:"
+    )
+    for index, (
+        folder_name,
+        unique_elements,
+        file_count,
+    ) in enumerate(unique_element_count_per_dir, start=1):
+        print(
+            f"{index}. {folder_name}, {unique_elements} unique elements, {file_count} files"
+        )

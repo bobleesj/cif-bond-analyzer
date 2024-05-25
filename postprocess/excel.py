@@ -112,7 +112,6 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path):
             final_df.to_excel(
                 excel_writer, sheet_name=sheet_name, index=False
             )
-
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump(input_dict, json_file, indent=4)
 

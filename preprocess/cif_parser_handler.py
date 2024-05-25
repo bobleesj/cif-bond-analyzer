@@ -4,10 +4,11 @@ from preprocess import supercell
 from util import folder
 
 
-def get_cif_info(file_path, loop_tags, supercell_generation_method=3):
+def get_cif_info(file_path, supercell_generation_method=3):
     """
     Parse CIF data from file path.
     """
+    loop_tags = cif_parser.get_loop_tags()
     cif_block = cif_parser.get_cif_block(file_path)
     (
         cell_lengths,

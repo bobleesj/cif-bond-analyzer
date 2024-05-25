@@ -47,9 +47,7 @@ def main():
         start_time = time.perf_counter()
         filename_with_ext = os.path.basename(file_path)
         filename, _ = os.path.splitext(filename_with_ext)
-        result = cif_parser_handler.get_cif_info(
-            file_path, cif_parser.get_loop_tags()
-        )
+        result = cif_parser_handler.get_cif_info(file_path)
         _, lengths, angles, _, supercell_points, labels, _ = result
 
         unitcell_points = (

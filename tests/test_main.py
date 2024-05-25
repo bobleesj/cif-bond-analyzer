@@ -1,4 +1,4 @@
-from main import main
+from run import bond
 import os
 import json
 import pytest
@@ -29,8 +29,12 @@ def run_test_for_directory(cif_dir):
     temp_dir = tempfile.mkdtemp()
     temp_cif_dir = os.path.join(temp_dir, os.path.basename(cif_dir))
     shutil.copytree(cif_dir, temp_cif_dir)
-
-    main(is_iteractive_mode=False, given_dir_path=temp_cif_dir)
+    script_path = ""
+    bond.run_bond(
+        script_path,
+        is_iteractive_mode=False,
+        given_dir_path=temp_cif_dir,
+    )
 
     # Paths for expected and actual output files
     expected_element_pairs_file = os.path.join(

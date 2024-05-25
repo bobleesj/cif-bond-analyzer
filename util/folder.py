@@ -2,6 +2,8 @@ import os
 import glob
 from os.path import join, exists
 from shutil import rmtree, move
+from preprocess import cif_parser, cif_parser_handler
+from util import folder
 
 
 def get_cif_dir_names(script_path):
@@ -42,7 +44,7 @@ def get_json_dir_names(script_path):
                             dir_path
                         )  # Get the parent directory name
                         dir_name_list.append(parent_dir_name)
-                        break  # Found a JSON file, no need to check further in this directory
+                        break
 
     if not dir_name_list:
         print(
@@ -53,11 +55,8 @@ def get_json_dir_names(script_path):
     return dir_name_list
 
 
-def choose_dir(script_path, ext=".cif"):
-    """
-    Allows the user to select a directory from the given path.
-    """
-    directories = [
+def get_dir_list(ext, script_path):
+    matching_dir_names = [
         d
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
@@ -67,13 +66,74 @@ def choose_dir(script_path, ext=".cif"):
         )
     ]
 
-    if not directories:
+    if not matching_dir_names:
         print(
             "No directories found in the current path containing .cif files!"
         )
         return None
+    return matching_dir_names
+
+
+def choose_binary_ternary_dir(script_path, ext=".cif"):
+    """
+    Allows the user to select a binary/ternary directory containing CIF files with 2 or 3 unique elements.
+    """
+    # Assuming get_binary_ternary_combined_cif_dir_list is fixed to return the list of directories
+    unique_element_count_per_dir = (
+        folder.get_binary_ternary_combined_cif_dir_list(script_path)
+    )
+
+    # Check if there are directories available
+    if not unique_element_count_per_dir:
+        print("No directories meet the criteria.")
+        return None
+
+    # Print available directories
+    print(
+        "\nAvailable folders containing 2 or 3 unique elements across all CIF files:"
+    )
+    for index, (
+        folder_name,
+        unique_elements,
+        file_count,
+    ) in enumerate(unique_element_count_per_dir, start=1):
+        print(
+            f"{index}. {folder_name}, {unique_elements} unique elements, {file_count} files"
+        )
+
+    # Interactive selection of directory
+    while True:
+        choice_input = input("\nEnter folder # to select: ")
+        try:
+            choice = int(choice_input)
+            if 1 <= choice <= len(unique_element_count_per_dir):
+                selected_dir = unique_element_count_per_dir[
+                    choice - 1
+                ][0]
+                selected_dir_path = os.path.join(
+                    script_path, selected_dir
+                )
+                print(f"You have selected: {selected_dir}")
+                return selected_dir_path
+            else:
+                print(
+                    f"Please enter a number between 1 and {len(unique_element_count_per_dir)}."
+                )
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+
+# Example usage (make sure to define `script_path` and import the necessary modules in your working environment)
+
+
+def choose_dir(script_path, ext=".cif"):
+    """
+    Allows the user to select a directory from the given path.
+    """
+    dir_names = get_dir_list(ext, script_path)
+
     print("\nAvailable folders containing CIF files:")
-    for idx, dir_name in enumerate(directories, start=1):
+    for idx, dir_name in enumerate(dir_names, start=1):
         num_of_cif_files = get_cif_file_count_from_directory(dir_name)
         print(f"{idx}. {dir_name}, {num_of_cif_files} files")
     while True:
@@ -81,11 +141,11 @@ def choose_dir(script_path, ext=".cif"):
             choice = int(
                 input("\nEnter folder # having .cif files: ")
             )
-            if 1 <= choice <= len(directories):
-                return join(script_path, directories[choice - 1])
+            if 1 <= choice <= len(dir_names):
+                return join(script_path, dir_names[choice - 1])
             else:
                 print(
-                    f"Please enter a number between 1 and {len(directories)}."
+                    f"Please enter a number between 1 and {len(dir_names)}."
                 )
         except ValueError:
             print("Invalid input. Please enter a number.")
@@ -183,3 +243,52 @@ def create_folder_under_output_dir(cif_dir, folder_name):
         os.mkdir(nested_output_dir)
 
     return nested_output_dir
+
+
+def get_binary_ternary_combined_cif_dir_list(script_path, ext=".cif"):
+    # Use the script path to list folders that contain .cif files
+    dir_names = get_dir_list(ext, script_path)
+    unique_element_count_per_dir = []
+
+    for dir_name in dir_names:
+        cif_dir = os.path.join(script_path, dir_name)
+        file_count = get_cif_file_count_from_directory(cif_dir)
+        file_path_list = get_file_path_list(cif_dir, ext="*.cif")
+        atom_set = set()
+
+        # Loop each cif file in the dir
+        for file_path in file_path_list:
+            (
+                _,
+                _,
+                _,
+                _,
+                _,
+                unique_labels,
+                _,
+            ) = cif_parser_handler.get_cif_info(file_path)
+
+            for label in unique_labels:
+                atom = cif_parser.get_atom_type(label)
+                atom_set.add(atom)
+                # Check if atom set size exceeds 3
+                if len(atom_set) > 3:
+                    break
+
+            if len(atom_set) > 3:
+                break
+
+        # Append only if atom set size is 3 or less
+        if len(atom_set) <= 3:
+            unique_element_count_per_dir.append(
+                (dir_name, len(atom_set), file_count)
+            )
+
+    return unique_element_count_per_dir
+
+
+def check_whether_file_exists(json_file_path):
+    """
+    Check if a JSON file exists at the specified path.
+    """
+    return os.path.exists(json_file_path)
