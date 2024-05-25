@@ -1,6 +1,0 @@
-Summary:
-Pair: Co-In, Count: 7, Distances: 2.592, 2.593, 2.597, 2.600, 2.602, 2.612, 2.682
-
-Missing pairs:
-Co-Co
-In-In

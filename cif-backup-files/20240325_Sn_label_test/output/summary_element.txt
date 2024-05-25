@@ -1,6 +1,0 @@
-Summary:
-Pair: Ni-Ni, Count: 1, Distances: 2.550
-Pair: Ni-Sn, Count: 1, Distances: 2.503
-
-Missing pairs:
-Sn-Sn

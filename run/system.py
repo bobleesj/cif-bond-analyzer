@@ -45,7 +45,7 @@ def run_system_analysis(script_path):
                 global_element_pair_dict,
                 log_list,
             ) = bond.get_bond_data(file_path_list)
-            bond_data = bond.save_outputs(
+            bond.save_outputs(
                 global_site_pair_dict,
                 global_element_pair_dict,
                 dir_path,
