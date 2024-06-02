@@ -7,6 +7,10 @@ __pycache__/
 # module
 nodemon.json
 
+# Cif files
+20240531_ternary_binary_combined/
+20250519_SA_ternary_binary_CoIn/
+
 # C extensions
 *.so
 # Ignore all CSV files

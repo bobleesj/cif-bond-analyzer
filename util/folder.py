@@ -7,6 +7,9 @@ from util import folder
 
 
 def get_cif_dir_names(script_path):
+    """
+    Returns a list of directories containing .cif files.
+    """
     dir_name_list = [
         d
         for d in os.listdir(script_path)
@@ -26,6 +29,9 @@ def get_cif_dir_names(script_path):
 
 
 def get_json_dir_names(script_path):
+    """
+    Returns .cif directories containing .json in the output folder.
+    """
     directories = os.listdir(script_path)
 
     dir_name_list = []
@@ -55,6 +61,7 @@ def get_json_dir_names(script_path):
 
 
 def get_dir_list(ext, script_path):
+    """Returns directory names with .cif files."""
     matching_dir_names = [
         d
         for d in os.listdir(script_path)
@@ -74,7 +81,8 @@ def get_dir_list(ext, script_path):
 
 def choose_binary_ternary_dir(script_path, ext=".cif"):
     """
-    Allows the user to select a binary/ternary directory containing CIF files with 2 or 3 unique elements.
+    Allows the user to select a binary/ternary directory containing CIF files
+    with 2 or 3 unique elements.
     """
     # Assuming get_binary_ternary_combined_cif_dir_list is fixed to return the list of directories
     unique_element_count_per_dir = (
@@ -164,30 +172,40 @@ def save_to_csv_directory(folder_info, df, base_filename):
 
 
 def get_cif_file_count_from_directory(directory):
-    """Helper function to count .cif files in a given directory."""
+    """
+    Counts .cif files in a given directory.
+    """
     return len(glob.glob(join(directory, "*.cif")))
 
 
 def get_file_path_list(directory, ext="*.cif"):
-    """Get all file path list from folde."""
+    """
+    Lists all files in the chosen folder
+    """
     return glob.glob(os.path.join(directory, ext))
 
 
 def remove_directories(directory_list):
-    """Remove all files given directories."""
+    """
+    Removes all files in the given directories.
+    """
     for direcotry in directory_list:
         if exists(direcotry):
             rmtree(direcotry)
 
 
 def move_files(to_directory, file_path_list):
-    """Move files to a folder."""
+    """
+    Moves files to another folder.
+    """
     for file_path in file_path_list:
         move(file_path, to_directory)
 
 
 def remove_file(file_path):
-    """Remove a single file."""
+    """
+    Removes a single file.
+    """
     if exists(file_path):
         os.remove(file_path)
 
@@ -195,6 +213,9 @@ def remove_file(file_path):
 def create_output_folder_for_neighbor(
     dir_path, radius, is_coordination_num_used
 ):
+    """
+    Creates an output folder for atomic for atomic environment info.
+    """
     output_folder_path = os.path.join(dir_path, "output")
 
     if not os.path.exists(output_folder_path):
@@ -215,9 +236,12 @@ def create_output_folder_for_neighbor(
     return nested_folder_path
 
 
-def create_folder_under_output_dir(cif_dir, folder_name):
+def create_folder_under_output_dir(dir_path, folder_name):
+    """
+    Creates a folder inside the output folder.
+    """
     # Define the path to the 'output' directory
-    output_dir = join(cif_dir, "output")
+    output_dir = join(dir_path, "output")
 
     # Create the 'output' directory if it doesn't exist
     if not os.path.exists(output_dir):
@@ -234,6 +258,10 @@ def create_folder_under_output_dir(cif_dir, folder_name):
 
 
 def get_binary_ternary_combined_cif_dir_list(script_path, ext=".cif"):
+    """
+    Returns a list of tuples containing directory name, number of unique
+    elements, and file count
+    """
     # Use the script path to list folders that contain .cif files
     dir_names = get_dir_list(ext, script_path)
     unique_element_count_per_dir = []
@@ -275,8 +303,8 @@ def get_binary_ternary_combined_cif_dir_list(script_path, ext=".cif"):
     return unique_element_count_per_dir
 
 
-def check_whether_file_exists(json_file_path):
+def check_whether_file_exists(file_path):
     """
-    Check if a JSON file exists at the specified path.
+    Checks if a file exists at the specified path.
     """
-    return os.path.exists(json_file_path)
+    return os.path.exists(file_path)

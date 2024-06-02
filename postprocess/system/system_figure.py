@@ -1,6 +1,6 @@
 import numpy as np
 from os.path import join
-from util import formula_parser, prompt
+from util import formula_parser, prompt, sort
 import matplotlib.pyplot as plt
 from postprocess.system import system_util
 from postprocess.system.figure import (
@@ -8,6 +8,11 @@ from postprocess.system.figure import (
     ternary,
     binary,
 )
+
+
+def shift_points_xy(point, x_shift, y_shift=0):
+    # Shift a point along the x-axis and y-axis
+    return np.array([point[0] + x_shift, point[1] + y_shift])
 
 
 def draw_ternary_figure(
@@ -25,14 +30,21 @@ def draw_ternary_figure(
     # Grid
     grid_alpha = 0.2
     grid_line_width = 0.5
-
     # Trinagle frame
     v0, v1, v2 = ternary.generate_traingle_vertex_points()
     ternary.draw_ternary_frame(v0, v1, v2)
+    ternary.draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas)
     ternary.draw_filled_edges(v0, v1, v2)
     ternary.draw_triangular_grid(
         v0, v1, v2, grid_alpha, grid_line_width, n_lines=10
     )
+
+    # Get orderd R, M, X to find the position of binary compounds
+    (
+        R_element,
+        M_element,
+        X_element,
+    ) = formula_parser.get_RMX_sorted_formula_from_formulas(unique_formulas)
 
     # Get all unique formulas
     for formula in unique_formulas:
@@ -68,6 +80,7 @@ def draw_ternary_figure(
                     float(R_norm_index),
                     float(M_norm_index),
                 )
+
                 hexagon.draw_single_hexagon_and_lines_per_center_point(
                     center_pt,
                     bond_fractions_per_formula[i],
@@ -79,26 +92,94 @@ def draw_ternary_figure(
 
             # For binary
             if num_of_elements == 2:
-                A_norm_index = parsed_normalized_formula[0][1]
-                B_norm_index = parsed_normalized_formula[1][1]
+                # 6 cases,
+                """
+                RM(AB) are RM
+                RX(AC)
+                """
+
+                tag = formula_parser.extract_tag(formula)
+                # Now, if the formula contains any of the tags, then we alter
+
+                A_norm_index = float(parsed_normalized_formula[0][1])
+                B_norm_index = float(parsed_normalized_formula[1][1])
                 A_label = parsed_normalized_formula[0][0]
                 B_label = parsed_normalized_formula[1][0]
                 labels = [A_label, B_label]
 
-                center_pt = ternary.get_point_in_triangle_from_ternary_index(
-                    v0,
-                    v1,
-                    v2,
-                    float(0),
-                    (1 - float(B_norm_index)),
-                )
+                if A_label == R_element and B_label == M_element:
+                    # ErCo
+                    center_pt = (
+                        ternary.get_point_in_triangle_from_ternary_index(
+                            v0,
+                            v1,
+                            v2,
+                            A_norm_index,
+                            B_norm_index,
+                        )
+                    )
 
-                hexagon.draw_single_hexagon_and_lines_per_center_point(
-                    center_pt,
-                    bond_fractions_per_formula[i],
-                    True,
-                    is_for_individual_hexagon,
-                )
+                    if tag == "lt":
+                        center_pt = shift_points_xy(center_pt, 0.0, -0.1)
+                    if tag == "ht":
+                        center_pt = shift_points_xy(center_pt, 0.0, -0.2)
+                    if tag is not None:
+                        center_pt = shift_points_xy(center_pt, 0.0, -0.1)
+
+                    hexagon.draw_single_hexagon_and_lines_per_center_point(
+                        center_pt,
+                        bond_fractions_per_formula[i],
+                        True,
+                        is_for_individual_hexagon,
+                    )
+                if A_label == R_element and B_label == X_element:
+                    center_pt = (
+                        ternary.get_point_in_triangle_from_ternary_index(
+                            v0,
+                            v1,
+                            v2,
+                            A_norm_index,
+                            0.0,
+                        )
+                    )
+                    if tag == "lt":
+                        center_pt = shift_points_xy(center_pt, -0.1, 0.0)
+                    if tag == "ht":
+                        center_pt = shift_points_xy(center_pt, -0.2, 0.0)
+                    if tag is not None:
+                        center_pt = shift_points_xy(center_pt, -0.1, 0.0)
+
+                    hexagon.draw_single_hexagon_and_lines_per_center_point(
+                        center_pt,
+                        bond_fractions_per_formula[i],
+                        True,
+                        is_for_individual_hexagon,
+                    )
+                if A_label == M_element and B_label == X_element:
+                    # CoIn2
+                    center_pt = (
+                        ternary.get_point_in_triangle_from_ternary_index(
+                            v0,
+                            v1,
+                            v2,
+                            0,
+                            (1 - B_norm_index),
+                        )
+                    )
+
+                    if tag == "lt":
+                        center_pt = shift_points_xy(center_pt, 0.1, 0.0)
+                    if tag == "ht":
+                        center_pt = shift_points_xy(center_pt, 0.2, 0.0)
+                    if tag is not None:
+                        center_pt = shift_points_xy(center_pt, 0.1, 0.0)
+
+                    hexagon.draw_single_hexagon_and_lines_per_center_point(
+                        center_pt,
+                        bond_fractions_per_formula[i],
+                        True,
+                        is_for_individual_hexagon,
+                    )
             # Write one of the chemical formulas
             plt.text(
                 center_pt[0],
@@ -139,7 +220,7 @@ def draw_hexagon_for_individual_figure(
     outer_line_width = 2
     color_line_width = 6
     inner_line_width = 1
-    core_dot_radius = 50
+    core_dot_radius = 55
 
     # Formula/structure label
     label_offset = 0.5
@@ -150,6 +231,7 @@ def draw_hexagon_for_individual_figure(
             structure_dict, structure
         )
         formulas, bond_labels, bond_fractions = result
+        print(formulas)
         formula = formula_parser.get_subscripted_formula(formulas[0])
         structure = formula_parser.get_subscripted_formula(structure)
 

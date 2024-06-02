@@ -163,15 +163,15 @@ def get_atom_info(cif_loop_values, i):
     return label, occupancy, coordinates
 
 
-def get_cif_loop_value_dict(ci_loop_values):
+def get_cif_loop_value_dict(cif_loop_values):
     """
     Create a dictionary containing CIF loop values organized by atom label.
     """
     cif_loop_value_dict = {}
-    num_of_atom_labels = get_num_of_atom_labels(ci_loop_values)
+    num_of_atom_labels = get_num_of_atom_labels(cif_loop_values)
 
     for i in range(num_of_atom_labels):
-        label, occupancy, coordinates = get_atom_info(ci_loop_values, i)
+        label, occupancy, coordinates = get_atom_info(cif_loop_values, i)
         cif_loop_value_dict[label] = {}
         cif_loop_value_dict[label]["occupancy"] = occupancy
         cif_loop_value_dict[label]["coordinates"] = coordinates
@@ -254,14 +254,6 @@ def get_compound_phase_tag_id_from_third_line(file_path):
         third_line_parts = [
             part.strip() for part in third_line.split("#") if part.strip()
         ]
-        CIF_id = third_line_parts[-1]
-        if not CIF_id.isdigit():
-            raise RuntimeError(
-                "The CIF file is wrongly formatted in the third line"
-            )
-
-        # If the thrid line does not contain the CIF ID, then it's wrongly formatted
-        # if third_line_parts[0] not in third_line_parts[1]
 
         compound_phase = third_line_parts[0]
         compound_formala_tag = third_line_parts[1]

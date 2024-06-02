@@ -15,7 +15,7 @@ Release date: Mar 10, 2024
 """
 
 import os
-from run import bond, system, environment
+from run import bond, system
 
 
 def main():
@@ -24,8 +24,8 @@ def main():
     print("\nWelcome! Please choose an option to proceed:")
     options = {
         "1": "Compute the shortest distance from each site.",
-        "2": "Use the result from Option 1 to conduct system analysis",
-        "3": "Compute the nearest neighbor distances for each site.",
+        "2": "Conduct system analysis.",
+        # "3": "Compute the nearest neighbor distances for each site.",
     }
 
     for key, value in options.items():
@@ -34,11 +34,11 @@ def main():
     choice = input(f"Enter your choice (1-{len(options)}): ")
 
     if choice == "1":
-        bond.run_bond(script_path)
+        bond.run_bond_analysis(script_path)
     elif choice == "2":
         system.run_system_analysis(script_path)
-    elif choice == "3":
-        environment.run_atomic_environment(script_path)
+    # elif choice == "3":
+    #     environment.run_environment_analysis(script_path)
 
 
 if __name__ == "__main__":

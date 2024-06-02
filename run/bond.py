@@ -1,19 +1,3 @@
-"""
-Main script for processing CIF files.
-
-This script processes CIF files in a specified directory,
-performs preprocessing, bond analysis, and generates output files and plots.
-
-Usage:
-    python main.py
-
-Author: Sangjoon Bob Lee
-
-Last update: May 19, 2024
-Release date: Mar 10, 2024
-
-"""
-
 import os
 import time
 import pandas as pd
@@ -25,7 +9,10 @@ from util import folder, prompt
 from filter import occupancy
 
 
-def run_bond(script_path, is_iteractive_mode=True, given_dir_path=None):
+def run_bond_analysis(
+    script_path, is_iteractive_mode=True, given_dir_path=None
+):
+    """Runs the bond extraction procedure"""
     prompt.print_intro_prompt()
     supercell_method = None
     dir_names_with_cif = None
@@ -38,12 +25,10 @@ def run_bond(script_path, is_iteractive_mode=True, given_dir_path=None):
         if not dir_names_with_cif:
             return
 
-        # Ask input on folder processing
         selected_dirs = prompt.get_user_input_folder_processing(
             dir_names_with_cif, ".cif"
         )
 
-        # Ask input on supercell generation method
         supercell_method = prompt.get_user_input_on_supercell_method()
 
         # If the user chooses no option, then it's simply 3
@@ -94,6 +79,7 @@ def run_bond(script_path, is_iteractive_mode=True, given_dir_path=None):
 
 
 def get_bond_data(file_path_list, supercell_method=3):
+    """Gets element pair and site pair data from files"""
     # PART 2: PREPROCESS
     global_site_pair_dict = {}
     global_element_pair_dict = {}

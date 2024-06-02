@@ -29,6 +29,7 @@ def draw_single_hexagon_and_lines_per_center_point(
 ):
     # Get colors
     colors = color.get_hexagon_vertex_colors(False)
+
     # Get hexagon poitns
     x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(center_pt, radius)
 
@@ -92,12 +93,13 @@ def draw_colored_and_black_lines(
     black_line_width,
     is_for_individual_hexagon,
 ):
-    num_of_points = None
+    num_of_points = 6
+    # print(is_binary)
 
-    if is_binary:
-        num_of_points = 3
-    else:
-        num_of_points = 6
+    # if is_binary:
+    #     num_of_points = 3
+    # else:
+    #     num_of_points = 6
 
     for i in range(num_of_points):
         x_hex_pt = x_hex_pts[i]
@@ -199,6 +201,7 @@ def plot_colored_black_lines_with_fraction(
         hex_unit_vector, dist_hex = compute_unit_vector_dist(
             center_pt, x_hex_pt, y_hex_pt
         )
+
         # Adjust endpoint by half the marker radius
         marker_adjustment = lw * scale
         start_offset = marker_adjustment / 2  # Half the marker size
