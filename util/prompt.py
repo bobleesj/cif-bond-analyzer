@@ -1,5 +1,6 @@
 import textwrap
 import click
+import logging
 from click import style, echo
 from util import folder
 import json
@@ -184,3 +185,16 @@ def system_analysis_intro_prompt():
         "\nNote: All of the .cif files must be either binary or ternary files"
         " or combined. Only up to 3 unique elements are allowed."
     )
+
+
+def log_conneted_points(all_labels_connections):
+    for label, connections in all_labels_connections.items():
+        print(f"\nAtom site {label}:")
+        for (
+            label,
+            dist,
+            coords_1,
+            coords_2,
+        ) in connections:
+            print(f"{label} {dist} {coords_1}, {coords_2}")
+    print()

@@ -149,7 +149,6 @@ def get_all_labels_connections(
     cutoff_radius,
     lengths,
     angles,
-    is_cn_used,
 ):
     """
     Computes all pair distances per site label.
@@ -177,55 +176,55 @@ def get_all_labels_connections(
 
         all_labels_connections[label] = connections
 
-    # Determine coordination number
-    if is_cn_used:
-        all_labels_connections = filter_connections_with_cn(
-            all_labels_connections
-        )
+    # # Determine coordination number
+    # if is_cn_used:
+    #     all_labels_connections = filter_connections_with_cn(
+    #         all_labels_connections
+    #     )
 
-    all_labels_connections = add_diff_after(all_labels_connections)
+    # all_labels_connections = add_diff_after(all_labels_connections)
     return all_labels_connections
 
 
-def filter_connections_with_cn(
-    labels_connections, nearest_neighbor_max_count=20
-):
-    """
-    Reduces the number of connections based on the CN.
-    """
-    filtered_connections = {}
-    for label, label_data in labels_connections.items():
-        # Limit to the first nearest_neighbor_max_count distances
-        limited_label_data = label_data[:nearest_neighbor_max_count]
+# def filter_connections_with_cn(
+#     labels_connections, nearest_neighbor_max_count=20
+# ):
+#     """
+#     Reduces the number of connections based on the CN.
+#     """
+#     filtered_connections = {}
+#     for label, label_data in labels_connections.items():
+#         # Limit to the first nearest_neighbor_max_count distances
+#         limited_label_data = label_data[:nearest_neighbor_max_count]
 
-        if not limited_label_data:
-            continue
+#         if not limited_label_data:
+#             continue
 
-        # Calculate normalized distances
-        normalized_distances = calculate_normalized_distances(
-            limited_label_data
-        )
+#         # Calculate normalized distances
+#         normalized_distances = calculate_normalized_distances(
+#             limited_label_data
+#         )
 
-        # Calculate diffs between consecutive normalized distances
-        normalized_dist_diffs = calculate_normalized_dist_diffs(
-            normalized_distances
-        )
+#         # Calculate diffs between consecutive normalized distances
+#         normalized_dist_diffs = calculate_normalized_dist_diffs(
+#             normalized_distances
+#         )
 
-        # Find the maximum gap and its position
-        if normalized_dist_diffs:
-            max_gap = max(normalized_dist_diffs)
-            max_gap_index = normalized_dist_diffs.index(max_gap) + 2
-            filtered_connections[label] = limited_label_data[:max_gap_index]
+#         # Find the maximum gap and its position
+#         if normalized_dist_diffs:
+#             max_gap = max(normalized_dist_diffs)
+#             max_gap_index = normalized_dist_diffs.index(max_gap) + 2
+#             filtered_connections[label] = limited_label_data[:max_gap_index]
 
-    return filtered_connections
+#     return filtered_connections
 
 
-def calculate_normalized_distances(connections):
-    """
-    Calculates normalized distances for each connection
-    """
-    min_dist = connections[0][1]
-    normalized_distances = [
-        np.round(dist / min_dist, 3) for _, dist, _, _ in connections
-    ]
-    return normalized_distances
+# def calculate_normalized_distances(connections):
+#     """
+#     Calculates normalized distances for each connection
+#     """
+#     min_dist = connections[0][1]
+#     normalized_distances = [
+#         np.round(dist / min_dist, 3) for _, dist, _, _ in connections
+#     ]
+#     return normalized_distances
