@@ -2,6 +2,9 @@ import pandas as pd
 
 
 def get_mendeleev_numbers(data):
+    """
+    Returns Mendeleeve numbers from the Excel path.
+    """
     data = "data/element_Mendeleev_numbers.xlsx"
     df = pd.read_excel(data, header=None)
     elements = df.iloc[:, 0]  # Assuming elements are in the first column

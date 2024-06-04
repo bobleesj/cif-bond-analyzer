@@ -1,22 +1,22 @@
 import os
 import json
 import time
-import pandas as pd
-import numpy as np
 import click
 from click import echo
-from util import prompt, folder, formula_parser, sort
+from util import prompt, folder
 from preprocess import format
 from postprocess.system import (
     system_util,
     system_excel,
     system_figure,
     system_handler,
+    system_color,
 )
 from run import bond
 
 
 def run_system_analysis(script_path):
+    "Runs the system analysis main function"
     prompt.system_analysis_intro_prompt()
     dir_path = folder.choose_binary_ternary_dir(script_path)
     file_path_list = folder.get_file_path_list(dir_path)
@@ -70,7 +70,7 @@ def run_system_analysis(script_path):
         _,
         unique_structure_types,
         unique_formulas,
-    ) = system_util.update_json_data(bond_data, dir_path)
+    ) = system_util.parse_data_from_json_and_file(bond_data, dir_path)
 
     system_util.write_json_data(updated_json_file_path, updated_data)
 
@@ -103,7 +103,7 @@ def run_system_analysis(script_path):
     """
     Step 3. Generate Excel file
     """
-    # prompt.print_dict_in_json(structure_dict)
+    prompt.print_dict_in_json(structure_dict)
 
     # Save Structure Analysis and Overview Excel
     system_excel.save_structure_analysis_excel(structure_dict, output_dir)
@@ -111,7 +111,7 @@ def run_system_analysis(script_path):
         structure_dict, possible_bond_pairs, output_dir
     )
     """
-    Step 4. Generate hexagonal figures
+    Step 4. Generate hexagonal figures and color maps
     """
     # prompt.print_dict_in_json(structure_dict)
 
@@ -127,6 +127,10 @@ def run_system_analysis(script_path):
             output_dir,
             is_binary_ternary_combined,
         )
+        system_color.plot_ternary_color_map(
+            unique_formulas, structure_dict, output_dir
+        )
+
     if is_binary:
         system_figure.draw_binary_figure(
             unique_formulas, structure_dict, output_dir

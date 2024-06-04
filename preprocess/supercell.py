@@ -306,16 +306,6 @@ def get_points_and_labels(
     return list(set(all_points)), unique_labels, unique_atoms_tuple
 
 
-def distance_to_origin(point):
-    """
-    Calculate the Euclidean distance from a given
-    point to the origin in 3D space.
-    """
-
-    x, y, z, _ = point
-    return (x**2 + y**2 + z**2) ** 0.5
-
-
 def calc_dist_two_cart_points(point1, point2):
     """
     Calculate the Euclidean distance between two points
@@ -378,5 +368,4 @@ def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
         ]  # Convert to column vector if necessary
 
     cartesian_coords = np.dot(matrix, fractional_coords).flatten()
-
     return cartesian_coords

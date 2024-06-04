@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from postprocess.system import system_util, system_figure
+from util import string_parser, formula_parser
 
 
 def get_point_in_triangle_from_ternary_index(
@@ -26,15 +28,129 @@ def generate_traingle_vertex_points():
 
 
 def draw_ternary_frame(v0, v1, v2):
+    """
+    Draw traingle vertices.
+    """
     # Triangle vertices
     # Plotting the enhanced triangle
-    plt.figure(figsize=(8, 7))
+    plt.figure(figsize=(8, 6))
     triangle = plt.Polygon(
         [v0, v1, v2], edgecolor="k", facecolor="none", zorder=3
     )
-
-    # Draw edges of the traingle
     plt.gca().add_patch(triangle)
+    # Set new plot limits here
+    plt.xlim(-0.3, 1.3)  # Extend x-axis limits
+    plt.ylim(-0.4, 1.0)  # Extend y-axis limits
+
+    plt.tight_layout(pad=0.2)
+    plt.gca().set_aspect("equal", adjustable="box")
+    plt.axis("off")
+
+
+def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas):
+    """
+    Draw extra edges on the traingle with tags found on binary compounds
+    """
+
+    # First from the structure dict, we get all unique formulas
+    formula_tag_tuples = string_parser.parse_formulas_with_underscore(
+        unique_formulas
+    )
+    (
+        R_element,
+        M_element,
+        X_element,
+    ) = formula_parser.get_RMX_sorted_formula_from_formulas(unique_formulas)
+
+    tags_count = formula_parser.count_formula_with_tags_in_ternary(
+        formula_tag_tuples, R_element, M_element, X_element
+    )
+    # Draw edges of the traingle
+    # The following is the not refactored logic at the moment for flexibility
+
+    edges = {
+        (tuple(v0), tuple(v1)): "RM",
+        (tuple(v0), tuple(v2)): "RX",
+        (tuple(v1), tuple(v2)): "MX",
+    }
+
+    extra_edge_line_width = 0.5
+    for (start, end), key in edges.items():
+        start_vertex = np.array(start)
+        end_vertex = np.array(end)
+        x_shift, y_shift = 0, 0
+
+        # Handle 'ht' condition
+        if tags_count.get(f"{key}_ht", 0):
+            # Custom shifts based on the key
+            shift_amount = 0.3
+            if key == "RM":
+                y_shift = -shift_amount
+            elif key == "MX":
+                x_shift = shift_amount
+            elif key == "RX":
+                x_shift = -shift_amount
+            new_p1 = system_figure.shift_points_xy(
+                start_vertex, x_shift, y_shift
+            )
+            new_p2 = system_figure.shift_points_xy(
+                end_vertex, x_shift, y_shift
+            )
+            plt.plot(
+                [new_p1[0], new_p2[0]],
+                [new_p1[1], new_p2[1]],
+                "k--",
+                zorder=2,
+                lw=extra_edge_line_width,
+            )
+
+        # Handle 'lt' condition
+        if tags_count.get(f"{key}_lt", 0):
+            # Smaller shifts
+            shift_amount = 0.2
+            if key == "RM":
+                y_shift = -shift_amount
+            elif key == "MX":
+                x_shift = shift_amount
+            elif key == "RX":
+                x_shift = -shift_amount
+            new_p1 = system_figure.shift_points_xy(
+                start_vertex, x_shift, y_shift
+            )
+            new_p2 = system_figure.shift_points_xy(
+                end_vertex, x_shift, y_shift
+            )
+            plt.plot(
+                [new_p1[0], new_p2[0]],
+                [new_p1[1], new_p2[1]],
+                "k--",
+                zorder=2,
+                lw=extra_edge_line_width,
+            )
+
+        # Assume handling 'others' or any condition needing a larger shift
+        if tags_count.get(f"{key}_others", 0):
+            # Larger shifts, example with a hypothetical 'others' condition
+            shift_amount = 0.1
+            if key == "RM":
+                y_shift = -shift_amount
+            elif key == "MX":
+                x_shift = shift_amount
+            elif key == "RX":
+                x_shift = -shift_amount
+            new_p1 = system_figure.shift_points_xy(
+                start_vertex, x_shift, y_shift
+            )
+            new_p2 = system_figure.shift_points_xy(
+                end_vertex, x_shift, y_shift
+            )
+            plt.plot(
+                [new_p1[0], new_p2[0]],
+                [new_p1[1], new_p2[1]],
+                "k--",
+                zorder=2,
+                lw=extra_edge_line_width,
+            )
 
 
 def add_vertex_labels(v0, v1, v2, labels):
@@ -63,12 +179,6 @@ def add_vertex_labels(v0, v1, v2, labels):
         ha="center",
         va="bottom",
     )
-
-    # Setting limits and aspect
-    plt.xlim(-0.1, 1.1)
-    plt.ylim(-0.1, 1.1)
-    plt.gca().set_aspect("equal", adjustable="box")
-    plt.axis("off")
 
 
 def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):

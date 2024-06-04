@@ -30,7 +30,7 @@ def run_test_for_directory(cif_dir):
     temp_cif_dir = os.path.join(temp_dir, os.path.basename(cif_dir))
     shutil.copytree(cif_dir, temp_cif_dir)
     script_path = ""
-    bond.run_bond(
+    bond.run_bond_analysis(
         script_path,
         is_iteractive_mode=False,
         given_dir_path=temp_cif_dir,

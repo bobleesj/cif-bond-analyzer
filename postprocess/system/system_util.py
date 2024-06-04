@@ -4,7 +4,8 @@ import numpy as np
 import pandas as pd
 import click
 from preprocess import cif_parser
-from util import prompt, formula_parser, sort
+from util import prompt, formula_parser, sort, string_parser
+from postprocess.system import system_util
 
 
 def clean_formula(formula):
@@ -25,7 +26,7 @@ def read_json_data(file_path):
         return json.load(file)
 
 
-def update_json_data(data, cif_directory):
+def parse_data_from_json_and_file(data, cif_directory):
     unique_pairs = []
     unique_structure_types = []
     unique_formulas = []
@@ -34,15 +35,31 @@ def update_json_data(data, cif_directory):
         unique_pairs.append(key)
         for cif_id, cif_data_list in site_pairs.items():
             cif_file_path = os.path.join(cif_directory, f"{cif_id}.cif")
+
+            # Get tag information
             if os.path.exists(cif_file_path):
                 try:
+                    # Parse tag
+                    (
+                        _,
+                        _,
+                        tag_string,
+                        _,
+                    ) = cif_parser.get_compound_phase_tag_id_from_third_line(
+                        cif_file_path
+                    )
                     block = cif_parser.get_cif_block(cif_file_path)
+
                     formula = clean_formula(
                         block.find_value("_chemical_formula_structural")
                     )
                     structure_type = clean_structure_type(
                         block.find_value("_chemical_name_structure_type")
                     )
+                    # Do not append tag with "rt"
+                    if tag_string and tag_string != "rt":
+                        formula = formula + "_" + tag_string
+
                     for pair in cif_data_list:
                         pair["formula"] = formula
                         pair["structure_type"] = structure_type
@@ -52,6 +69,7 @@ def update_json_data(data, cif_directory):
                     print(f"Failed to process {cif_file_path}: {e}")
             else:
                 print(f"File not found: {cif_file_path}")
+
     return (
         data,
         unique_pairs,
@@ -185,10 +203,8 @@ def add_unique_bond_count_per_bond_type(structure_dict):
 
 def add_bond_fractions_per_structure(structure_dict):
     """
-    Calculate and add bond fractions for each bond type in each structure in structure_dict based on the total bond count.
-
-    :param structure_dict: Dictionary containing structure data with bond data
-    :return: None (modifies the structure_dict in place)
+    Calculate and add bond fractions for each bond type in each structure
+    in structure_dict based on the total bond count.
     """
     for structure, data in structure_dict.items():
         bond_data = data.get("bond_data", {})
@@ -228,9 +244,24 @@ def extract_info_per_structure(structure_dict, structure_key):
     return (formulas, bond_labels, bond_fractions)
 
 
+def parse_unique_formulas_from_structure_dict(
+    structure_dict, unique_structure_types
+):
+    formula_set = set()
+    for _, structure in enumerate(unique_structure_types):
+        result = system_util.extract_info_per_structure(
+            structure_dict, structure
+        )
+        formulas, _, _ = result
+        for formula in formulas:
+            formula_set.add(formula)
+    return formula_set
+
+
 def extract_bond_info_per_formula(formula, structure_dict):
     """
-    Parses the structure and bond fractions for each formula across all occurrences in the dictionary.
+    Parses the structure and bond fractions for each formula across all
+    occurrences in the dictionary.
     """
 
     # Initialize lists to store bond labels and fractions for the input formula
@@ -327,7 +358,6 @@ def get_is_binary(json_file_path):
 def get_is_ternary(json_file_path):
     click.echo("All ternary compounds are found.")
     unique_formulas = get_all_unique_formulas(json_file_path)
-    print(unique_formulas)
     return all(
         formula_parser.get_num_element(formula) == 3
         for formula in unique_formulas
