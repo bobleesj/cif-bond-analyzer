@@ -2,12 +2,16 @@
 
 import os
 import time
+import numpy as np
 from coordination import handler as cn_handler
 from coordination import calculator as cn_calculator
+from coordination import geometry as cn_geometry
 from coordination import optimize, data
 from util import folder, prompt
 from preprocess import cif_parser
 from postprocess.environment import environment_util
+from collections import Counter
+from scipy.spatial import ConvexHull
 
 file_path = "20250604_CN_4_methods/URhIn.cif"
 all_labels_connections = cn_handler.get_connected_points(
@@ -61,9 +65,32 @@ rad_sum_ternary = data.compute_rad_sum_ternary(
 max_gaps_per_label = cn_calculator.compute_normalized_dists_in_connections(
     rad_sum_ternary, all_labels_connections
 )
-
+# Step 4. Compute geometry of CN polyhedron
 for label, cn_per_method in max_gaps_per_label.items():
     print(label)
-    print(cn_per_method)
+    for method, CN_data in cn_per_method.items():
+        print(method, CN_data)
+        # Use the index from cn
+        connection_data = all_labels_connections[label][: CN_data["CN"]]
+        polyhedron_points = []
+        central_atom_coord = []
 
-# Step 4.
+        # Assume each connection is structured properly to extract needed data
+        for connection in connection_data:
+            if len(connection) > 3:  # Check if connection has enough data
+                central_atom_coord = connection[
+                    2
+                ]  # Central atom's coordinates
+                polyhedron_points.append(
+                    connection[3]
+                )  # Coordinates of points making up the polyhedron
+
+        try:
+            hull = ConvexHull(polyhedron_points)
+        except:
+            print(f"\nError in determining polyhedron for {label}.\n")
+            continue
+        polyhedron_points = np.array(polyhedron_points)
+        polyhedron_metrics = cn_geometry.compute_polyhedron_metrics(
+            polyhedron_points, central_atom_coord, hull
+        )

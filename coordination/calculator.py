@@ -16,7 +16,7 @@ def compute_normalized_dists_in_connections(rad_sum, all_labels_connections):
         # Initialize each label
         norm_dists_per_label[ref_label] = {key: [] for key in methods}
         max_gaps_per_label[ref_label] = {
-            method: {"max_gap": 0, "cn": -1} for method in methods
+            method: {"max_gap": 0, "CN": -1} for method in methods
         }
         # Limit to 20 connection data points
         connection_data = connection_data[:20]
@@ -73,7 +73,7 @@ def compute_normalized_dists_in_connections(rad_sum, all_labels_connections):
                         max_gaps_per_label[ref_label][method][
                             "max_gap"
                         ] = current_gap
-                        max_gaps_per_label[ref_label][method]["cn"] = i
+                        max_gaps_per_label[ref_label][method]["CN"] = i
 
                 previous_values[method] = norm_distance
 
