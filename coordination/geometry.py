@@ -1,15 +1,28 @@
-from util import prompt, unit
+from util import unit
 import numpy as np
-from scipy.spatial import ConvexHull
 
 
-def compute_polyhedron_metrics(polyhedron_points, central_atom_coord, hull):
+def compute_center_of_mass_and_distance(
+    polyhedron_points, hull, central_atom_coord
+):
     """
-    Computes various metrics related to a given polyhedron defined by its vertices.
+    Calculate the center of mass of a polyhedron and the distance from the center
+    of mass to a given point.
     """
     center_of_mass = np.mean(polyhedron_points[hull.vertices, :], axis=0)
     vector_to_center_of_mass = center_of_mass - central_atom_coord
     distance_to_center = np.linalg.norm(vector_to_center_of_mass)
+    return center_of_mass, distance_to_center
+
+
+def compute_polyhedron_metrics(polyhedron_points, central_atom_coord, hull):
+    """
+    Compute various metrics related to a given polyhedron.
+    """
+    # Calculate the center of mass and distance to center
+    center_of_mass, distance_to_center = compute_center_of_mass_and_distance(
+        polyhedron_points, hull, central_atom_coord
+    )
 
     edges = set()
     for simplex in hull.simplices:
@@ -52,7 +65,7 @@ def compute_polyhedron_metrics(polyhedron_points, central_atom_coord, hull):
 
     data = {
         "volume_of_polyhedron": hull.volume,
-        "distance_to_center": distance_to_center,
+        "distance_from_avg_point_to_center": distance_to_center,
         "number_of_vertices": number_of_vertices,
         "number_of_edges": number_of_edges,
         "number_of_faces": number_of_faces,
@@ -62,5 +75,4 @@ def compute_polyhedron_metrics(polyhedron_points, central_atom_coord, hull):
         "packing_efficiency": packing_efficiency,
     }
 
-    prompt.print_dict_in_json(unit.round_dict_values(data))
     return unit.round_dict_values(data)
