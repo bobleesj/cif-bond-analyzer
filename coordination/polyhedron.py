@@ -5,7 +5,7 @@ from scipy.spatial import ConvexHull
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 
-def plot_polyhedrons(best_polyhedrons, all_labels_connections):
+def plot_polyhedrons(near_180_degrees_atom_indices, CN_connections):
     """
     Plot the best polyhedron for each label using 3D visualization with
     Poly3DCollection.
@@ -17,15 +17,16 @@ def plot_polyhedrons(best_polyhedrons, all_labels_connections):
         "Rh2": "purple",
     }
 
-    for label, metrics in best_polyhedrons.items():
-        number_of_vertices = metrics["number_of_vertices"]
-        connection_data = all_labels_connections[label][:number_of_vertices]
+    for label, conn_data in CN_connections.items():
+        if not near_180_degrees_atom_indices[label]:
+            continue
+
         # List of points forming the polyhedron
-        polyhedron_points = [conn[3] for conn in connection_data]
-        vertex_labels = [conn[0] for conn in connection_data]
+        polyhedron_points = [conn[3] for conn in conn_data]
+        vertex_labels = [conn[0] for conn in conn_data]
 
         # Central atom's coordinates and label from the first connection
-        central_atom_coord = connection_data[0][2]
+        central_atom_coord = conn_data[0][2]
         central_atom_label = label
         polyhedron_points.append(central_atom_coord)
         vertex_labels.append(central_atom_label)
@@ -70,7 +71,12 @@ def plot_polyhedrons(best_polyhedrons, all_labels_connections):
             )  # Use grey as a default color if label is not found
             ax.scatter(*point, color=color, s=350)
             ax.text(
-                *point, label, color="black", alpha=0.7, fontsize=12, zorder=3
+                *point,
+                f"{label}-{i}",
+                color="black",
+                alpha=1,
+                fontsize=12,
+                zorder=3,
             )
 
         # Set labels and title

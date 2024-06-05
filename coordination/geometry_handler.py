@@ -8,8 +8,9 @@ from scipy.spatial import ConvexHull
 
 def find_best_polyhedron(max_gaps_per_label, all_labels_connections):
     """
-    Find the best polyhedron for each label based on the minimum distance to center
-    from polyhedron metrics.
+    Find the best polyhedron for each label based on the minimum
+    distance between the reference atom to the avg. position of
+    connected atoms.
     """
     best_polyhedrons = {}
 
@@ -66,3 +67,19 @@ def find_best_polyhedron(max_gaps_per_label, all_labels_connections):
             best_polyhedrons[label] = best_polyhedron_metrics
 
     return best_polyhedrons
+
+
+def get_CN_connections(best_polyhedrons, all_labels_connections):
+    """
+    Retrieves connections limited by the number of vertices (CN_value) for each label.
+    """
+    CN_connections = {}
+
+    for label, data in best_polyhedrons.items():
+        CN_value = data[
+            "number_of_vertices"
+        ]  # Extract the limit for the number of vertices
+        # Limit the connections for this label using CN_value
+        CN_connections[label] = all_labels_connections[label][:CN_value]
+
+    return CN_connections

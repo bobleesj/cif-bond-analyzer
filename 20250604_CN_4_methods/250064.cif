@@ -1,0 +1,152 @@
+##############################################################################
+#                                                                            #
+# Mo-Os            # Mo0.65Os0.35                                  #  250064 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Hunter College - City University of New York                             #
+#                                                                            #
+##############################################################################
+
+data_250064
+_audit_creation_date                     2024-06-04
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      250064
+_database_code_PDF                       ?
+
+# Entry summary
+
+_chemical_formula_structural             'Mo~0.7~ Os~0.3~'
+_chemical_formula_sum                    'Mo0.7 Os0.3'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            (Cr~0.49~Fe~0.51~),tP30,136
+_chemical_formula_weight                 124.2
+_chemical_melting_point                  2658
+
+# Bibliographic data
+
+_publ_section_title
+'The constitution diagram of the system molybdenum-osmium'                    
+_journal_coden_ASTM                      JCOMAH
+_journal_name_full                       'J. Less-Common Met.'
+_journal_year                            1962
+_journal_volume                          4
+_journal_page_first                      436
+_journal_page_last                       450
+_journal_language                        English
+loop_
+ _publ_author_name
+ _publ_author_address
+'Taylor A.D.'
+;
+Westinghouse Electric Co. LLC
+Pittsburgh
+U.S.A. Pennsylvania
+;
+'Doyle N.J.'
+;
+Westinghouse Electric Co. LLC
+Pittsburgh
+U.S.A. Pennsylvania
+;
+'Kagle B.J.'
+;
+Westinghouse Electric Co. LLC
+Pittsburgh
+U.S.A. Pennsylvania
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           9.632
+_cell_length_b                           9.632
+_cell_length_c                           4.95
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             459.24
+_cell_formula_units_Z                    30
+_space_group_IT_number                   136
+_space_group_name_H-M_alt                'P 42/m n m'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '1/2-x, 1/2+y, 1/2-z'
+ 3 '1/2-x, 1/2+y, 1/2+z'
+ 4 '-x, -y, -z'
+ 5 '-x, -y, z'
+ 6 '1/2-y, 1/2+x, 1/2-z'
+ 7 '1/2-y, 1/2+x, 1/2+z'
+ 8 '-y, -x, -z'
+ 9 '-y, -x, z'
+ 10 '1/2+x, 1/2-y, 1/2-z'
+ 11 '1/2+x, 1/2-y, 1/2+z'
+ 12 'x, y, -z'
+ 13 '1/2+y, 1/2-x, 1/2-z'
+ 14 '1/2+y, 1/2-x, 1/2+z'
+ 15 'y, x, -z'
+ 16 'y, x, z'
+
+# Atomic positions taken from type-defining entry
+
+loop_
+ _atom_type_symbol
+ Mo
+ Os
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ M1A Mo 8 j 0.31733 0.31733 0.24798 0.700
+ M1B Os 8 j 0.31733 0.31733 0.24798 0.300
+ M2A Mo 8 i 0.06609 0.26067 0 0.700
+ M2B Os 8 i 0.06609 0.26067 0 0.300
+ M3A Mo 8 i 0.13122 0.53651 0 0.700
+ M3B Os 8 i 0.13122 0.53651 0 0.300
+ M4A Mo 4 g 0.39864 0.60136 0 0.700
+ M4B Os 4 g 0.39864 0.60136 0 0.300
+ M5A Mo 2 a 0 0 0 0.700
+ M5B Os 2 a 0 0 0 0.300
+
+
+_exptl_crystal_colour                    ?
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            13.48
+_cell_measurement_temperature            ?
+_cell_measurement_radiation              'X-rays, Co Ka'
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              ?
+_diffrn_measurement_device               'Debye-Scherrer film'
+_diffrn_measurement_device_type          ?
+_diffrn_radiation_type                   ?
+_diffrn_reflns_number                    ?
+_exptl_absorpt_coefficient_mu            ?
+_exptl_absorpt_correction_type           ?
+_computing_structure_solution            ?
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 ?
+_refine_ls_R_factor_gt                   ?
+_refine_ls_wR_factor_gt                  ?
+
+# End of data set 250064
+

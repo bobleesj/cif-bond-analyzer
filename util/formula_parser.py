@@ -89,10 +89,19 @@ def get_subscripted_formula(formula):
     return formatted_formula
 
 
+def get_mendeleev_sorted_formula(formula: str) -> list:
+    unique_elements = set()
+    parsed_formula = get_parsed_formula(formula)
+    for element, _ in parsed_formula:
+        unique_elements.add(element)
+    sorted_unique_elements = sort.sort_by_mendeleev(unique_elements)
+    return sorted_unique_elements
+
+
 def get_RMX_sorted_formula_from_formulas(unique_formulas):
     """
-    Processe a set of chemical formulas, sorts the unique elements by Mendeleev numbers,
-    and returns the sorted elements as R, M, and X.
+    Processe a set of chemical formulas, sorts the unique elements by
+    Mendeleev numbers, and returns the sorted elements as R, M, and X.
     """
     # Parse unique elements from the given set of formulas
     unique_elements = get_unique_elements_from_formulas(unique_formulas)
@@ -102,9 +111,7 @@ def get_RMX_sorted_formula_from_formulas(unique_formulas):
 
     # Ensure that there are at least three elements to unpack
     if len(sorted_unique_elements) < 3:
-        raise ValueError(
-            "Not enough elements to form R, M, X. Ensure there are at least three distinct elements."
-        )
+        raise ValueError("Not enough elements to form R, M, X.")
 
     # Unpack the first three elements as R, M, X
     R_element, M_element, X_element = sorted_unique_elements[:3]
