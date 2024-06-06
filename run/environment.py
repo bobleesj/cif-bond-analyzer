@@ -8,9 +8,9 @@ from preprocess import (
 )
 from util import folder, prompt
 from postprocess.environment import (
+    env_util,
     environment_output,
     environment_neighbor,
-    environment_util,
     environment_cn,
 )
 
@@ -29,7 +29,7 @@ def run_environment_analysis(script_path):
     file_path_list = folder.get_file_path_list(dir_path)
 
     # PART 1: Pre-process
-    format.move_files_based_on_format_error(dir_path)
+    format.preprocess_move_files_based_on_format_error(dir_path)
     file_path_list = folder.get_file_path_list(dir_path)
 
     output_folder = folder.create_output_folder_for_neighbor(
@@ -49,7 +49,7 @@ def run_environment_analysis(script_path):
             formula,
             _,
             _,
-        ) = cif_parser.get_compound_phase_tag_id_from_third_line(file_path)
+        ) = cif_parser.get_phase_tag_formula_id_from_third_line(file_path)
 
         (
             _,
@@ -104,14 +104,12 @@ def run_environment_analysis(script_path):
             is_finished=True,
         )
 
-        distances_dict = (
-            environment_util.get_pair_distances_dict_for_binary_ternary(
-                all_labels_connections, formula
-            )
+        distances_dict = env_util.get_pair_distances_dict_for_binary_ternary(
+            all_labels_connections, formula
         )
 
-        environment_util.get_first_shortest_distances(distances_dict)
-        environment_util.get_second_sortest_distances(distances_dict)
+        env_util.get_first_shortest_distances(distances_dict)
+        env_util.get_second_sortest_distances(distances_dict)
 
         environment_cn.get_coordination_number_per_label()
 

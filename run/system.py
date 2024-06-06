@@ -39,7 +39,7 @@ def run_system_analysis(script_path):
         compute_dist = click.confirm("(Default: Y)", default=True)
 
         if compute_dist:
-            format.move_files_based_on_format_error(dir_path)
+            format.preprocess_move_files_based_on_format_error(dir_path)
             (
                 global_site_pair_dict,
                 global_element_pair_dict,

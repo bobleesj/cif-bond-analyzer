@@ -58,7 +58,7 @@ def run_bond_analysis(
             dir_path = given_dir_path
 
         # PART 1: Pre-process
-        format.move_files_based_on_format_error(dir_path)
+        format.preprocess_move_files_based_on_format_error(dir_path)
         file_path_list = folder.get_file_path_list(dir_path)
 
         # PART 2: Process

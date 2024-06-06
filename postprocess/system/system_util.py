@@ -45,7 +45,7 @@ def parse_data_from_json_and_file(data, cif_directory):
                         _,
                         tag_string,
                         _,
-                    ) = cif_parser.get_compound_phase_tag_id_from_third_line(
+                    ) = cif_parser.get_phase_tag_formula_id_from_third_line(
                         cif_file_path
                     )
                     block = cif_parser.get_cif_block(cif_file_path)

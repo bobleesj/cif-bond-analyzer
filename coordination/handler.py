@@ -1,6 +1,6 @@
 from util import folder, prompt
 from coordination import geometry as cn_geometry
-from preprocess import cif_parser_handler, supercell_handler
+from preprocess import cif_parser_handler, supercell_handler, cif_parser
 from postprocess.environment import environment_neighbor
 import numpy as np
 from scipy.spatial import ConvexHull
@@ -8,7 +8,6 @@ from scipy.spatial import ConvexHull
 
 def get_connected_points(file_path, cut_off_radius=5.0):
     result = cif_parser_handler.get_cif_info(file_path)
-
     (
         _,
         lengths,
@@ -30,4 +29,11 @@ def get_connected_points(file_path, cut_off_radius=5.0):
         lengths,
         angles,
     )
+
+    all_labels_connections = (
+        environment_neighbor.remove_duplicates_based_on_coord2(
+            all_labels_connections
+        )
+    )
+
     return all_labels_connections

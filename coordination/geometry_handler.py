@@ -40,7 +40,6 @@ def find_best_polyhedron(max_gaps_per_label, all_labels_connections):
                 polyhedron_metrics = cn_geometry.compute_polyhedron_metrics(
                     polyhedron_points, central_atom_coord, hull
                 )
-
                 # Check if the current polyhedron has the lowest distance to center
                 if (
                     polyhedron_metrics["distance_from_avg_point_to_center"]
@@ -59,6 +58,7 @@ def find_best_polyhedron(max_gaps_per_label, all_labels_connections):
                     f"\nError in determining polyhedron for {label}: {str(e)}\n"
                 )
                 continue
+            print()
 
         if best_polyhedron_metrics:
             best_polyhedron_metrics[

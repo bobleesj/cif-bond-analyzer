@@ -148,6 +148,22 @@ def get_atom_label_list(cif_loop_values):
     return label_list
 
 
+def get_site_occupacny(label, loop_values):
+    """
+    Get a list of atom labels from loop values.
+    """
+
+    # Find the index of the site label in the loop
+    num_atom_labels = get_num_of_atom_labels(loop_values)
+    index = None
+    for i in range(num_atom_labels):
+        parsed_site_label = loop_values[0][i]
+        if parsed_site_label == label:
+            index = i
+
+    return loop_values[7][index]
+
+
 def get_atom_info(cif_loop_values, i):
     """
     Get atom information (label, occupancy, coordinates) for the i-th atom.
@@ -239,7 +255,7 @@ def extract_formula_and_tag(compound_formula_tag):
     return compound_formula, tags
 
 
-def get_compound_phase_tag_id_from_third_line(file_path):
+def get_phase_tag_formula_id_from_third_line(file_path):
     """
     Extracts the compound name and tag from the provided CIF file path.
     """

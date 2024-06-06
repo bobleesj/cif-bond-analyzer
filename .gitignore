@@ -11,6 +11,7 @@ nodemon.json
 20240531_ternary_binary_combined/
 20250519_SA_ternary_binary_CoIn/
 20240531_ErCoIn_ternary_binary/
+cif-backup-files/
 
 # C extensions
 *.so

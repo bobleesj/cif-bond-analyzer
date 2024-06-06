@@ -37,6 +37,7 @@ def get_radii_data():
         "Th": [1.798, 1.795],
         "U": [1.377, 1.51],
         "Al": [1.310, 1.310],
+        "Mo": [1.362, 1.386],
     }
 
     radii_data = {
@@ -61,32 +62,34 @@ def get_atom_radii(atoms, radii_data):
     return radii
 
 
-# def compute_rad_sum_binary(
-#     A_CIF, B_CIF, A_CIF_refined, B_CIF_refined, A_Pauling, B_Pauling
-# ):
-#     """
-#     Computes sum of radii for binary compounds.
-#     """
-#     return {
-#         "CIF_rad_sum": {
-#             "A_A": A_CIF * 2,
-#             "A_B": A_CIF + B_CIF,
-#             "B_A": B_CIF + A_CIF,
-#             "B_B": B_CIF * 2,
-#         },
-#         "CIF_rad_refined_sum": {
-#             "A_A": A_CIF_refined * 2,
-#             "A_B": A_CIF_refined + B_CIF_refined,
-#             "B_A": B_CIF_refined + A_CIF_refined,
-#             "B_B": B_CIF_refined * 2,
-#         },
-#         "Pauling_rad_sum": {
-#             "A_A": A_Pauling * 2,
-#             "A_B": A_Pauling + B_Pauling,
-#             "B_A": B_Pauling + A_Pauling,
-#             "B_B": B_Pauling * 2,
-#         },
-#     }
+def compute_rad_sum_binary(CIF_rads, CIF_rads_refined, Pauling_rads, elements):
+    """
+    Computes sum of radii for binary compounds.
+    """
+    A, B = elements
+    A_CIF, B_CIF = CIF_rads
+    A_CIF_refined, B_CIF_refined = CIF_rads_refined
+    A_Pauling, B_Pauling = Pauling_rads
+    return {
+        "CIF_rad_sum": {
+            f"{A}-{A}": A_CIF * 2,
+            f"{A}-{B}": A_CIF + B_CIF,
+            f"{B}-{A}": B_CIF + A_CIF,
+            f"{B}-{B}": B_CIF * 2,
+        },
+        "CIF_rad_refined_sum": {
+            f"{A}-{A}": A_CIF_refined * 2,
+            f"{A}-{B}": A_CIF_refined + B_CIF_refined,
+            f"{B}-{A}": B_CIF_refined + A_CIF_refined,
+            f"{B}-{B}": B_CIF_refined * 2,
+        },
+        "Pauling_rad_sum": {
+            f"{A}-{A}": A_Pauling * 2,
+            f"{A}-{B}": A_Pauling + B_Pauling,
+            f"{B}-{A}": B_Pauling + A_Pauling,
+            f"{B}-{B}": B_Pauling * 2,
+        },
+    }
 
 
 def compute_rad_sum_ternary(

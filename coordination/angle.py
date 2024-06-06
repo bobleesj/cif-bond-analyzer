@@ -14,6 +14,7 @@ def compute_angles_from_central_atom(CN_connections):
             vector = point_coord - central_atom_array
             vectors.append(vector)
 
+        print(label)
         # Calculate angles between each pair of vectors
         for i in range(len(vectors)):
             for j in range(i + 1, len(vectors)):
@@ -29,18 +30,19 @@ def compute_angles_from_central_atom(CN_connections):
                 angle_degrees = np.round(np.degrees(angle), 3)
                 angles[label][(i, j)] = angle_degrees
 
-                # print(
-                #     i,
-                #     j,
-                #     angle_degrees,
-                #     ln1_connections[i][2],
-                #     ln1_connections[j][2],
-                # )
+                if angle_degrees > 157:
+                    print(
+                        i,
+                        j,
+                        angle_degrees,
+                        connection_data[i][2],
+                        connection_data[j][2],
+                    )
     return angles
 
 
 def get_near_180_angle_atom_indices(
-    angles, threshold=1
+    angles, threshold=5
 ) -> list[tuple[int, int]]:
     # Find pairs of indices with angles close to 180 degrees
     indicies = {}

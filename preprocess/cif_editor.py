@@ -15,7 +15,7 @@ def preprocess_cif_file_on_label_element(file_path):
         compound_formula,
         _,
         _,
-    ) = cif_parser.get_compound_phase_tag_id_from_third_line(file_path)
+    ) = cif_parser.get_phase_tag_formula_id_from_third_line(file_path)
 
     # Get lines in _atom_site_occupancy only
     modified_lines = []
@@ -26,7 +26,7 @@ def preprocess_cif_file_on_label_element(file_path):
     if content_lines is None:
         raise RuntimeError("Could not find atom site loop.")
 
-    if num_element_labels < 2:
+    if num_element_labels < 1:
         raise RuntimeError("Wrong number of values in the loop")
 
     for line in content_lines:

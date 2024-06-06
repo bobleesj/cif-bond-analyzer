@@ -4,8 +4,8 @@ from scipy.optimize import minimize
 
 def objective_binary(params, A_CIF_rad, B_CIF_rad):
     """
-    Calculates the objective value for binary systems by computing the sum of squared percent differences
-    between original and refined CIF radii for two atoms.
+    Calculates the objective value for binary systems by computing the sum of
+    squared percent differences between original and refined CIF radii for two atoms.
     """
     A_CIF_rad_refined, B_CIF_rad_refined = params
 

@@ -5,7 +5,7 @@ from util import folder
 from preprocess import cif_parser, cif_editor, supercell
 
 
-def move_files_based_on_format_error(dir_path):
+def preprocess_move_files_based_on_format_error(dir_path):
     print("\nCIF Preprocessing has begun...\n")
 
     dir_name = os.path.basename(dir_path)
@@ -43,7 +43,7 @@ def move_files_based_on_format_error(dir_path):
         try:
             cif_editor.preprocess_cif_file_by_removing_author_loop(file_path)
             cif_editor.preprocess_cif_file_on_label_element(file_path)
-            cif_parser.get_compound_phase_tag_id_from_third_line(file_path)
+            cif_parser.get_phase_tag_formula_id_from_third_line(file_path)
 
             print(f"Preprocessed {filename} ({idx} out of {total_files})")
             # Apply operations that would be done in practice

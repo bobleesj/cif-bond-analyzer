@@ -1,46 +1,6 @@
 import numpy as np
-from preprocess import supercell
-
-
-def calculate_normalized_dist_diffs(normalized_distances):
-    """
-    Calculates differences between consecutive normalized distances.
-    """
-    normalized_dist_diffs = [
-        normalized_distances[k + 1] - normalized_distances[k]
-        for k in range(len(normalized_distances) - 1)
-    ]
-    return normalized_dist_diffs
-
-
-def add_diff_after(all_labels_connections):
-    """
-    Adds the diff_after value to each connection.
-    """
-    updated_connections = {}
-    for label, connections in all_labels_connections.items():
-        updated_connections[label] = []
-
-        # Calculate normalized distances and their differences
-        normalized_distances = calculate_normalized_distances(connections)
-        normalized_dist_diffs = calculate_normalized_dist_diffs(
-            normalized_distances
-        )
-
-        for idx, (conn_label, dist, coord_1, coord_2) in enumerate(
-            connections
-        ):
-            if idx < len(connections) - 1:
-                diff_after = (
-                    np.round(normalized_dist_diffs[idx], 3)
-                    if idx < len(normalized_dist_diffs)
-                    else None
-                )
-                updated_connections[label].append(
-                    (conn_label, dist, coord_1, coord_2, diff_after)
-                )
-
-    return updated_connections
+from preprocess import supercell, cif_parser
+from util import prompt
 
 
 def get_most_connected_point_per_site(label, dist_dict, dist_set):
@@ -153,7 +113,7 @@ def get_all_labels_connections(
     """
     Computes all pair distances per site label.
     """
-    all_labels_connections = {}
+    connected_neighbors = {}
     for site_label in labels:
         filtered_unitcell_points = [
             point for point in unitcell_points if point[3] == site_label
@@ -173,58 +133,35 @@ def get_all_labels_connections(
             label,
             connections,
         ) = get_most_connected_point_per_site(site_label, dist_dict, dist_set)
+        connected_neighbors[label] = connections
 
-        all_labels_connections[label] = connections
-
-    # # Determine coordination number
-    # if is_cn_used:
-    #     all_labels_connections = filter_connections_with_cn(
-    #         all_labels_connections
-    #     )
-
-    # all_labels_connections = add_diff_after(all_labels_connections)
-    return all_labels_connections
+    return connected_neighbors
 
 
-# def filter_connections_with_cn(
-#     labels_connections, nearest_neighbor_max_count=20
-# ):
-#     """
-#     Reduces the number of connections based on the CN.
-#     """
-#     filtered_connections = {}
-#     for label, label_data in labels_connections.items():
-#         # Limit to the first nearest_neighbor_max_count distances
-#         limited_label_data = label_data[:nearest_neighbor_max_count]
+def remove_duplicates_based_on_coord2(all_labels_connections):
+    """
+    Remove duplicate entries from a dictionary of connections based on the fourth item
+    in the tuple (coord2) for each label.
+    """
+    new_connections = {}
+    for label, connections in all_labels_connections.items():
+        unique_entries = {}
+        for connection in connections:
+            other_label, distance, coord1, coord2 = connection
+            coord2_key = tuple(
+                coord2
+            )  # Convert the list to a tuple to use it as a dictionary key
 
-#         if not limited_label_data:
-#             continue
+            # Store unique connections based on coord2
+            if coord2_key not in unique_entries:
+                unique_entries[coord2_key] = (
+                    other_label,
+                    distance,
+                    coord1,
+                    coord2,
+                )
 
-#         # Calculate normalized distances
-#         normalized_distances = calculate_normalized_distances(
-#             limited_label_data
-#         )
+        # Collect the filtered connections without duplicates
+        new_connections[label] = list(unique_entries.values())
 
-#         # Calculate diffs between consecutive normalized distances
-#         normalized_dist_diffs = calculate_normalized_dist_diffs(
-#             normalized_distances
-#         )
-
-#         # Find the maximum gap and its position
-#         if normalized_dist_diffs:
-#             max_gap = max(normalized_dist_diffs)
-#             max_gap_index = normalized_dist_diffs.index(max_gap) + 2
-#             filtered_connections[label] = limited_label_data[:max_gap_index]
-
-#     return filtered_connections
-
-
-# def calculate_normalized_distances(connections):
-#     """
-#     Calculates normalized distances for each connection
-#     """
-#     min_dist = connections[0][1]
-#     normalized_distances = [
-#         np.round(dist / min_dist, 3) for _, dist, _, _ in connections
-#     ]
-#     return normalized_distances
+    return new_connections

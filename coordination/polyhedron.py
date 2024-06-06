@@ -15,6 +15,16 @@ def plot_polyhedrons(near_180_degrees_atom_indices, CN_connections):
         "U1": "green",
         "Rh1": "yellow",
         "Rh2": "purple",
+        "Mo1A": "red",
+        "Os1B": "red",
+        "Mo2A": "teal",
+        "Os2B": "teal",
+        "Mo3A": "magenta",
+        "Os3B": "magenta",
+        "Mo4A": "cyan",
+        "Os4B": "cyan",
+        "Mo5A": "olive",
+        "Os5B": "olive",
     }
 
     for label, conn_data in CN_connections.items():
@@ -80,7 +90,7 @@ def plot_polyhedrons(near_180_degrees_atom_indices, CN_connections):
             )
 
         # Set labels and title
-        ax.set_title(f"Best Polyhedron for {label}")
+        ax.set_title(f"Best Polyhedron for {label}. CN={len(conn_data)}")
         ax.set_xlabel("X Coordinate")
         ax.set_ylabel("Y Coordinate")
         ax.set_zlabel("Z Coordinate")
