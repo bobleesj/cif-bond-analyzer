@@ -40,6 +40,12 @@ cif_rad_by_avg_from_center = (
 )
 
 print("\nWe are looking at", cif_dir)
-print("Method 1. Find cif radius based on shortest dist", cif_rad_by_shortest_dist)
-print("Method 2. Find cif radius based on avg dist from the center", cif_rad_by_avg_from_center)
+print(
+    "Method 1. Find cif radius based on shortest dist",
+    cif_rad_by_shortest_dist,
+)
+print(
+    "Method 2. Find cif radius based on avg dist from the center",
+    cif_rad_by_avg_from_center,
+)
 print()

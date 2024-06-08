@@ -72,22 +72,24 @@ angles = cn_angle.compute_angles_from_central_atom(CN_connections)
 """
 Step 7. Get 180 angles atom index
 """
-near_180_degrees_atom_indices = cn_angle.get_near_180_angle_atom_indices(
-    angles
+largest_angle_atom_indices = (
+    cn_angle.get_largest_angle_atom_indices_largest_to_smallest(angles)
 )
 
 """
 Step 8. Find the coordinates
 """
 
-cn_polyhedron.plot_polyhedrons(near_180_degrees_atom_indices, CN_connections)
-
-"""
-Step 9. Determine the number of atoms in each ring
-"""
-ring_counts = cn_structure.get_ring_count_above_below_central_atom_z(
-    near_180_degrees_atom_indices, CN_connections
+cn_polyhedron.plot_polyhedrons(
+    largest_angle_atom_indices, angles, CN_connections
 )
-env_util.print_conneted_points(CN_connections)
-prompt.print_dict_in_json(best_polyhedrons)
-prompt.print_dict_in_json(ring_counts)
+
+# """
+# Step 9. Determine the number of atoms in each ring
+# """
+# ring_counts = cn_structure.get_ring_count_above_below_central_atom_z(
+#     largest_angle_atom_indices, CN_connections
+# )
+# env_util.print_conneted_points(CN_connections)
+# prompt.print_dict_in_json(best_polyhedrons)
+# prompt.print_dict_in_json(ring_counts)
