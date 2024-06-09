@@ -17,8 +17,9 @@ from preprocess import format
 
 format.preprocess_move_files_based_on_format_error("20250604_CN_4_methods")
 # file_path = "20250604_CN_4_methods/URhIn.cif"
-# file_path = "20250604_CN_4_methods/250064.cif"
-file_path = "20250604_CN_4_methods/457848.cif"
+
+# file_path = "20250604_CN_4_methods/457848.cif"
+file_path = "20250604_CN_4_methods/251552.cif"  # Hf2Ni
 
 _, formula, _, cif_id = cif_parser.get_phase_tag_formula_id_from_third_line(
     file_path
@@ -84,5 +85,5 @@ Step 8. Find the coordinates
 """
 
 cn_polyhedron.plot_polyhedrons(
-    largest_angle_atom_indices, angles, CN_connections
+    largest_angle_atom_indices, angles, CN_connections, file_path
 )

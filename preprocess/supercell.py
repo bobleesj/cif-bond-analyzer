@@ -61,139 +61,64 @@ def calculate_dist(point1, point2, cell_lengths, angles):
 def shift_and_append_points(
     points,
     atom_site_label,
-    supercell_generation_method,
     is_flatten_points_only=False,
 ):
     """
     Shift and duplicate points to create supercell.
     """
-    num_unit_cell_atom_count = len(points)
-    translation_op_unit_cell_atom_num_threshold = 100
     # Method 1 - No sfhits
-    # Method 2 - +1 +1 +1 shifts
     # Method 3 - +-1 +-1 +-1 shifts
+    if is_flatten_points_only:
+        shifts = np.array([[0, 0, 0]])
+        shifted_points = points[:, None, :] + shifts[None, :, :]
+        all_points = []
+        for point_group in shifted_points:
+            for point in point_group:
+                new_point = (*np.round(point, 5), atom_site_label)
+                all_points.append(new_point)
+        return all_points
+    else:
+        shifts = np.array(
+            [
+                # Existing shifts for -1, 0, 1
+                [0, 0, 0],
+                [1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1],
+                [-1, 0, 0],
+                [0, -1, 0],
+                [0, 0, -1],
+                [1, 1, 0],
+                [1, -1, 0],
+                [-1, 1, 0],
+                [-1, -1, 0],
+                [1, 0, 1],
+                [1, 0, -1],
+                [0, 1, 1],
+                [0, 1, -1],
+                [-1, 0, 1],
+                [-1, 0, -1],
+                [0, -1, 1],
+                [0, -1, -1],
+                [1, 1, 1],
+                [1, 1, -1],
+                [1, -1, 1],
+                [1, -1, -1],
+                [-1, 1, 1],
+                [-1, 1, -1],
+                [-1, -1, 1],
+                [-1, -1, -1],
+            ]
+        )
 
-    if (
-        num_unit_cell_atom_count > translation_op_unit_cell_atom_num_threshold
-        or is_flatten_points_only
-    ):
-        if supercell_generation_method == 1:
-            shifts = np.array([[0, 0, 0]])
-            shifted_points = points[:, None, :] + shifts[None, :, :]
-            all_points = []
-            for point_group in shifted_points:
-                for point in point_group:
-                    new_point = (*np.round(point, 5), atom_site_label)
-                    all_points.append(new_point)
-            return all_points
+        shifted_points = points[:, None, :] + shifts[None, :, :]
+        all_points = []
+        for point_group in shifted_points:
+            for point in point_group:
+                new_point = (*np.round(point, 5), atom_site_label)
+                all_points.append(new_point)
 
-        if supercell_generation_method == 2:
-            shifts = np.array(
-                [
-                    [0, 0, 0],
-                    [1, 0, 0],
-                    [0, 1, 0],
-                    [0, 0, 1],
-                    [1, 1, 0],
-                    [1, 0, 1],
-                    [0, 1, 1],
-                    [1, 1, 1],
-                ]
-            )
-            shifted_points = points[:, None, :] + shifts[None, :, :]
-            all_points = []
-            for point_group in shifted_points:
-                for point in point_group:
-                    new_point = (*np.round(point, 5), atom_site_label)
-                    all_points.append(new_point)
-
-            return all_points
-
-        if supercell_generation_method == 3:
-            shifts = np.array(
-                [
-                    [0, 0, 0],
-                    [1, 0, 0],
-                    [0, 1, 0],
-                    [0, 0, 1],
-                    [-1, 0, 0],
-                    [0, -1, 0],
-                    [0, 0, -1],
-                    [1, 1, 0],
-                    [1, -1, 0],
-                    [-1, 1, 0],
-                    [-1, -1, 0],
-                    [1, 0, 1],
-                    [1, 0, -1],
-                    [0, 1, 1],
-                    [0, 1, -1],
-                    [-1, 0, 1],
-                    [-1, 0, -1],
-                    [0, -1, 1],
-                    [0, -1, -1],
-                    [1, 1, 1],
-                    [1, 1, -1],
-                    [1, -1, 1],
-                    [1, -1, -1],
-                    [-1, 1, 1],
-                    [-1, 1, -1],
-                    [-1, -1, 1],
-                    [-1, -1, -1],
-                ]
-            )
-
-            shifted_points = points[:, None, :] + shifts[None, :, :]
-            all_points = []
-            for point_group in shifted_points:
-                for point in point_group:
-                    new_point = (*np.round(point, 5), atom_site_label)
-                    all_points.append(new_point)
-
-            return all_points
-
-    # General method for files below 100 atoms in the unit cell
-
-    shifts = np.array(
-        [
-            # Existing shifts for -1, 0, 1
-            [0, 0, 0],
-            [1, 0, 0],
-            [0, 1, 0],
-            [0, 0, 1],
-            [-1, 0, 0],
-            [0, -1, 0],
-            [0, 0, -1],
-            [1, 1, 0],
-            [1, -1, 0],
-            [-1, 1, 0],
-            [-1, -1, 0],
-            [1, 0, 1],
-            [1, 0, -1],
-            [0, 1, 1],
-            [0, 1, -1],
-            [-1, 0, 1],
-            [-1, 0, -1],
-            [0, -1, 1],
-            [0, -1, -1],
-            [1, 1, 1],
-            [1, 1, -1],
-            [1, -1, 1],
-            [1, -1, -1],
-            [-1, 1, 1],
-            [-1, 1, -1],
-            [-1, -1, 1],
-            [-1, -1, -1],
-        ]
-    )
-
-    shifted_points = points[:, None, :] + shifts[None, :, :]
-    all_points = []
-    for point_group in shifted_points:
-        for point in point_group:
-            new_point = (*np.round(point, 5), atom_site_label)
-            all_points.append(new_point)
-
-    return all_points
+        return all_points
 
 
 def get_coords_list(block, loop_values):
@@ -267,7 +192,6 @@ def flatten_original_coordinates(all_coords):
 def get_points_and_labels(
     all_coords_list,
     loop_values,
-    supercell_generation_method=3,
     is_flatten_points_only=False,
 ):
     """
@@ -290,7 +214,6 @@ def get_points_and_labels(
             shift_and_append_points(
                 points,
                 atom_site_label,
-                supercell_generation_method,
                 is_flatten_points_only,
             )
         )

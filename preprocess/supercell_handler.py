@@ -9,7 +9,6 @@ def get_flattened_points_from_unitcell(file_path):
     points, _, _ = supercell.get_points_and_labels(
         all_coords_list,
         cif_loop_values,
-        1,
         is_flatten_points_only=True,
     )
     return points

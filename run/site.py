@@ -9,12 +9,11 @@ from util import folder, prompt
 from filter import occupancy
 
 
-def run_bond_analysis(
+def run_site_analysis(
     script_path, is_iteractive_mode=True, given_dir_path=None
 ):
     """Runs the bond extraction procedure"""
-    prompt.print_intro_prompt()
-    supercell_method = None
+    prompt.prompt_site_analysis_intro()
     dir_names_with_cif = None
     selected_dirs = None
 
@@ -29,21 +28,9 @@ def run_bond_analysis(
             dir_names_with_cif, ".cif"
         )
 
-        supercell_method = prompt.get_user_input_on_supercell_method()
-
-        # If the user chooses no option, then it's simply 3
-        if not supercell_method:
-            echo(
-                "> Your default option is generating a 2-2-2 supercell for"
-                "files more than 100 atoms in the unit cell.",
-            )
-            supercell_method = 3
-
     if not is_iteractive_mode:
         given_dir_path
         selected_dirs = {1: given_dir_path}
-        # Use +1 +1 +1 shfits by default
-        supercell_method = 2
 
     num_selected_dirs = len(selected_dirs)
     for idx, dir_name in enumerate(selected_dirs.values(), start=1):
@@ -66,7 +53,7 @@ def run_bond_analysis(
             global_site_pair_dict,
             global_element_pair_dict,
             log_list,
-        ) = get_bond_data(file_path_list, supercell_method)
+        ) = get_bond_data(file_path_list)
 
         save_outputs(
             global_site_pair_dict,
@@ -78,7 +65,7 @@ def run_bond_analysis(
         )
 
 
-def get_bond_data(file_path_list, supercell_method=3):
+def get_bond_data(file_path_list):
     """Gets element pair and site pair data from files"""
     # PART 2: PREPROCESS
     global_site_pair_dict = {}
@@ -92,10 +79,7 @@ def get_bond_data(file_path_list, supercell_method=3):
         num_of_atoms = None
 
         # Process CIF files and return a list of coordinates
-        result = cif_parser_handler.get_cif_info(
-            file_path,
-            supercell_method,
-        )
+        result = cif_parser_handler.get_cif_info(file_path)
 
         cif_loop_values = cif_parser_handler.get_cif_loop_values(file_path)
 

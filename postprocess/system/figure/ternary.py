@@ -44,7 +44,6 @@ def draw_ternary_frame(v0, v1, v2):
 
     plt.tight_layout(pad=0.2)
     plt.gca().set_aspect("equal", adjustable="box")
-    plt.axis("off")
 
 
 def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas):

@@ -1,5 +1,6 @@
 import os
 import glob
+import click
 from os.path import join, exists
 from shutil import rmtree, move
 from preprocess import cif_parser, cif_parser_handler
@@ -93,36 +94,51 @@ def choose_binary_ternary_dir(script_path, ext=".cif"):
     if not unique_element_count_per_dir:
         print("No directories meet the criteria.")
         return None
-
     # Print available directories
     print(
         "\nAvailable folders containing 2 or 3 unique elements across all CIF files:"
     )
-    for index, (
-        folder_name,
-        unique_elements,
-        file_count,
-    ) in enumerate(unique_element_count_per_dir, start=1):
+    for index, (folder_name, unique_elements, file_count) in enumerate(
+        unique_element_count_per_dir, start=1
+    ):
         print(
-            f"{index}. {folder_name}, {unique_elements} unique elements, {file_count} files"
+            f"{index}. {folder_name} - {unique_elements} elements, {file_count} files"
         )
 
-    # Interactive selection of directory
-    while True:
-        choice_input = input("\nEnter folder # to select: ")
-        try:
-            choice = int(choice_input)
+    # Ask user to choose all or select specific folders
+    click.echo("\nWould you like to process each folder above sequentially?")
+    process_all = click.confirm("(Default: Y)", default=True)
+    if not process_all:
+        # Interactive selection of directory if user does not want all directories
+        input_str = input("\nEnter folder numbers to select (e.g., '1 3 5'): ")
+        selected_dirs = []
+
+        # Process the input string
+        elements = input_str.split(" ")
+        for element in elements:
+            selected_dirs.append(int(element))
+
+        selected_dir_paths = []
+        for choice in selected_dirs:
             if 1 <= choice <= len(unique_element_count_per_dir):
                 selected_dir = unique_element_count_per_dir[choice - 1][0]
                 selected_dir_path = os.path.join(script_path, selected_dir)
-                print(f"You have selected: {selected_dir}")
-                return selected_dir_path
+                selected_dir_paths.append(selected_dir_path)
+                print(f"Selected: {selected_dir}")
             else:
                 print(
-                    f"Please enter a number between 1 and {len(unique_element_count_per_dir)}."
+                    f"Invalid choice: {choice}. Please choose a number between 1 and {len(unique_element_count_per_dir)}."
                 )
-        except ValueError:
-            print("Invalid input. Please enter a number.")
+    else:
+        # Automatically process all directories sequentially if the user accepts the default
+        selected_dir_paths = [
+            os.path.join(script_path, dir_info[0])
+            for dir_info in unique_element_count_per_dir
+        ]
+        for dir_path in selected_dir_paths:
+            print(f"Selected for processing: {dir_path}")
+
+    return selected_dir_paths
 
 
 # Example usage (make sure to define `script_path` and import the necessary modules in your working environment)
@@ -294,8 +310,8 @@ def get_binary_ternary_combined_cif_dir_list(script_path, ext=".cif"):
             if len(atom_set) > 3:
                 break
 
-        # Append only if atom set size is 3 or less
-        if len(atom_set) <= 3:
+        # Append only if atom set size is 2 or 3
+        if len(atom_set) <= 3 and len(atom_set) > 1:
             unique_element_count_per_dir.append(
                 (dir_name, len(atom_set), file_count)
             )

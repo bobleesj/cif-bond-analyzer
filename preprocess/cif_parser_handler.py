@@ -4,7 +4,7 @@ from preprocess import supercell
 from util import folder
 
 
-def get_cif_info(file_path, supercell_generation_method=3):
+def get_cif_info(file_path):
     """
     Parse CIF data from file path.
     """
@@ -23,7 +23,6 @@ def get_cif_info(file_path, supercell_generation_method=3):
     ) = supercell.get_points_and_labels(
         all_coords_list,
         cif_loop_values,
-        supercell_generation_method,
     )
 
     return (

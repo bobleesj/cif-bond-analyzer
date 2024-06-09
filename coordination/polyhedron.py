@@ -6,9 +6,14 @@ from scipy.spatial import Delaunay
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.ticker import MultipleLocator
+import os
 
 
-def plot_polyhedrons(near_180_degrees_atom_indices, angles, CN_connections):
+def plot_polyhedrons(
+    near_180_degrees_atom_indices, angles, CN_connections, file_path
+):
+    file_name = os.path.basename(file_path)
+
     """
     Plot the best polyhedron for each label using 3D visualization with
     Poly3DCollection.
@@ -34,174 +39,133 @@ def plot_polyhedrons(near_180_degrees_atom_indices, angles, CN_connections):
         "Ta1": "purple",
     }
 
-    # for label, conn_data in CN_connections.items():
-    # label = "Mo4A"
-    label = "Ta2"
+    for label, conn_data in CN_connections.items():
+        CN_structure_category = ""
+        # label = "Mo4A"
+        # label = "Ta2"
+        # label = "Hf"  # Ni
+        # label = "Ni"  # Ni
 
-    conn_data = CN_connections[label]
-    CN = len(conn_data)
-    # if not near_180_degrees_atom_indices[label]:
-    #     continue
+        conn_data = CN_connections[label]
+        CN = len(conn_data)
+        # if not near_180_degrees_atom_indices[label]:
+        #     continue
 
-    # List of points forming the polyhedron
-    polyhedron_points = [conn[3] for conn in conn_data]
-    vertex_labels = [conn[0] for conn in conn_data]
+        # List of points forming the polyhedron
+        polyhedron_points = [conn[3] for conn in conn_data]
+        vertex_labels = [conn[0] for conn in conn_data]
 
-    # Central atom's coordinates and label from the first connection
-    central_atom_coord = conn_data[0][2]
-    central_atom_label = label
-    polyhedron_points.append(central_atom_coord)
-    vertex_labels.append(central_atom_label)
+        # Central atom's coordinates and label from the first connection
+        central_atom_coord = conn_data[0][2]
+        central_atom_label = label
+        polyhedron_points.append(central_atom_coord)
+        vertex_labels.append(central_atom_label)
 
-    polyhedron_points_array = np.array(polyhedron_points)
+        polyhedron_points_array = np.array(polyhedron_points)
 
-    # Set up the plot
-    fig = plt.figure(figsize=(10, 8))
-    ax = fig.add_subplot(111, projection="3d")
-    hull = ConvexHull(polyhedron_points_array)
-    # Draw each edge individually
-    for simplex in hull.simplices:
-        for i in range(len(simplex)):
-            start_point = simplex[i]
-            end_point = simplex[(i + 1) % len(simplex)]
-            x_line = [
-                polyhedron_points_array[start_point, 0],
-                polyhedron_points_array[end_point, 0],
-            ]
-            y_line = [
-                polyhedron_points_array[start_point, 1],
-                polyhedron_points_array[end_point, 1],
-            ]
-            z_line = [
-                polyhedron_points_array[start_point, 2],
-                polyhedron_points_array[end_point, 2],
-            ]
-            ax.plot(x_line, y_line, z_line, "k-", alpha=0.5, linewidth=1.5)
+        # Set up the plot
+        fig = plt.figure(figsize=(10, 8))
+        ax = fig.add_subplot(111, projection="3d")
+        hull = ConvexHull(polyhedron_points_array)
+        # Draw each edge individually
+        for simplex in hull.simplices:
+            for i in range(len(simplex)):
+                start_point = simplex[i]
+                end_point = simplex[(i + 1) % len(simplex)]
+                x_line = [
+                    polyhedron_points_array[start_point, 0],
+                    polyhedron_points_array[end_point, 0],
+                ]
+                y_line = [
+                    polyhedron_points_array[start_point, 1],
+                    polyhedron_points_array[end_point, 1],
+                ]
+                z_line = [
+                    polyhedron_points_array[start_point, 2],
+                    polyhedron_points_array[end_point, 2],
+                ]
+                ax.plot(x_line, y_line, z_line, "k-", alpha=0.5, linewidth=1.5)
 
-    # Use Poly3DCollection to draw faces with specified alpha and facecolor
-    poly3d = [polyhedron_points_array[simplex] for simplex in hull.simplices]
-    poly_collection = Poly3DCollection(poly3d, alpha=0.1, facecolor="cyan")
-    ax.add_collection3d(poly_collection)
+        # Use Poly3DCollection to draw faces with specified alpha and facecolor
+        poly3d = [
+            polyhedron_points_array[simplex] for simplex in hull.simplices
+        ]
+        poly_collection = Poly3DCollection(poly3d, alpha=0.1, facecolor="cyan")
+        ax.add_collection3d(poly_collection)
 
-    # Plot and label vertices with colors based on labels
-    for i, point in enumerate(polyhedron_points_array):
-        label = vertex_labels[i]
-        color = color_map.get(
-            label, "grey"
-        )  # Use grey as a default color if label is not found
-        ax.scatter(*point, color=color, s=350)
-        ax.text(
-            *point,
-            f"{label}-{i}",
-            color="black",
-            alpha=1,
-            fontsize=12,
-            zorder=3,
-        )
-
-    # Set labels and title
-    ax.set_title(f"Best Polyhedron for {label}. CN={len(conn_data)}")
-    ax.set_xlabel("X Coordinate")
-    ax.set_ylabel("Y Coordinate")
-    ax.set_zlabel("Z Coordinate")
-    # ax.autoscale_view()
-    # ax.set_axis_off()  # Hide the axes, as requested
-
-    """
-    Step 1. Find the largest angle indices ref from the central atom
-    """
-    largest_angle_index_pair = near_180_degrees_atom_indices[label][0]
-
-    largest_angle = angles[label][largest_angle_index_pair]
-    large_angle_index_1 = largest_angle_index_pair[0]
-    large_angle_index_2 = largest_angle_index_pair[1]
-    large_angle_index_1_coord = conn_data[large_angle_index_1][3]
-    large_angle_index_2_coord = conn_data[large_angle_index_2][3]
-    ax.scatter(
-        *large_angle_index_1_coord, color="black", s=1000
-    )  # Larger size for visibility
-    ax.scatter(*large_angle_index_2_coord, color="black", s=1000)
-
-    """
-    Type 14.1. 180, CN=14, top 6, bottom 6
-    """
-    if CN == 14 and largest_angle > 178.0:
-        print("Type 1. 180, CN=14, top 6, bottom 6")
-
-        top_box_vertices = draw_rectangular_box(
-            ax, central_atom_coord, large_angle_index_1_coord, "blue"
-        )
-        count_atoms_inside_polyhedron(
-            top_box_vertices, polyhedron_points_array
-        )
-        # Draw the other box with the largest angle
-
-        bottom_box_vertices = draw_rectangular_box(
-            ax, central_atom_coord, large_angle_index_2_coord, "red"
-        )
-
-        count_atoms_inside_polyhedron(
-            bottom_box_vertices, polyhedron_points_array
-        )
-        print()
-    """
-    Type 12.1. 180, CN=12, top 5, bottom 5
-    """
-    if CN == 12 and largest_angle > 178.0:
-        print("Type 2. 180, CN=12, top 5, bottom 5")
-        top_box_vertices = draw_rectangular_box(
-            ax, central_atom_coord, large_angle_index_1_coord, "blue"
-        )
-        count_atoms_inside_polyhedron(
-            top_box_vertices, polyhedron_points_array
-        )
-        # Draw the other box with the largest angle
-
-        bottom_box_vertices = draw_rectangular_box(
-            ax, central_atom_coord, large_angle_index_2_coord, "red"
-        )
-
-        count_atoms_inside_polyhedron(
-            bottom_box_vertices, polyhedron_points_array
-        )
-        print()
-
-    if CN == 15:
-        largest_angle_pair = near_180_degrees_atom_indices[label][0]
-        second_largest_angle_pair = near_180_degrees_atom_indices[label][1]
-        """
-        ***Type 15.1. 157.037 CN=15, top 6, bottom (two split) 5***
-        The two largest angle pairs have pairs like, (2, 13), (2, 14).
-        
-        Pair: (2, 13): 157.0 degrees
-        Pair: (2, 14): 157.0 degrees
-        Pair: (0, 9): 156.5 degrees
-
-        13 and 14 must be the two split atoms. Find the average position between 13 and 14,
-        draw a box from the central atom to the average position between 13, 14
-        """
-
-        if largest_angle_pair[1] == second_largest_angle_pair[1]:
-            print("Type 15.1. 157.037 CN=15, top 6, bottom (two split) 6")
-            # Use the function
-            (
-                top_point_index,
-                split_atom_point_1_index,
-                split_atom_point_2_index,
-            ) = find_common_and_unique_points(
-                largest_angle_pair, second_largest_angle_pair
+        # Plot and label vertices with colors based on labels
+        for i, point in enumerate(polyhedron_points_array):
+            label = vertex_labels[i]
+            color = color_map.get(
+                label, "grey"
+            )  # Use grey as a default color if label is not found
+            ax.scatter(*point, color=color, s=350)
+            ax.text(
+                *point,
+                f"{label}-{i}",
+                color="black",
+                alpha=1,
+                fontsize=12,
+                zorder=3,
             )
 
-            point_1 = polyhedron_points_array[split_atom_point_1_index]
-            point_2 = polyhedron_points_array[split_atom_point_2_index]
-            single_largest_angle_coord = polyhedron_points_array[
-                top_point_index
-            ]
-            # Calculate the average position (midpoint)
-            average_split_coord = (point_1 + point_2) / 2
+        # Set labels and title
+        ax.set_title(
+            f"Best Polyhedron for {label}. CN={len(conn_data)}, {file_name}"
+        )
+        ax.set_xlabel("X Coordinate")
+        ax.set_ylabel("Y Coordinate")
+        ax.set_zlabel("Z Coordinate")
+        # ax.autoscale_view()
+        # ax.set_axis_off()  # Hide the axes, as requested
+
+        """
+        Step 1. Find the largest angle indices ref from the central atom
+        """
+        largest_angle_index_pair = near_180_degrees_atom_indices[label][0]
+
+        largest_angle = angles[label][largest_angle_index_pair]
+        large_angle_index_1 = largest_angle_index_pair[0]
+        large_angle_index_2 = largest_angle_index_pair[1]
+        large_angle_index_1_coord = conn_data[large_angle_index_1][3]
+        large_angle_index_2_coord = conn_data[large_angle_index_2][3]
+        ax.scatter(
+            *large_angle_index_1_coord, color="black", s=1000
+        )  # Larger size for visibility
+        ax.scatter(*large_angle_index_2_coord, color="black", s=1000)
+
+        """
+        Type 10.1. 180, CN=10, top 4, bottom 4, 180 largest angle
+        """
+        if CN == 10 and largest_angle == 180.0:
+            CN_structure_category = (
+                "Type 10.1. top 4, bottom 4, 180 largest angle"
+            )
 
             top_box_vertices = draw_rectangular_box(
-                ax, central_atom_coord, single_largest_angle_coord, "cyan"
+                ax, central_atom_coord, large_angle_index_1_coord, "blue"
+            )
+            count_atoms_inside_polyhedron(
+                top_box_vertices, polyhedron_points_array
+            )
+
+            # Draw the other box with the largest angle
+            bottom_box_vertices = draw_rectangular_box(
+                ax, central_atom_coord, large_angle_index_2_coord, "red"
+            )
+
+            count_atoms_inside_polyhedron(
+                bottom_box_vertices, polyhedron_points_array
+            )
+        """
+        Type 14.1. 180, CN=14, top 6, bottom 6
+        """
+        if CN == 14 and largest_angle > 178.0:
+            print("\nType 14.1. 180, CN=14, top 6, bottom 6")
+            CN_structure_category = "Type 14.1, top 6, bottom 6, 180 largest"
+
+            top_box_vertices = draw_rectangular_box(
+                ax, central_atom_coord, large_angle_index_1_coord, "blue"
             )
             count_atoms_inside_polyhedron(
                 top_box_vertices, polyhedron_points_array
@@ -209,148 +173,233 @@ def plot_polyhedrons(near_180_degrees_atom_indices, angles, CN_connections):
             # Draw the other box with the largest angle
 
             bottom_box_vertices = draw_rectangular_box(
-                ax, central_atom_coord, average_split_coord, "purple"
+                ax, central_atom_coord, large_angle_index_2_coord, "red"
             )
 
             count_atoms_inside_polyhedron(
-                bottom_box_vertices, polyhedron_points_array, split_count=2
+                bottom_box_vertices, polyhedron_points_array
+            )
+        """
+        Type 12.1. 180, CN=12, top 5, bottom 5
+        """
+        if CN == 12 and largest_angle > 178.0:
+            print("Type 2. 180, CN=12, top 5, bottom 5")
+            top_box_vertices = draw_rectangular_box(
+                ax, central_atom_coord, large_angle_index_1_coord, "blue"
+            )
+            count_atoms_inside_polyhedron(
+                top_box_vertices, polyhedron_points_array
+            )
+            # Draw the other box with the largest angle
+
+            bottom_box_vertices = draw_rectangular_box(
+                ax, central_atom_coord, large_angle_index_2_coord, "red"
             )
 
-        """
-        ***Type 15.2. Symmetric case where there are 3 largest angles formed
-        by the single atom and one of the two-split atoms
-        Largest angles for Ta2:
-        Pair: (6, 10): 154.3 degrees
-        Pair: (7, 11): 154.3 degrees
-        Pair: (8, 9): 154.3 degrees
-        """
-        largest_angle_pair = near_180_degrees_atom_indices[label][0]
-        second_largest_angle_pair = near_180_degrees_atom_indices[label][1]
-        thrid_largest_angle_pair = near_180_degrees_atom_indices[label][2]
+            count_atoms_inside_polyhedron(
+                bottom_box_vertices, polyhedron_points_array
+            )
+            print()
 
-        largest_angle = angles[label][largest_angle_pair]
-        second_largest_angle = angles[label][second_largest_angle_pair]
-        third_largest_angle = angles[label][thrid_largest_angle_pair]
-
-        if largest_angle == second_largest_angle == third_largest_angle:
-            single_largest_angle_coord = polyhedron_points_array[
-                # Pair: (6, 10): 154.3 degrees
-                largest_angle_pair[0]
-            ]
-
-            # Pair: (6, 13): 153.3 degrees
-            # Find the largest angle ex) from 6 to 13
-            # But this sorted by the distance and also by the pair
+        if CN == 15:
+            largest_angle_pair = near_180_degrees_atom_indices[label][0]
+            second_largest_angle_pair = near_180_degrees_atom_indices[label][1]
             """
+            ***Type 15.1. 157.037 CN=15, top 6, bottom (two split) 5***
+            The two largest angle pairs have pairs like, (2, 13), (2, 14).
+            
+            Pair: (2, 13): 157.0 degrees
+            Pair: (2, 14): 157.0 degrees
+            Pair: (0, 9): 156.5 degrees
+
+            13 and 14 must be the two split atoms. Find the average position between 13 and 14,
+            draw a box from the central atom to the average position between 13, 14
+            """
+
+            if largest_angle_pair[0] == second_largest_angle_pair[0]:
+                print(
+                    "\nType 15.1. 157.037 CN=15, top 6, bottom (two split) 6"
+                )
+                # Use the function
+                (
+                    top_point_index,
+                    split_atom_point_1_index,
+                    split_atom_point_2_index,
+                ) = find_common_and_unique_points(
+                    largest_angle_pair, second_largest_angle_pair
+                )
+
+                point_1 = polyhedron_points_array[split_atom_point_1_index]
+                point_2 = polyhedron_points_array[split_atom_point_2_index]
+                single_largest_angle_coord = polyhedron_points_array[
+                    top_point_index
+                ]
+                # Calculate the average position (midpoint)
+                average_split_coord = (point_1 + point_2) / 2
+
+                top_box_vertices = draw_rectangular_box(
+                    ax, central_atom_coord, single_largest_angle_coord, "cyan"
+                )
+                count_atoms_inside_polyhedron(
+                    top_box_vertices, polyhedron_points_array
+                )
+                # Draw the other box with the largest angle
+
+                bottom_box_vertices = draw_rectangular_box(
+                    ax, central_atom_coord, average_split_coord, "purple"
+                )
+
+                count_atoms_inside_polyhedron(
+                    bottom_box_vertices, polyhedron_points_array, split_count=2
+                )
+
+            """
+            ***Type 15.2. Symmetric case where there are 3 largest angles formed
+            by the single atom and one of the two-split atoms
             Largest angles for Ta2:
             Pair: (6, 10): 154.3 degrees
             Pair: (7, 11): 154.3 degrees
             Pair: (8, 9): 154.3 degrees
-            Pair: (6, 13): 153.3 degrees <-
-            Pair: (7, 14): 153.3 degrees
-            Pair: (8, 12): 153.3 degrees
             """
-            other_double_split_atom_index = near_180_degrees_atom_indices[
+            largest_angle_pair = near_180_degrees_atom_indices[label][0]
+            second_largest_angle_pair = near_180_degrees_atom_indices[label][1]
+            thrid_largest_angle_pair = near_180_degrees_atom_indices[label][2]
+            largest_angle = angles[label][largest_angle_pair]
+            second_largest_angle = angles[label][second_largest_angle_pair]
+            third_largest_angle = angles[label][thrid_largest_angle_pair]
+
+            if largest_angle == second_largest_angle == third_largest_angle:
+                print(
+                    "\nType 15.2. CN=15, top 6, bottom (two split) 6, 3 identical largest angles"
+                )
+                single_largest_angle_coord = polyhedron_points_array[
+                    # Pair: (6, 10): 154.3 degrees
+                    largest_angle_pair[0]
+                ]
+
+                # Pair: (6, 13): 153.3 degrees
+                # Find the largest angle ex) from 6 to 13
+                # But this sorted by the distance and also by the pair
+                """
+                Largest angles for Ta2:
+                Pair: (6, 10): 154.3 degrees
+                Pair: (7, 11): 154.3 degrees
+                Pair: (8, 9): 154.3 degrees
+                Pair: (6, 13): 153.3 degrees <-
+                Pair: (7, 14): 153.3 degrees
+                Pair: (8, 12): 153.3 degrees
+                """
+                other_double_split_atom_index = near_180_degrees_atom_indices[
+                    label
+                ][3][1]
+                # Find the average position between the two atoms in the doublet
+                first_double_split_atom_index = largest_angle_pair[1]
+                point_1 = polyhedron_points_array[
+                    first_double_split_atom_index
+                ]
+                point_2 = polyhedron_points_array[
+                    other_double_split_atom_index
+                ]
+                average_split_coord = (point_1 + point_2) / 2
+
+                # Get the two from the top atom to other
+                top_box_vertices = draw_rectangular_box(
+                    ax, central_atom_coord, single_largest_angle_coord, "red"
+                )
+                count_atoms_inside_polyhedron(
+                    top_box_vertices, polyhedron_points_array
+                )
+                # Draw the other box with the largest angle
+
+                bottom_box_vertices = draw_rectangular_box(
+                    ax, central_atom_coord, average_split_coord, "purple"
+                )
+
+                count_atoms_inside_polyhedron(
+                    bottom_box_vertices, polyhedron_points_array, split_count=2
+                )
+
+        if CN == 16:
+            fourth_largest_angle_pair_indicies = near_180_degrees_atom_indices[
                 label
-            ][3][1]
-            first_double_split_atom_index = largest_angle_pair[1]
-            point_1 = polyhedron_points_array[first_double_split_atom_index]
-            point_2 = polyhedron_points_array[other_double_split_atom_index]
-            average_split_coord = (point_1 + point_2) / 2
+            ][3]
+            fifth_largest_angle_pair_indicies = near_180_degrees_atom_indices[
+                label
+            ][4]
+            sixth_largest_angle_pair_indicies = near_180_degrees_atom_indices[
+                label
+            ][5]
 
-            # Find the average position between the two atoms in the doublet
-
-            # Get the two from the top atom to other
-
-            top_box_vertices = draw_rectangular_box(
-                ax, central_atom_coord, single_largest_angle_coord, "red"
-            )
-            count_atoms_inside_polyhedron(
-                top_box_vertices, polyhedron_points_array
-            )
-            # Draw the other box with the largest angle
-
-            bottom_box_vertices = draw_rectangular_box(
-                ax, central_atom_coord, average_split_coord, "purple"
-            )
-
-            count_atoms_inside_polyhedron(
-                bottom_box_vertices, polyhedron_points_array, split_count=2
-            )
-
-    if CN == 16:
-        fourth_largest_angle_pair_indicies = near_180_degrees_atom_indices[
-            label
-        ][3]
-        fifth_largest_angle_pair_indicies = near_180_degrees_atom_indices[
-            label
-        ][4]
-        sixth_largest_angle_pair_indicies = near_180_degrees_atom_indices[
-            label
-        ][5]
-
-        """
-        
-        Type 16.1. 3 splits, CN=16, Ta1 in 20250604_CN_4_methods/457848.cif
-        - Check there are CN=16
-        - 3 angles formed 159.67
-        - 6 angles formed 148.715
-        - 3 angles formde 149.4
-        The 3 largest angles
-        0 1 149.413
-        0 2 149.427
-        0 3 149.427
-        
-        Check the triplets - this is the second largest angles, ther are 3 of them
-        Assume the the bottom is the 3 splits, the top forms a 6 ring chain
-        The bottom forms 
-        (0, 2) (0, 3) (0, 1), 0th index must be the top atom
-        """
-        if (
-            fourth_largest_angle_pair_indicies[0]
-            == fifth_largest_angle_pair_indicies[0]
-            == sixth_largest_angle_pair_indicies[0]
-        ):
             """
-            Draw a box that encompasses 6 atoms at the top ring
+            
+            Type 16.1. 3 splits, CN=16, Ta1 in 20250604_CN_4_methods/457848.cif
+            - Check there are CN=16
+            - 3 angles formed 159.7
+            - 6 angles formed 148.7
+            - 3 angles formde 149.4
+            Largest angles for Ta1:
+            Pair: (4, 8): 159.7 degrees
+            Pair: (5, 9): 159.7 degrees
+            Pair: (6, 7): 159.7 degrees
+            Pair: (0, 1): 149.4 degrees
+            Pair: (0, 2): 149.4 degrees
+            Pair: (0, 3): 149.4 degrees
+            Pair: (1, 10): 148.7 degrees
+            Pair: (1, 14): 148.7 degrees
+            Pair: (2, 11): 148.7 degrees
+            Pair: (2, 12): 148.7 degrees
+            Check the triplets - this is the second largest angles, ther are 3 of them
+            Assume the the bottom is the 3 splits, the top forms a 6 ring chain
+            The bottom forms 
+            (0, 2) (0, 3) (0, 1), 0th index must be the top atom
             """
-            print("Type 16.1 CN=16, top 6, bottom (three splits) 6")
-            # Draw top box with no split
+            if (
+                fourth_largest_angle_pair_indicies[0]
+                == fifth_largest_angle_pair_indicies[0]
+                == sixth_largest_angle_pair_indicies[0]
+            ):
+                """
+                Draw a box that encompasses 6 atoms at the top ring
+                """
+                print("Type 16.1 CN=16, top 6, bottom (three splits) 6")
+                # Draw top box with no split
 
-            top_box_vertices = draw_rectangular_box(
-                ax,
-                central_atom_coord,
-                polyhedron_points_array[fourth_largest_angle_pair_indicies[0]],
-                "blue",
-            )
-            count_atoms_inside_polyhedron(
-                top_box_vertices, polyhedron_points_array, split_count=1
-            )
-            # Draw bottom box with 3 splits
-            triple_split_coord_1 = polyhedron_points_array[
-                fourth_largest_angle_pair_indicies[1]
-            ]
-            triple_split_coord_2 = polyhedron_points_array[
-                fifth_largest_angle_pair_indicies[1]
-            ]
-            triple_split_coord_3 = polyhedron_points_array[
-                sixth_largest_angle_pair_indicies[1]
-            ]
-            average_split_coord = (
-                triple_split_coord_1
-                + triple_split_coord_2
-                + triple_split_coord_3
-            ) / 3
-            bottom_box_vertices = draw_rectangular_box(
-                ax,
-                central_atom_coord,
-                average_split_coord,
-                "red",
-            )
-            count_atoms_inside_polyhedron(
-                bottom_box_vertices, polyhedron_points_array, split_count=3
-            )
-    plt.show()
+                top_box_vertices = draw_rectangular_box(
+                    ax,
+                    central_atom_coord,
+                    polyhedron_points_array[
+                        fourth_largest_angle_pair_indicies[0]
+                    ],
+                    "blue",
+                )
+                count_atoms_inside_polyhedron(
+                    top_box_vertices, polyhedron_points_array, split_count=1
+                )
+                # Draw bottom box with 3 splits
+                triple_split_coord_1 = polyhedron_points_array[
+                    fourth_largest_angle_pair_indicies[1]
+                ]
+                triple_split_coord_2 = polyhedron_points_array[
+                    fifth_largest_angle_pair_indicies[1]
+                ]
+                triple_split_coord_3 = polyhedron_points_array[
+                    sixth_largest_angle_pair_indicies[1]
+                ]
+                average_split_coord = (
+                    triple_split_coord_1
+                    + triple_split_coord_2
+                    + triple_split_coord_3
+                ) / 3
+                bottom_box_vertices = draw_rectangular_box(
+                    ax,
+                    central_atom_coord,
+                    average_split_coord,
+                    "red",
+                )
+                count_atoms_inside_polyhedron(
+                    bottom_box_vertices, polyhedron_points_array, split_count=3
+                )
+        plt.show()
 
 
 # Function to find common and unique points

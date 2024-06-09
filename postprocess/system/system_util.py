@@ -31,7 +31,6 @@ def parse_data_from_json_and_file(data, cif_directory):
     unique_structure_types = []
     unique_formulas = []
     for key, site_pairs in data.items():
-        print(f"Processing data for: {key}")
         unique_pairs.append(key)
         for cif_id, cif_data_list in site_pairs.items():
             cif_file_path = os.path.join(cif_directory, f"{cif_id}.cif")

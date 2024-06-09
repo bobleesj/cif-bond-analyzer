@@ -6,8 +6,7 @@ from util import folder
 import json
 
 
-def print_intro_prompt():
-    """Filters and moves CIF files based on the shortest atomic distance."""
+def prompt_site_analysis_intro():
     intro_prompt = textwrap.dedent(
         """\
     ===
@@ -85,42 +84,6 @@ def get_user_input_folder_processing(dir_names, file_type):
     return selected_dirs
 
 
-def get_user_input_on_supercell_method():
-    echo(
-        "\nWould you like to modify the default 2x2x2 supercell generation"
-        " method for files over 100 atoms in the unit cell?"
-    )
-    is_supercell_generation_method_modified = click.confirm(
-        "(Default: N)", default=False
-    )
-
-    if is_supercell_generation_method_modified:
-        echo("\nChoose a supercell generation method:")
-        echo("1. No shift (fastest)")
-        echo("2. +1 +1 +1 shifts in x, y, z directions")
-        echo("3. +-1, +-1, +-1 shifts (2x2x2 supercell generation, slowest)")
-
-        method = click.prompt(
-            "Choose your option by entering a number", type=int
-        )
-
-        if method == 1:
-            echo("> You've selected: No shift (fastest)\n")
-        elif method == 2:
-            echo("> You've selected: +1 +1 +1 shifts in x, y, z directions\n")
-        elif method == 3:
-            echo(
-                "> You've selected: +-1, +-1, +-1 shifts (2x2x2 supercell, slowest)\n"
-            )
-        else:
-            echo("> Invalid option. Defaulting to No shift (fastest)\n")
-            method = 1
-    else:
-        method = None
-
-    return method
-
-
 def echo_folder_progress(idx, dir_name, num_selected_dirs):
     echo("\n")
     echo("=" * 50)  # Top line of '=' characters
@@ -153,48 +116,15 @@ def print_progress_current(
     )
 
 
-def get_is_coordination_num_used():
-    click.echo(
-        "\nDo you want to compute nearest neighbor distances"
-        " based on the coordination number?"
-    )
-
-    is_coordination_number_used = click.confirm(
-        "(Default: Y)",
-        default=True,
-    )
-    return is_coordination_number_used
-
-
-def get_cutoff_radius():
-    cutoff_radius = click.prompt(
-        "\nEnter the cutoff distance (Å) (Default 4 Å)",
-        type=float,
-        default=4,
-        show_default=False,
-    )
-    return cutoff_radius
-
-
 def print_dict_in_json(data):
     print(json.dumps(data, indent=4, sort_keys=True))
 
 
-def system_analysis_intro_prompt():
+def prompt_system_analysis_intro():
     echo(
         "\nNote: All of the .cif files must be either binary or ternary files"
         " or combined. Only up to 3 unique elements are allowed."
+        " If the shortest distance from each site is NOT calculated with option [1],"
+        " the program will run option [1] automatically. Also, if there is a new .cif"
+        " added to the folder, it will run option [1] again."
     )
-
-
-def log_conneted_points(all_labels_connections):
-    for label, connections in all_labels_connections.items():
-        print(f"\nAtom site {label}:")
-        for (
-            label,
-            dist,
-            coords_1,
-            coords_2,
-        ) in connections:
-            print(f"{label} {dist} {coords_1}, {coords_2}")
-    print()

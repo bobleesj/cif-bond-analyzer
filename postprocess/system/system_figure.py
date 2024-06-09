@@ -199,6 +199,7 @@ def draw_ternary_figure(
             )
 
     output_filepath = join(output_dir, "ternary.png")
+    # plt.axis("off")
     plt.savefig(output_filepath, dpi=300)
     plt.close()
 
@@ -231,14 +232,11 @@ def draw_hexagon_for_individual_figure(
             structure_dict, structure
         )
         formulas, bond_labels, bond_fractions = result
-        print(formulas)
         formula = formula_parser.get_subscripted_formula(formulas[0])
         structure = formula_parser.get_subscripted_formula(structure)
 
         fig, ax = plt.subplots(figsize=(3, 3.5), dpi=300)
-        plt.subplots_adjust(
-            top=1.1
-        )  # Adjust this value to reduce the space at the top
+        plt.subplots_adjust(top=1.1)
 
         hexagon.draw_single_hexagon_and_lines_per_center_point(
             center_pt,
@@ -331,7 +329,6 @@ def draw_hexagon_for_individual_figure(
     fig.savefig(composite_filepath, dpi=300)
 
     plt.close(fig)
-
     print(f"Saved individual hexagon images and a composite in {output_dir}")
 
 

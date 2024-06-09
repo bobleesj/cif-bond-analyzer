@@ -9,13 +9,13 @@ Usage:
 
 Author: Sangjoon Bob Lee
 
-Last update: May 24, 2024
+Last update: June 9, 2024
 Release date: Mar 10, 2024
 
 """
 
 import os
-from run import bond, system
+from run import site, system
 
 
 def main():
@@ -25,7 +25,6 @@ def main():
     options = {
         "1": "Compute the shortest distance from each site.",
         "2": "Conduct system analysis.",
-        # "3": "Compute the nearest neighbor distances for each site.",
     }
 
     for key, value in options.items():
@@ -34,11 +33,9 @@ def main():
     choice = input(f"Enter your choice (1-{len(options)}): ")
 
     if choice == "1":
-        bond.run_bond_analysis(script_path)
+        site.run_site_analysis(script_path)
     elif choice == "2":
         system.run_system_analysis(script_path)
-    # elif choice == "3":
-    #     environment.run_environment_analysis(script_path)
 
 
 if __name__ == "__main__":
