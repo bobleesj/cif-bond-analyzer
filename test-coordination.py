@@ -17,8 +17,8 @@ from preprocess import format
 
 format.preprocess_move_files_based_on_format_error("20250604_CN_4_methods")
 # file_path = "20250604_CN_4_methods/URhIn.cif"
-file_path = "20250604_CN_4_methods/250064.cif"
-
+# file_path = "20250604_CN_4_methods/250064.cif"
+file_path = "20250604_CN_4_methods/457848.cif"
 
 _, formula, _, cif_id = cif_parser.get_phase_tag_formula_id_from_third_line(
     file_path
@@ -56,6 +56,8 @@ Step 4. Find the best polyhedron from each label
 best_polyhedrons = cn_geom_handler.find_best_polyhedron(
     max_gaps_per_label, all_labels_connections
 )
+
+prompt.print_dict_in_json(best_polyhedrons)
 """
 Step 5. Filter connected points based on CN
 """
@@ -76,6 +78,7 @@ largest_angle_atom_indices = (
     cn_angle.get_largest_angle_atom_indices_largest_to_smallest(angles)
 )
 
+# prompt.log_conneted_points(all_labels_connections)
 """
 Step 8. Find the coordinates
 """
@@ -83,13 +86,3 @@ Step 8. Find the coordinates
 cn_polyhedron.plot_polyhedrons(
     largest_angle_atom_indices, angles, CN_connections
 )
-
-# """
-# Step 9. Determine the number of atoms in each ring
-# """
-# ring_counts = cn_structure.get_ring_count_above_below_central_atom_z(
-#     largest_angle_atom_indices, CN_connections
-# )
-# env_util.print_conneted_points(CN_connections)
-# prompt.print_dict_in_json(best_polyhedrons)
-# prompt.print_dict_in_json(ring_counts)

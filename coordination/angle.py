@@ -15,9 +15,6 @@ def compute_angles_from_central_atom(CN_connections):
             vector = point_coord - central_atom_array
             vectors.append(vector)
 
-        # Calculate angles between each pair of vectors
-        print(label)
-
         for i in range(len(vectors)):
             for j in range(i + 1, len(vectors)):
                 vector_i = vectors[i]
@@ -29,23 +26,19 @@ def compute_angles_from_central_atom(CN_connections):
                 angle = np.arccos(
                     np.clip(cosine_angle, -1.0, 1.0)
                 )  # Clip for safety
-                angle_degrees = np.round(np.degrees(angle), 3)
-                angles[label][(i, j)] = angle_degrees
 
-                if angle_degrees > 157:
-                    print(
-                        i,
-                        j,
-                        angle_degrees,
-                        connection_data[i][2],
-                        connection_data[j][2],
-                    )
-        print()
+                angle_degrees = np.degrees(angle)
+                formatted_angle = (
+                    f"{angle_degrees:.4g}"  # 4 significant figures
+                )
+
+                angles[label][(i, j)] = float(formatted_angle)
+
     return angles
 
 
 def get_largest_angle_atom_indices_largest_to_smallest(
-    angles, threshold=34
+    angles, threshold=40
 ) -> dict:
     indicies = {}
     for label, angle_data in angles.items():
@@ -63,4 +56,9 @@ def get_largest_angle_atom_indices_largest_to_smallest(
         )
         # Store only the pairs in the dictionary under the label
         indicies[label] = [pair for pair, _ in sorted_pairs]
+        # Print top 10 largest angles for each label, if available
+        print(f"Largest angles for {label}:")
+        for pair, angle in sorted_pairs[:10]:  # Print only top 10 angles
+            print(f"  Pair: {pair}: {np.round(angle, 3)} degrees")
+
     return indicies
