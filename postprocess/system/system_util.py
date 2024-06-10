@@ -370,34 +370,3 @@ def get_is_binary_ternary_combined(json_file_path):
         formula_parser.get_num_element(formula) for formula in unique_formulas
     ]
     return 2 in element_counts and 3 in element_counts
-
-
-def calculate_unit_vector(center_pt, other_x, other_y):
-    dx = other_x - center_pt[0]
-    dy = other_y - center_pt[1]
-    dist = np.sqrt(dx**2 + dy**2)
-    unit_vector = None
-
-    if dist > 0:
-        unit_vector = np.array([dx, dy]) / dist
-    else:
-        unit_vector = np.array([0, 0])
-
-    return unit_vector, dist
-
-
-# def extract_bond_counts(structure_dict):
-#     bond_count_per_formula_dict = {}
-#     # Iterate over each key in the structure_dict (assuming each key is a compound name or ID)
-#     for structure in structure_dict:
-#         bond_data = structure_dict[structure]["bond_data"]
-#         formula = structure_dict[structure]["formulas"][0]
-
-#         # Summarize the bond counts across different data entries for the same formula
-#         for bond_type in bond_data:
-#             bond_count = bond_data[bond_type]["unique_bond_count"]
-#             bond_count_per_formula_dict[formula][
-#                 bond_type
-#             ] += bond_count
-
-#     return bond_count_per_formula_dict

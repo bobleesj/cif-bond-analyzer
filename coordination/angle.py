@@ -62,3 +62,16 @@ def get_largest_angle_atom_indices_largest_to_smallest(
             print(f"  Pair: {pair}: {np.round(angle, 3)} degrees")
 
     return indicies
+
+
+def count_number_of_angles(angle_data, angle):
+    # Initialize count
+    count = 0
+
+    # Iterate through each angle in the dictionary
+    for value in angle_data.values():
+        # Check if the current angle matches the specified angle
+        if value == angle:
+            count += 1
+
+    return count

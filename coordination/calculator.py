@@ -4,9 +4,9 @@ from preprocess.cif_parser import get_atom_type
 def compute_normalized_dists_in_connections(rad_sum, all_labels_connections):
     methods = {
         "dist_by_shortest_dist": [],
-        "dist_by_CIF_rad_sum": [],
-        "dist_by_CIF_rad_refined_sum": [],
-        "dist_by_Pauling_rad_sum": [],
+        # "dist_by_CIF_rad_sum": [],
+        # "dist_by_CIF_rad_refined_sum": [],
+        # "dist_by_Pauling_rad_sum": [],
     }
 
     norm_dists_per_label = {}
@@ -26,36 +26,36 @@ def compute_normalized_dists_in_connections(rad_sum, all_labels_connections):
         for i, connection in enumerate(connection_data):
             connected_label = connection[0]
             # Get new rad sum for each ref label
-            CIF_rad_sum_norm_value = get_rad_sum_value(
-                rad_sum, "CIF_rad_sum", ref_label, connected_label
-            )
-            CIF_rad_sum_refined_norm_value = get_rad_sum_value(
-                rad_sum, "CIF_rad_refined_sum", ref_label, connected_label
-            )
-            Pauling_rad_sum_norm_value = get_rad_sum_value(
-                rad_sum, "Pauling_rad_sum", ref_label, connected_label
-            )
+            # CIF_rad_sum_norm_value = get_rad_sum_value(
+            #     rad_sum, "CIF_rad_sum", ref_label, connected_label
+            # )
+            # CIF_rad_sum_refined_norm_value = get_rad_sum_value(
+            #     rad_sum, "CIF_rad_refined_sum", ref_label, connected_label
+            # )
+            # Pauling_rad_sum_norm_value = get_rad_sum_value(
+            #     rad_sum, "Pauling_rad_sum", ref_label, connected_label
+            # )
             pair_dist = connection[1]
             # Compute normalized distances
             norm_dist_by_shortest_dist = compute_normalized_value(
                 pair_dist, shortest_dist
             )
-            norm_dist_by_CIF_rad_sum = compute_normalized_value(
-                pair_dist, CIF_rad_sum_norm_value
-            )
-            norm_dist_by_CIF_rad_refined_sum = compute_normalized_value(
-                pair_dist, CIF_rad_sum_refined_norm_value
-            )
-            norm_dist_by_Pauling_rad_sum = compute_normalized_value(
-                pair_dist, Pauling_rad_sum_norm_value
-            )
+            # norm_dist_by_CIF_rad_sum = compute_normalized_value(
+            #     pair_dist, CIF_rad_sum_norm_value
+            # )
+            # norm_dist_by_CIF_rad_refined_sum = compute_normalized_value(
+            #     pair_dist, CIF_rad_sum_refined_norm_value
+            # )
+            # norm_dist_by_Pauling_rad_sum = compute_normalized_value(
+            #     pair_dist, Pauling_rad_sum_norm_value
+            # )
 
             # Store distances
             distances = {
                 "dist_by_shortest_dist": norm_dist_by_shortest_dist,
-                "dist_by_CIF_rad_sum": norm_dist_by_CIF_rad_sum,
-                "dist_by_CIF_rad_refined_sum": norm_dist_by_CIF_rad_refined_sum,
-                "dist_by_Pauling_rad_sum": norm_dist_by_Pauling_rad_sum,
+                # "dist_by_CIF_rad_sum": norm_dist_by_CIF_rad_sum,
+                # "dist_by_CIF_rad_refined_sum": norm_dist_by_CIF_rad_refined_sum,
+                # "dist_by_Pauling_rad_sum": norm_dist_by_Pauling_rad_sum,
             }
 
             for method, norm_distance in distances.items():

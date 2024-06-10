@@ -33,15 +33,14 @@ def run_system_analysis(script_path):
             f"{dir_path}/output/updated_{folder_name}_site_pairs.json"
         )
 
-        # is_json_found = folder.check_whether_file_exists(json_file_path)
         overall_start_time = time.perf_counter()
-        # if not is_json_found:
         format.preprocess_move_files_based_on_format_error(dir_path)
         (
             global_site_pair_dict,
             global_element_pair_dict,
             log_list,
         ) = site.get_bond_data(file_path_list)
+
         site.save_outputs(
             global_site_pair_dict,
             global_element_pair_dict,

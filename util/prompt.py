@@ -8,7 +8,7 @@ import json
 
 def prompt_site_analysis_intro():
     intro_prompt = textwrap.dedent(
-        """\
+        """
     ===
     Welcome to the CIF Bond Analyzer!
                                    
@@ -127,4 +127,18 @@ def prompt_system_analysis_intro():
         " If the shortest distance from each site is NOT calculated with option [1],"
         " the program will run option [1] automatically. Also, if there is a new .cif"
         " added to the folder, it will run option [1] again."
+        " This option also processes all .cif files including nested folders."
     )
+
+
+def log_conneted_points(all_labels_connections):
+    for label, connections in all_labels_connections.items():
+        print(f"\nAtom site {label}:")
+        for (
+            label,
+            dist,
+            coords_1,
+            coords_2,
+        ) in connections:
+            print(f"{label} {dist} {coords_1}, {coords_2}")
+    print()

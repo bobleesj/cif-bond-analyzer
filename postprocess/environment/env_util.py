@@ -25,6 +25,11 @@ def get_pair_distances_dict_for_binary_ternary(
     min_dists = get_pairs_min_distances(unique_pairs)
     parsed_formula = formula_parser.get_parsed_formula(formula)
 
+    if num_of_unique_elements == 1:
+        A = parsed_formula[0][0]
+        AA_min = min_dists.get(tuple(sorted([A, A])), float("inf"))
+        distances_dict = {"AA": AA_min}
+
     if num_of_unique_elements == 2:
         A = parsed_formula[0][0]  # First element symbol
         B = parsed_formula[1][0]  # Second element symbol

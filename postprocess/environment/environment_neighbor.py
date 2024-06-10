@@ -110,6 +110,9 @@ def get_all_labels_connections(
     lengths,
     angles,
 ):
+    print(len(supercell_points))
+    print(cutoff_radius)
+
     """
     Computes all pair distances per site label.
     """
@@ -134,7 +137,6 @@ def get_all_labels_connections(
             connections,
         ) = get_most_connected_point_per_site(site_label, dist_dict, dist_set)
         connected_neighbors[label] = connections
-
     return connected_neighbors
 
 

@@ -19,14 +19,21 @@ format.preprocess_move_files_based_on_format_error("20250604_CN_4_methods")
 # file_path = "20250604_CN_4_methods/URhIn.cif"
 
 # file_path = "20250604_CN_4_methods/457848.cif"
-file_path = "20250604_CN_4_methods/251552.cif"  # Hf2Ni
+# file_path = "20250604_CN_4_methods/251552.cif"  # Hf2Ni
+# file_path = "20240610_CN_12_14/1941929_CN14.cif"
+
+# New set of test files
+# file_path = "20240610_CN_12_14/1941929_CN14.cif"
+# file_path = "20240610_CN_12_14/1965503_CN12_anti.cif"
+file_path = "20240610_CN_12_14/1124275_CN12.cif"
+
 
 _, formula, _, cif_id = cif_parser.get_phase_tag_formula_id_from_third_line(
     file_path
 )
 
 all_labels_connections = cn_handler.get_connected_points(
-    file_path, cut_off_radius=5
+    file_path, cut_off_radius=10.0
 )
 
 """
@@ -79,7 +86,7 @@ largest_angle_atom_indices = (
     cn_angle.get_largest_angle_atom_indices_largest_to_smallest(angles)
 )
 
-# prompt.log_conneted_points(all_labels_connections)
+prompt.log_conneted_points(all_labels_connections)
 """
 Step 8. Find the coordinates
 """

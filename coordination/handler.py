@@ -6,7 +6,7 @@ import numpy as np
 from scipy.spatial import ConvexHull
 
 
-def get_connected_points(file_path, cut_off_radius=5.0):
+def get_connected_points(file_path, cut_off_radius):
     result = cif_parser_handler.get_cif_info(file_path)
     (
         _,

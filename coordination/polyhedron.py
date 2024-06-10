@@ -1,12 +1,12 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.spatial import ConvexHull
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from scipy.spatial import Delaunay
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib.ticker import MultipleLocator
-import os
+from coordination.angle import count_number_of_angles
+from coordination.count import nth_shortest_distance_count
 
 
 def plot_polyhedrons(
@@ -40,17 +40,10 @@ def plot_polyhedrons(
     }
 
     for label, conn_data in CN_connections.items():
-        CN_structure_category = ""
-        # label = "Mo4A"
-        # label = "Ta2"
-        # label = "Hf"  # Ni
-        # label = "Ni"  # Ni
-
         conn_data = CN_connections[label]
         CN = len(conn_data)
-        # if not near_180_degrees_atom_indices[label]:
-        #     continue
-
+        print(CN)
+        print(conn_data)
         # List of points forming the polyhedron
         polyhedron_points = [conn[3] for conn in conn_data]
         vertex_labels = [conn[0] for conn in conn_data]
@@ -60,7 +53,6 @@ def plot_polyhedrons(
         central_atom_label = label
         polyhedron_points.append(central_atom_coord)
         vertex_labels.append(central_atom_label)
-
         polyhedron_points_array = np.array(polyhedron_points)
 
         # Set up the plot
@@ -134,14 +126,19 @@ def plot_polyhedrons(
         )  # Larger size for visibility
         ax.scatter(*large_angle_index_2_coord, color="black", s=1000)
 
+        # Distance and angle counts
+        angle_180_count = count_number_of_angles(angles[label], 180.0)
+        first_shortest_dist_count = nth_shortest_distance_count(
+            CN_connections, label, 0
+        )
+        second_shortest_dist_count = nth_shortest_distance_count(
+            CN_connections, label, 1
+        )
+
         """
         Type 10.1. 180, CN=10, top 4, bottom 4, 180 largest angle
         """
         if CN == 10 and largest_angle == 180.0:
-            CN_structure_category = (
-                "Type 10.1. top 4, bottom 4, 180 largest angle"
-            )
-
             top_box_vertices = draw_rectangular_box(
                 ax, central_atom_coord, large_angle_index_1_coord, "blue"
             )
@@ -157,49 +154,84 @@ def plot_polyhedrons(
             count_atoms_inside_polyhedron(
                 bottom_box_vertices, polyhedron_points_array
             )
-        """
-        Type 14.1. 180, CN=14, top 6, bottom 6
-        """
-        if CN == 14 and largest_angle > 178.0:
-            print("\nType 14.1. 180, CN=14, top 6, bottom 6")
-            CN_structure_category = "Type 14.1, top 6, bottom 6, 180 largest"
 
-            top_box_vertices = draw_rectangular_box(
-                ax, central_atom_coord, large_angle_index_1_coord, "blue"
-            )
-            count_atoms_inside_polyhedron(
-                top_box_vertices, polyhedron_points_array
-            )
-            # Draw the other box with the largest angle
-
-            bottom_box_vertices = draw_rectangular_box(
-                ax, central_atom_coord, large_angle_index_2_coord, "red"
-            )
-
-            count_atoms_inside_polyhedron(
-                bottom_box_vertices, polyhedron_points_array
-            )
         """
         Type 12.1. 180, CN=12, top 5, bottom 5
         """
-        if CN == 12 and largest_angle > 178.0:
-            print("Type 2. 180, CN=12, top 5, bottom 5")
-            top_box_vertices = draw_rectangular_box(
-                ax, central_atom_coord, large_angle_index_1_coord, "blue"
+        if CN == 12:
+            print(
+                angle_180_count,
+                first_shortest_dist_count,
+                second_shortest_dist_count,
             )
-            count_atoms_inside_polyhedron(
-                top_box_vertices, polyhedron_points_array
-            )
-            # Draw the other box with the largest angle
+            if (
+                angle_180_count == 3
+                and first_shortest_dist_count == 6
+                and second_shortest_dist_count == 6
+            ):
+                print("CN 12 (Cuboctahedron)")
 
-            bottom_box_vertices = draw_rectangular_box(
-                ax, central_atom_coord, large_angle_index_2_coord, "red"
-            )
+            elif (
+                angle_180_count == 6
+                and first_shortest_dist_count == 6
+                and second_shortest_dist_count == 6
+            ):
+                print("CN 12 (anticuboctahedron")
+            else:
+                print("Type 2. 180, CN=12, top 5, bottom 5")
+                top_box_vertices = draw_rectangular_box(
+                    ax, central_atom_coord, large_angle_index_1_coord, "blue"
+                )
+                count_atoms_inside_polyhedron(
+                    top_box_vertices, polyhedron_points_array
+                )
+                bottom_box_vertices = draw_rectangular_box(
+                    ax, central_atom_coord, large_angle_index_2_coord, "red"
+                )
 
-            count_atoms_inside_polyhedron(
-                bottom_box_vertices, polyhedron_points_array
-            )
-            print()
+                count_atoms_inside_polyhedron(
+                    bottom_box_vertices, polyhedron_points_array
+                )
+                print()
+
+            """
+            Type 12.2. 3 180 angles, 6 1st shortest dists, 6 2nd shortest dists
+            """
+
+        if CN == 14:
+            if (
+                angle_180_count == 7
+                and first_shortest_dist_count == 8
+                and second_shortest_dist_count == 6
+            ):
+                """
+                Type 14.2 rhombic dodecahedron, 8 identical shortest distances,
+                7 of 180 degree angles.
+                Assume it has no distortion at the moment
+                """
+                print("Type 14.2 rhombic")
+
+            elif largest_angle > 178.0:
+                """
+                Type 14.1. 180, CN=14, top 6, bottom 6
+                """
+                print("\nType 14.1. 180, CN=14, top 6, bottom 6")
+
+                top_box_vertices = draw_rectangular_box(
+                    ax, central_atom_coord, large_angle_index_1_coord, "blue"
+                )
+                count_atoms_inside_polyhedron(
+                    top_box_vertices, polyhedron_points_array
+                )
+                # Draw the other box with the largest angle
+
+                bottom_box_vertices = draw_rectangular_box(
+                    ax, central_atom_coord, large_angle_index_2_coord, "red"
+                )
+
+                count_atoms_inside_polyhedron(
+                    bottom_box_vertices, polyhedron_points_array
+                )
 
         if CN == 15:
             largest_angle_pair = near_180_degrees_atom_indices[label][0]
