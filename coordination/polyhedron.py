@@ -169,7 +169,7 @@ def plot_polyhedrons(
                 and first_shortest_dist_count == 6
                 and second_shortest_dist_count == 6
             ):
-                print("CN 12 (Cuboctahedron)")
+                print("CN 12 (Cuboctahedron")
 
             elif (
                 angle_180_count == 6

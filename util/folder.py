@@ -96,7 +96,8 @@ def choose_binary_ternary_dir(script_path, ext=".cif"):
         return None
     # Print available directories
     print(
-        "\nAvailable folders containing 2 or 3 unique elements across all CIF files:"
+        "\nAvailable folders containing 2 or 3 unique elements including .cif files"
+        " in nested folders:"
     )
     for index, (folder_name, unique_elements, file_count) in enumerate(
         unique_element_count_per_dir, start=1
@@ -127,7 +128,8 @@ def choose_binary_ternary_dir(script_path, ext=".cif"):
                 print(f"Selected: {selected_dir}")
             else:
                 print(
-                    f"Invalid choice: {choice}. Please choose a number between 1 and {len(unique_element_count_per_dir)}."
+                    f"Invalid choice: {choice}. Please choose a number between"
+                    "1 and {len(unique_element_count_per_dir)}."
                 )
     else:
         # Automatically process all directories sequentially if the user accepts the default
@@ -187,18 +189,19 @@ def save_to_csv_directory(folder_info, df, base_filename):
     print(csv_filename, "saved")
 
 
-def get_cif_file_count_from_directory(directory):
+def get_cif_file_count_from_directory(directory, ext="*.cif"):
     """
     Counts .cif files in a given directory.
     """
-    return len(glob.glob(join(directory, "*.cif")))
+    return len(glob.glob(os.path.join(directory, "**", ext), recursive=True))
 
 
 def get_file_path_list(directory, ext="*.cif"):
     """
-    Lists all files in the chosen folder
+    Lists all .cif files in the chosen folder and subfolders.
     """
-    return glob.glob(os.path.join(directory, ext))
+    # The recursive parameter allows searching through all subdirectories
+    return glob.glob(os.path.join(directory, "**", ext), recursive=True)
 
 
 def remove_directories(directory_list):

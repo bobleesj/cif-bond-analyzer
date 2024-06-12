@@ -7,6 +7,7 @@ from preprocess import cif_parser_handler, format
 from postprocess import bond, bond_missing, excel, histogram, writer
 from util import folder, prompt
 from filter import occupancy
+from run import coordination
 
 
 def run_site_analysis(
@@ -63,6 +64,8 @@ def run_site_analysis(
             log_list,
             overall_start_time,
         )
+        # Run CN coordination
+        coordination.run_coordination(file_path_list)
 
 
 def get_bond_data(file_path_list):

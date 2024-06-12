@@ -30,12 +30,14 @@ def main():
     for key, value in options.items():
         print(f"[{key}] {value}")
 
-    choice = input(f"Enter your choice (1-{len(options)}): ")
+    # choice = input(f"Enter your choice (1-{len(options)}): ")
 
-    if choice == "1":
-        site.run_site_analysis(script_path)
-    elif choice == "2":
-        system.run_system_analysis(script_path)
+    # if choice == "1":
+    #     site.run_site_analysis(script_path)
+    # elif choice == "2":
+    #     system.run_system_analysis(script_path)
+
+    system.run_system_analysis(script_path)
 
 
 if __name__ == "__main__":

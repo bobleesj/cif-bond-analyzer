@@ -33,6 +33,13 @@ def get_normalized_formula(formula):
     return normalized_formula_str
 
 
+def get_unique_elements(formula: str) -> list[str]:
+    "Return a set of elements parsed from a formula."
+    elements = get_parsed_formula(formula)
+    unique_elements = [element for element, _ in elements]
+    return unique_elements
+
+
 def get_num_element(formula):
     """
     Returns the number of elements.

@@ -4,6 +4,20 @@ from preprocess import cif_parser
 from postprocess.environment import env_util
 from collections import Counter
 from scipy.spatial import ConvexHull
+from util.formula_parser import get_unique_elements
+
+
+def check_element_exist_in_rad_data(formula):
+    """
+    Check if all unique elements from a given formula exist in the radii data dictionary.
+    """
+    unique_elements = get_unique_elements(formula)
+    radii_data = (
+        data.get_radii_data()
+    )  # Call the function to get the radii data dictionary
+
+    # Check if all elements are in the radii data dictionary keys
+    return all(element in radii_data for element in unique_elements)
 
 
 def compute_rad_sum(formula, shortest_dists_per_pair):

@@ -25,8 +25,9 @@ format.preprocess_move_files_based_on_format_error("20250604_CN_4_methods")
 # New set of test files
 # file_path = "20240610_CN_12_14/1941929_CN14.cif"
 # file_path = "20240610_CN_12_14/1965503_CN12_anti.cif"
-file_path = "20240610_CN_12_14/1124275_CN12.cif"
-
+# file_path = "20240610_CN_12_14/1124275_CN12.cif"
+# file_path = "20240610_CN_12_14/301467_CN12_distorted.cif"
+file_path = "20240610_CN_12_14/528296_CN12_not_easy.cif"
 
 _, formula, _, cif_id = cif_parser.get_phase_tag_formula_id_from_third_line(
     file_path
@@ -54,7 +55,7 @@ rad_sum = data_handler.compute_rad_sum(formula, shortest_dists_per_pair)
 """
 Step 3. Find coordination number with 4 method
 # """
-max_gaps_per_label = cn_calculator.compute_normalized_dists_in_connections(
+max_gaps_per_label = cn_calculator.compute_normalized_dists(
     rad_sum, all_labels_connections
 )
 

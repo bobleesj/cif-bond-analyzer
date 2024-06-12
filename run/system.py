@@ -22,8 +22,10 @@ def run_system_analysis(script_path):
     dir_paths = folder.choose_binary_ternary_dir(script_path)
 
     for idx, dir_path in enumerate(dir_paths, start=1):
+        format.preprocess_move_files_based_on_format_error(dir_path)
         prompt.echo_folder_progress(idx, dir_path, len(dir_paths))
         file_path_list = folder.get_file_path_list(dir_path)
+
         folder_name = os.path.basename(dir_path)
 
         json_file_path = os.path.join(
@@ -34,7 +36,6 @@ def run_system_analysis(script_path):
         )
 
         overall_start_time = time.perf_counter()
-        format.preprocess_move_files_based_on_format_error(dir_path)
         (
             global_site_pair_dict,
             global_element_pair_dict,
