@@ -6,27 +6,43 @@ from postprocess.system.figure import hexagon
 
 
 def draw_horizontal_lines_with_multiple_marks(
-    formula,
-    bond_fractions_per_formula,
-    structures,
+    formula, bond_fractions_per_formula, structures, is_pure_binary
 ):
     # Draw the horizontal line
     plt.plot([0, 1], [0, 0], "k-", lw=2)
-    # Process each formula
-    for i, structure in enumerate(structures):
-        parsed_normalized_formula = formula_parser.get_parsed_norm_formula(
-            formula
-        )
-        A_label, _ = parsed_normalized_formula[0]
-        B_label, B_norm_index = parsed_normalized_formula[1]
-        marker_position = float(B_norm_index)
-        center_pt = [marker_position, 0]
-        hexagon.draw_single_hexagon_and_lines_per_center_point(
-            center_pt,
-            bond_fractions_per_formula[i],
-            True,
-            False,
-        )
+
+    if is_pure_binary:
+        for i, _ in enumerate(structures):
+            parsed_normalized_formula = formula_parser.get_parsed_norm_formula(
+                formula
+            )
+
+            A_label, _ = parsed_normalized_formula[0]
+            B_label, B_norm_index = parsed_normalized_formula[1]
+            marker_position = float(B_norm_index)
+            center_pt = [marker_position, 0]
+            hexagon.draw_single_hexagon_and_lines_per_center_point(
+                center_pt,
+                bond_fractions_per_formula[i],
+                is_pure_binary,
+                False,
+            )
+    else:
+        for i, _ in enumerate(structures):
+            parsed_normalized_formula = formula_parser.get_parsed_norm_formula(
+                formula
+            )
+
+            A_label, _ = parsed_normalized_formula[0]
+            B_label, B_norm_index = parsed_normalized_formula[1]
+            marker_position = float(B_norm_index)
+            center_pt = [marker_position, 0]
+            hexagon.draw_single_hexagon_and_lines_per_center_point(
+                center_pt,
+                bond_fractions_per_formula[i],
+                is_pure_binary,
+                False,
+            )
 
     # Add labels for the first and last element
     plt.text(

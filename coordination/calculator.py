@@ -100,9 +100,6 @@ def compute_normalized_dists(rad_sum, all_labels_connections):
         previous_values = {method: None for method in methods}
 
         for i, connection in enumerate(connection_data):
-            connected_label = connection[0]
-            # Get new rad sum for each ref label
-
             pair_dist = connection[1]
             # Compute normalized distances
             norm_dist_by_shortest_dist = compute_normalized_value(

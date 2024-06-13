@@ -1,5 +1,5 @@
 import numpy as np
-from os.path import join
+import os
 from util import formula_parser, prompt, sort
 import matplotlib.pyplot as plt
 from postprocess.system import system_util
@@ -198,7 +198,7 @@ def draw_ternary_figure(
                 zorder=6,
             )
 
-    output_filepath = join(output_dir, "ternary.png")
+    output_filepath = os.path.join(output_dir, "ternary.png")
     # plt.axis("off")
     plt.savefig(output_filepath, dpi=300)
     plt.close()
@@ -248,7 +248,7 @@ def draw_hexagon_for_individual_figure(
             hex_outer_line_width=outer_line_width,
             color_line_width=color_line_width,
             is_for_individual_hexagon=True,
-            is_binary=is_binary,
+            is_pure_binary=is_binary,
         )
 
         plt.scatter(0, 0, color="black", s=core_dot_radius, zorder=5)
@@ -292,7 +292,7 @@ def draw_hexagon_for_individual_figure(
 
         # Saving each hexagon to a file
         hexagon_filename = f"{formulas[0]}.png"
-        hexagon_filepath = join(output_dir, hexagon_filename)
+        hexagon_filepath = os.path.join(output_dir, hexagon_filename)
         fig.savefig(hexagon_filepath, dpi=300)
         plt.close(fig)
         hexagon_image_files.append(hexagon_filepath)
@@ -325,26 +325,50 @@ def draw_hexagon_for_individual_figure(
     )
 
     # Save the composite sheet
-    composite_filepath = join(output_dir, "composite_hexagons.png")
+    composite_filepath = os.path.join(output_dir, "composite_hexagons.png")
     fig.savefig(composite_filepath, dpi=300)
 
     plt.close(fig)
     print(f"Saved individual hexagon images and a composite in {output_dir}")
 
 
-def draw_binary_figure(formulas, structure_dict, output_dir):
-    for formula in formulas:
-        (
-            bond_fractions_per_formula,
-            structures,
-        ) = system_util.extract_bond_info_per_formula(formula, structure_dict)
-        binary.draw_horizontal_lines_with_multiple_marks(
-            formula,
-            bond_fractions_per_formula,
-            structures,
-        )
+def draw_binary_figure(
+    formulas, structure_dict, possible_bond_pairs, output_dir
+):
+    # Chcek the count of bond fractinos, if 6, then there are Ex) Er-Co and Co-In
+    is_pure_binary = True
 
-    # Save the figure
-    output_filepath = join(output_dir, "binary.png")
-    plt.savefig(output_filepath, dpi=300)
-    plt.close()
+    if len(possible_bond_pairs) == 6:
+        is_pure_binary = False
+
+    # Handle binaries with various bond types
+    for bond_pair in possible_bond_pairs:
+        bond_pair_set = set(bond_pair)
+        counter = 0
+        for formula in formulas:
+            # Parse the formula and check whether it is in the bond_pair
+            parsed_elements = set(formula_parser.get_unique_elements(formula))
+            if parsed_elements == bond_pair_set:
+                (
+                    bond_fractions_per_formula,
+                    structures,
+                ) = system_util.extract_bond_info_per_formula(
+                    formula, structure_dict
+                )
+
+                binary.draw_horizontal_lines_with_multiple_marks(
+                    formula,
+                    bond_fractions_per_formula,
+                    structures,
+                    is_pure_binary,
+                )
+                counter += 1
+
+        # Save the figure for each bond pair
+        if counter != 0:
+            output_filename = (
+                "binnary_" + bond_pair[0] + "-" + bond_pair[1] + ".png"
+            )
+            output_filepath = os.path.join(output_dir, output_filename)
+            plt.savefig(output_filepath, dpi=300)
+            plt.close()

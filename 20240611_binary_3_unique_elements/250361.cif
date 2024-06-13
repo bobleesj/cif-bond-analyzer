@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# Co-Er            # ErCo2 rt                                      # 1952570 #
+# Co-Er            # ErCo2 rt                                      #  250361 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -18,14 +18,14 @@
 #                                                                            #
 ##############################################################################
 
-data_1952570
+data_250361
 _audit_creation_date                     2024-05-31
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      1952570
-_database_code_PDF                       ?
+#_database_code_PCD                      250361
+_database_code_PDF                       04-001-0246
 
 # Entry summary
 
@@ -40,14 +40,14 @@ _chemical_formula_weight                 285.1
 
 _publ_section_title
 ;
-Magnetic and magnetocaloric properties of Er(Co~1-x~Fe~x~)~2~ intermetallic compounds
+Rare earth intermediate phases. III. The cubic Laves phases formed with aluminium and cobalt
 ;
-_journal_coden_ASTM                      JMMMDC
-_journal_name_full                       'J. Magn. Magn. Mater.'
-_journal_year                            2017
-_journal_volume                          439
-_journal_page_first                      269
-_journal_page_last                       276
+_journal_coden_ASTM                      JCOMAH
+_journal_name_full                       'J. Less-Common Met.'
+_journal_year                            1965
+_journal_volume                          9
+_journal_page_first                      270
+_journal_page_last                       280
 _journal_language                        English
 loop_
  _publ_author_name
@@ -58,13 +58,13 @@ loop_
 
 # Standardized crystallographic data
 
-_cell_length_a                           7.14
-_cell_length_b                           7.14
-_cell_length_c                           7.14
+_cell_length_a                           7.1536
+_cell_length_b                           7.1536
+_cell_length_c                           7.1536
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
 _cell_angle_gamma                        90
-_cell_volume                             364
+_cell_volume                             366.08
 _cell_formula_units_Z                    8
 _space_group_IT_number                   227
 _space_group_name_H-M_alt                'F d -3 m (origin choice 2)'
@@ -282,12 +282,12 @@ loop_
 
 _exptl_crystal_colour                    ?
 _exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            10.41
+_exptl_crystal_density_diffrn            10.35
 _cell_measurement_temperature            ?
-_cell_measurement_radiation              'X-rays, Co Ka1'
+_cell_measurement_radiation              'X-rays, Co Ka, Cu Ka'
 _cell_measurement_reflns_used            ?
 _diffrn_ambient_temperature              ?
-_diffrn_measurement_device               'automatic diffractometer'
+_diffrn_measurement_device               ?
 _diffrn_measurement_device_type          ?
 _diffrn_radiation_type                   ?
 _diffrn_reflns_number                    ?
@@ -299,5 +299,5 @@ _refine_ls_number_reflns                 ?
 _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
-# End of data set 1952570
+# End of data set 250361
 

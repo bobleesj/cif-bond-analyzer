@@ -25,65 +25,23 @@ def objective_binary(params, A_CIF_rad, B_CIF_rad):
     return A_CIF_rad_diff_percent_squared + B_CIF_rad_diff_percent_squared
 
 
-def objective_ternary(params, R_CIF_rad, M_CIF_rad, X_CIF_rad):
-    """
-    Calculates the objective value for ternary systems by computing the sum of squared percent differences
-    between original and refined CIF radii for three atoms.
-    """
-    R_CIF_rad_refined, M_CIF_rad_refined, X_CIF_rad_refined = params
-
-    # Calculate differences between original and refined radii
-    R_CIF_rad_diff = R_CIF_rad - R_CIF_rad_refined
-    M_CIF_rad_diff = M_CIF_rad - M_CIF_rad_refined
-    X_CIF_rad_diff = X_CIF_rad - X_CIF_rad_refined
-
-    # Calculate percent differences
-    R_CIF_rad_diff_percent = R_CIF_rad_diff / R_CIF_rad
-    M_CIF_rad_diff_percent = M_CIF_rad_diff / M_CIF_rad
-    X_CIF_rad_diff_percent = X_CIF_rad_diff / X_CIF_rad
-
-    # Square the percent differences
-    R_CIF_rad_diff_percent_squared = R_CIF_rad_diff_percent**2
-    M_CIF_rad_diff_percent_squared = M_CIF_rad_diff_percent**2
-    X_CIF_rad_diff_percent_squared = X_CIF_rad_diff_percent**2
-
-    # Return the sum of squared percent differences
-    return (
-        R_CIF_rad_diff_percent_squared
-        + M_CIF_rad_diff_percent_squared
-        + X_CIF_rad_diff_percent_squared
-    )
-
-
 def constraint_binary_1(params, shortest_AA):
+    # Ensures the sum of the diameters of atom A meets a specific shortest distance.
     A_CIF_rad_refined, B_CIF_rad_refined = params
     return shortest_AA - (2 * A_CIF_rad_refined)
 
 
 def constraint_binary_2(params, shortest_BB):
+    # Constraint 2: Similar to constraint 1, but for atom B.
     A_CIF_rad_refined, B_CIF_rad_refined = params
     return shortest_BB - (2 * B_CIF_rad_refined)
 
 
 def constraint_binary_3(params, shortest_AB):
+    # Constraint 3: Ensures the sum of the radii of atom A and B meets
+    # a specific shortest distance between A and B.
     A_CIF_rad_refined, B_CIF_rad_refined = params
     return shortest_AB - (A_CIF_rad_refined + B_CIF_rad_refined)
-
-
-def constraint_ternary(params, shortest_distance, labels):
-    # Assuming labels will be something like "RR", "MX", etc.
-    multipliers = {
-        "RR": (2, 0, 0),
-        "MM": (0, 2, 0),
-        "XX": (0, 0, 2),
-        "RM": (1, 1, 0),
-        "MX": (0, 1, 1),
-        "RX": (1, 0, 1),
-    }
-
-    multiplier = multipliers[labels]
-    sum_refined = sum(m * p for m, p in zip(multiplier, params))
-    return shortest_distance - sum_refined
 
 
 def optimize_CIF_rad_binary(
@@ -158,6 +116,52 @@ def optimize_CIF_rad_binary(
         return result.x, result.fun
     else:
         return result.x
+
+
+def objective_ternary(params, R_CIF_rad, M_CIF_rad, X_CIF_rad):
+    """
+    Calculates the objective value for ternary systems by computing the sum of squared percent differences
+    between original and refined CIF radii for three atoms.
+    """
+    R_CIF_rad_refined, M_CIF_rad_refined, X_CIF_rad_refined = params
+
+    # Calculate differences between original and refined radii
+    R_CIF_rad_diff = R_CIF_rad - R_CIF_rad_refined
+    M_CIF_rad_diff = M_CIF_rad - M_CIF_rad_refined
+    X_CIF_rad_diff = X_CIF_rad - X_CIF_rad_refined
+
+    # Calculate percent differences
+    R_CIF_rad_diff_percent = R_CIF_rad_diff / R_CIF_rad
+    M_CIF_rad_diff_percent = M_CIF_rad_diff / M_CIF_rad
+    X_CIF_rad_diff_percent = X_CIF_rad_diff / X_CIF_rad
+
+    # Square the percent differences
+    R_CIF_rad_diff_percent_squared = R_CIF_rad_diff_percent**2
+    M_CIF_rad_diff_percent_squared = M_CIF_rad_diff_percent**2
+    X_CIF_rad_diff_percent_squared = X_CIF_rad_diff_percent**2
+
+    # Return the sum of squared percent differences
+    return (
+        R_CIF_rad_diff_percent_squared
+        + M_CIF_rad_diff_percent_squared
+        + X_CIF_rad_diff_percent_squared
+    )
+
+
+def constraint_ternary(params, shortest_distance, labels):
+    # Assuming labels will be something like "RR", "MX", etc.
+    multipliers = {
+        "RR": (2, 0, 0),
+        "MM": (0, 2, 0),
+        "XX": (0, 0, 2),
+        "RM": (1, 1, 0),
+        "MX": (0, 1, 1),
+        "RX": (1, 0, 1),
+    }
+
+    multiplier = multipliers[labels]
+    sum_refined = sum(m * p for m, p in zip(multiplier, params))
+    return shortest_distance - sum_refined
 
 
 def optimize_CIF_rad_ternary(

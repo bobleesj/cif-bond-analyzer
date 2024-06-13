@@ -113,6 +113,7 @@ def run_system_analysis(script_path):
         print("Binary?", is_binary)
         print("Ternary and binary combined?", is_binary_ternary_combined)
 
+        # is binary with a single type?
         if is_ternary or is_binary_ternary_combined:
             system_figure.draw_ternary_figure(
                 structure_dict,
@@ -130,7 +131,10 @@ def run_system_analysis(script_path):
 
         if is_binary:
             system_figure.draw_binary_figure(
-                unique_formulas, structure_dict, output_dir
+                unique_formulas,
+                structure_dict,
+                possible_bond_pairs,
+                output_dir,
             )
 
         system_figure.draw_hexagon_for_individual_figure(
