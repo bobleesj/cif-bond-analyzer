@@ -345,17 +345,34 @@ def generate_unique_pairs_from_formulas(updated_json_file_path):
     return possible_bond_pairs
 
 
-def get_is_binary(json_file_path):
-    click.echo("All binary compounds are found.")
+def get_is_single_binary(json_file_path):
     unique_formulas = get_all_unique_formulas(json_file_path)
-    return all(
+    return (
+        len(formula_parser.get_unique_elements_from_formulas(unique_formulas))
+        == 2
+    )
+
+
+def get_is_double_binary(json_file_path):
+    # Retrieve all unique formulas from the JSON file.
+    unique_formulas = get_all_unique_formulas(json_file_path)
+
+    # Check if all formulas are binary compounds.
+    is_all_binary = all(
         formula_parser.get_num_element(formula) == 2
         for formula in unique_formulas
     )
 
+    # Get the count of unique elements across all unique formulas.
+    unique_elements_count = len(
+        formula_parser.get_unique_elements_from_formulas(unique_formulas)
+    )
+
+    # Return True if all compounds are binary and exactly three unique elements exist.
+    return is_all_binary and unique_elements_count == 3
+
 
 def get_is_ternary(json_file_path):
-    click.echo("All ternary compounds are found.")
     unique_formulas = get_all_unique_formulas(json_file_path)
     return all(
         formula_parser.get_num_element(formula) == 3
@@ -364,9 +381,13 @@ def get_is_ternary(json_file_path):
 
 
 def get_is_binary_ternary_combined(json_file_path):
-    click.echo("Files contain both binary and ternary compounds.")
-    unique_formulas = get_all_unique_formulas(json_file_path)
-    element_counts = [
-        formula_parser.get_num_element(formula) for formula in unique_formulas
+    unique_formulas_with_tags = get_all_unique_formulas(json_file_path)
+    clean_formulas = [
+        formula.split("_")[0] for formula in unique_formulas_with_tags
     ]
+
+    element_counts = [
+        formula_parser.get_num_element(formula) for formula in clean_formulas
+    ]
+
     return 2 in element_counts and 3 in element_counts

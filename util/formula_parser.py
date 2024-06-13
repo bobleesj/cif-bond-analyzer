@@ -126,6 +126,19 @@ def get_RMX_sorted_formula_from_formulas(unique_formulas):
     return R_element, M_element, X_element
 
 
+def generate_ordered_bond_labels_from_RMX(
+    R_element, M_element, X_element
+) -> list[str]:
+    return [
+        f"{R_element}-{R_element}",  # Self-pair for R
+        f"{R_element}-{M_element}",  # R-M pair
+        f"{M_element}-{M_element}",  # Self-pair for M
+        f"{M_element}-{X_element}",  # M-X pair
+        f"{X_element}-{X_element}",  # Self-pair for X
+        f"{R_element}-{X_element}",  # R-X pair
+    ]
+
+
 def count_formula_with_tags_in_ternary(formula_tag_tuples, R, M, X):
     """
     Count RM_ht, RM_lt, RX_ht, RX_lt, MX_lt, MX_ht combinations,

@@ -18,20 +18,22 @@ def get_hexagon_points(center, size):
 def draw_single_hexagon_and_lines_per_center_point(
     center_pt,
     bond_fractions,
-    is_pure_binary,
-    is_for_individual_hexagon,
     radius=0.05,
     hex_inner_color="#D3D3D3",
     hex_outer_color="#D3D3D3",
     hex_inner_line_width=0.5,
     hex_outer_line_width=0.5,
     color_line_width=2.5,
+    is_for_individual_hexagon=False,
 ):
     # Get colors
-    colors = color.get_hexagon_vertex_colors(is_pure_binary)
+    is_pure_binary = False
+    if len(np.array(bond_fractions)) == 3:
+        is_pure_binary = True
 
+    colors = color.get_hexagon_vertex_colors(is_pure_binary)
     # Get hexagon poitns
-    x_hex_pts, y_hex_pts = hexagon.get_hexagon_points(center_pt, radius)
+    x_hex_pts, y_hex_pts = get_hexagon_points(center_pt, radius)
 
     if is_for_individual_hexagon:
         black_line_width = color_line_width + 2.5
@@ -58,7 +60,6 @@ def draw_single_hexagon_and_lines_per_center_point(
         y_hex_pts,
         center_pt,
         bond_fractions,
-        is_pure_binary,
         colors,
         color_line_width,
         black_line_width,
@@ -87,21 +88,12 @@ def draw_colored_and_black_lines(
     y_hex_pts,
     center_pt,
     bond_fractions,
-    is_pure_binary,
     colors,
     color_line_width,
     black_line_width,
     is_for_individual_hexagon,
 ):
-    # For up to 3 unique elements
-    num_of_bonds = 6
-
-    if is_pure_binary:
-        num_of_bonds = 3
-
-    print("is pure binary", is_pure_binary)
-    print("num of bonds", num_of_bonds)
-    for i in range(num_of_bonds):
+    for i, _ in enumerate(colors):
         x_hex_pt = x_hex_pts[i]
         y_hex_pt = y_hex_pts[i]
         bond_fraction = bond_fractions[i]

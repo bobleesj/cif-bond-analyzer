@@ -1,0 +1,35 @@
+{
+    "Co-Co": {
+   
+    },
+    "Er-Co": {
+        "1956508": [
+            {
+                "dist": "2.799",
+                "mixing": "4",
+                "formula": "Er3Co1.87In4",
+                "structure_type": "Lu3Co2In4"
+            }
+        ]
+    },
+    "Co-In": {
+        "1956508": [
+            {
+                "dist": "2.687",
+                "mixing": "3",
+                "formula": "Er3Co1.87In4",
+                "structure_type": "Lu3Co2In4"
+            }
+        ]
+    },
+    "In-In": {
+        "1956508": [
+            {
+                "dist": "2.949",
+                "mixing": "4",
+                "formula": "Er3Co1.87In4",
+                "structure_type": "Lu3Co2In4"
+            }
+        ]
+    }
+}

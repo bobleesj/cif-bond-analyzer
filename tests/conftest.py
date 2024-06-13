@@ -57,3 +57,28 @@ def get_cif_URhIn_loop_values():
         "tests/filter/cifs/URhIn.cif"
     )
     return CIF_loop_values
+
+
+"""
+Test system analysis
+"""
+
+
+@pytest.fixture
+def is_single_binary_json_path():
+    return "tests/system/data/binary_single_type/binary_single_type.json"
+
+
+@pytest.fixture
+def is_double_binary_json_path():
+    return "tests/system/data/binary_double_type/updated.json"
+
+
+@pytest.fixture
+def is_binary_ternary_combined_json_path():
+    return "tests/system/data/binary_ternary_combined_type/updated.json"
+
+
+@pytest.fixture
+def is_ternary_json_path():
+    return "tests/system/data/ternary_type/ternary.json"

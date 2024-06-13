@@ -30,6 +30,7 @@ def draw_ternary_figure(
     # Grid
     grid_alpha = 0.2
     grid_line_width = 0.5
+
     # Trinagle frame
     v0, v1, v2 = ternary.generate_traingle_vertex_points()
     ternary.draw_ternary_frame(v0, v1, v2)
@@ -38,6 +39,47 @@ def draw_ternary_figure(
     ternary.draw_triangular_grid(
         v0, v1, v2, grid_alpha, grid_line_width, n_lines=10
     )
+    lagend_center_point = (-0.1, 0.8)
+    legend_bond_label_font_size = 10
+    # Add legend
+    legend_radius = 0.06
+
+    R, M, X = formula_parser.get_RMX_sorted_formula_from_formulas(
+        unique_formulas
+    )
+    bond_pair_labels = formula_parser.generate_ordered_bond_labels_from_RMX(
+        R, M, X
+    )
+
+    hexagon.draw_single_hexagon_and_lines_per_center_point(
+        lagend_center_point,
+        [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        radius=legend_radius,
+        hex_inner_color="#D3D3D3",
+        hex_outer_color="black",
+        hex_inner_line_width=1,
+        hex_outer_line_width=1,
+        color_line_width=1,
+        is_for_individual_hexagon=True,
+    )
+    # Add legend labels
+    label_offset = 0.05
+
+    # Get the points for label positioning using the increased radius
+    x_label_pts, y_label_pts = hexagon.get_hexagon_points(
+        lagend_center_point, legend_radius + label_offset
+    )
+    for i, (x, y, label) in enumerate(
+        zip(x_label_pts, y_label_pts, bond_pair_labels)
+    ):
+        plt.text(
+            x,
+            y,
+            label,
+            fontsize=legend_bond_label_font_size,
+            ha="center",  # Horizontal alignment
+            va="center",  # Vertical alignment
+        )
 
     # Get orderd R, M, X to find the position of binary compounds
     (
@@ -63,7 +105,6 @@ def draw_ternary_figure(
             num_of_elements = formula_parser.get_num_element(formula)
 
             center_pt = None
-            is_for_individual_hexagon = False
 
             if num_of_elements == 3:
                 R_norm_index = parsed_normalized_formula[0][1]
@@ -84,8 +125,6 @@ def draw_ternary_figure(
                 hexagon.draw_single_hexagon_and_lines_per_center_point(
                     center_pt,
                     bond_fractions_per_formula[i],
-                    False,
-                    is_for_individual_hexagon,
                 )
                 # Add vertex label using ternary formula
                 ternary.add_vertex_labels(v0, v1, v2, labels)
@@ -127,10 +166,7 @@ def draw_ternary_figure(
                         center_pt = shift_points_xy(center_pt, 0.0, -0.1)
 
                     hexagon.draw_single_hexagon_and_lines_per_center_point(
-                        center_pt,
-                        bond_fractions_per_formula[i],
-                        True,
-                        is_for_individual_hexagon,
+                        center_pt, bond_fractions_per_formula[i]
                     )
                 if A_label == R_element and B_label == X_element:
                     center_pt = (
@@ -152,8 +188,6 @@ def draw_ternary_figure(
                     hexagon.draw_single_hexagon_and_lines_per_center_point(
                         center_pt,
                         bond_fractions_per_formula[i],
-                        True,
-                        is_for_individual_hexagon,
                     )
                 if A_label == M_element and B_label == X_element:
                     # CoIn2
@@ -175,10 +209,7 @@ def draw_ternary_figure(
                         center_pt = shift_points_xy(center_pt, 0.1, 0.0)
 
                     hexagon.draw_single_hexagon_and_lines_per_center_point(
-                        center_pt,
-                        bond_fractions_per_formula[i],
-                        True,
-                        is_for_individual_hexagon,
+                        center_pt, bond_fractions_per_formula[i]
                     )
             # Write one of the chemical formulas
             plt.text(
@@ -199,7 +230,7 @@ def draw_ternary_figure(
             )
 
     output_filepath = os.path.join(output_dir, "ternary.png")
-    # plt.axis("off")
+    plt.axis("off")
     plt.savefig(output_filepath, dpi=300)
     plt.close()
 
@@ -208,8 +239,7 @@ def draw_hexagon_for_individual_figure(
     structure_dict,
     unique_structure_types,
     output_dir,
-    is_binary,
-    is_individual_hexagonal,
+    possible_bond_pairs,
 ):
     hexagon_image_files = []
     center_pt = (0, 0)
@@ -248,11 +278,11 @@ def draw_hexagon_for_individual_figure(
             hex_outer_line_width=outer_line_width,
             color_line_width=color_line_width,
             is_for_individual_hexagon=True,
-            is_pure_binary=is_binary,
         )
 
         plt.scatter(0, 0, color="black", s=core_dot_radius, zorder=5)
 
+        # Add formula/structure names
         plt.text(
             center_pt[0],
             center_pt[1] + formula_offset,
@@ -333,14 +363,8 @@ def draw_hexagon_for_individual_figure(
 
 
 def draw_binary_figure(
-    formulas, structure_dict, possible_bond_pairs, output_dir
+    formulas, structure_dict, possible_bond_pairs, output_dir, is_single_binary
 ):
-    # Chcek the count of bond fractinos, if 6, then there are Ex) Er-Co and Co-In
-    is_pure_binary = True
-
-    if len(possible_bond_pairs) == 6:
-        is_pure_binary = False
-
     # Handle binaries with various bond types
     for bond_pair in possible_bond_pairs:
         bond_pair_set = set(bond_pair)
@@ -360,7 +384,7 @@ def draw_binary_figure(
                     formula,
                     bond_fractions_per_formula,
                     structures,
-                    is_pure_binary,
+                    is_single_binary,
                 )
                 counter += 1
 
