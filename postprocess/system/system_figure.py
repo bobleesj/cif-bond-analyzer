@@ -257,6 +257,12 @@ def draw_hexagon_for_individual_figure(
     label_offset = 0.5
     formula_font_size = 15
     formula_offset = -2.5
+
+    individuals_dir = os.path.join(output_dir, "individuals")
+    os.makedirs(
+        individuals_dir, exist_ok=True
+    )  # Create the directory if it doesn't exist
+
     for _, structure in enumerate(unique_structure_types):
         result = system_util.extract_info_per_structure(
             structure_dict, structure
@@ -322,44 +328,60 @@ def draw_hexagon_for_individual_figure(
 
         # Saving each hexagon to a file
         hexagon_filename = f"{formulas[0]}.png"
-        hexagon_filepath = os.path.join(output_dir, hexagon_filename)
+        hexagon_filepath = os.path.join(individuals_dir, hexagon_filename)
         fig.savefig(hexagon_filepath, dpi=300)
         plt.close(fig)
         hexagon_image_files.append(hexagon_filepath)
 
-    # Generate a composite image of all hexagons
-    fig, axs = plt.subplots(
-        nrows=int(np.ceil(len(hexagon_image_files) / 3)),
-        ncols=3,
-        figsize=(5, 8),
-    )
-    axs = axs.flatten()
+    """
+    Save composite figures files
+    """
+    # Constants for the layout
+    max_images_per_figure = 12
+    rows_per_figure = 4
+    cols_per_figure = 3
 
-    for ax, hexagon_image in zip(axs, hexagon_image_files):
-        img = plt.imread(hexagon_image)
-        ax.imshow(img)
-        ax.axis("off")
-
-    # Remove empty subplots
-    for ax in axs[len(hexagon_image_files) :]:
-        ax.remove()
-
-    # Give padding for each subplot
-    plt.subplots_adjust(
-        left=0.1,
-        right=0.9,
-        top=0.85,
-        bottom=0.15,
-        wspace=0.2,  # Space between subplots, horizontally
-        hspace=0.0,  # Space between subplots, vertically
+    # Calculate the number of figures needed
+    num_figures = int(
+        np.ceil(len(hexagon_image_files) / max_images_per_figure)
     )
 
-    # Save the composite sheet
-    composite_filepath = os.path.join(output_dir, "composite_hexagons.png")
-    fig.savefig(composite_filepath, dpi=300)
+    for fig_idx in range(num_figures):
+        # Calculate the range of images for this figure
+        start_idx = fig_idx * max_images_per_figure
+        end_idx = min(
+            (fig_idx + 1) * max_images_per_figure, len(hexagon_image_files)
+        )
+        current_images = hexagon_image_files[start_idx:end_idx]
 
-    plt.close(fig)
-    print(f"Saved individual hexagon images and a composite in {output_dir}")
+        # Create figure and axes
+        fig, axs = plt.subplots(
+            nrows=rows_per_figure, ncols=cols_per_figure, figsize=(5, 8)
+        )
+        axs = axs.flatten()
+
+        # Plot each image in the current set
+        for ax, hexagon_image in zip(axs, current_images):
+            img = plt.imread(hexagon_image)
+            ax.imshow(img)
+            ax.axis("off")
+
+        # Remove unused axes
+        for ax in axs[len(current_images) :]:
+            ax.remove()
+
+        # Adjust layout
+        plt.subplots_adjust(
+            left=0.1, right=0.9, top=0.85, bottom=0.15, wspace=0.2, hspace=0.0
+        )
+
+        # Save this figure
+        composite_filepath = os.path.join(
+            output_dir, f"composite_{fig_idx+1}.png"
+        )
+        fig.savefig(composite_filepath, dpi=300)
+        plt.close(fig)
+        print(f"Saved composite hexagon image {fig_idx+1} in {output_dir}")
 
 
 def draw_binary_figure(

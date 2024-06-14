@@ -23,21 +23,14 @@ def run_system_analysis(script_path):
 
     for idx, dir_path in enumerate(dir_paths, start=1):
         prompt.echo_folder_progress(idx, dir_path, len(dir_paths))
-        process_system_analysis_by_folder(dir_path)
+        generate_site_data(dir_path)
+        conduct_system_analysis(dir_path)
 
 
-def process_system_analysis_by_folder(dir_path):
+def generate_site_data(dir_path):
     format.preprocess_move_files_based_on_format_error(dir_path)
     file_path_list = folder.get_file_path_list(dir_path)
-
-    folder_name = os.path.basename(dir_path)
-
-    json_file_path = os.path.join(
-        dir_path, "output", f"{folder_name}_site_pairs.json"
-    )
-    updated_json_file_path = (
-        f"{dir_path}/output/updated_{folder_name}_site_pairs.json"
-    )
+    json_file_path = get_json_file_path(dir_path)
 
     overall_start_time = time.perf_counter()
     (
@@ -54,14 +47,20 @@ def process_system_analysis_by_folder(dir_path):
         log_list,
         overall_start_time,
     )
+    return json_file_path
 
-    # Read the JSON file
-    with open(json_file_path, "r") as file:
-        bond_data = json.load(file)
 
+def conduct_system_analysis(dir_path):
     """
     Step 1. Update JSON with formula and structural info
     """
+    json_file_path = get_json_file_path(dir_path)
+
+    # Read the JSON file
+    updated_json_file_path = get_updated_json_file_path(dir_path)
+
+    with open(json_file_path, "r") as file:
+        bond_data = json.load(file)
 
     (
         updated_data,
@@ -69,7 +68,6 @@ def process_system_analysis_by_folder(dir_path):
         unique_structure_types,
         unique_formulas,
     ) = system_util.parse_data_from_json_and_file(bond_data, dir_path)
-
     system_util.write_json_data(updated_json_file_path, updated_data)
 
     output_dir = folder.create_folder_under_output_dir(
@@ -103,20 +101,15 @@ def process_system_analysis_by_folder(dir_path):
     """
     Step 4. Generate hexagonal figures and color maps
     """
-    # prompt.print_dict_in_json(structure_dict)
 
-    # Check whether binary or ternary
     is_single_binary = system_util.get_is_single_binary(updated_json_file_path)
-
     is_double_binary = system_util.get_is_double_binary(updated_json_file_path)
-
     is_ternary = system_util.get_is_ternary(updated_json_file_path)
-
     is_binary_ternary_combined = system_util.get_is_binary_ternary_combined(
         updated_json_file_path
     )
 
-    # Draw individual hexagon
+    # Draw individual
     system_figure.draw_hexagon_for_individual_figure(
         structure_dict,
         unique_structure_types,
@@ -132,12 +125,12 @@ def process_system_analysis_by_folder(dir_path):
             is_binary_ternary_combined,
         )
 
-        # system_color.plot_ternary_color_map(
-        #     unique_formulas,
-        #     structure_dict,
-        #     possible_bond_pairs,
-        #     output_dir,
-        # )
+        system_color.plot_ternary_color_map(
+            unique_formulas,
+            structure_dict,
+            possible_bond_pairs,
+            output_dir,
+        )
 
     # Plot binary
     if is_single_binary or is_double_binary:
@@ -148,3 +141,19 @@ def process_system_analysis_by_folder(dir_path):
             output_dir,
             is_single_binary,
         )
+
+
+def get_json_file_path(dir_path):
+    folder_name = os.path.basename(dir_path)
+    json_file_path = os.path.join(
+        dir_path, "output", f"{folder_name}_site_pairs.json"
+    )
+    return json_file_path
+
+
+def get_updated_json_file_path(dir_path):
+    folder_name = os.path.basename(dir_path)
+    updated_json_file_path = (
+        f"{dir_path}/output/updated_{folder_name}_site_pairs.json"
+    )
+    return updated_json_file_path

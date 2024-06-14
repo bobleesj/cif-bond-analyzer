@@ -16,17 +16,6 @@ from postprocess.environment import env_util
 from preprocess import format
 
 format.preprocess_move_files_based_on_format_error("20250604_CN_4_methods")
-# file_path = "20250604_CN_4_methods/URhIn.cif"
-
-# file_path = "20250604_CN_4_methods/457848.cif"
-# file_path = "20250604_CN_4_methods/251552.cif"  # Hf2Ni
-# file_path = "20240610_CN_12_14/1941929_CN14.cif"
-
-# New set of test files
-# file_path = "20240610_CN_12_14/1941929_CN14.cif"
-# file_path = "20240610_CN_12_14/1965503_CN12_anti.cif"
-# file_path = "20240610_CN_12_14/1124275_CN12.cif"
-# file_path = "20240610_CN_12_14/301467_CN12_distorted.cif"
 file_path = "20240610_CN_12_14/528296_CN12_not_easy.cif"
 
 _, formula, _, cif_id = cif_parser.get_phase_tag_formula_id_from_third_line(

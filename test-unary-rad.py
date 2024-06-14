@@ -15,7 +15,7 @@ file_paths = folder.get_file_path_list(cif_dir)
 connected_points_group = []
 file_paths = folder.get_file_path_list(cif_dir)
 for file_path in file_paths:
-    connected_points = cn_handler.get_connected_points(file_path)
+    connected_points = cn_handler.get_connected_points(file_path, 10.0)
     connected_points_group.append(connected_points)
 
 """

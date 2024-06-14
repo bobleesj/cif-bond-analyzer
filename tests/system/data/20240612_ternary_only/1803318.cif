@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# Er-In            # ErIn3                                         # 1929933 #
+# Co-Er-In         # Er14Co2In3                                    # 1803318 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -18,34 +18,36 @@
 #                                                                            #
 ##############################################################################
 
-data_1929933
-_audit_creation_date                     2024-05-31
+data_1803318
+_audit_creation_date                     2024-03-05
 _audit_creation_method
 ;
 Pearson's Crystal Data browser
 ;
-#_database_code_PCD                      1929933
-_database_code_PDF                       ?
+#_database_code_PCD                      1803318
+_database_code_PDF                       04-008-5411
 
 # Entry summary
 
-_chemical_formula_structural             'Er In~3~'
-_chemical_formula_sum                    'Er In3'
+_chemical_formula_structural             'Er~14~ Co~2~ In~3~'
+_chemical_formula_sum                    'Co2 Er14 In3'
 _chemical_name_mineral                   ?
 _chemical_compound_source                ?
-_chemical_name_structure_type            Cu~3~Au,cP4,221
-_chemical_formula_weight                 511.7
+_chemical_name_structure_type            Lu~14~Co~2~In~3~,tP76,137
+_chemical_formula_weight                 2804.0
 
 # Bibliographic data
 
 _publ_section_title
-'Low temperature properties of some RIn~3~ compounds'                         
-_journal_coden_ASTM                      JALCEU
-_journal_name_full                       'J. Alloys Compd.'
-_journal_year                            2009
-_journal_volume                          472
-_journal_page_first                      24
-_journal_page_last                       29
+;
+Crystal structures of the compounds R~14~Co~2~In~3~ (R= Y, Gd, Tb, Dy, Ho, Er, Tm, Lu)
+;
+_journal_coden_ASTM                      SPHCA6
+_journal_name_full                       'Sov. Phys. Crystallogr.'
+_journal_year                            1992
+_journal_volume                          37
+_journal_page_first                      178
+_journal_page_last                       180
 _journal_language                        English
 loop_
  _publ_author_name
@@ -56,71 +58,43 @@ loop_
 
 # Standardized crystallographic data
 
-_cell_length_a                           4.5658
-_cell_length_b                           4.5658
-_cell_length_c                           4.5658
+_cell_length_a                           9.413
+_cell_length_b                           9.413
+_cell_length_c                           22.793
 _cell_angle_alpha                        90
 _cell_angle_beta                         90
 _cell_angle_gamma                        90
-_cell_volume                             95.2
-_cell_formula_units_Z                    1
-_space_group_IT_number                   221
-_space_group_name_H-M_alt                'P m -3 m'
+_cell_volume                             2019.6
+_cell_formula_units_Z                    4
+_space_group_IT_number                   137
+_space_group_name_H-M_alt                'P 42/n m c (origin choice 2)'
 loop_
  _space_group_symop_id
  _space_group_symop_operation_xyz
  1 'x, y, z'
- 2 '-x, -y, -z'
- 3 '-x, -y, z'
- 4 '-x, -z, -y'
- 5 '-x, -z, y'
- 6 '-x, y, -z'
- 7 '-x, y, z'
- 8 '-x, z, -y'
- 9 '-x, z, y'
- 10 '-y, -x, -z'
- 11 '-y, -x, z'
- 12 '-y, -z, -x'
- 13 '-y, -z, x'
- 14 '-y, x, -z'
- 15 '-y, x, z'
- 16 '-y, z, -x'
- 17 '-y, z, x'
- 18 '-z, -x, -y'
- 19 '-z, -x, y'
- 20 '-z, -y, -x'
- 21 '-z, -y, x'
- 22 '-z, x, -y'
- 23 '-z, x, y'
- 24 '-z, y, -x'
- 25 '-z, y, x'
- 26 'x, -y, -z'
- 27 'x, -y, z'
- 28 'x, -z, -y'
- 29 'x, -z, y'
- 30 'x, y, -z'
- 31 'x, z, -y'
- 32 'x, z, y'
- 33 'y, -x, -z'
- 34 'y, -x, z'
- 35 'y, -z, -x'
- 36 'y, -z, x'
- 37 'y, x, -z'
- 38 'y, x, z'
- 39 'y, z, -x'
- 40 'y, z, x'
- 41 'z, -x, -y'
- 42 'z, -x, y'
- 43 'z, -y, -x'
- 44 'z, -y, x'
- 45 'z, x, -y'
- 46 'z, x, y'
- 47 'z, y, -x'
- 48 'z, y, x'
+ 2 '1/2-x, 1/2-y, z'
+ 3 '1/2-x, y, z'
+ 4 '-x, -y, -z'
+ 5 '-x, 1/2+y, -z'
+ 6 '1/2-y, 1/2-x, 1/2+z'
+ 7 '1/2-y, x, 1/2+z'
+ 8 '-y, -x, 1/2-z'
+ 9 '-y, 1/2+x, 1/2-z'
+ 10 '1/2+x, -y, -z'
+ 11 '1/2+x, 1/2+y, -z'
+ 12 'x, 1/2-y, z'
+ 13 '1/2+y, -x, 1/2-z'
+ 14 '1/2+y, 1/2+x, 1/2-z'
+ 15 'y, 1/2-x, 1/2+z'
+ 16 'y, x, 1/2+z'
+
+# Atomic positions taken from type-defining entry
+
 loop_
  _atom_type_symbol
- In
  Er
+ In
+ Co
 loop_
  _atom_site_label
  _atom_site_type_symbol
@@ -130,15 +104,23 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
- In In 3 c 0 0.5 0.5 1
- Er Er 1 a 0 0 0 1
+ Er1 Er 16 h 0.0625 0.0658 0.3955 1
+ Er2 Er 8 g 0.25 0.0603 0.0314 1
+ In1 In 8 g 0.25 0.0907 0.6445 1
+ Co1 Co 8 g 0.25 0.5354 0.3114 1
+ Er3 Er 8 g 0.25 0.5467 0.1955 1
+ Er4 Er 8 g 0.25 0.5595 0.5155 1
+ Er5 Er 8 f 0.5612 0.4388 0.25 1
+ Er6 Er 4 d 0.25 0.25 0.2873 1
+ Er7 Er 4 c 0.75 0.25 0.1457 1
+ In2 In 4 c 0.75 0.25 0.5928 1
 
 
 _exptl_crystal_colour                    ?
 _exptl_crystal_density_meas              ?
-_exptl_crystal_density_diffrn            8.93
+_exptl_crystal_density_diffrn            9.22
 _cell_measurement_temperature            ?
-_cell_measurement_radiation              'X-rays, Cu Ka1'
+_cell_measurement_radiation              X-rays
 _cell_measurement_reflns_used            ?
 _diffrn_ambient_temperature              ?
 _diffrn_measurement_device               'automatic diffractometer'
@@ -153,5 +135,5 @@ _refine_ls_number_reflns                 ?
 _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
-# End of data set 1929933
+# End of data set 1803318
 

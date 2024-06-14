@@ -15,7 +15,7 @@ Release date: Mar 10, 2024
 """
 
 import os
-from run import site, system
+from run import site, system_analysis
 
 
 def main():
@@ -37,7 +37,8 @@ def main():
     # elif choice == "2":
     #     system.run_system_analysis(script_path)
 
-    system.run_system_analysis(script_path)
+    # site.run_site_analysis(script_path)
+    # system_analysis.run_system_analysis(script_path)
 
 
 if __name__ == "__main__":

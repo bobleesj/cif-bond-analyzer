@@ -110,8 +110,7 @@ def get_all_labels_connections(
     lengths,
     angles,
 ):
-    print(len(supercell_points))
-    print(cutoff_radius)
+
 
     """
     Computes all pair distances per site label.
