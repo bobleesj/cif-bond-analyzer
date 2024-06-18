@@ -15,7 +15,7 @@ Release date: Mar 10, 2024
 """
 
 import os
-from run import site, system_analysis
+from run import site, system_analysis, coordination
 
 
 def main():
@@ -25,20 +25,22 @@ def main():
     options = {
         "1": "Compute the shortest distance from each site.",
         "2": "Conduct system analysis.",
+        "3": "Compute cooordination environment",
     }
 
     for key, value in options.items():
         print(f"[{key}] {value}")
 
-    # choice = input(f"Enter your choice (1-{len(options)}): ")
+    choice = input(
+        f"Enter your choice (1-{len(options)}): "
+    )
 
-    # if choice == "1":
-    #     site.run_site_analysis(script_path)
-    # elif choice == "2":
-    #     system.run_system_analysis(script_path)
-
-    # site.run_site_analysis(script_path)
-    # system_analysis.run_system_analysis(script_path)
+    if choice == "1":
+        site.run_site_analysis(script_path)
+    elif choice == "2":
+        system_analysis.run_system_analysis(script_path)
+    elif choice == "3":
+        coordination.run_coordination(script_path)
 
 
 if __name__ == "__main__":

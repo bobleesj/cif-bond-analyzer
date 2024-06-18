@@ -22,14 +22,18 @@ def get_normalized_formula(formula):
         if element_index == "":
             normalized_index = 1 / index_sum
         else:
-            normalized_index = float(element_index) / index_sum
+            normalized_index = (
+                float(element_index) / index_sum
+            )
 
         normalized_formula_parts.append(
             f"{element}{normalized_index:.{demical_places}f}"
         )
 
     # Join all parts into one string for the normalized formula
-    normalized_formula_str = "".join(normalized_formula_parts)
+    normalized_formula_str = "".join(
+        normalized_formula_parts
+    )
     return normalized_formula_str
 
 
@@ -64,7 +68,9 @@ def get_parsed_norm_formula(formula):
     and normalized index.
     """
     normalized_formula = get_normalized_formula(formula)
-    parsed_normalized_formula = get_parsed_formula(normalized_formula)
+    parsed_normalized_formula = get_parsed_formula(
+        normalized_formula
+    )
     return parsed_normalized_formula
 
 
@@ -72,7 +78,9 @@ def get_unique_elements_from_formulas(formulas: list[str]):
     """
     Returns unique elements from a list of formulas.
     """
-    unique_elements = set()  # Create a set to store unique elements
+    unique_elements = (
+        set()
+    )  # Create a set to store unique elements
 
     for formula in formulas:
         parsed_formula = get_parsed_formula(
@@ -80,7 +88,9 @@ def get_unique_elements_from_formulas(formulas: list[str]):
         )  # Assume this function returns a list of tuples
         for element, _ in parsed_formula:
             if element:  # Ensure that element is not empty
-                unique_elements.add(element)  # Add the element to the set
+                unique_elements.add(
+                    element
+                )  # Add the element to the set
 
     return unique_elements
 
@@ -101,7 +111,9 @@ def get_mendeleev_sorted_formula(formula: str) -> list:
     parsed_formula = get_parsed_formula(formula)
     for element, _ in parsed_formula:
         unique_elements.add(element)
-    sorted_unique_elements = sort.sort_by_mendeleev(unique_elements)
+    sorted_unique_elements = sort.sort_by_mendeleev(
+        unique_elements
+    )
     return sorted_unique_elements
 
 
@@ -111,17 +123,25 @@ def get_RMX_sorted_formula_from_formulas(unique_formulas):
     Mendeleev numbers, and returns the sorted elements as R, M, and X.
     """
     # Parse unique elements from the given set of formulas
-    unique_elements = get_unique_elements_from_formulas(unique_formulas)
+    unique_elements = get_unique_elements_from_formulas(
+        unique_formulas
+    )
 
     # Sort these elements by their Mendeleev numbers
-    sorted_unique_elements = sort.sort_by_mendeleev(unique_elements)
+    sorted_unique_elements = sort.sort_by_mendeleev(
+        unique_elements
+    )
 
     # Ensure that there are at least three elements to unpack
     if len(sorted_unique_elements) < 3:
-        raise ValueError("Not enough elements to form R, M, X.")
+        raise ValueError(
+            "Not enough elements to form R, M, X."
+        )
 
     # Unpack the first three elements as R, M, X
-    R_element, M_element, X_element = sorted_unique_elements[:3]
+    R_element, M_element, X_element = (
+        sorted_unique_elements[:3]
+    )
 
     return R_element, M_element, X_element
 
@@ -139,7 +159,9 @@ def generate_ordered_bond_labels_from_RMX(
     ]
 
 
-def count_formula_with_tags_in_ternary(formula_tag_tuples, R, M, X):
+def count_formula_with_tags_in_ternary(
+    formula_tag_tuples, R, M, X
+):
     """
     Count RM_ht, RM_lt, RX_ht, RX_lt, MX_lt, MX_ht combinations,
     and other combinations with unspecified suffixes,
@@ -215,9 +237,9 @@ def get_composition_from_binary_ternary(
 
     for element, count in matches:
         if count == "":
-            parts_dict[
-                element
-            ] = 1  # Default to 1 if no number is given after an element
+            parts_dict[element] = (
+                1  # Default to 1 if no number is given after an element
+            )
         else:
             parts_dict[element] = float(
                 count
@@ -226,11 +248,16 @@ def get_composition_from_binary_ternary(
     total = sum(parts_dict.values())
     if total > 0:
         normalized_parts = [
-            round(parts_dict[el] / total, 3) for el in elements
+            round(parts_dict[el] / total, 3)
+            for el in elements
         ]  # Normalize and round to 3 decimal places
     else:
         normalized_parts = [0] * len(
             elements
         )  # If total is 0, return a list of zeros
 
-    return (normalized_parts[0], normalized_parts[1], normalized_parts[2])
+    return (
+        normalized_parts[0],
+        normalized_parts[1],
+        normalized_parts[2],
+    )

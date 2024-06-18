@@ -48,8 +48,12 @@ def get_colors_category_mappings():
     return categories_colors, categories_mapping
 
 
-def draw_histograms(site_pair_dict, element_pair_dict, dir_path):
-    all_distances = get_distances_from_site_pair(site_pair_dict)
+def draw_histograms(
+    site_pair_dict, element_pair_dict, dir_path
+):
+    all_distances = get_distances_from_site_pair(
+        site_pair_dict
+    )
     config = get_histogram_config()
     bin_width = config["bin_width"]
     bins = get_bins_from_distances(bin_width, all_distances)
@@ -91,7 +95,9 @@ def get_bins_from_distances(bin_width, all_distances):
     """
     data_range = max(all_distances) - min(all_distances)
     bin_size = int(np.ceil(data_range / bin_width))
-    bins = np.linspace(min(all_distances), max(all_distances), bin_size + 1)
+    bins = np.linspace(
+        min(all_distances), max(all_distances), bin_size + 1
+    )
     return bins
 
 
@@ -101,7 +107,9 @@ def get_dist_fig_text(all_distances):
     return f"Distance range: {min_dist}-{max_dist} Å"
 
 
-def plot_histograms(data, dir_path, bins, all_distances, output_filename):
+def plot_histograms(
+    data, dir_path, bins, all_distances, output_filename
+):
     (
         categories_colors,
         categories_mapping,
@@ -114,34 +122,55 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
     ordered_keys = ["4", "2", "1", "3"]
 
     legend_handles = [
-        plt.Rectangle((0, 0), 1, 1, color=categories_colors[cat])
+        plt.Rectangle(
+            (0, 0), 1, 1, color=categories_colors[cat]
+        )
         for cat in ordered_keys
     ]
 
-    legend_labels = [categories_mapping[cat] for cat in ordered_keys]
+    legend_labels = [
+        categories_mapping[cat] for cat in ordered_keys
+    ]
     dist_fig_text = get_dist_fig_text(all_distances)
 
     num_pairs = len(data)
-    total_images = np.ceil(num_pairs / histograms_per_image).astype(int)
+    total_images = np.ceil(
+        num_pairs / histograms_per_image
+    ).astype(int)
     data_pairs = list(data.items())
     # Calculate the number of rows based on the maximum histograms per image
-    num_rows = np.ceil(histograms_per_image / max_columns).astype(int)
-    sheet_size = (max_columns * 4, num_rows * 3)  # Fixed sheet size
+    num_rows = np.ceil(
+        histograms_per_image / max_columns
+    ).astype(int)
+    sheet_size = (
+        max_columns * 4,
+        num_rows * 3,
+    )  # Fixed sheet size
 
     single_histogram_dir = os.path.join(
-        dir_path, "output", "single_histogram", output_filename
+        dir_path,
+        "output",
+        "single_histogram",
+        output_filename,
     )
     os.makedirs(single_histogram_dir, exist_ok=True)
 
     for image_num in range(total_images):
         start_index = image_num * histograms_per_image
-        end_index = min((image_num + 1) * histograms_per_image, num_pairs)
+        end_index = min(
+            (image_num + 1) * histograms_per_image,
+            num_pairs,
+        )
         current_pairs = data_pairs[start_index:end_index]
 
-        fig, axes = plt.subplots(num_rows, max_columns, figsize=sheet_size)
+        fig, axes = plt.subplots(
+            num_rows, max_columns, figsize=sheet_size
+        )
         axes = np.atleast_2d(axes).flatten()
 
-        for i, (pair_key, records) in enumerate(current_pairs):
+        for i, (pair_key, records) in enumerate(
+            current_pairs
+        ):
             ax = axes[i]
             ax.set_title(pair_key)
 
@@ -162,31 +191,49 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
                 ax.hist(
                     stacked_data,
                     bins=bins,
-                    color=[categories_colors[cat] for cat in labels],
-                    label=[categories_mapping[cat] for cat in labels],
+                    color=[
+                        categories_colors[cat]
+                        for cat in labels
+                    ],
+                    label=[
+                        categories_mapping[cat]
+                        for cat in labels
+                    ],
                     stacked=True,
                     edgecolor="black",
                 )
                 ax.set_xlabel("Distance (Å)")
                 ax.set_ylabel("Count")
-                ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+                ax.yaxis.set_major_locator(
+                    MaxNLocator(integer=True)
+                )
 
                 # Individual histogram figure with same format
-                single_fig, single_ax = plt.subplots(figsize=(4, 3))
+                single_fig, single_ax = plt.subplots(
+                    figsize=(4, 3)
+                )
                 single_ax.hist(
                     stacked_data,
                     bins=bins,
-                    color=[categories_colors[cat] for cat in labels],
+                    color=[
+                        categories_colors[cat]
+                        for cat in labels
+                    ],
                     stacked=True,
                     edgecolor="black",
                 )
                 single_ax.set_title(pair_key)
                 single_ax.set_xlabel("Distance (Å)")
                 single_ax.set_ylabel("Count")
-                single_ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+                single_ax.yaxis.set_major_locator(
+                    MaxNLocator(integer=True)
+                )
                 single_fig.tight_layout(rect=[0, 0, 1, 1])
                 single_fig.savefig(
-                    os.path.join(single_histogram_dir, f"{pair_key}.png"),
+                    os.path.join(
+                        single_histogram_dir,
+                        f"{pair_key}.png",
+                    ),
                     dpi=150,
                 )
                 plt.close(single_fig)
@@ -227,7 +274,10 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
         output_dir = os.path.join(dir_path, "output")
         os.makedirs(output_dir, exist_ok=True)
         fig.savefig(
-            os.path.join(output_dir, f"{output_filename}_{image_num + 1}.png"),
+            os.path.join(
+                output_dir,
+                f"{output_filename}_{image_num + 1}.png",
+            ),
             dpi=150,
         )
         plt.close(fig)

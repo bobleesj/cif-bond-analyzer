@@ -52,10 +52,12 @@ def get_unit_cell_lengths_angles(block):
     ]
 
     lengths = [
-        remove_string_braket(block.find_value(key)) for key in keys_lengths
+        remove_string_braket(block.find_value(key))
+        for key in keys_lengths
     ]
     angles = [
-        remove_string_braket(block.find_value(key)) for key in keys_angles
+        remove_string_braket(block.find_value(key))
+        for key in keys_angles
     ]
 
     return tuple(lengths + angles)
@@ -76,7 +78,9 @@ def get_loop_values(block, loop_tags):
     Retrieve a list of predefined loop tags for atomic site description.
     """
 
-    loop_values = [block.find_loop(tag) for tag in loop_tags]
+    loop_values = [
+        block.find_loop(tag) for tag in loop_tags
+    ]
 
     # Check for zero or missing coordinates
     if (
@@ -94,7 +98,9 @@ def get_cell_lenghts_angles_rad(CIF_block):
     Processes CIF block to retrieve cell dimensions and angles.
     """
     # Extract cell dimensions and angles from CIF block
-    cell_lengths_angles = get_unit_cell_lengths_angles(CIF_block)
+    cell_lengths_angles = get_unit_cell_lengths_angles(
+        CIF_block
+    )
     (
         cell_len_a,
         cell_len_b,
@@ -105,8 +111,10 @@ def get_cell_lenghts_angles_rad(CIF_block):
     ) = cell_lengths_angles
 
     # Convert angles from degrees to radians
-    alpha_rad, beta_rad, gamma_rad = get_radians_from_degrees(
-        [alpha_deg, beta_deg, gamma_deg]
+    alpha_rad, beta_rad, gamma_rad = (
+        get_radians_from_degrees(
+            [alpha_deg, beta_deg, gamma_deg]
+        )
     )
 
     # Store angles in radians and cell lengths in a list
@@ -127,7 +135,9 @@ def get_unique_element_list(cif_loop_values):
     """
     Get a list of unique elements from loop values.
     """
-    num_atom_labels = get_num_of_atom_labels(cif_loop_values)
+    num_atom_labels = get_num_of_atom_labels(
+        cif_loop_values
+    )
     element_list = []
     for i in range(num_atom_labels):
         element = cif_loop_values[1][i]
@@ -139,7 +149,9 @@ def get_atom_label_list(cif_loop_values):
     """
     Get a list of atom labels from loop values.
     """
-    num_atom_labels = get_num_of_atom_labels(cif_loop_values)
+    num_atom_labels = get_num_of_atom_labels(
+        cif_loop_values
+    )
     label_list = []
     for i in range(num_atom_labels):
         element = cif_loop_values[0][i]
@@ -169,7 +181,9 @@ def get_atom_info(cif_loop_values, i):
     Get atom information (label, occupancy, coordinates) for the i-th atom.
     """
     label = cif_loop_values[0][i]
-    occupancy = float(remove_string_braket(cif_loop_values[7][i]))
+    occupancy = float(
+        remove_string_braket(cif_loop_values[7][i])
+    )
     coordinates = (
         remove_string_braket(cif_loop_values[4][i]),
         remove_string_braket(cif_loop_values[5][i]),
@@ -184,19 +198,27 @@ def get_cif_loop_value_dict(cif_loop_values):
     Create a dictionary containing CIF loop values organized by atom label.
     """
     cif_loop_value_dict = {}
-    num_of_atom_labels = get_num_of_atom_labels(cif_loop_values)
+    num_of_atom_labels = get_num_of_atom_labels(
+        cif_loop_values
+    )
 
     for i in range(num_of_atom_labels):
-        label, occupancy, coordinates = get_atom_info(cif_loop_values, i)
+        label, occupancy, coordinates = get_atom_info(
+            cif_loop_values, i
+        )
         cif_loop_value_dict[label] = {}
         cif_loop_value_dict[label]["occupancy"] = occupancy
-        cif_loop_value_dict[label]["coordinates"] = coordinates
+        cif_loop_value_dict[label][
+            "coordinates"
+        ] = coordinates
 
     return cif_loop_value_dict
 
 
 # Index is one lower than the actual line number
-def get_line_start_end_line_indexes(file_path, start_keyword):
+def get_line_start_end_line_indexes(
+    file_path, start_keyword
+):
     """
     Finds the starting and ending indexes of the lines in atom_site_loop
     """
@@ -226,12 +248,18 @@ def get_line_start_end_line_indexes(file_path, start_keyword):
 
 
 def get_loop_content(file_path, start_keyword):
-    start_index, end_index = get_line_start_end_line_indexes(
-        file_path, start_keyword
+    start_index, end_index = (
+        get_line_start_end_line_indexes(
+            file_path, start_keyword
+        )
     )
 
     if start_index is None or end_index is None:
-        print("Section starting with", start_keyword, "not found.")
+        print(
+            "Section starting with",
+            start_keyword,
+            "not found.",
+        )
         return None
 
     with open(file_path, "r") as f:
@@ -268,12 +296,21 @@ def get_phase_tag_formula_id_from_third_line(file_path):
 
         # Split based on '#' and filter out empty strings
         third_line_parts = [
-            part.strip() for part in third_line.split("#") if part.strip()
+            part.strip()
+            for part in third_line.split("#")
+            if part.strip()
         ]
 
         compound_phase = third_line_parts[0]
         compound_formala_tag = third_line_parts[1]
         compound_id = third_line_parts[2]
 
-        compound_formula, tags = extract_formula_and_tag(compound_formala_tag)
-        return compound_phase, compound_formula, tags, compound_id
+        compound_formula, tags = extract_formula_and_tag(
+            compound_formala_tag
+        )
+        return (
+            compound_phase,
+            compound_formula,
+            tags,
+            compound_id,
+        )

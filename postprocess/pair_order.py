@@ -15,7 +15,9 @@ def get_mendeleev_num_from_tuple(pair_tuple):
     second_element = cif_parser.get_atom_type(pair_tuple[1])
 
     # Read Excel
-    df = pd.read_excel("data/element_Mendeleev_numbers.xlsx")
+    df = pd.read_excel(
+        "data/element_Mendeleev_numbers.xlsx"
+    )
 
     # Get Mendeleev number for the first element
     first_mendeleev_num = df.loc[

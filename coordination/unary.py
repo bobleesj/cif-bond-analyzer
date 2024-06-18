@@ -14,12 +14,16 @@ def compute_shortest_distance_for_unary(connected_points):
     return connected_points[first_key][0][1]
 
 
-def compute_average_radius_by_shortest_dist(connected_points_group):
+def compute_average_radius_by_shortest_dist(
+    connected_points_group,
+):
     element_shortest_dists = []
     for connected_points in connected_points_group:
         # Compute the shortest distance for the file
-        shortest_dist = cn_unary.compute_shortest_distance_for_unary(
-            connected_points
+        shortest_dist = (
+            cn_unary.compute_shortest_distance_for_unary(
+                connected_points
+            )
         )
         element_shortest_dists.append(shortest_dist)
 
@@ -34,7 +38,9 @@ def compute_average_radius_by_shortest_dist(connected_points_group):
         return 0
 
 
-def get_coordination_number_by_dist_min(connected_points_group):
+def get_coordination_number_by_dist_min(
+    connected_points_group,
+):
     """
     Computes the largest gap index for each group of connected points based on the shortest distance.
     """
@@ -61,7 +67,10 @@ def get_coordination_number_by_dist_min(connected_points_group):
             )
             # Calculate the gap and update if this gap is the largest seen
             if previous_norm_dist is not None:
-                gap = abs(norm_dist_by_shortest_dist - previous_norm_dist)
+                gap = abs(
+                    norm_dist_by_shortest_dist
+                    - previous_norm_dist
+                )
                 if gap > largest_gap:
                     largest_gap = gap
                     largest_gap_index = i
@@ -89,10 +98,14 @@ def find_avg_radius_from_avg_dist_from_central_atom(
         for connection_data in connected_points[first_key][
             :coordination_number
         ]:
-            all_dist_avg_per_file += float(connection_data[1])
+            all_dist_avg_per_file += float(
+                connection_data[1]
+            )
 
         avg_dists_from_central_atom.append(
             all_dist_avg_per_file / coordination_number
         )
-    avg_radius = round(np.mean(avg_dists_from_central_atom) / 2, 3)
+    avg_radius = round(
+        np.mean(avg_dists_from_central_atom) / 2, 3
+    )
     return avg_radius

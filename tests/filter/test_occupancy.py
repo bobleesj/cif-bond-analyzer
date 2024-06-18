@@ -4,7 +4,9 @@ import preprocess.cif_parser_handler as cif_parser_handler
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_info_1(get_cif_527000_loop_values):
+def test_get_atom_site_mixing_info_1(
+    get_cif_527000_loop_values,
+):
     atom_mixing_type = occupancy.get_atom_site_mixing_info(
         get_cif_527000_loop_values
     )
@@ -12,7 +14,9 @@ def test_get_atom_site_mixing_info_1(get_cif_527000_loop_values):
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_info_2(get_cif_1803318_loop_values):
+def test_get_atom_site_mixing_info_2(
+    get_cif_1803318_loop_values,
+):
     atom_mixing_type = occupancy.get_atom_site_mixing_info(
         get_cif_1803318_loop_values
     )
@@ -23,8 +27,10 @@ def test_get_atom_site_mixing_info_2(get_cif_1803318_loop_values):
 def test_get_all_possible_ordered_label_pair_tuples_300160(
     get_cif_300160_loop_values,
 ):
-    ordered_label_pairs = occupancy.get_all_possible_ordered_label_pairs(
-        get_cif_300160_loop_values
+    ordered_label_pairs = (
+        occupancy.get_all_possible_ordered_label_pairs(
+            get_cif_300160_loop_values
+        )
     )
     assert len(ordered_label_pairs) == 6
     assert sorted(ordered_label_pairs) == sorted(
@@ -43,8 +49,10 @@ def test_get_all_possible_ordered_label_pair_tuples_300160(
 def test_get_all_possible_ordered_label_pair_tuples_URhIn(
     get_cif_URhIn_loop_values,
 ):
-    ordered_label_pairs = occupancy.get_all_possible_ordered_label_pairs(
-        get_cif_URhIn_loop_values
+    ordered_label_pairs = (
+        occupancy.get_all_possible_ordered_label_pairs(
+            get_cif_URhIn_loop_values
+        )
     )
 
     # Mendelee # of U 20, Rh 59, In 75
@@ -68,13 +76,20 @@ def test_get_all_possible_ordered_label_pair_tuples_URhIn(
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_dict_1(get_cif_300160_loop_values):
-    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
-        get_cif_300160_loop_values
+def test_get_atom_site_mixing_dict_1(
+    get_cif_300160_loop_values,
+):
+    atom_site_mixing_file_info = (
+        occupancy.get_atom_site_mixing_info(
+            get_cif_300160_loop_values
+        )
     )
 
-    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
-        atom_site_mixing_file_info, get_cif_300160_loop_values
+    atom_site_pair_dict = (
+        occupancy.get_atom_site_mixing_dict(
+            atom_site_mixing_file_info,
+            get_cif_300160_loop_values,
+        )
     )
 
     # Mendeleev # - Ge 79, Rh 59, Sm 23
@@ -88,17 +103,24 @@ def test_get_atom_site_mixing_dict_1(get_cif_300160_loop_values):
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_dict_2(get_cif_527000_loop_values):
+def test_get_atom_site_mixing_dict_2(
+    get_cif_527000_loop_values,
+):
     """
     Pair: Rh2-Si 2.28 Å - deficiency_no_atomic_mixing
     Pair: Rh1-Rh1 2.524 Å - full_occupancy
     """
-    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
-        get_cif_527000_loop_values
+    atom_site_mixing_file_info = (
+        occupancy.get_atom_site_mixing_info(
+            get_cif_527000_loop_values
+        )
     )
 
-    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
-        atom_site_mixing_file_info, get_cif_527000_loop_values
+    atom_site_pair_dict = (
+        occupancy.get_atom_site_mixing_dict(
+            atom_site_mixing_file_info,
+            get_cif_527000_loop_values,
+        )
     )
 
     # Mendeleev # - Rh 59, Si 78
@@ -112,7 +134,9 @@ def test_get_atom_site_mixing_dict_2(get_cif_527000_loop_values):
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_dict_3(get_cif_1831432_loop_values):
+def test_get_atom_site_mixing_dict_3(
+    get_cif_1831432_loop_values,
+):
     """
     Mendeleev # - Fe 55, Ge 79
     1831432.cif
@@ -126,12 +150,17 @@ def test_get_atom_site_mixing_dict_3(get_cif_1831432_loop_values):
     Fe-Fe 2.448 mixing-deficiency
     """
 
-    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
-        get_cif_1831432_loop_values
+    atom_site_mixing_file_info = (
+        occupancy.get_atom_site_mixing_info(
+            get_cif_1831432_loop_values
+        )
     )
 
-    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
-        atom_site_mixing_file_info, get_cif_1831432_loop_values
+    atom_site_pair_dict = (
+        occupancy.get_atom_site_mixing_dict(
+            atom_site_mixing_file_info,
+            get_cif_1831432_loop_values,
+        )
     )
 
     assert len(atom_site_pair_dict) == 6
@@ -144,7 +173,9 @@ def test_get_atom_site_mixing_dict_3(get_cif_1831432_loop_values):
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_dict_4(get_cif_529848_loop_values):
+def test_get_atom_site_mixing_dict_4(
+    get_cif_529848_loop_values,
+):
     """
     Mendeleev # - Ni 61, Sb 85
     529848.cif
@@ -154,12 +185,17 @@ def test_get_atom_site_mixing_dict_4(get_cif_529848_loop_values):
     Result:
     529848: Ni-Sb 2.531 mixing
     """
-    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
-        get_cif_529848_loop_values
+    atom_site_mixing_file_info = (
+        occupancy.get_atom_site_mixing_info(
+            get_cif_529848_loop_values
+        )
     )
 
-    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
-        atom_site_mixing_file_info, get_cif_529848_loop_values
+    atom_site_pair_dict = (
+        occupancy.get_atom_site_mixing_dict(
+            atom_site_mixing_file_info,
+            get_cif_529848_loop_values,
+        )
     )
 
     assert len(atom_site_pair_dict) == 3
@@ -169,7 +205,9 @@ def test_get_atom_site_mixing_dict_4(get_cif_529848_loop_values):
 
 
 @pytest.mark.fast
-def test_get_atom_site_mixing_dict_5(get_cif_1617211_loop_values):
+def test_get_atom_site_mixing_dict_5(
+    get_cif_1617211_loop_values,
+):
     """
     Mendeleev # - Fe 55, Si 78
     1617211.cif
@@ -180,12 +218,17 @@ def test_get_atom_site_mixing_dict_5(get_cif_1617211_loop_values):
     Result:
     529848: Ni-Sb 2.531 mixing
     """
-    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
-        get_cif_1617211_loop_values
+    atom_site_mixing_file_info = (
+        occupancy.get_atom_site_mixing_info(
+            get_cif_1617211_loop_values
+        )
     )
 
-    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
-        atom_site_mixing_file_info, get_cif_1617211_loop_values
+    atom_site_pair_dict = (
+        occupancy.get_atom_site_mixing_dict(
+            atom_site_mixing_file_info,
+            get_cif_1617211_loop_values,
+        )
     )
 
     assert len(atom_site_pair_dict) == 6

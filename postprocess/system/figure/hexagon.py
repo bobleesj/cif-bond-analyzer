@@ -6,7 +6,9 @@ from postprocess.system.figure import hexagon, color
 
 def get_hexagon_points(center, size):
     """Generate points for a hexagon rotated to stand on a vertex."""
-    angles = np.linspace(0, 2 * np.pi, 7, endpoint=True) + 7 * (
+    angles = np.linspace(
+        0, 2 * np.pi, 7, endpoint=True
+    ) + 7 * (
         np.pi / 6
     )  # Rotate by 30 degrees
     x_hex = center[0] + size * np.cos(angles)
@@ -33,7 +35,9 @@ def draw_single_hexagon_and_lines_per_center_point(
 
     colors = color.get_hexagon_vertex_colors(is_pure_binary)
     # Get hexagon poitns
-    x_hex_pts, y_hex_pts = get_hexagon_points(center_pt, radius)
+    x_hex_pts, y_hex_pts = get_hexagon_points(
+        center_pt, radius
+    )
 
     if is_for_individual_hexagon:
         black_line_width = color_line_width + 2.5
@@ -68,10 +72,19 @@ def draw_single_hexagon_and_lines_per_center_point(
 
 
 def draw_hexagon_outline(x_hex_pts, y_hex_pts, lw, color):
-    plt.plot(x_hex_pts, y_hex_pts, "-", lw=lw, color=color, zorder=3)
+    plt.plot(
+        x_hex_pts,
+        y_hex_pts,
+        "-",
+        lw=lw,
+        color=color,
+        zorder=3,
+    )
 
 
-def draw_hexagon_center_to_vertex(center_pt, x_hex_pts, y_hex_pts, lw, color):
+def draw_hexagon_center_to_vertex(
+    center_pt, x_hex_pts, y_hex_pts, lw, color
+):
     # Draw center to vertices
     for x, y in zip(x_hex_pts, y_hex_pts):
         plt.plot(
@@ -115,12 +128,18 @@ def draw_colored_and_black_lines(
 
 
 def get_norm_positions(x, y, center_pt, bond_fraction):
-    norm_x = center_pt[0] + bond_fraction * (x - center_pt[0])
-    norm_y = center_pt[1] + bond_fraction * (y - center_pt[1])
+    norm_x = center_pt[0] + bond_fraction * (
+        x - center_pt[0]
+    )
+    norm_y = center_pt[1] + bond_fraction * (
+        y - center_pt[1]
+    )
     return norm_x, norm_y
 
 
-def compute_unit_vector_dist(center_pt, x_other_pt, y_other_pt):
+def compute_unit_vector_dist(
+    center_pt, x_other_pt, y_other_pt
+):
     # Calculate the unit vector for the color point
     dx = x_other_pt - center_pt[0]
     dy = y_other_pt - center_pt[1]
@@ -150,18 +169,30 @@ def plot_colored_black_lines_with_fraction(
         )
 
         # Calculate the unit vector for the hexagon vertex
-        hex_unit_vector, dist_hex = compute_unit_vector_dist(
-            center_pt, x_hex_pt, y_hex_pt
+        hex_unit_vector, dist_hex = (
+            compute_unit_vector_dist(
+                center_pt, x_hex_pt, y_hex_pt
+            )
         )
 
         # Adjust endpoint by half the marker radius
         marker_adjustment = lw * scale
-        start_offset = marker_adjustment / 2  # Half the marker size
-        start_color_x = center_pt[0] + hex_unit_vector[0] * start_offset
-        start_color_y = center_pt[1] + hex_unit_vector[1] * start_offset
+        start_offset = (
+            marker_adjustment / 2
+        )  # Half the marker size
+        start_color_x = (
+            center_pt[0] + hex_unit_vector[0] * start_offset
+        )
+        start_color_y = (
+            center_pt[1] + hex_unit_vector[1] * start_offset
+        )
 
-        end_color_x = center_pt[0] + unit_vector[0] * (dist - start_offset)
-        end_color_y = center_pt[1] + unit_vector[1] * (dist - start_offset)
+        end_color_x = center_pt[0] + unit_vector[0] * (
+            dist - start_offset
+        )
+        end_color_y = center_pt[1] + unit_vector[1] * (
+            dist - start_offset
+        )
 
         # Draw the colored line
         plt.plot(
@@ -190,18 +221,30 @@ def plot_colored_black_lines_with_fraction(
         )
 
         # Calculate the unit vector for the hexagon vertex
-        hex_unit_vector, dist_hex = compute_unit_vector_dist(
-            center_pt, x_hex_pt, y_hex_pt
+        hex_unit_vector, dist_hex = (
+            compute_unit_vector_dist(
+                center_pt, x_hex_pt, y_hex_pt
+            )
         )
 
         # Adjust endpoint by half the marker radius
         marker_adjustment = lw * scale
-        start_offset = marker_adjustment / 2  # Half the marker size
-        start_color_x = center_pt[0] + hex_unit_vector[0] * start_offset
-        start_color_y = center_pt[1] + hex_unit_vector[1] * start_offset
+        start_offset = (
+            marker_adjustment / 2
+        )  # Half the marker size
+        start_color_x = (
+            center_pt[0] + hex_unit_vector[0] * start_offset
+        )
+        start_color_y = (
+            center_pt[1] + hex_unit_vector[1] * start_offset
+        )
 
-        end_color_x = center_pt[0] + unit_vector[0] * (dist - start_offset)
-        end_color_y = center_pt[1] + unit_vector[1] * (dist - start_offset)
+        end_color_x = center_pt[0] + unit_vector[0] * (
+            dist - start_offset
+        )
+        end_color_y = center_pt[1] + unit_vector[1] * (
+            dist - start_offset
+        )
 
         # Draw the colored line
         plt.plot(

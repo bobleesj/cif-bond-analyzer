@@ -9,7 +9,11 @@ from postprocess.system import system_util
 
 
 def clean_formula(formula):
-    return formula.replace("~", "").replace(" ", "").replace("'", "")
+    return (
+        formula.replace("~", "")
+        .replace(" ", "")
+        .replace("'", "")
+    )
 
 
 def clean_structure_type(structure_type):
@@ -33,7 +37,9 @@ def parse_data_from_json_and_file(data, cif_directory):
     for key, site_pairs in data.items():
         unique_pairs.append(key)
         for cif_id, cif_data_list in site_pairs.items():
-            cif_file_path = os.path.join(cif_directory, f"{cif_id}.cif")
+            cif_file_path = os.path.join(
+                cif_directory, f"{cif_id}.cif"
+            )
 
             # Get tag information
             if os.path.exists(cif_file_path):
@@ -47,13 +53,19 @@ def parse_data_from_json_and_file(data, cif_directory):
                     ) = cif_parser.get_phase_tag_formula_id_from_third_line(
                         cif_file_path
                     )
-                    block = cif_parser.get_cif_block(cif_file_path)
+                    block = cif_parser.get_cif_block(
+                        cif_file_path
+                    )
 
                     formula = clean_formula(
-                        block.find_value("_chemical_formula_structural")
+                        block.find_value(
+                            "_chemical_formula_structural"
+                        )
                     )
                     structure_type = clean_structure_type(
-                        block.find_value("_chemical_name_structure_type")
+                        block.find_value(
+                            "_chemical_name_structure_type"
+                        )
                     )
                     # Do not append tag with "rt"
                     if tag_string and tag_string != "rt":
@@ -61,11 +73,17 @@ def parse_data_from_json_and_file(data, cif_directory):
 
                     for pair in cif_data_list:
                         pair["formula"] = formula
-                        pair["structure_type"] = structure_type
-                    unique_structure_types.append(structure_type)
+                        pair["structure_type"] = (
+                            structure_type
+                        )
+                    unique_structure_types.append(
+                        structure_type
+                    )
                     unique_formulas.append(formula)
                 except Exception as e:
-                    print(f"Failed to process {cif_file_path}: {e}")
+                    print(
+                        f"Failed to process {cif_file_path}: {e}"
+                    )
             else:
                 print(f"File not found: {cif_file_path}")
 
@@ -97,10 +115,16 @@ def init_structure_data(pairs):
     }
 
 
-def init_structure_dict(unique_structure_types, all_pairs_in_the_system):
-    print("All pairs in the system:", all_pairs_in_the_system)
+def init_structure_dict(
+    unique_structure_types, all_pairs_in_the_system
+):
+    print(
+        "All pairs in the system:", all_pairs_in_the_system
+    )
     structure_dict = {
-        structure: init_structure_data(all_pairs_in_the_system)
+        structure: init_structure_data(
+            all_pairs_in_the_system
+        )
         for structure in unique_structure_types
     }
 
@@ -127,20 +151,28 @@ def add_files_and_formula(
                 if structure_type in structure_dict:
                     if (
                         dataset_id
-                        not in structure_dict[structure_type]["files"]
+                        not in structure_dict[
+                            structure_type
+                        ]["files"]
                     ):
-                        structure_dict[structure_type]["files"].append(
-                            dataset_id
-                        )
-                        structure_dict[structure_type]["file_count"] += 1
-                        structure_dict[structure_type]["formulas"].append(
+                        structure_dict[structure_type][
+                            "files"
+                        ].append(dataset_id)
+                        structure_dict[structure_type][
+                            "file_count"
+                        ] += 1
+                        structure_dict[structure_type][
+                            "formulas"
+                        ].append(
                             formula
                         )  # Also append the formula
 
     return structure_dict
 
 
-def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
+def add_bond_lenghts_and_statistics(
+    structure_dict, updated_json_file_path
+):
     json_data = read_json_data(updated_json_file_path)
     for pair, datasets in json_data.items():
         for dataset_id, records in datasets.items():
@@ -150,15 +182,19 @@ def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
                 bond_length = float(record["dist"])
 
                 # Update the bond_data for the bond type
-                bond_data = structure_dict[structure_type]["bond_data"][
-                    bond_type
-                ]
-                bond_data["bond_lengths"].append(bond_length)
+                bond_data = structure_dict[structure_type][
+                    "bond_data"
+                ][bond_type]
+                bond_data["bond_lengths"].append(
+                    bond_length
+                )
                 bond_data["total_bond_count"] += 1
 
         # Calculate average bond length for each structure and bond type
         for structure, data in structure_dict.items():
-            for bond_type, bond_info in data["bond_data"].items():
+            for bond_type, bond_info in data[
+                "bond_data"
+            ].items():
                 bond_lengths = np.array(
                     bond_info["bond_lengths"]
                 )  # Convert bond lengths to a NumPy array for easy calculations
@@ -166,11 +202,15 @@ def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
                     bond_info["avg_bond_length"] = np.round(
                         np.mean(bond_lengths), 3
                     )
-                    bond_info["std_dev_bond_length"] = np.round(
-                        np.std(bond_lengths, ddof=1), 3
+                    bond_info["std_dev_bond_length"] = (
+                        np.round(
+                            np.std(bond_lengths, ddof=1), 3
+                        )
                     )  # Using sample standard deviation (ddof=1)
-                    bond_info["variance_bond_length"] = np.round(
-                        np.var(bond_lengths, ddof=1), 3
+                    bond_info["variance_bond_length"] = (
+                        np.round(
+                            np.var(bond_lengths, ddof=1), 3
+                        )
                     )  # Using sample variance (ddof=1)
     return structure_dict
 
@@ -188,14 +228,18 @@ def add_unique_bond_count_per_bond_type(structure_dict):
         )  # Avoid division by zero
 
         # Calculate unique bond count for each bond type and add it to the bond data
-        for bond_type, bond_info in data["bond_data"].items():
+        for bond_type, bond_info in data[
+            "bond_data"
+        ].items():
             bond_count = bond_info["total_bond_count"]
             unique_bond_count = (
                 bond_count / number_of_files
             )  # Calculate unique bond count per file
 
             # Add the calculated unique bond count to the bond data
-            bond_info["unique_bond_count"] = int(unique_bond_count)
+            bond_info["unique_bond_count"] = int(
+                unique_bond_count
+            )
 
     return structure_dict
 
@@ -208,7 +252,8 @@ def add_bond_fractions_per_structure(structure_dict):
     for structure, data in structure_dict.items():
         bond_data = data.get("bond_data", {})
         total_bond_count = sum(
-            info["total_bond_count"] for info in bond_data.values()
+            info["total_bond_count"]
+            for info in bond_data.values()
         )
 
         if total_bond_count == 0:
@@ -218,7 +263,11 @@ def add_bond_fractions_per_structure(structure_dict):
         bond_fractions = {}
         for bond_type, info in bond_data.items():
             bond_fractions[bond_type] = np.round(
-                (info["total_bond_count"] / total_bond_count), 3
+                (
+                    info["total_bond_count"]
+                    / total_bond_count
+                ),
+                3,
             )
 
         # Add the bond fractions dictionary to the structure data
@@ -227,7 +276,9 @@ def add_bond_fractions_per_structure(structure_dict):
     return structure_dict
 
 
-def extract_info_per_structure(structure_dict, structure_key):
+def extract_info_per_structure(
+    structure_dict, structure_key
+):
     """
     Extracts formula, bond type labels, and bond fractions
     for a given structure.
@@ -238,7 +289,9 @@ def extract_info_per_structure(structure_dict, structure_key):
     )  # Default to ["N/A"] if no formulas are found
 
     bond_labels = info["bond_fractions"].keys()
-    bond_fractions = [info["bond_fractions"][bond] for bond in bond_labels]
+    bond_fractions = [
+        info["bond_fractions"][bond] for bond in bond_labels
+    ]
 
     return (formulas, bond_labels, bond_fractions)
 
@@ -268,11 +321,16 @@ def extract_bond_info_per_formula(formula, structure_dict):
     structures_found = []
 
     # Search through each structure in the dictionary
-    for structure_key, structure_info in structure_dict.items():
+    for (
+        structure_key,
+        structure_info,
+    ) in structure_dict.items():
         # Check if the formula is in the current structure's formula list
         if formula in structure_info["formulas"]:
             # Retrieve the bond fraction data for this structure
-            bond_data = structure_info.get("bond_fractions", {})
+            bond_data = structure_info.get(
+                "bond_fractions", {}
+            )
             bond_fractions_temp = []
             for bond, fraction in bond_data.items():
                 bond_fractions_temp.append(fraction)
@@ -286,7 +344,9 @@ def extract_bond_info_per_formula(formula, structure_dict):
 
 def get_all_unique_formulas(updated_json_file_path):
     json_data = read_json_data(updated_json_file_path)
-    unique_formulas = set()  # Use a set to store unique formulas
+    unique_formulas = (
+        set()
+    )  # Use a set to store unique formulas
 
     # Iterate over the outer dictionary
     for bond_pair, entries in json_data.items():
@@ -296,9 +356,13 @@ def get_all_unique_formulas(updated_json_file_path):
             # Iterate over the list of dictionaries under each ID
             for entry in entry_list:
                 formula = entry["formula"]
-                unique_formulas.add(formula)  # Add formula to the set
+                unique_formulas.add(
+                    formula
+                )  # Add formula to the set
 
-    return list(unique_formulas)  # Convert the set back to a list if necessary
+    return list(
+        unique_formulas
+    )  # Convert the set back to a list if necessary
 
 
 def generate_bond_pairs(elements):
@@ -330,32 +394,50 @@ def generate_bond_pairs(elements):
     return
 
 
-def generate_unique_pairs_from_formulas(updated_json_file_path):
+def generate_unique_pairs_from_formulas(
+    updated_json_file_path,
+):
     # Get unique formulas
-    unique_formulas = get_all_unique_formulas(updated_json_file_path)
+    unique_formulas = get_all_unique_formulas(
+        updated_json_file_path
+    )
 
     # Get unique elements
-    unique_elements = formula_parser.get_unique_elements_from_formulas(
-        unique_formulas
+    unique_elements = (
+        formula_parser.get_unique_elements_from_formulas(
+            unique_formulas
+        )
     )
 
     # Sort unique elements by Mendeeleve
-    sorted_unique_elements = sort.sort_by_mendeleev(unique_elements)
-    possible_bond_pairs = generate_bond_pairs(sorted_unique_elements)
+    sorted_unique_elements = sort.sort_by_mendeleev(
+        unique_elements
+    )
+    possible_bond_pairs = generate_bond_pairs(
+        sorted_unique_elements
+    )
     return possible_bond_pairs
 
 
 def get_is_single_binary(json_file_path):
-    unique_formulas = get_all_unique_formulas(json_file_path)
+    unique_formulas = get_all_unique_formulas(
+        json_file_path
+    )
     return (
-        len(formula_parser.get_unique_elements_from_formulas(unique_formulas))
+        len(
+            formula_parser.get_unique_elements_from_formulas(
+                unique_formulas
+            )
+        )
         == 2
     )
 
 
 def get_is_double_binary(json_file_path):
     # Retrieve all unique formulas from the JSON file.
-    unique_formulas = get_all_unique_formulas(json_file_path)
+    unique_formulas = get_all_unique_formulas(
+        json_file_path
+    )
 
     # Check if all formulas are binary compounds.
     is_all_binary = all(
@@ -365,7 +447,9 @@ def get_is_double_binary(json_file_path):
 
     # Get the count of unique elements across all unique formulas.
     unique_elements_count = len(
-        formula_parser.get_unique_elements_from_formulas(unique_formulas)
+        formula_parser.get_unique_elements_from_formulas(
+            unique_formulas
+        )
     )
 
     # Return True if all compounds are binary and exactly three unique elements exist.
@@ -373,7 +457,9 @@ def get_is_double_binary(json_file_path):
 
 
 def get_is_ternary(json_file_path):
-    unique_formulas = get_all_unique_formulas(json_file_path)
+    unique_formulas = get_all_unique_formulas(
+        json_file_path
+    )
     return all(
         formula_parser.get_num_element(formula) == 3
         for formula in unique_formulas
@@ -381,13 +467,17 @@ def get_is_ternary(json_file_path):
 
 
 def get_is_binary_ternary_combined(json_file_path):
-    unique_formulas_with_tags = get_all_unique_formulas(json_file_path)
+    unique_formulas_with_tags = get_all_unique_formulas(
+        json_file_path
+    )
     clean_formulas = [
-        formula.split("_")[0] for formula in unique_formulas_with_tags
+        formula.split("_")[0]
+        for formula in unique_formulas_with_tags
     ]
 
     element_counts = [
-        formula_parser.get_num_element(formula) for formula in clean_formulas
+        formula_parser.get_num_element(formula)
+        for formula in clean_formulas
     ]
 
     return 2 in element_counts and 3 in element_counts

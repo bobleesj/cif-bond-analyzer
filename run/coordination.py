@@ -1,116 +1,131 @@
-from coordination import bond
-from coordination import handler as cn_handler
-from coordination import calculator as cn_calculator
-from coordination import geometry_handler as cn_geom_handler
-from coordination import data_handler
-from util import prompt, formula_parser
-from preprocess import cif_parser
-from postprocess.environment import env_util
-from filter import occupancy
-from coordination.bond import get_bond_counts, get_bond_fraction
-from postprocess.pair_order import order_pair_by_mendeleev
+from util import folder, prompt
+import pandas as pd
+from cifkit import Cif, CifEnsemble
+from cifkit.utils import string_parser
+import numpy as np
 
 
-def run_coordination(file_path_list):
-    for file_path in file_path_list:
-        connections_CN, formula = get_CN_connections(file_path)
-
-
-def get_CN_connections(file_path):
-    (
-        _,
-        formula,
-        _,
-        _,
-    ) = cif_parser.get_phase_tag_formula_id_from_third_line(file_path)
-
-    all_labels_connections = cn_handler.get_connected_points(
-        file_path, cut_off_radius=10.0
+def run_coordination(script_path):
+    dir_names_with_cif = folder.get_cif_dir_names(
+        script_path
     )
-
-    """
-    Step 1. Get connection dict data for URhIn with cutoff distance of 10
-    """
-    shortest_dists_per_pair = (
-        env_util.get_pair_distances_dict_for_binary_ternary(
-            all_labels_connections, formula
-        )
+    selected_dirs = prompt.get_user_input_folder_processing(
+        dir_names_with_cif, ".cif"
     )
+    process_each_folder(selected_dirs)
+    
 
-    """
-    Step 2. Get 4 radius sum types
-    """
 
-    block = cif_parser.get_cif_block(file_path)
-
-    cif_loop_values = cif_parser.get_loop_values(
-        block, cif_parser.get_loop_tags()
-    )
-    # Get atomic site mixing info -> String
-
-    # Check 1. only binary and ternary are possible
-    num_of_elements = formula_parser.get_num_element(formula)
-
-    # Check 1. For CIF and Pauling, check that the elements exist
-    rad_sum = data_handler.compute_rad_sum(formula, shortest_dists_per_pair)
-    is_rad_data_available = data_handler.check_element_exist_in_rad_data(
-        formula
-    )
-
-    # Check 2. Atomic mixing is 4, full occupacny
-    atom_site_mixing_file_type = occupancy.get_atom_site_mixing_info(
-        cif_loop_values
-    )
-    max_gaps_per_label = None
-
-    """
-    Step 3. Find coordination number with 4 method
-    """
-    if (
-        atom_site_mixing_file_type == "4"
-        and is_rad_data_available
-        and num_of_elements == 3
-        or num_of_elements == 2
+def process_each_folder(selected_dirs):
+    num_selected_dirs = len(selected_dirs)
+    for idx, dir_name in enumerate(
+        selected_dirs.values(), start=1
     ):
-        max_gaps_per_label = (
-            cn_calculator.compute_normalized_dists_with_methods(
-                rad_sum, all_labels_connections
+        output_dir = folder.create_folder_under_output_dir(dir_name, "coordination")
+        prompt.echo_folder_progress(
+            idx, dir_name, num_selected_dirs
+            
+        )
+        # Initialize the CIF ensemble
+        cif_ensemble = CifEnsemble(dir_name)
+        file_paths = cif_ensemble.file_paths
+        
+        # Get radius data
+        df = pd.read_excel("radii.xlsx", sheet_name="data")
+
+        # Create an Excel writer object
+        writer = pd.ExcelWriter(
+            f"{output_dir}/{dir_name}_CN_connections.xlsx", engine="openpyxl"
+        )
+
+        # Process each file
+        for file_path in file_paths:
+            cif = Cif(file_path)
+            connection_data = (
+                cif.CN_connections_by_best_methods
             )
+
+            # Create a list to store
+            all_data_for_excel = []
+
+            # Iterate over connection data and collect information
+            for (
+                label,
+                connections,
+            ) in connection_data.items():
+                ref_element = (
+                    string_parser.get_atom_type_from_label(
+                        label
+                    )
+                )
+                ref_element_rad = df.loc[
+                    df["Element"] == ref_element, "Radius"
+                ].values[0]
+
+                is_ref_element_text_written = False
+
+                for connection in connections:
+                    # Append a row for each connection
+                    other_label = connection[0]
+                    dist = connection[1]
+
+                    other_element = string_parser.get_atom_type_from_label(
+                        other_label
+                    )
+                    other_element_rad = df.loc[
+                        df["Element"] == other_element,
+                        "Radius",
+                    ].values[0]
+
+                    rad_sum = (
+                        ref_element_rad + other_element_rad
+                    )
+                    if not is_ref_element_text_written:
+                        all_data_for_excel.append(
+                            {
+                                "Reference_label": label,
+                                "Other_label": other_label,
+                                "Distance_Å": dist,
+                                "∆ (%)": np.round(
+                                    (float(dist) - rad_sum)
+                                    * 100
+                                    / rad_sum,
+                                    3,
+                                ),
+                            }
+                        )
+                    else:
+                        all_data_for_excel.append(
+                            {
+                                "Reference_label": "",
+                                "Other_label": other_label,
+                                "Distance_Å": dist,
+                                "∆ (%)": np.round(
+                                    (float(dist) - rad_sum)
+                                    * 100
+                                    / rad_sum,
+                                    3,
+                                ),
+                            }
+                        )
+                    is_ref_element_text_written = True
+
+                # Add an empty row after each label's connections
+                all_data_for_excel.append({})
+
+            # Convert the list of dictionaries to a DataFrame
+            df_temp = pd.DataFrame(all_data_for_excel)
+
+            # Get the formula from the CIF and use it as sheet name
+            sheet_name = cif.formula
+
+            # Save the DataFrame to a separate sheet in the Excel file
+            df_temp.to_excel(
+                writer, sheet_name=sheet_name, index=False
+            )
+
+        # Save the Excel file
+        writer._save()
+        print(
+            f"Data successfully written {output_dir}.xlsx"
         )
-    else:
-        max_gaps_per_label = cn_calculator.compute_normalized_dists(
-            rad_sum, all_labels_connections
-        )
-    """
-    Step 4. Find the best polyhedron from each label
-    """
-    best_polyhedrons = cn_geom_handler.find_best_polyhedron(
-        max_gaps_per_label, all_labels_connections
-    )
-
-    prompt.print_dict_in_json(best_polyhedrons)
-
-    """
-    Step 5. Filter connected points based on CN
-    """
-    CN_connections = cn_geom_handler.get_CN_connections(
-        best_polyhedrons, all_labels_connections
-    )
-
-    return CN_connections
-
-
-def get_CN_bond_fractions_sorted(connections_CN):
-    formula = "ErInCo"
-    bond_pair_data = get_bond_counts(formula, connections_CN)
-
-    bond_fractions = get_bond_fraction(bond_pair_data)
-    # Transform keys using the order_pair_by_mendeleev function
-    transformed_bond_fractions = {
-        order_pair_by_mendeleev(key): value
-        for key, value in bond_fractions.items()
-    }
-
-    # Sort the dictionary by keys
-    sorted_bond_fractions = dict(sorted(transformed_bond_fractions.items()))
-    return sorted_bond_fractions

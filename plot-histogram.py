@@ -15,15 +15,21 @@ def plot_histogram():
 
     click.echo("Starting the histogram plotting process...")
     # 1. Customize the bin width if needed
-    echo("\nWould you like to customize the histogram width?")
-    is_custom_design = click.confirm("(Default: Y)", default=True)
+    echo(
+        "\nWould you like to customize the histogram width?"
+    )
+    is_custom_design = click.confirm(
+        "(Default: Y)", default=True
+    )
 
     if is_custom_design:
         min_x = click.prompt(
-            "(1/3) Enter the minimum value for the x-axis", type=float
+            "(1/3) Enter the minimum value for the x-axis",
+            type=float,
         )
         max_x = click.prompt(
-            "(2/3) Enter the maximum value for the x-axis", type=float
+            "(2/3) Enter the maximum value for the x-axis",
+            type=float,
         )
 
         bin_width = click.prompt(
@@ -33,28 +39,40 @@ def plot_histogram():
 
     # 2. Choose folders contianing .json
     script_path = os.path.dirname(os.path.abspath(__file__))
-    dir_names_with_json = folder.get_json_dir_names(script_path)
+    dir_names_with_json = folder.get_json_dir_names(
+        script_path
+    )
     selected_dirs = prompt.get_user_input_folder_processing(
         dir_names_with_json, ".json"
     )
     num_selected_dirs = len(selected_dirs)
 
     if not dir_names_with_json:
-        click.echo("No folders containing .json files were found.")
+        click.echo(
+            "No folders containing .json files were found."
+        )
         return
 
     # 3. Plot
-    for idx, dir_name in enumerate(selected_dirs.values(), start=1):
-        dir_path = os.path.join(script_path, dir_name, "output")
-        prompt.echo_folder_progress(idx, dir_name, num_selected_dirs)
+    for idx, dir_name in enumerate(
+        selected_dirs.values(), start=1
+    ):
+        dir_path = os.path.join(
+            script_path, dir_name, "output"
+        )
+        prompt.echo_folder_progress(
+            idx, dir_name, num_selected_dirs
+        )
         element_pair_dict = None
         site_pair_dict = None
 
         for file_name in os.listdir(dir_path):
-            if file_name.endswith("_element_pairs.json") or file_name.endswith(
-                "_site_pairs.json"
-            ):
-                json_file_path = os.path.join(dir_path, file_name)
+            if file_name.endswith(
+                "_element_pairs.json"
+            ) or file_name.endswith("_site_pairs.json"):
+                json_file_path = os.path.join(
+                    dir_path, file_name
+                )
                 echo(f"Processing {json_file_path}")
 
                 with open(json_file_path, "r") as json_file:
@@ -65,8 +83,13 @@ def plot_histogram():
                     site_pair_dict = data
 
         # Ensure that both dictionaries are not None before proceeding
-        histogram_output_dir = os.path.join(script_path, dir_name)
-        if site_pair_dict is not None and element_pair_dict is not None:
+        histogram_output_dir = os.path.join(
+            script_path, dir_name
+        )
+        if (
+            site_pair_dict is not None
+            and element_pair_dict is not None
+        ):
             if not is_custom_design:
                 histogram.draw_histograms(
                     site_pair_dict,
@@ -76,7 +99,9 @@ def plot_histogram():
 
             if is_custom_design:
                 distances = [min_x, max_x]
-                bins = histogram.get_bins_from_distances(bin_width, distances)
+                bins = histogram.get_bins_from_distances(
+                    bin_width, distances
+                )
 
                 histogram.plot_histograms(
                     site_pair_dict,

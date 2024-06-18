@@ -11,7 +11,9 @@ def compute_angles_from_central_atom(CN_connections):
         # Create vectors from the central atom to each connected point
         for connection in connection_data:
             point_coord = np.array(connection[3])
-            central_atom_array = np.array(central_atom_coord)
+            central_atom_array = np.array(
+                central_atom_coord
+            )
             vector = point_coord - central_atom_array
             vectors.append(vector)
 
@@ -22,17 +24,19 @@ def compute_angles_from_central_atom(CN_connections):
                 dot_product = np.dot(vector_i, vector_j)
                 norm_i = np.linalg.norm(vector_i)
                 norm_j = np.linalg.norm(vector_j)
-                cosine_angle = dot_product / (norm_i * norm_j)
+                cosine_angle = dot_product / (
+                    norm_i * norm_j
+                )
                 angle = np.arccos(
                     np.clip(cosine_angle, -1.0, 1.0)
                 )  # Clip for safety
 
                 angle_degrees = np.degrees(angle)
-                formatted_angle = (
-                    f"{angle_degrees:.4g}"  # 4 significant figures
-                )
+                formatted_angle = f"{angle_degrees:.4g}"  # 4 significant figures
 
-                angles[label][(i, j)] = float(formatted_angle)
+                angles[label][(i, j)] = float(
+                    formatted_angle
+                )
 
     return angles
 
@@ -58,8 +62,12 @@ def get_largest_angle_atom_indices_largest_to_smallest(
         indicies[label] = [pair for pair, _ in sorted_pairs]
         # Print top 10 largest angles for each label, if available
         print(f"Largest angles for {label}:")
-        for pair, angle in sorted_pairs[:10]:  # Print only top 10 angles
-            print(f"  Pair: {pair}: {np.round(angle, 3)} degrees")
+        for pair, angle in sorted_pairs[
+            :10
+        ]:  # Print only top 10 angles
+            print(
+                f"  Pair: {pair}: {np.round(angle, 3)} degrees"
+            )
 
     return indicies
 

@@ -23,23 +23,37 @@ def get_ring_count_above_below_central_atom_z(
             large_angle_first_idx,
             large_angle_second_idx,
         ) = near_180_degrees_atom_indices[label][0]
-        large_angle_first_idx_z = conn_data[large_angle_first_idx][3][2]
-        large_angle_second_idx_z = conn_data[large_angle_second_idx][3][2]
+        large_angle_first_idx_z = conn_data[
+            large_angle_first_idx
+        ][3][2]
+        large_angle_second_idx_z = conn_data[
+            large_angle_second_idx
+        ][3][2]
 
         # Determine the more positive and more negative z values
         large_angle_higher_z_value = max(
-            large_angle_first_idx_z, large_angle_second_idx_z
+            large_angle_first_idx_z,
+            large_angle_second_idx_z,
         )
         large_angle_lower_z_value = min(
-            large_angle_first_idx_z, large_angle_second_idx_z
+            large_angle_first_idx_z,
+            large_angle_second_idx_z,
         )
 
         # Count atoms based on their z coordinates relative to the central atom
         for conn in conn_data:
             z = conn[3][2]
-            if central_atom_z < z < large_angle_higher_z_value:
+            if (
+                central_atom_z
+                < z
+                < large_angle_higher_z_value
+            ):
                 central_z_to_top_atom_count += 1
-            elif large_angle_lower_z_value < z < central_atom_z:
+            elif (
+                large_angle_lower_z_value
+                < z
+                < central_atom_z
+            ):
                 central_z_to_bottom_atom_count += 1
 
         # Store counts in dictionary

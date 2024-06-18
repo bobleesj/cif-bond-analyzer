@@ -50,7 +50,9 @@ def calculate_dist(point1, point2, cell_lengths, angles):
     )
 
     # Calculate squared distance
-    result = dx_sq + dy_sq + dz_sq + cross_x + cross_y + cross_z
+    result = (
+        dx_sq + dy_sq + dz_sq + cross_x + cross_y + cross_z
+    )
 
     # Calculate Euclidean distance
     distance = np.sqrt(result)
@@ -70,11 +72,16 @@ def shift_and_append_points(
     # Method 3 - +-1 +-1 +-1 shifts
     if is_flatten_points_only:
         shifts = np.array([[0, 0, 0]])
-        shifted_points = points[:, None, :] + shifts[None, :, :]
+        shifted_points = (
+            points[:, None, :] + shifts[None, :, :]
+        )
         all_points = []
         for point_group in shifted_points:
             for point in point_group:
-                new_point = (*np.round(point, 5), atom_site_label)
+                new_point = (
+                    *np.round(point, 5),
+                    atom_site_label,
+                )
                 all_points.append(new_point)
         return all_points
     else:
@@ -111,11 +118,16 @@ def shift_and_append_points(
             ]
         )
 
-        shifted_points = points[:, None, :] + shifts[None, :, :]
+        shifted_points = (
+            points[:, None, :] + shifts[None, :, :]
+        )
         all_points = []
         for point_group in shifted_points:
             for point in point_group:
-                new_point = (*np.round(point, 5), atom_site_label)
+                new_point = (
+                    *np.round(point, 5),
+                    atom_site_label,
+                )
                 all_points.append(new_point)
 
         return all_points
@@ -130,17 +142,25 @@ def get_coords_list(block, loop_values):
     loop_length = len(loop_values[0])
     coords_list = []
     for i in range(loop_length):
-        atom_site_x = cif_parser.remove_string_braket(loop_values[4][i])
-        atom_site_y = cif_parser.remove_string_braket(loop_values[5][i])
-        atom_site_z = cif_parser.remove_string_braket(loop_values[6][i])
+        atom_site_x = cif_parser.remove_string_braket(
+            loop_values[4][i]
+        )
+        atom_site_y = cif_parser.remove_string_braket(
+            loop_values[5][i]
+        )
+        atom_site_z = cif_parser.remove_string_braket(
+            loop_values[6][i]
+        )
         atom_site_label = loop_values[0][i]
 
-        coords_after_symmetry_operations = get_coords_after_sym_operations(
-            block,
-            float(atom_site_x),
-            float(atom_site_y),
-            float(atom_site_z),
-            atom_site_label,
+        coords_after_symmetry_operations = (
+            get_coords_after_sym_operations(
+                block,
+                float(atom_site_x),
+                float(atom_site_y),
+                float(atom_site_z),
+                atom_site_label,
+            )
         )
         coords_list.append(coords_after_symmetry_operations)
 
@@ -158,7 +178,9 @@ def get_coords_after_sym_operations(
     Generates a list of coordinates for each atom site
     """
     all_coords = set()
-    for operation in block.find_loop("_space_group_symop_operation_xyz"):
+    for operation in block.find_loop(
+        "_space_group_symop_operation_xyz"
+    ):
         operation = operation.replace("'", "")
         try:
             op = gemmi.Op(operation)
@@ -173,10 +195,14 @@ def get_coords_after_sym_operations(
             new_y = round(new_y, 5)
             new_z = round(new_z, 5)
 
-            all_coords.add((new_x, new_y, new_z, atom_site_label))
+            all_coords.add(
+                (new_x, new_y, new_z, atom_site_label)
+            )
 
         except RuntimeError as e:
-            print(f"Skipping operation '{operation}': {str(e)}")
+            print(
+                f"Skipping operation '{operation}': {str(e)}"
+            )
             raise RuntimeError(
                 "An error occurred while processing symmetry operation"
             ) from e
@@ -185,7 +211,12 @@ def get_coords_after_sym_operations(
 
 
 def flatten_original_coordinates(all_coords):
-    points = np.array([list(map(float, coord[:-1])) for coord in all_coords])
+    points = np.array(
+        [
+            list(map(float, coord[:-1]))
+            for coord in all_coords
+        ]
+    )
     return points
 
 
@@ -221,12 +252,19 @@ def get_points_and_labels(
         if atom_site_type in atom_site_label:
             continue
 
-        if cif_parser.get_atom_type(atom_site_label) != atom_site_type:
+        if (
+            cif_parser.get_atom_type(atom_site_label)
+            != atom_site_type
+        ):
             raise RuntimeError(
                 "Different elements found in atom site and label"
             )
 
-    return list(set(all_points)), unique_labels, unique_atoms_tuple
+    return (
+        list(set(all_points)),
+        unique_labels,
+        unique_atoms_tuple,
+    )
 
 
 def calc_dist_two_cart_points(point1, point2):
@@ -242,7 +280,9 @@ def calc_dist_two_cart_points(point1, point2):
     return distance
 
 
-def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
+def fractional_to_cartesian(
+    fractional_coords, cell_lengths, rad_angles
+):
     """
     Converts fractional coordinates to Cartesian
     coordinates using cell lengths and angles.
@@ -277,7 +317,9 @@ def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
             [
                 0,
                 b * sin_gamma,
-                c * (cos_alpha - cos_beta * cos_gamma) / sin_gamma,
+                c
+                * (cos_alpha - cos_beta * cos_gamma)
+                / sin_gamma,
             ],
             [0, 0, volume / (a * b * sin_gamma)],
         ]
@@ -290,5 +332,7 @@ def fractional_to_cartesian(fractional_coords, cell_lengths, rad_angles):
             :, np.newaxis
         ]  # Convert to column vector if necessary
 
-    cartesian_coords = np.dot(matrix, fractional_coords).flatten()
+    cartesian_coords = np.dot(
+        matrix, fractional_coords
+    ).flatten()
     return cartesian_coords
