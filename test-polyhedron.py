@@ -43,9 +43,7 @@ vertex_labels = [
 
 plotter = pv.Plotter()
 
-central_atom_index = np.argmin(
-    np.linalg.norm(points, axis=1)
-)
+central_atom_index = np.argmin(np.linalg.norm(points, axis=1))
 central_atom = points[central_atom_index]
 
 for point, label in zip(points, vertex_labels):
@@ -53,9 +51,7 @@ for point, label in zip(points, vertex_labels):
         0.6 if np.array_equal(point, central_atom) else 0.4
     )  # Central atom larger
     sphere = pv.Sphere(radius=radius, center=point)
-    plotter.add_mesh(
-        sphere, color="#D3D3D3"
-    )  # Light grey color
+    plotter.add_mesh(sphere, color="#D3D3D3")  # Light grey color
 
 
 delaunay = Delaunay(points)
@@ -72,9 +68,7 @@ hull_edges = set()
 for simplex in hull.simplices:
     for i in range(len(simplex)):
         for j in range(i + 1, len(simplex)):
-            hull_edge = tuple(
-                sorted([simplex[i], simplex[j]])
-            )
+            hull_edge = tuple(sorted([simplex[i], simplex[j]]))
             hull_edges.add(hull_edge)
 
 for edge in edges:
@@ -93,7 +87,5 @@ for simplex in hull.simplices:
     faces.append([3] + list(simplex))
 poly_data = pv.PolyData(points, faces)
 
-plotter.add_mesh(
-    poly_data, color="aqua", opacity=0.5, show_edges=True
-)
+plotter.add_mesh(poly_data, color="aqua", opacity=0.5, show_edges=True)
 plotter.show()

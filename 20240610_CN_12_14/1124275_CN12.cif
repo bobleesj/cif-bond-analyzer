@@ -50,33 +50,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'De Negri S.'
+''
 ;
-Genoa University (UniGe)
-Dipartimento di Chimica e Chimica Industriale
-Genoa
-Italy
-;
-'Solokha P.G.'
-;
-Lviv Ivan Franko National University
-Department of Inorganic Chemistry
-Lviv
-Ukraine
-;
-'Saccone A.'
-;
-Genoa University (UniGe)
-Dipartimento di Chimica e Chimica Industriale
-Genoa
-Italy
-;
-'Pavlyuk V.V.'
-;
-Lviv Ivan Franko National University
-Department of Inorganic Chemistry
-Lviv
-Ukraine
 ;
 
 # Standardized crystallographic data

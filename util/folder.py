@@ -11,13 +11,15 @@ def get_cif_dir_names(script_path):
     """
     Returns a list of directories containing .cif files.
     """
+    print("Scirpt path should be called onced")
+    print(script_path)
     dir_name_list = [
         d
         for d in os.listdir(script_path)
-        if os.path.isdir(join(script_path, d))
+        if os.path.isdir(os.path.join(script_path, d))
         and any(
             file.endswith(".cif")
-            for file in os.listdir(join(script_path, d))
+            for file in os.listdir(os.path.join(script_path, d))
         )
     ]
 
@@ -25,7 +27,7 @@ def get_cif_dir_names(script_path):
         print(
             "No directories found in the current path containing .cif files!"
         )
-        return None
+        return []  # Return an empty list instead of None
 
     return dir_name_list
 
@@ -40,21 +42,17 @@ def get_json_dir_names(script_path):
     for d in directories:
         dir_path = os.path.join(script_path, d)
         if os.path.isdir(dir_path):
-            output_dir_path = os.path.join(
-                dir_path, "output"
-            )
-            if os.path.exists(
+            output_dir_path = os.path.join(dir_path, "output")
+            if os.path.exists(output_dir_path) and os.path.isdir(
                 output_dir_path
-            ) and os.path.isdir(output_dir_path):
+            ):
                 files = os.listdir(output_dir_path)
                 for file in files:
                     if file.endswith(".json"):
                         parent_dir_name = os.path.basename(
                             dir_path
                         )  # Get the parent directory name
-                        dir_name_list.append(
-                            parent_dir_name
-                        )
+                        dir_name_list.append(parent_dir_name)
                         break
 
     if not dir_name_list:
@@ -73,8 +71,7 @@ def get_dir_list(ext, script_path):
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
         and any(
-            file.endswith(ext)
-            for file in os.listdir(join(script_path, d))
+            file.endswith(ext) for file in os.listdir(join(script_path, d))
         )
     ]
 
@@ -93,9 +90,7 @@ def choose_binary_ternary_dir(script_path, ext=".cif"):
     """
     # Assuming get_binary_ternary_combined_cif_dir_list is fixed to return the list of directories
     unique_element_count_per_dir = (
-        folder.get_binary_ternary_combined_cif_dir_list(
-            script_path
-        )
+        folder.get_binary_ternary_combined_cif_dir_list(script_path)
     )
 
     # Check if there are directories available
@@ -117,17 +112,11 @@ def choose_binary_ternary_dir(script_path, ext=".cif"):
         )
 
     # Ask user to choose all or select specific folders
-    click.echo(
-        "\nWould you like to process each folder above sequentially?"
-    )
-    process_all = click.confirm(
-        "(Default: Y)", default=True
-    )
+    click.echo("\nWould you like to process each folder above sequentially?")
+    process_all = click.confirm("(Default: Y)", default=True)
     if not process_all:
         # Interactive selection of directory if user does not want all directories
-        input_str = input(
-            "\nEnter folder numbers to select (e.g., '1 3 5'): "
-        )
+        input_str = input("\nEnter folder numbers to select (e.g., '1 3 5'): ")
         selected_dirs = []
 
         # Process the input string
@@ -137,17 +126,9 @@ def choose_binary_ternary_dir(script_path, ext=".cif"):
 
         selected_dir_paths = []
         for choice in selected_dirs:
-            if (
-                1
-                <= choice
-                <= len(unique_element_count_per_dir)
-            ):
-                selected_dir = unique_element_count_per_dir[
-                    choice - 1
-                ][0]
-                selected_dir_path = os.path.join(
-                    script_path, selected_dir
-                )
+            if 1 <= choice <= len(unique_element_count_per_dir):
+                selected_dir = unique_element_count_per_dir[choice - 1][0]
+                selected_dir_path = os.path.join(script_path, selected_dir)
                 selected_dir_paths.append(selected_dir_path)
                 print(f"Selected: {selected_dir}")
             else:
@@ -178,27 +159,15 @@ def choose_dir(script_path, ext=".cif"):
 
     print("\nAvailable folders containing CIF files:")
     for idx, dir_name in enumerate(dir_names, start=1):
-        num_of_cif_files = (
-            get_cif_file_count_from_directory(dir_name)
-        )
-        print(
-            f"{idx}. {dir_name}, {num_of_cif_files} files"
-        )
+        num_of_cif_files = get_cif_file_count_from_directory(dir_name)
+        print(f"{idx}. {dir_name}, {num_of_cif_files} files")
     while True:
         try:
-            choice = int(
-                input(
-                    "\nEnter folder # having .cif files: "
-                )
-            )
+            choice = int(input("\nEnter folder # having .cif files: "))
             if 1 <= choice <= len(dir_names):
-                return join(
-                    script_path, dir_names[choice - 1]
-                )
+                return join(script_path, dir_names[choice - 1])
             else:
-                print(
-                    f"Please enter a number between 1 and {len(dir_names)}."
-                )
+                print(f"Please enter a number between 1 and {len(dir_names)}.")
         except ValueError:
             print("Invalid input. Please enter a number.")
 
@@ -220,16 +189,12 @@ def save_to_csv_directory(folder_info, df, base_filename):
     csv_filename = f"{folder_name}_{base_filename}.csv"
 
     # Save the DataFrame to the desired location (within the 'csv' sub-directory)
-    df.to_csv(
-        join(csv_directory, csv_filename), index=False
-    )
+    df.to_csv(join(csv_directory, csv_filename), index=False)
 
     print(csv_filename, "saved")
 
 
-def get_cif_file_count_from_directory(
-    directory, ext="*.cif"
-):
+def get_cif_file_count_from_directory(directory, ext="*.cif"):
     """
     Counts .cif files in a given directory.
     """
@@ -246,9 +211,7 @@ def get_file_path_list(directory, ext="*.cif"):
     Lists all .cif files in the chosen folder and subfolders.
     """
     # The recursive parameter allows searching through all subdirectories
-    return glob.glob(
-        os.path.join(directory, "**", ext), recursive=True
-    )
+    return glob.glob(os.path.join(directory, "**", ext), recursive=True)
 
 
 def remove_directories(directory_list):
@@ -292,13 +255,9 @@ def create_output_folder_for_neighbor(
     if is_coordination_num_used:
         nested_folder_name = "shortest_dist_CN"
     else:
-        nested_folder_name = (
-            f"shortest_dist_cutoff_{radius}"
-        )
+        nested_folder_name = f"shortest_dist_cutoff_{radius}"
 
-    nested_folder_path = os.path.join(
-        output_folder_path, nested_folder_name
-    )
+    nested_folder_path = os.path.join(output_folder_path, nested_folder_name)
 
     if not os.path.exists(nested_folder_path):
         os.makedirs(nested_folder_path)
@@ -327,9 +286,7 @@ def create_folder_under_output_dir(dir_path, folder_name):
     return nested_output_dir
 
 
-def get_binary_ternary_combined_cif_dir_list(
-    script_path, ext=".cif"
-):
+def get_binary_ternary_combined_cif_dir_list(script_path, ext=".cif"):
     """
     Returns a list of tuples containing directory name, number of unique
     elements, and file count
@@ -340,12 +297,8 @@ def get_binary_ternary_combined_cif_dir_list(
 
     for dir_name in dir_names:
         cif_dir = os.path.join(script_path, dir_name)
-        file_count = get_cif_file_count_from_directory(
-            cif_dir
-        )
-        file_path_list = get_file_path_list(
-            cif_dir, ext="*.cif"
-        )
+        file_count = get_cif_file_count_from_directory(cif_dir)
+        file_path_list = get_file_path_list(cif_dir, ext="*.cif")
         atom_set = set()
 
         # Loop each cif file in the dir

@@ -50,26 +50,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Ferro R.'
+''
 ;
-Genoa University (UniGe)
-Istituto di Chimica Generale e Inorganica
-Genoa
-Italy
-;
-'Marazza R.'
-;
-Genoa University (UniGe)
-Istituto di Chimica Generale e Inorganica
-Genoa
-Italy
-;
-'Rambaldi G.'
-;
-Genoa University (UniGe)
-Istituto di Chimica Generale e Inorganica
-Genoa
-Italy
 ;
 
 # Standardized crystallographic data

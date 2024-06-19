@@ -14,12 +14,8 @@ def get_cif_info(file_path):
         cell_lengths,
         cell_angles_rad,
     ) = cif_parser.get_cell_lenghts_angles_rad(cif_block)
-    cif_loop_values = cif_parser.get_loop_values(
-        cif_block, loop_tags
-    )
-    all_coords_list = supercell.get_coords_list(
-        cif_block, cif_loop_values
-    )
+    cif_loop_values = cif_parser.get_loop_values(cif_block, loop_tags)
+    all_coords_list = supercell.get_coords_list(cif_block, cif_loop_values)
     (
         all_points,
         unique_labels,
@@ -46,9 +42,7 @@ def get_cif_loop_values(file_path: str) -> list:
     """
     loop_tags = cif_parser.get_loop_tags()
     cif_block = cif_parser.get_cif_block(file_path)
-    cif_loop_values = cif_parser.get_loop_values(
-        cif_block, loop_tags
-    )
+    cif_loop_values = cif_parser.get_loop_values(cif_block, loop_tags)
 
     return cif_loop_values
 
@@ -70,9 +64,7 @@ def get_folder_and_files_info(
         folder_name = os.path.basename(folder_info)
 
     filtered_folder_name = f"{folder_name}_filter_dist_min"
-    filtered_folder = os.path.join(
-        folder_info, filtered_folder_name
-    )
+    filtered_folder = os.path.join(folder_info, filtered_folder_name)
     files_lst = [
         os.path.join(folder_info, file)
         for file in os.listdir(folder_info)

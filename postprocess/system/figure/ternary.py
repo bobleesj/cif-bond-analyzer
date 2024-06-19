@@ -49,34 +49,26 @@ def draw_ternary_frame(v0, v1, v2):
     plt.gca().set_aspect("equal", adjustable="box")
 
 
-def draw_extra_frame_for_binary_tags(
-    v0, v1, v2, unique_formulas
-):
+def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas):
     """
     Draw extra edges on the traingle with tags found on binary compounds
     """
 
     # First from the structure dict, we get all unique formulas
-    formula_tag_tuples = (
-        string_parser.parse_formulas_with_underscore(
-            unique_formulas
-        )
+    formula_tag_tuples = string_parser.parse_formulas_with_underscore(
+        unique_formulas
     )
     (
         R_element,
         M_element,
         X_element,
-    ) = formula_parser.get_RMX_sorted_formula_from_formulas(
-        unique_formulas
-    )
+    ) = formula_parser.get_RMX_sorted_formula_from_formulas(unique_formulas)
 
-    tags_count = (
-        formula_parser.count_formula_with_tags_in_ternary(
-            formula_tag_tuples,
-            R_element,
-            M_element,
-            X_element,
-        )
+    tags_count = formula_parser.count_formula_with_tags_in_ternary(
+        formula_tag_tuples,
+        R_element,
+        M_element,
+        X_element,
     )
     # Draw edges of the traingle
     # The following is the not refactored logic at the moment for flexibility
@@ -217,16 +209,12 @@ def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
     ]
 
     p1_green = [
-        (1 - fraction) * v2[0]
-        + fraction * v0[0],  # x coordinate
-        (1 - fraction) * v2[1]
-        + fraction * v0[1],  # y coordinate
+        (1 - fraction) * v2[0] + fraction * v0[0],  # x coordinate
+        (1 - fraction) * v2[1] + fraction * v0[1],  # y coordinate
     ]
     p2_green = [
-        (1 - fraction) * v2[0]
-        + fraction * v1[0],  # x coordinate
-        (1 - fraction) * v2[1]
-        + fraction * v1[1],  # y coordinate
+        (1 - fraction) * v2[0] + fraction * v1[0],  # x coordinate
+        (1 - fraction) * v2[1] + fraction * v1[1],  # y coordinate
     ]
 
     # Create filled polygons along the edges
@@ -254,9 +242,7 @@ def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
     plt.gca().add_patch(filled_edge3)
 
 
-def draw_triangular_grid(
-    v0, v1, v2, alpha, line_width, n_lines=10
-):
+def draw_triangular_grid(v0, v1, v2, alpha, line_width, n_lines=10):
     # Line parallel to v2v0 (right slant)
     for i in range(1, n_lines):
         t = i / n_lines

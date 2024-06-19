@@ -50,19 +50,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Smith J.F.'
+''
 ;
-Iowa State University of Science and Technology (ISU)
-Institute for Atomic Research
-Ames
-U.S.A. Iowa
-;
-'Hansen D.A.'
-;
-Iowa State University of Science and Technology (ISU)
-Institute for Atomic Research
-Ames
-U.S.A. Iowa
 ;
 
 # Standardized crystallographic data

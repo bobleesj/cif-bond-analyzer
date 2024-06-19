@@ -52,32 +52,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Widenmeyer M.'
+''
 ;
-Stuttgart University
-Institut fur Anorganische Chemie
-Stuttgart
-Germany
-;
-'Hansen T.C.'
-;
-Institut Laue-Langevin (ILL)
-Grenoble
-France
-;
-'Meissner E.'
-;
-Fraunhofer Society
-Fraunhofer-Institute for Integrated Systems and Device Technology (IISB)
-Erlangen
-Germany
-;
-'Niewa R.'
-;
-Stuttgart University
-Institut fur Anorganische Chemie
-Stuttgart
-Germany
 ;
 
 # Standardized crystallographic data

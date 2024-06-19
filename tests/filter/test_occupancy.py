@@ -27,10 +27,8 @@ def test_get_atom_site_mixing_info_2(
 def test_get_all_possible_ordered_label_pair_tuples_300160(
     get_cif_300160_loop_values,
 ):
-    ordered_label_pairs = (
-        occupancy.get_all_possible_ordered_label_pairs(
-            get_cif_300160_loop_values
-        )
+    ordered_label_pairs = occupancy.get_all_possible_ordered_label_pairs(
+        get_cif_300160_loop_values
     )
     assert len(ordered_label_pairs) == 6
     assert sorted(ordered_label_pairs) == sorted(
@@ -49,10 +47,8 @@ def test_get_all_possible_ordered_label_pair_tuples_300160(
 def test_get_all_possible_ordered_label_pair_tuples_URhIn(
     get_cif_URhIn_loop_values,
 ):
-    ordered_label_pairs = (
-        occupancy.get_all_possible_ordered_label_pairs(
-            get_cif_URhIn_loop_values
-        )
+    ordered_label_pairs = occupancy.get_all_possible_ordered_label_pairs(
+        get_cif_URhIn_loop_values
     )
 
     # Mendelee # of U 20, Rh 59, In 75
@@ -79,17 +75,13 @@ def test_get_all_possible_ordered_label_pair_tuples_URhIn(
 def test_get_atom_site_mixing_dict_1(
     get_cif_300160_loop_values,
 ):
-    atom_site_mixing_file_info = (
-        occupancy.get_atom_site_mixing_info(
-            get_cif_300160_loop_values
-        )
+    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+        get_cif_300160_loop_values
     )
 
-    atom_site_pair_dict = (
-        occupancy.get_atom_site_mixing_dict(
-            atom_site_mixing_file_info,
-            get_cif_300160_loop_values,
-        )
+    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_file_info,
+        get_cif_300160_loop_values,
     )
 
     # Mendeleev # - Ge 79, Rh 59, Sm 23
@@ -110,17 +102,13 @@ def test_get_atom_site_mixing_dict_2(
     Pair: Rh2-Si 2.28 Å - deficiency_no_atomic_mixing
     Pair: Rh1-Rh1 2.524 Å - full_occupancy
     """
-    atom_site_mixing_file_info = (
-        occupancy.get_atom_site_mixing_info(
-            get_cif_527000_loop_values
-        )
+    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+        get_cif_527000_loop_values
     )
 
-    atom_site_pair_dict = (
-        occupancy.get_atom_site_mixing_dict(
-            atom_site_mixing_file_info,
-            get_cif_527000_loop_values,
-        )
+    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_file_info,
+        get_cif_527000_loop_values,
     )
 
     # Mendeleev # - Rh 59, Si 78
@@ -150,17 +138,13 @@ def test_get_atom_site_mixing_dict_3(
     Fe-Fe 2.448 mixing-deficiency
     """
 
-    atom_site_mixing_file_info = (
-        occupancy.get_atom_site_mixing_info(
-            get_cif_1831432_loop_values
-        )
+    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+        get_cif_1831432_loop_values
     )
 
-    atom_site_pair_dict = (
-        occupancy.get_atom_site_mixing_dict(
-            atom_site_mixing_file_info,
-            get_cif_1831432_loop_values,
-        )
+    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_file_info,
+        get_cif_1831432_loop_values,
     )
 
     assert len(atom_site_pair_dict) == 6
@@ -185,17 +169,13 @@ def test_get_atom_site_mixing_dict_4(
     Result:
     529848: Ni-Sb 2.531 mixing
     """
-    atom_site_mixing_file_info = (
-        occupancy.get_atom_site_mixing_info(
-            get_cif_529848_loop_values
-        )
+    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+        get_cif_529848_loop_values
     )
 
-    atom_site_pair_dict = (
-        occupancy.get_atom_site_mixing_dict(
-            atom_site_mixing_file_info,
-            get_cif_529848_loop_values,
-        )
+    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_file_info,
+        get_cif_529848_loop_values,
     )
 
     assert len(atom_site_pair_dict) == 3
@@ -218,17 +198,13 @@ def test_get_atom_site_mixing_dict_5(
     Result:
     529848: Ni-Sb 2.531 mixing
     """
-    atom_site_mixing_file_info = (
-        occupancy.get_atom_site_mixing_info(
-            get_cif_1617211_loop_values
-        )
+    atom_site_mixing_file_info = occupancy.get_atom_site_mixing_info(
+        get_cif_1617211_loop_values
     )
 
-    atom_site_pair_dict = (
-        occupancy.get_atom_site_mixing_dict(
-            atom_site_mixing_file_info,
-            get_cif_1617211_loop_values,
-        )
+    atom_site_pair_dict = occupancy.get_atom_site_mixing_dict(
+        atom_site_mixing_file_info,
+        get_cif_1617211_loop_values,
     )
 
     assert len(atom_site_pair_dict) == 6

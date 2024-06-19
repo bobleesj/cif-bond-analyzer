@@ -25,15 +25,13 @@ def main():
     options = {
         "1": "Compute the shortest distance from each site.",
         "2": "Conduct system analysis.",
-        "3": "Compute cooordination environment",
+        "3": "Conduct coordination analysis.",
     }
 
     for key, value in options.items():
         print(f"[{key}] {value}")
 
-    choice = input(
-        f"Enter your choice (1-{len(options)}): "
-    )
+    choice = input(f"Enter your choice (1-{len(options)}): ")
 
     if choice == "1":
         site.run_site_analysis(script_path)

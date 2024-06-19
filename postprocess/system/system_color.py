@@ -20,11 +20,7 @@ def plot_ternary_color_map(
     possible_bond_pairs,
     output_dir,
 ):
-    """
-    This is for saving individual color maps
-    TODO: Refactor
-    """
-
+    # Save individual images
     save_color_map(
         unique_formulas,
         structure_dict,
@@ -33,6 +29,7 @@ def plot_ternary_color_map(
         is_colors_combined=False,
     )
 
+    # Save one stacked image
     save_color_map(
         unique_formulas,
         structure_dict,
@@ -53,16 +50,18 @@ def save_color_map(
     fig, ax = plt.subplots()
     triangulations = []
     transparency = 0.3333
+    # transparency = 0.500
 
-    contour_smoothing = 10
+    # contour_smoothing = 10
+    contour_smoothing = 20
     mesh_grid_points = 1000
 
     # Draw boundary edges
-    (R, M, X) = (
-        formula_parser.get_RMX_sorted_formula_from_formulas(
-            unique_formulas
-        )
-    )
+    (
+        R,
+        M,
+        X,
+    ) = formula_parser.get_RMX_sorted_formula_from_formulas(unique_formulas)
     corners = [(0, 0), (1, 0), (0.5, np.sqrt(3) / 2)]
 
     # Color 6 colors for ternary
@@ -96,9 +95,7 @@ def save_color_map(
             if tag:
                 continue
 
-            bond_fractions_first_structure = bond_fractions[
-                0
-            ]
+            bond_fractions_first_structure = bond_fractions[0]
             (
                 A_norm_comp,
                 B_norm_comp,
@@ -108,17 +105,11 @@ def save_color_map(
             )
             # Calculate coordinates based on the normalized composition
             total = A_norm_comp + B_norm_comp + C_norm_comp
-            x_coord = (
-                0.5
-                * (2 * B_norm_comp + C_norm_comp)
-                / total
-            )
+            x_coord = 0.5 * (2 * B_norm_comp + C_norm_comp) / total
             y_coord = (np.sqrt(3) / 2) * C_norm_comp / total
             x_all_per_bond_type.append(x_coord)
             y_all_per_bond_type.append(y_coord)
-            z_all_per_bond_type.append(
-                bond_fractions_first_structure[i]
-            )
+            z_all_per_bond_type.append(bond_fractions_first_structure[i])
             formulas.append(formula)
 
             """
@@ -147,15 +138,11 @@ def save_color_map(
 
             xi, yi = np.meshgrid(
                 np.linspace(0, 1, mesh_grid_points),
-                np.linspace(
-                    0, np.sqrt(3) / 2, mesh_grid_points
-                ),
+                np.linspace(0, np.sqrt(3) / 2, mesh_grid_points),
             )
 
         except ValueError as e:
-            print(
-                f"Skipping triangulation/interpolation. {e}"
-            )
+            print(f"Skipping triangulation/interpolation. {e}")
             continue
 
         interp = mtri.CubicTriInterpolator(
@@ -165,10 +152,8 @@ def save_color_map(
         zi = interp(xi, yi)
 
         # Create a custom color map from white to the specified color
-        custom_color_map = (
-            mcolors.LinearSegmentedColormap.from_list(
-                "custom", ["white", color]
-            )
+        custom_color_map = mcolors.LinearSegmentedColormap.from_list(
+            "custom", ["white", color]
         )
         # Plot individual color maps
         if not is_colors_combined:
@@ -181,9 +166,7 @@ def save_color_map(
                 alpha=1 - transparency,
             )
             bond_pair_string = (
-                possible_bond_pairs[i][0]
-                + "-"
-                + possible_bond_pairs[i][1]
+                possible_bond_pairs[i][0] + "-" + possible_bond_pairs[i][1]
             )
 
             ax.plot(
@@ -225,9 +208,7 @@ def save_color_map(
             alpha=1 - transparency,
         )
         bond_pair_string = (
-            possible_bond_pairs[i][0]
-            + "-"
-            + possible_bond_pairs[i][1]
+            possible_bond_pairs[i][0] + "-" + possible_bond_pairs[i][1]
         )
 
         ternary.add_vertex_labels(
@@ -262,9 +243,5 @@ def save_color_map(
 
         ax.grid(False)
         ax.set_axis_off()
-        ax.set_aspect(
-            "equal"
-        )  # Ensure the axis are of equal size
-        ax.figure.savefig(
-            join(output_dir, f"color_map_overall"), dpi=300
-        )
+        ax.set_aspect("equal")  # Ensure the axis are of equal size
+        ax.figure.savefig(join(output_dir, f"color_map_overall"), dpi=300)

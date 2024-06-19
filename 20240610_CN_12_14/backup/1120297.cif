@@ -49,19 +49,8 @@ _journal_language                        English
 loop_
  _publ_author_name
  _publ_author_address
-'Morozkin A.V.'
+''
 ;
-Moscow M.V. Lomonosov State University (MSU)
-Department of Chemistry
-Moscow
-Russia
-;
-'Seropegin Y.D.'
-;
-Moscow M.V. Lomonosov State University (MSU)
-Department of Chemistry
-Moscow
-Russia
 ;
 
 # Standardized crystallographic data

@@ -8,9 +8,7 @@ def sort_by_mendeleev(formula):
 
     sorted_formula = sorted(
         formula,
-        key=lambda x: mendeleev_numbers.get(
-            x, float("inf")
-        ),
+        key=lambda x: mendeleev_numbers.get(x, float("inf")),
     )
 
     return list(sorted_formula)
