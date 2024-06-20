@@ -32,17 +32,17 @@ def get_colors_category_mappings():
     Get colors and atomic mixing mapping info.
     """
     categories_colors = {
-        "1": "#d62728",  # brick red
-        "2": "#ff7f0e",  # safety orange
-        "3": "#2ca02c",  # cooked asparagus green
-        "4": "#1f77b4",  # muted blue
+        "deficiency_with_atomic_mixing": "#d62728",  # brick red
+        "full_occupancy_atomic_mixing": "#ff7f0e",  # safety orange
+        "deficiency_without_atomic_mixing": "#2ca02c",  # cooked asparagus green
+        "full_occupancy": "#1f77b4",  # muted blue
     }
 
     categories_mapping = {
-        "1": "Deficiency with atomic mixing",
-        "2": "Full occupancy with atomic mixing",
-        "3": "Deficiency without atomic mixing",
-        "4": "Full occupancy",
+        "deficiency_with_atomic_mixing": "Deficiency with atomic mixing",
+        "full_occupancy_atomic_mixing": "Full occupancy with atomic mixing",
+        "deficiency_without_atomic_mixing": "Deficiency without atomic mixing",
+        "full_occupancy": "Full occupancy",
     }
 
     return categories_colors, categories_mapping
@@ -111,7 +111,13 @@ def plot_histograms(data, dir_path, bins, all_distances, output_filename):
     max_columns = config["max_columns"]
 
     # Specify the desired order for legend
-    ordered_keys = ["4", "2", "1", "3"]
+
+    ordered_keys = [
+        "full_occupancy",
+        "full_occupancy_atomic_mixing",
+        "deficiency_with_atomic_mixing",
+        "deficiency_without_atomic_mixing",
+    ]
 
     legend_handles = [
         plt.Rectangle((0, 0), 1, 1, color=categories_colors[cat])
