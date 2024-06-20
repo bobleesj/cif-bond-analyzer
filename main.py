@@ -15,7 +15,7 @@ Release date: Mar 10, 2024
 """
 
 import os
-from run import site, system_analysis, coordination
+from core.run import site, system, coordination
 
 
 def main():
@@ -36,7 +36,7 @@ def main():
     if choice == "1":
         site.run_site_analysis(script_path)
     elif choice == "2":
-        system_analysis.run_system_analysis(script_path)
+        system.run_system_analysis(script_path)
     elif choice == "3":
         coordination.run_coordination(script_path)
 

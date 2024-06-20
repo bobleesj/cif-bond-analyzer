@@ -4,8 +4,8 @@ import json
 import click
 from click import echo
 
-from postprocess import histogram
-from util import folder, prompt
+from core.site import histogram
+from core.util import folder, prompt
 
 
 def plot_histogram():

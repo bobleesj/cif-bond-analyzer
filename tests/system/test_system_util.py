@@ -1,5 +1,5 @@
 import pytest
-from postprocess.system.system_util import (
+from core.system.system_util import (
     get_is_single_binary,
     get_is_double_binary,
     get_is_ternary,

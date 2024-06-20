@@ -2,49 +2,97 @@
     "Co-Co": {
         "250361": [
             {
-                "dist": 2.529
+                "dist": 2.529,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "rt",
+                "structure": "MgCu2"
+            }
+        ],
+        "1955204": [
+            {
+                "dist": 2.404,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
+            },
+            {
+                "dist": 2.46,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
+            },
+            {
+                "dist": 2.274,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
+            }
+        ],
+        "1644636": [
+            {
+                "dist": 2.49,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "lt",
+                "structure": "TbFe2"
+            }
+        ],
+        "1644635": [
+            {
+                "dist": 2.516,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "lt",
+                "structure": "TbFe2"
             }
         ]
     },
     "Er-Co": {
         "250361": [
             {
-                "dist": 2.966
+                "dist": 2.966,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "rt",
+                "structure": "MgCu2"
             }
         ],
-        "1956508": [
+        "1955204": [
             {
-                "dist": 2.799
-            }
-        ]
-    },
-    "Co-In": {
-        "451623_bi": [
-            {
-                "dist": 2.735
+                "dist": 2.776,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
             },
             {
-                "dist": 2.682
+                "dist": 2.775,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
             }
         ],
-        "1956508": [
+        "1644636": [
             {
-                "dist": 2.687
+                "dist": 2.926,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "lt",
+                "structure": "TbFe2"
             }
         ],
-        "1300872_bi": [
+        "1644635": [
             {
-                "dist": 2.615
-            },
-            {
-                "dist": 2.6
-            }
-        ]
-    },
-    "In-In": {
-        "1956508": [
-            {
-                "dist": 2.949
+                "dist": 2.949,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "lt",
+                "structure": "TbFe2"
             }
         ]
     }
