@@ -1,4 +1,5 @@
 import re
+from cifkit.data.mendeleev import get_mendeleev_numbers
 
 
 def get_normalized_formula(formula):
@@ -84,7 +85,17 @@ def get_unique_elements_from_formulas(formulas: list[str]):
     return unique_elements
 
 
-def get_subscripted_formula(formula):
+def sort_by_mendeleev(elements):
+    mendeleev_numbers = get_mendeleev_numbers()
+
+    sorted_element = sorted(
+        elements, key=lambda x: mendeleev_numbers.get(x, float("inf"))
+    )
+
+    return list(sorted_element)
+
+
+def get_subscripted_string(formula):
     """
     Returns a subscripted formula used for plotting.
     """
@@ -100,42 +111,44 @@ def get_mendeleev_sorted_formula(formula: str) -> list:
     parsed_formula = get_parsed_formula(formula)
     for element, _ in parsed_formula:
         unique_elements.add(element)
-    sorted_unique_elements = sort.sort_by_mendeleev(unique_elements)
+    sorted_unique_elements = sort_by_mendeleev(unique_elements)
     return sorted_unique_elements
 
 
-def get_RMX_sorted_formula_from_formulas(unique_formulas):
+def get_RMX_from_elements(unique_elements: list[str]):
     """
     Processe a set of chemical formulas, sorts the unique elements by
     Mendeleev numbers, and returns the sorted elements as R, M, and X.
     """
-    # Parse unique elements from the given set of formulas
-    unique_elements = get_unique_elements_from_formulas(unique_formulas)
-
     # Sort these elements by their Mendeleev numbers
-    sorted_unique_elements = sort.sort_by_mendeleev(unique_elements)
+    sorted_unique_elements = sort_by_mendeleev(unique_elements)
 
     # Ensure that there are at least three elements to unpack
-    if len(sorted_unique_elements) < 3:
-        raise ValueError("Not enough elements to form R, M, X.")
+    if len(sorted_unique_elements) != 3:
+        raise ValueError("The number of unique element is not 3")
 
     # Unpack the first three elements as R, M, X
-    R_element, M_element, X_element = sorted_unique_elements[:3]
+    R_element, M_element, X_element = sorted_unique_elements
 
     return R_element, M_element, X_element
 
 
-def generate_ordered_bond_labels_from_RMX(
-    R_element, M_element, X_element
-) -> list[str]:
-    return [
-        f"{R_element}-{R_element}",  # Self-pair for R
-        f"{R_element}-{M_element}",  # R-M pair
-        f"{M_element}-{M_element}",  # Self-pair for M
-        f"{M_element}-{X_element}",  # M-X pair
-        f"{X_element}-{X_element}",  # Self-pair for X
-        f"{R_element}-{X_element}",  # R-X pair
-    ]
+def get_AB_from_elements(unique_elements: list[str]):
+    """
+    Processe a set of chemical formulas, sorts the unique elements by
+    Mendeleev numbers, and returns the sorted elements as R, M, and X.
+    """
+    # Sort these elements by their Mendeleev numbers
+    sorted_unique_elements = sort_by_mendeleev(unique_elements)
+
+    # Ensure that there are at least three elements to unpack
+    if len(sorted_unique_elements) != 2:
+        raise ValueError("The number of unique element is not 3")
+
+    # Unpack the first three elements as R, M, X
+    A_element, B_element = sorted_unique_elements
+
+    return A_element, B_element
 
 
 def count_formula_with_tags_in_ternary(formula_tag_tuples, R, M, X):

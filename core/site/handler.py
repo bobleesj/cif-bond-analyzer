@@ -13,10 +13,6 @@ from core.util.save import save_to_json
  pair is found, the dictionary is updated accordingly.
  """
 
-# cif_ensemble = CifEnsemble(
-#     "tests/data/20240611_ternary_binary_combined_cifkit"
-# )
-
 
 def get_site_pair_data_ordered_by_mendeleev(cif_ensemble):
     data = {}
@@ -29,6 +25,7 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble):
         # Alphabetically sort the label pair and find min distance per unique pair
         unique_label_pair_distances = {}
         for site_label, (other_label, distance) in shortest_distances.items():
+            print(site_label, other_label, distance)
             sorted_pair = tuple(sorted((site_label, other_label)))
             if (
                 sorted_pair not in unique_label_pair_distances
@@ -38,6 +35,8 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble):
 
         # Get site unique label pair data sorted by mendeleev
         for label_pair, distance in unique_label_pair_distances.items():
+            print("After sorted")
+            print(label_pair, distance)
             site_element = get_atom_type_from_label(label_pair[0])
             other_element = get_atom_type_from_label(label_pair[1])
 

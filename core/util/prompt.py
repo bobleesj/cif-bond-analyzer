@@ -1,9 +1,8 @@
 import textwrap
 import click
-import logging
 from click import style, echo
-from core.util import folder
 import json
+from cifkit.utils.folder import get_file_count
 
 
 def prompt_site_analysis_intro():
@@ -60,7 +59,7 @@ def get_folder_indices(dir_names_with_cif):
 def get_user_input_folder_processing(dir_names, file_type):
     click.echo(f"\nFolders with {file_type} files:")
     for idx, dir_name in enumerate(dir_names, start=1):
-        num_of_cif_files = folder.get_cif_file_count_from_directory(dir_name)
+        num_of_cif_files = get_file_count(dir_name)
         click.echo(f"{idx}. {dir_name}, {num_of_cif_files} files")
 
     click.echo("\nWould you like to process each folder above sequentially?")
@@ -84,11 +83,11 @@ def get_user_input_folder_processing(dir_names, file_type):
     return selected_dirs
 
 
-def echo_folder_progress(idx, dir_name, num_selected_dirs, file_count=None):
+def echo_folder_progress(idx, dir_name, dirs_total_count, file_count=None):
     echo("\n")
     echo("=" * 50)  # Top line of '=' characters
     echo(
-        f"Processing {dir_name}, {file_count} files, ({idx} out of {num_selected_dirs})"
+        f"Processing {dir_name}, {file_count} files, ({idx} out of {dirs_total_count})"
     )
     echo("=" * 50)  # Bottom line of '=' characters
 

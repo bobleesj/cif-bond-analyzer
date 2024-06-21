@@ -15,7 +15,7 @@ Release date: Mar 10, 2024
 """
 
 import os
-from core.run import site, system, coordination
+from core.run import coordination_analysis, site_analysis, system_analysis
 
 
 def main():
@@ -34,11 +34,11 @@ def main():
     choice = input(f"Enter your choice (1-{len(options)}): ")
 
     if choice == "1":
-        site.run_site_analysis(script_path)
+        site_analysis.run_site_analysis(script_path)
     elif choice == "2":
-        system.run_system_analysis(script_path)
+        system_analysis.run_system_analysis(script_path)
     elif choice == "3":
-        coordination.run_coordination(script_path)
+        coordination_analysis.run_coordination(script_path)
 
 
 if __name__ == "__main__":
