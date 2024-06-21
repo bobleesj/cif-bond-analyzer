@@ -6,6 +6,7 @@ from cifkit.utils.bond_pair import (
 
 from core.run import site_analysis
 from core.util import prompt, folder
+from core.prompts.progress import prompt_folder_progress
 from core.util import formula_parser
 from core.util.bond import (
     get_ordered_bond_labels_from_AB,
@@ -34,7 +35,7 @@ def run_system_analysis(script_path):
             top_dir_path, add_nested_files=True
         )
 
-        prompt.echo_folder_progress(
+        prompt_folder_progress(
             idx,
             top_dir_path,
             len(dir_paths),

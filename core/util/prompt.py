@@ -2,27 +2,7 @@ import textwrap
 import click
 from click import style, echo
 import json
-from cifkit.utils.folder import get_file_count
-
-
-def prompt_site_analysis_intro():
-    intro_prompt = textwrap.dedent(
-        """
-    ===
-    Welcome to the CIF Bond Analyzer!
-                                   
-    [1] Processes Crystallographic Information Files from selected folder.
-    [2] Forms supercell.
-    [3] Determines shortest unique atomic pairs found across all CIF files.
-    [4] Indicates frequency and distances of bonding pairs.
-    [5] Identifies missing atomic pairs not observed across all CIF files.
-    [6] Generates histograms for each unique atomic pair.
-                                    
-    Let's get started!
-    ===
-    """
-    )
-    print(intro_prompt)
+from cifkit.utils import folder
 
 
 def get_folder_indices(dir_names_with_cif):
@@ -57,10 +37,22 @@ def get_folder_indices(dir_names_with_cif):
 
 
 def get_user_input_folder_processing(dir_names, file_type):
+
     click.echo(f"\nFolders with {file_type} files:")
-    for idx, dir_name in enumerate(dir_names, start=1):
-        num_of_cif_files = get_file_count(dir_name)
-        click.echo(f"{idx}. {dir_name}, {num_of_cif_files} files")
+
+    for i, dir_name in enumerate(dir_names, start=1):
+        file_paths = folder.get_file_paths(dir_name, add_nested_files=False)
+        file_paths_with_nested = folder.get_file_paths(
+            dir_name, add_nested_files=True
+        )
+        nested_file_count = len(file_paths_with_nested) - len(file_paths)
+
+        if nested_file_count != 0:
+            click.echo(
+                f"{i}. {dir_name}, {len(file_paths)} files, {nested_file_count} nested files"
+            )
+        else:
+            click.echo(f"{i}. {dir_name}, {len(file_paths)} files")
 
     click.echo("\nWould you like to process each folder above sequentially?")
     is_sequentially_processed = click.confirm("(Default: Y)", default=True)
@@ -77,47 +69,10 @@ def get_user_input_folder_processing(dir_names, file_type):
         click.echo("> Good! Let's process all the folders.")
     else:
         click.echo("> Good! You've chosen the following folders:")
-        for idx, dir_name in selected_dirs.items():
-            click.echo(f"{idx}. {dir_name}")
+        for i, dir_name in selected_dirs.items():
+            click.echo(f"{i}. {dir_name}")
 
     return selected_dirs
-
-
-def echo_folder_progress(idx, dir_name, dirs_total_count, file_count=None):
-    echo("\n")
-    echo("=" * 50)  # Top line of '=' characters
-    echo(
-        f"Processing {dir_name}, {file_count} files, ({idx} out of {dirs_total_count})"
-    )
-    echo("=" * 50)  # Bottom line of '=' characters
-
-
-def print_progress_finished(
-    filename_with_ext,
-    num_of_atoms,
-    elapsed_time,
-    is_finished,
-):
-    if is_finished:
-        echo(
-            style(
-                f"Processed {filename_with_ext} with {num_of_atoms} atoms in "
-                f"{round(elapsed_time, 2)} s\n",
-                fg="blue",
-            )
-        )
-
-
-def print_progress_current(
-    i, filename_with_ext, supercell_points, num_of_files
-):
-    echo(
-        style(
-            f"Processing {filename_with_ext} with "
-            f"{len(supercell_points)} atoms ({i+1}/{num_of_files})",
-            fg="yellow",
-        )
-    )
 
 
 def print_dict_in_json(data):

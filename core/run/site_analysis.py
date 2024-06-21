@@ -7,24 +7,32 @@ from core.site import (
     writer,
 )
 from core.util import folder, prompt
+from core.prompts.progress import prompt_folder_progress
+from core.prompts.intro import prompt_site_analysis_intro
+from core.prompts.input import prompt_to_include_nested_files
 from core.site import handler as site_handler
 from cifkit import CifEnsemble
 
 
-def run_site_analysis(script_path, add_nested_files=False):
+def run_site_analysis(script_path):
     """Runs the bond extraction procedure"""
-    prompt.prompt_site_analysis_intro()
+    prompt_site_analysis_intro()
+
+    # Which folders would you like to process?
     dir_names_with_cif = folder.get_cif_dir_paths(script_path)
     selected_dirs = prompt.get_user_input_folder_processing(
         dir_names_with_cif, ".cif"
     )
+
+    # Would you like to include nested .cif files?
+    add_nested_files = prompt_to_include_nested_files()
     generate_save_site_data(selected_dirs, add_nested_files)
 
 
 def generate_save_site_data(selected_dirs, add_nested_files):
     num_selected_dirs = len(selected_dirs)
-    for idx, dir_path in enumerate(selected_dirs, start=1):
-        prompt.echo_folder_progress(idx, dir_path, num_selected_dirs)
+    for idx, (_, dir_path) in enumerate(selected_dirs.items(), start=1):
+        prompt_folder_progress(idx, dir_path, num_selected_dirs)
 
         if add_nested_files:
             cif_ensemble = CifEnsemble(dir_path, add_nested_files=True)

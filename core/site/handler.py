@@ -1,7 +1,12 @@
+import time
 from cifkit import CifEnsemble, Cif
 from cifkit.utils.string_parser import get_atom_type_from_label
 from cifkit.utils.bond_pair import order_tuple_pair_by_mendeleev
 from core.util.save import save_to_json
+from core.prompts.progress import (
+    prompt_progress_current,
+    prompt_progress_finished,
+)
 
 """
  Each pair of site labels is sorted
@@ -14,18 +19,22 @@ from core.util.save import save_to_json
  """
 
 
-def get_site_pair_data_ordered_by_mendeleev(cif_ensemble):
+def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
     data = {}
-    for cif in cif_ensemble.cifs:
-        cif: Cif
-        print("Processing", cif.file_name)
+    file_count = cif_ensemble.file_count
+    for i, cif in enumerate(cif_ensemble.cifs, start=1):
+        start_time = time.perf_counter()
+
+        prompt_progress_current(
+            i, cif.file_name, cif.supercell_atom_count, file_count
+        )
+
         mixing_info = cif.mixing_info_per_label_pair_sorted_by_mendeleev
         shortest_distances = cif.shortest_site_pair_distance
 
         # Alphabetically sort the label pair and find min distance per unique pair
         unique_label_pair_distances = {}
         for site_label, (other_label, distance) in shortest_distances.items():
-            print(site_label, other_label, distance)
             sorted_pair = tuple(sorted((site_label, other_label)))
             if (
                 sorted_pair not in unique_label_pair_distances
@@ -35,8 +44,7 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble):
 
         # Get site unique label pair data sorted by mendeleev
         for label_pair, distance in unique_label_pair_distances.items():
-            print("After sorted")
-            print(label_pair, distance)
+
             site_element = get_atom_type_from_label(label_pair[0])
             other_element = get_atom_type_from_label(label_pair[1])
 
@@ -66,7 +74,16 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble):
                     "structure": cif.structure,
                 }
             )
+
+        # Recordt time
+        end_time = time.perf_counter()
+        elapsed_time = end_time - start_time
+
+        prompt_progress_finished(
+            cif.file_name, cif.supercell_atom_count, elapsed_time
+        )
     remove_empty_keys(data)
+
     return data
 
 

@@ -23,7 +23,7 @@ def main():
 
     print("\nWelcome! Please choose an option to proceed:")
     options = {
-        "1": "Compute the shortest distance from each site.",
+        "1": "Conduct site analysis.",
         "2": "Conduct system analysis.",
         "3": "Conduct coordination analysis.",
     }
