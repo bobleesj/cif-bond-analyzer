@@ -75,9 +75,8 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
                 }
             )
 
-        # Recordt time
-        end_time = time.perf_counter()
-        elapsed_time = end_time - start_time
+        # Record time
+        elapsed_time = time.perf_counter() - start_time
 
         prompt_progress_finished(
             cif.file_name, cif.supercell_atom_count, elapsed_time

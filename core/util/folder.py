@@ -78,7 +78,7 @@ def get_dir_list(ext, script_path):
     return matching_dir_names
 
 
-def get_dir_paths_with_two_or_three_unique_elements(script_path):
+def get_dir_paths_with_two_or_three_elements_nested(script_path):
     """
     Allow the user to select a binary/ternary directory containing CIF files
     with 2 or 3 unique elements. Also include the list of these elements
@@ -86,27 +86,27 @@ def get_dir_paths_with_two_or_three_unique_elements(script_path):
     """
     # List all directories under the script path that contain .cif files, including nested folders
     dir_paths = get_cif_dir_paths(script_path)
-    two_or_three_elements_dirs = {}
+    biarny_ternary_dir_paths = {}
 
     for dir_path in dir_paths:
-        cif_ensemble = CifEnsemble(dir_path, add_nested_files=True)
+        cif_ensemble = CifEnsemble(dir_path, preprocess=False, add_nested=True)
         unique_elements_count = len(cif_ensemble.unique_elements)
 
         if unique_elements_count == 2 or unique_elements_count == 3:
             file_count = len(
                 cif_ensemble.cifs
             )  # Assuming cif_ensemble.cifs returns a list of cif files
-            two_or_three_elements_dirs[dir_path] = {
+            biarny_ternary_dir_paths[dir_path] = {
                 "element_count": unique_elements_count,
                 "elements": cif_ensemble.unique_elements,
                 "file_count": file_count,
             }
 
-    return two_or_three_elements_dirs
+    return biarny_ternary_dir_paths
 
 
 def choose_binary_ternary_dir(script_path):
-    binary_ternary_dir_paths = get_dir_paths_with_two_or_three_unique_elements(
+    binary_ternary_dir_paths = get_dir_paths_with_two_or_three_elements_nested(
         script_path
     )
 
@@ -116,10 +116,7 @@ def choose_binary_ternary_dir(script_path):
         return
 
     # Print available directories
-    print(
-        "\nAvailable folders containing 2 or 3 unique elements including .cif files"
-        " in nested folders:"
-    )
+    print("\nAvailable folders containing 2 or 3 unique elements:")
 
     dir_path_list = list(binary_ternary_dir_paths.keys())
 
@@ -129,7 +126,7 @@ def choose_binary_ternary_dir(script_path):
         elements = ", ".join(dir_info["elements"])
         file_count = dir_info["file_count"]
         print(
-            f"{idx}. {dir_path} - {element_count} elements ({elements}), {file_count} files"
+            f"{idx}. {dir_path}, {element_count} elements ({elements}), {file_count} files"
         )
 
     # Ask user to choose all or select specific folders

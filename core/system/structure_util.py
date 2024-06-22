@@ -33,7 +33,6 @@ def init_structure_data(pairs):
 
 
 def init_structure_dict(unique_structures, all_pairs_in_the_system):
-    print("All pairs in the system:", all_pairs_in_the_system)
     structure_dict = {
         structure: init_structure_data(all_pairs_in_the_system)
         for structure in unique_structures
@@ -73,6 +72,18 @@ def add_files_and_formula(
                             )
 
     return structure_dict
+
+
+def get_unique_formulas_tag(structure_dict):
+    # Get all formluas with tags applied
+    formulas_with_tag = set()
+
+    for structure in structure_dict:
+        formulas = structure_dict[structure]["formulas"]
+        for formula in formulas:
+            formulas_with_tag.add(formula)
+
+    return formulas_with_tag
 
 
 def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
@@ -199,7 +210,7 @@ def get_is_single_binary(unique_formulas):
     )
 
 
-def get_is_double_binary(unique_formulas):
+def get_is_binary_mixed(unique_formulas):
     # Check if all formulas are binary compounds.
     is_all_binary = all(
         formula_parser.get_num_element(formula) == 2
@@ -211,7 +222,6 @@ def get_is_double_binary(unique_formulas):
         formula_parser.get_unique_elements_from_formulas(unique_formulas)
     )
 
-    # Return True if all compounds are binary and exactly three unique elements exist.
     return is_all_binary and unique_elements_count == 3
 
 

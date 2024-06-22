@@ -59,22 +59,14 @@ def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
     """
     Draw extra edges on the traingle with tags found on binary compounds
     """
-
+    print("Print unique formulas", unique_formulas)
     # First from the structure dict, we get all unique formulas
     formula_tag_tuples = string_parser.parse_formulas_with_underscore(
         unique_formulas
     )
-    (
-        R,
-        M,
-        X,
-    ) = RMX
 
     tags_count = formula_parser.count_formula_with_tags_in_ternary(
-        formula_tag_tuples,
-        R,
-        M,
-        X,
+        formula_tag_tuples, RMX
     )
     # Draw edges of the traingle
     # The following is the not refactored logic at the moment for flexibility
@@ -85,28 +77,26 @@ def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
         (tuple(v1), tuple(v2)): "MX",
     }
 
+    print(tags_count)
+
     extra_edge_line_width = 0.5
     for (start, end), key in edges.items():
         start_vertex = np.array(start)
         end_vertex = np.array(end)
         x_shift, y_shift = 0, 0
 
-        # Handle 'ht' condition
-        if tags_count.get(f"{key}_ht", 0):
-            # Custom shifts based on the key
-            shift_amount = 0.3
+        # Handle 'lt' condition
+        if tags_count.get(f"{key}_lt", 0):
+            # Smaller shifts
+            shift_amount = 0.1
             if key == "RM":
                 y_shift = -shift_amount
             elif key == "MX":
                 x_shift = shift_amount
             elif key == "RX":
                 x_shift = -shift_amount
-            new_p1 = ternary_handler.shift_points_xy(
-                start_vertex, x_shift, y_shift
-            )
-            new_p2 = ternary_handler.shift_points_xy(
-                end_vertex, x_shift, y_shift
-            )
+            new_p1 = shift_points_xy(start_vertex, x_shift, y_shift)
+            new_p2 = shift_points_xy(end_vertex, x_shift, y_shift)
             plt.plot(
                 [new_p1[0], new_p2[0]],
                 [new_p1[1], new_p2[1]],
@@ -115,9 +105,9 @@ def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
                 lw=extra_edge_line_width,
             )
 
-        # Handle 'lt' condition
-        if tags_count.get(f"{key}_lt", 0):
-            # Smaller shifts
+        # Handle 'ht' condition
+        if tags_count.get(f"{key}_ht", 0):
+            # Custom shifts based on the key
             shift_amount = 0.2
             if key == "RM":
                 y_shift = -shift_amount
@@ -125,12 +115,8 @@ def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
                 x_shift = shift_amount
             elif key == "RX":
                 x_shift = -shift_amount
-            new_p1 = ternary_handler.shift_points_xy(
-                start_vertex, x_shift, y_shift
-            )
-            new_p2 = ternary_handler.shift_points_xy(
-                end_vertex, x_shift, y_shift
-            )
+            new_p1 = shift_points_xy(start_vertex, x_shift, y_shift)
+            new_p2 = shift_points_xy(end_vertex, x_shift, y_shift)
             plt.plot(
                 [new_p1[0], new_p2[0]],
                 [new_p1[1], new_p2[1]],
@@ -142,19 +128,15 @@ def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
         # Assume handling 'others' or any condition needing a larger shift
         if tags_count.get(f"{key}_others", 0):
             # Larger shifts, example with a hypothetical 'others' condition
-            shift_amount = 0.1
+            shift_amount = 0.3
             if key == "RM":
                 y_shift = -shift_amount
             elif key == "MX":
                 x_shift = shift_amount
             elif key == "RX":
                 x_shift = -shift_amount
-            new_p1 = ternary_handler.shift_points_xy(
-                start_vertex, x_shift, y_shift
-            )
-            new_p2 = ternary_handler.shift_points_xy(
-                end_vertex, x_shift, y_shift
-            )
+            new_p1 = shift_points_xy(start_vertex, x_shift, y_shift)
+            new_p2 = shift_points_xy(end_vertex, x_shift, y_shift)
             plt.plot(
                 [new_p1[0], new_p2[0]],
                 [new_p1[1], new_p2[1]],
@@ -420,7 +402,7 @@ def draw_hexagon_for_binary_formula(
             A_norm_index,
             B_norm_index,
         )
-        if tag == "hex":
+        if tag == "hex" or tag == "rt":
             center_pt = center_pt
         elif tag == "lt":
             center_pt = shift_points_xy(center_pt, 0.0, -0.1)
@@ -448,7 +430,7 @@ def draw_hexagon_for_binary_formula(
             A_norm_index,
             0.0,
         )
-        if tag == "hex":
+        if tag == "hex" or tag == "rt":
             center_pt = center_pt
         elif tag == "lt":
             center_pt = shift_points_xy(center_pt, -0.1, 0.0)
@@ -477,7 +459,7 @@ def draw_hexagon_for_binary_formula(
             0,
             (1 - B_norm_index),
         )
-        if tag == "hex":
+        if tag == "hex" or tag == "rt":
             center_pt = center_pt
         elif tag == "lt":
             center_pt = shift_points_xy(center_pt, 0.1, 0.0)

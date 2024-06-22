@@ -1,0 +1,169 @@
+##############################################################################
+#                                                                            #
+# Co-In            # CoIn3                                         #  450249 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Hunter College - City University of New York                             #
+#                                                                            #
+##############################################################################
+
+data_450249
+_audit_creation_date                     2024-05-31
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      450249
+_database_code_PDF                       04-002-9758
+
+# Entry summary
+
+_chemical_formula_structural             'Co In~3~'
+_chemical_formula_sum                    'Co In3'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            IrIn~3~,tP16,136
+_chemical_formula_weight                 403.4
+
+# Bibliographic data
+
+_publ_section_title
+'Strukturelle Untersuchungen in den Systemen Iridium-Indium und Kobalt-Indium'
+_journal_coden_ASTM                      JCOMAH
+_journal_name_full                       'J. Less-Common Met.'
+_journal_year                            1981
+_journal_volume                          79
+_journal_page_first                      P1
+_journal_page_last                       P9
+_journal_language                        German
+loop_
+ _publ_author_name
+ _publ_author_address
+''
+;
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           6.832
+_cell_length_b                           6.832
+_cell_length_c                           7.098
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             331.31
+_cell_formula_units_Z                    4
+_space_group_IT_number                   136
+_space_group_name_H-M_alt                'P 42/m n m'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '1/2-x, 1/2+y, 1/2-z'
+ 3 '1/2-x, 1/2+y, 1/2+z'
+ 4 '-x, -y, -z'
+ 5 '-x, -y, z'
+ 6 '1/2-y, 1/2+x, 1/2-z'
+ 7 '1/2-y, 1/2+x, 1/2+z'
+ 8 '-y, -x, -z'
+ 9 '-y, -x, z'
+ 10 '1/2+x, 1/2-y, 1/2-z'
+ 11 '1/2+x, 1/2-y, 1/2+z'
+ 12 'x, y, -z'
+ 13 '1/2+y, 1/2-x, 1/2-z'
+ 14 '1/2+y, 1/2-x, 1/2+z'
+ 15 'y, x, -z'
+ 16 'y, x, z'
+
+# Atomic positions taken from type-defining entry
+
+loop_
+ _atom_type_symbol
+ In
+ Co
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ In1 In 8 j 0.347 0.347 0.25 1
+ Co1 Co 4 f 0.147 0.147 0 1
+ In2 In 4 c 0 0.5 0 1
+
+
+_exptl_crystal_colour                    ?
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            8.09
+_cell_measurement_temperature            ?
+_cell_measurement_radiation              X-rays
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              ?
+_diffrn_measurement_device               'Guinier film'
+_diffrn_measurement_device_type          ?
+_diffrn_radiation_type                   ?
+_diffrn_reflns_number                    ?
+_exptl_absorpt_coefficient_mu            ?
+_exptl_absorpt_correction_type           ?
+_computing_structure_solution            ?
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 ?
+_refine_ls_R_factor_gt                   ?
+_refine_ls_wR_factor_gt                  ?
+
+# Published diffraction lines
+
+loop_
+ _refln_index_h
+ _refln_index_k
+ _refln_index_l
+ _refln_d_spacing
+ _refln_intensity_meas
+ 0 1 1 4.92 11
+ 1 1 0 4.835 2
+ 1 1 1 3.991 8
+ 0 0 2 3.548 5
+ 0 2 0 3.418 0.5
+ 1 2 0 3.055 46
+ 1 1 2 2.86 60
+ 1 2 1 2.807 0.5
+ 0 2 2 2.46 55
+ 2 2 0 2.415 26
+ 1 2 2 2.316 100
+ 2 2 1 2.287 7
+ 0 1 3 2.238 0.5
+ 0 3 1 2.168 20
+ 1 3 0 2.161 79
+ 1 1 3 2.124 5
+ 2 2 2 1.997 13
+ 2 3 0 1.894 0.5
+ 1 3 2 1.843 0.5
+ 2 3 1 1.83 0.5
+ 0 0 4 1.775 34
+ 0 4 0 1.708 5
+ 2 2 3 1.691 5
+ 2 3 2 1.672 12
+ 1 4 0 1.657 13
+ 3 3 0 1.611 11
+ 0 4 2 1.539 48
+ 1 2 4 1.534 33
+ 2 4 0 1.528 29
+ 1 4 2 1.501 27
+ 3 3 2 1.467 37
+
+# End of data set 450249
+

@@ -1,6 +1,6 @@
 import pytest
 from cifkit import CifEnsemble
-from core.run.site_analysis import generate_save_site_data
+from core.run.site_analysis import generate_site_analysis_data
 import json
 import os
 import shutil
@@ -8,7 +8,9 @@ import shutil
 
 @pytest.mark.slow
 def test_run_site_without_nested_files():
-    generate_save_site_data(["tests/data/site_test"], add_nested_files=False)
+    generate_site_analysis_data(
+        ["tests/data/site_test"], add_nested_files=False
+    )
     output_directory = "tests/data/site_test/output"
     with open(
         os.path.join(output_directory, "site_test_element_pairs.json"), "r"
@@ -79,7 +81,9 @@ def test_run_site_without_nested_files():
 
 @pytest.mark.slow
 def test_run_site_with_nested_files():
-    generate_save_site_data(["tests/data/site_test"], add_nested_files=True)
+    generate_site_analysis_data(
+        ["tests/data/site_test"], add_nested_files=True
+    )
     output_directory = "tests/data/site_test/output"
     with open(
         os.path.join(output_directory, "site_test_element_pairs.json"), "r"
@@ -161,7 +165,7 @@ def test_run_site_with_nested_files():
 
 @pytest.mark.slow
 def test_single_file():
-    generate_save_site_data(
+    generate_site_analysis_data(
         ["tests/core/site/cifs/single_file_1955204"], add_nested_files=False
     )
     """

@@ -12,40 +12,39 @@ from core.system.figure_util import (
     get_hexagon_vertex_colors,
 )
 from core.system import structure_util
+from core.system.figure_util import (
+    parse_bond_fractions_formulas,
+)
 
 
 def plot_ternary_color_map(
-    unique_formulas,
-    structure_dict,
-    possible_bond_pairs,
+    bond_fraction_per_structure_data,
+    RMX,
     output_dir,
 ):
-    # Save individual images
     save_color_map(
-        unique_formulas,
-        structure_dict,
-        possible_bond_pairs,
+        bond_fraction_per_structure_data,
+        RMX,
         output_dir,
         is_colors_combined=False,
     )
 
-    # Save one stacked image
     save_color_map(
-        unique_formulas,
-        structure_dict,
-        possible_bond_pairs,
+        bond_fraction_per_structure_data,
+        RMX,
         output_dir,
         is_colors_combined=True,
     )
 
 
 def save_color_map(
-    unique_formulas,
-    structure_dict,
-    possible_bond_pairs,
+    bond_fraction_per_structure_data,
+    RMX,
     output_dir,
     is_colors_combined,
 ):
+
+    R, M, X = RMX
     # Plot the overlayed ternary diagrams
     fig, ax = plt.subplots()
     triangulations = []
@@ -57,15 +56,12 @@ def save_color_map(
     mesh_grid_points = 1000
 
     # Draw boundary edges
-    (
-        R,
-        M,
-        X,
-    ) = formula_parser.get_RMX_from_formulas(unique_formulas)
     corners = [(0, 0), (1, 0), (0.5, np.sqrt(3) / 2)]
 
     # Color 6 colors for ternary
     colors = get_hexagon_vertex_colors(False)
+
+    # For each color
     for i, color in enumerate(colors):
         ternary.add_vertex_labels(
             corners[0],
@@ -77,25 +73,24 @@ def save_color_map(
                 f"{X}-{X}",
             ],
         )
-        formulas = []
         x_all_per_bond_type = []
         y_all_per_bond_type = []
         z_all_per_bond_type = []
         # Loop through each formula
-        for formula in unique_formulas:
-            (
-                bond_fractions,
-                _,
-            ) = structure_util.extract_bond_info_per_formula(
-                formula, structure_dict
+
+        # Get all unique formulas
+        for _, data in bond_fraction_per_structure_data.items():
+            bond_fractions, bnod_fractions_CN, bond_pairs, formulas = (
+                parse_bond_fractions_formulas(data)
             )
+            formula = formulas[0]
 
             # Skip ternary formulas with a tag
             tag = formula_parser.extract_tag(formula)
             if tag:
                 continue
 
-            bond_fractions_first_structure = bond_fractions[0]
+            bond_fraction = bond_fractions[i]
             (
                 A_norm_comp,
                 B_norm_comp,
@@ -109,8 +104,7 @@ def save_color_map(
             y_coord = (np.sqrt(3) / 2) * C_norm_comp / total
             x_all_per_bond_type.append(x_coord)
             y_all_per_bond_type.append(y_coord)
-            z_all_per_bond_type.append(bond_fractions_first_structure[i])
-            formulas.append(formula)
+            z_all_per_bond_type.append(bond_fraction)
 
             """
             If it is Er-Er (i=0) or Co-Co (i=2) or In-In (i=4), include (1,0,0), (0,1,0), (0,0,1)
@@ -165,9 +159,6 @@ def save_color_map(
                 cmap=custom_color_map,
                 alpha=1 - transparency,
             )
-            bond_pair_string = (
-                possible_bond_pairs[i][0] + "-" + possible_bond_pairs[i][1]
-            )
 
             ax.plot(
                 [corners[0][0], corners[1][0]],
@@ -192,7 +183,7 @@ def save_color_map(
             ax.figure.savefig(
                 join(
                     output_dir,
-                    f"color_map_{bond_pair_string}.png",
+                    f"color_map_{bond_pairs[i]}.png",
                 ),
                 dpi=300,
             )
@@ -206,9 +197,6 @@ def save_color_map(
             levels=np.linspace(0, 1, contour_smoothing),
             cmap=custom_color_map,
             alpha=1 - transparency,
-        )
-        bond_pair_string = (
-            possible_bond_pairs[i][0] + "-" + possible_bond_pairs[i][1]
         )
 
         ternary.add_vertex_labels(

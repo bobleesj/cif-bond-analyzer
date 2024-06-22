@@ -8,8 +8,11 @@ from core.system.figure_util import parse_bond_fractions_formulas
 
 
 def draw_hexagon_for_individual_figure(
-    bond_fractions_data, output_dir, is_CN_used
+    bond_fractions_data, output_dir, elements, is_CN_used
 ):
+    """
+    Draw individual hexagons
+    """
 
     if is_CN_used:
         individuals_dir = os.path.join(output_dir, "individuals_CN")
@@ -34,6 +37,8 @@ def draw_hexagon_for_individual_figure(
     label_offset = 0.5
     formula_font_size = 15
     formula_offset = -2.5
+
+    formulas_no_tag_for_hexagon = []
 
     for structure, data in bond_fractions_data.items():
         bond_fractions, bnod_fractions_CN, bond_pairs, formulas = (
@@ -119,9 +124,39 @@ def draw_hexagon_for_individual_figure(
         plt.close(fig)
         hexagon_image_files.append(hexagon_filepath)
 
+        # Add the formula used, without thet ag
+        formula_no_tag = formula_parser.remove_tag_with_underscore(formulas[0])
+        formulas_no_tag_for_hexagon.append(formula_no_tag)
+
     """
     Save composite figures files
+    - We need to order the hexagons by normalized fraction of X, M, etc.
     """
+    parsed_norm_formulas = [
+        formula_parser.get_parsed_norm_formula(formula)
+        for formula in formulas_no_tag_for_hexagon
+    ]
+
+    if len(elements) == 3:
+        R, M, X = formula_parser.get_RMX_from_elements(elements)
+        sorted_indices = get_sorted_indices_by_ternary_elements(
+            parsed_norm_formulas, X, M, R
+        )
+
+    # Generate ordered bond pairs for 2 unique elements
+    if len(elements) == 2:
+        A, B = formula_parser.get_AB_from_elements(elements)
+        sorted_indices = get_sorted_indices_by_binary_elements(
+            parsed_norm_formulas, B, A
+        )
+
+    print("Sorted indices:", sorted_indices)
+
+    # Sort hexagon image files according to the sorted indices
+    sorted_hexagon_image_files = [
+        hexagon_image_files[i] for i in sorted_indices
+    ]
+
     # Constants for the layout
     max_images_per_figure = 12
     rows_per_figure = 4
@@ -129,17 +164,18 @@ def draw_hexagon_for_individual_figure(
 
     # Calculate the number of figures needed
     num_figures = int(
-        np.ceil(len(hexagon_image_files) / max_images_per_figure)
+        np.ceil(len(sorted_hexagon_image_files) / max_images_per_figure)
     )
 
+    # Loop through each figure to be created
     for fig_idx in range(num_figures):
         # Calculate the range of images for this figure
         start_idx = fig_idx * max_images_per_figure
         end_idx = min(
             (fig_idx + 1) * max_images_per_figure,
-            len(hexagon_image_files),
+            len(sorted_hexagon_image_files),
         )
-        current_images = hexagon_image_files[start_idx:end_idx]
+        current_images = sorted_hexagon_image_files[start_idx:end_idx]
 
         # Create figure and axes
         fig, axs = plt.subplots(
@@ -181,3 +217,53 @@ def draw_hexagon_for_individual_figure(
         fig.savefig(composite_filepath, dpi=300)
         plt.close(fig)
         print(f"Saved composite hexagon image {fig_idx+1} in {output_dir}")
+
+
+def get_sorted_indices_by_binary_elements(
+    parsed_formulas, primary_element, secondary_element
+):
+    element_data = []
+
+    # Collect the relevant fractions for primary and secondary elements
+    for index, parsed_formula in enumerate(parsed_formulas):
+        element_dict = dict(parsed_formula)
+
+        primary_fraction = float(element_dict.get(primary_element, 0))
+        secondary_fraction = float(element_dict.get(secondary_element, 0))
+
+        element_data.append((index, primary_fraction, secondary_fraction))
+
+    # Sort by primary element fraction, then by secondary element fraction
+    element_data.sort(key=lambda x: (x[1], x[2]))
+
+    # Extract the original indices in sorted order
+    sorted_indices = [index for index, _, _ in element_data]
+
+    return sorted_indices
+
+
+def get_sorted_indices_by_ternary_elements(
+    parsed_formulas, primary_element, secondary_element, tertiary_element
+):
+    element_data = []
+
+    # Collect the relevant fractions for primary, secondary, and tertiary elements
+    for index, parsed_formula in enumerate(parsed_formulas):
+        element_dict = dict(parsed_formula)
+
+        # Get fractions, default to 0 if the element is not found
+        primary_fraction = float(element_dict.get(primary_element, 0))
+        secondary_fraction = float(element_dict.get(secondary_element, 0))
+        tertiary_fraction = float(element_dict.get(tertiary_element, 0))
+
+        element_data.append(
+            (index, primary_fraction, secondary_fraction, tertiary_fraction)
+        )
+
+    # Sort by primary element fraction, then by secondary, then by tertiary
+    element_data.sort(key=lambda x: (x[1], x[2], x[3]))
+
+    # Extract the original indices in sorted order
+    sorted_indices = [index for index, _, _, _ in element_data]
+
+    return sorted_indices

@@ -1,6 +1,4 @@
-import textwrap
 import click
-from click import style, echo
 import json
 from cifkit.utils import folder
 
@@ -77,17 +75,6 @@ def get_user_input_folder_processing(dir_names, file_type):
 
 def print_dict_in_json(data):
     print(json.dumps(data, indent=4, sort_keys=True))
-
-
-def prompt_system_analysis_intro():
-    echo(
-        "\nNote: All of the .cif files must be either binary or ternary files"
-        " or combined. Only up to 3 unique elements are allowed."
-        " If the shortest distance from each site is NOT calculated with option [1],"
-        " the program will run option [1] automatically. Also, if there is a new .cif"
-        " added to the folder, it will run option [1] again."
-        " This option also processes all .cif files including nested folders."
-    )
 
 
 def log_conneted_points(all_labels_connections):

@@ -5,7 +5,6 @@ from cifkit.utils.bond_pair import (
 )
 
 from core.run import site_analysis
-from core.util import prompt, folder
 from core.prompts.progress import prompt_folder_progress
 from core.util import formula_parser
 from core.util.bond import (
@@ -22,52 +21,51 @@ from core.system import (
 )
 from core.system import color_map
 from core.system.figure_util import get_bond_fractions_data_for_figures
+from core.util import folder
+from core.prompts.intro import prompt_system_analysis_intro
+from core.prompts import input
 
 
 def run_system_analysis(script_path):
-    prompt.prompt_system_analysis_intro()
+    prompt_system_analysis_intro()
 
     # Display folders containing up to 3 unique elements per folder
     dir_paths = folder.choose_binary_ternary_dir(script_path)
 
-    for idx, top_dir_path in enumerate(dir_paths, start=1):
-        cif_ensemble_with_nested = CifEnsemble(
-            top_dir_path, add_nested_files=True
-        )
+    # Would you like to use bond fractions in coordination numbers?
+    is_CN_used = input.prompt_to_use_CN_bond_fractions()
 
-        prompt_folder_progress(
-            idx,
-            top_dir_path,
-            len(dir_paths),
-            cif_ensemble_with_nested.file_count,
-        )
-        # Process another system analysis
-        conduct_system_analysis(top_dir_path, cif_ensemble_with_nested)
+    # Process each folder
+    for idx, dir_path in enumerate(dir_paths, start=1):
+
+        prompt_folder_progress(idx, dir_path, len(dir_paths))
+        conduct_system_analysis(dir_path, is_CN_used=is_CN_used)
 
 
-def conduct_system_analysis(
-    top_dir_path, cif_ensemble_with_nested: CifEnsemble
-):
-    site_analysis.generate_save_site_data(
-        [top_dir_path], add_nested_files=True
+def conduct_system_analysis(dir_path, is_CN_used=False):
+
+    # Conduct system analysis
+    cif_ensemble_with_nested = site_analysis.generate_site_analysis_data(
+        dir_path, add_nested=True
     )
+
+    dir_path = cif_ensemble_with_nested.dir_path
     """
     Step 1. Update JSON with formula and structural info
     """
-
     # Read the JSON file
-    updated_json_file_path = get_site_json_site_data_path(top_dir_path)
+    updated_json_file_path = get_site_json_site_data_path(dir_path)
 
     """
     Step 2. Build dict containing bond/formula/file info per structure
     """
 
     output_dir = folder.create_folder_under_output_dir(
-        top_dir_path, "system_analysis"
+        dir_path, "system_analysis"
     )
 
     elements = cif_ensemble_with_nested.unique_elements
-    unique_formulas = cif_ensemble_with_nested.unique_formulas
+    formulas_no_tag = cif_ensemble_with_nested.unique_formulas
     all_bond_pairs = get_pairs_sorted_by_mendeleev(list(elements))
     structures = cif_ensemble_with_nested.unique_structures
     structure_dict = structure_handler.get_structure_dict(
@@ -106,16 +104,19 @@ def conduct_system_analysis(
         print("Only a total of 2 or 3 elements must be found in the folder.")
         return
 
-    is_CN_used = False
-
-    single.draw_hexagon_for_individual_figure(
-        bond_fraction_per_structure_data, output_dir, is_CN_used
+    is_binary = structure_util.get_is_single_binary(formulas_no_tag)
+    is_binary_mixed = structure_util.get_is_binary_mixed(formulas_no_tag)
+    is_ternary = structure_util.get_is_ternary(formulas_no_tag)
+    is_binary_ternary_combined = structure_util.get_is_binary_ternary_combined(
+        formulas_no_tag
     )
 
-    is_binary = structure_util.get_is_single_binary(unique_formulas)
-    is_ternary = structure_util.get_is_ternary(unique_formulas)
-    is_binary_ternary_combined = structure_util.get_is_binary_ternary_combined(
-        unique_formulas
+    # Plot single
+    single.draw_hexagon_for_individual_figure(
+        bond_fraction_per_structure_data,
+        output_dir,
+        elements,
+        is_CN_used,
     )
 
     # Plot binary
@@ -125,23 +126,23 @@ def conduct_system_analysis(
             output_dir,
             is_CN_used,
         )
+    formulas_with_tag = structure_util.get_unique_formulas_tag(structure_dict)
 
-    if is_ternary or is_binary_ternary_combined:
+    if is_ternary or is_binary_ternary_combined or is_binary_mixed:
         ternary_handler.draw_ternary_figure(
             bond_fraction_per_structure_data,
             bond_pairs_ordered,
-            unique_formulas,
+            formulas_with_tag,
             (R, M, X),
             output_dir,
             is_CN_used,
         )
 
-    #     system_color.plot_ternary_color_map(
-    #         unique_formulas,
-    #         structure_dict,
-    #         possible_bond_pairs,
-    #         output_dir,
-    #     )
+        color_map.plot_ternary_color_map(
+            bond_fraction_per_structure_data,
+            (R, M, X),
+            output_dir,
+        )
 
 
 def get_site_json_site_data_path(dir_path):

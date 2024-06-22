@@ -1,13 +1,11 @@
 from click import style, echo
 
 
-def prompt_folder_progress(i, dir_name, dirs_total_count, file_count=None):
+def prompt_folder_progress(i, dir_name, dirs_total_count):
     count = 70
     echo("\n")
     echo("=" * count)  # Top line of '=' characters
-    echo(
-        f"Processing {dir_name}, {file_count} files, ({i} out of {dirs_total_count})"
-    )
+    echo(f"Processing {dir_name}, ({i} out of {dirs_total_count})")
     echo("=" * count)  # Bottom line of '=' characters
 
 

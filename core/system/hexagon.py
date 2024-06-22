@@ -104,7 +104,6 @@ def draw_colored_and_black_lines(
     for i, _ in enumerate(colors):
         x_hex_pt = x_hex_pts[i]
         y_hex_pt = y_hex_pts[i]
-        print(bond_fractions[i])
         bond_fraction = bond_fractions[i]
         x_color_pt, y_color_pt = get_norm_positions(
             x_hex_pt, y_hex_pt, center_pt, bond_fraction

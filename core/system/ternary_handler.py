@@ -42,12 +42,6 @@ def draw_ternary_figure(
     """
     Draw each hexagon point on the traingle.
     """
-    # Get orderd R, M, X to find the position of binary compounds
-    (
-        R,
-        M,
-        X,
-    ) = RMX
 
     # Get all unique formulas
     for _, data in bond_fraction_per_structure_data.items():
@@ -70,7 +64,7 @@ def draw_ternary_figure(
                 is_CN_used,
             )
 
-        # For binary
+        # For binary - shift center position with tags
         if num_of_elements == 2:
             tag = formula_parser.extract_tag(formula)
             center_pt = ternary.draw_hexagon_for_binary_formula(
@@ -86,7 +80,12 @@ def draw_ternary_figure(
         # Add formula and dot for each hexagon
         ternary.draw_center_dot_formula(center_pt, formula)
 
-    output_filepath = os.path.join(output_dir, "ternary.png")
+    # Save figure
+    if is_CN_used:
+        output_filepath = os.path.join(output_dir, "ternary_CN.png")
+    else:
+        output_filepath = os.path.join(output_dir, "ternary.png")
+
     plt.axis("off")
     plt.savefig(output_filepath, dpi=300)
     plt.close()

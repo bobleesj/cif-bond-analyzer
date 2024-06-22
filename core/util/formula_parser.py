@@ -34,7 +34,7 @@ def get_normalized_formula(formula):
 
 
 def get_unique_elements(formula: str) -> list[str]:
-    "Return a set of elements parsed from a formula."
+    """Return a set of elements parsed from a formula."""
     elements = get_parsed_formula(formula)
     unique_elements = [element for element, _ in elements]
     return unique_elements
@@ -42,7 +42,7 @@ def get_unique_elements(formula: str) -> list[str]:
 
 def get_num_element(formula):
     """
-    Returns the number of elements.
+    Return the number of elements.
     """
     elements = get_parsed_formula(formula)
     return len(elements)
@@ -50,7 +50,7 @@ def get_num_element(formula):
 
 def get_parsed_formula(formula):
     """
-    Returns a list of tuples, each tuple containing element and index.
+    Return a list of tuples, each tuple containing element and index.
     """
 
     pattern = r"([A-Z][a-z]*)(\d*\.?\d*)"
@@ -60,7 +60,7 @@ def get_parsed_formula(formula):
 
 def get_parsed_norm_formula(formula):
     """
-    Returns a list of tuples, each tuple containing element
+    Return a list of tuples, each tuple containing element
     and normalized index.
     """
     normalized_formula = get_normalized_formula(formula)
@@ -70,14 +70,14 @@ def get_parsed_norm_formula(formula):
 
 def get_unique_elements_from_formulas(formulas: list[str]):
     """
-    Returns unique elements from a list of formulas.
+    Return unique elements from a list of formulas.
     """
     unique_elements = set()  # Create a set to store unique elements
 
     for formula in formulas:
         parsed_formula = get_parsed_formula(
             formula
-        )  # Assume this function returns a list of tuples
+        )  # Assume this function return a list of tuples
         for element, _ in parsed_formula:
             if element:  # Ensure that element is not empty
                 unique_elements.add(element)  # Add the element to the set
@@ -97,7 +97,7 @@ def sort_by_mendeleev(elements):
 
 def get_subscripted_string(formula):
     """
-    Returns a subscripted formula used for plotting.
+    Return a subscripted formula used for plotting.
     """
     # Use regular expression to find elements and numbers
     formatted_formula = re.sub(
@@ -151,12 +151,13 @@ def get_AB_from_elements(unique_elements: list[str]):
     return A_element, B_element
 
 
-def count_formula_with_tags_in_ternary(formula_tag_tuples, R, M, X):
+def count_formula_with_tags_in_ternary(formula_tag_tuples, RMX):
     """
     Count RM_ht, RM_lt, RX_ht, RX_lt, MX_lt, MX_ht combinations,
     and other combinations with unspecified suffixes,
     given the definitions of R, M, and X elements.
     """
+    R, M, X = RMX
     counts = {
         "RM_ht": 0,
         "RM_lt": 0,
@@ -179,7 +180,7 @@ def count_formula_with_tags_in_ternary(formula_tag_tuples, R, M, X):
         elements_set = set(elements)
 
         # Ignore hex, should be plotted on the main line
-        if tag == "hex":
+        if tag == "hex" or tag == "rt":
             continue
 
         # Check and increment the appropriate counter
@@ -217,6 +218,12 @@ def extract_tag(formula_tag):
             return None
         return parts[-1]  # Return the tag part
     return None  # Return None if there is no tag
+
+
+def remove_tag_with_underscore(formula_tag):
+    # Split the string at each underscore and take the first part
+    parts = formula_tag.split("_")
+    return parts[0]
 
 
 def get_composition_from_binary_ternary(
