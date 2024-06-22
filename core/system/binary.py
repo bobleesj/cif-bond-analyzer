@@ -32,7 +32,6 @@ def draw_binary_figure(bond_fractions_data, output_dir, is_CN_used):
     output_filepath = os.path.join(output_dir, output_filename)
     plt.savefig(output_filepath, dpi=300)
     plt.close()
-    plt.show()
 
 
 def draw_horizontal_lines_with_multiple_marks(

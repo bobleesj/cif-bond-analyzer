@@ -8,7 +8,7 @@ from core.system import structure_util
 
 
 def get_bond_fractions_data_for_figures(
-    cif_ensemble, structure_dict, bond_pairs_formatted
+    cif_ensemble, structure_dict, bond_pairs_formatted, is_CN_used
 ):
     """Return bond fractions (CN, site), formulas, for each structure"""
     bond_fractions_data: dict = {}
@@ -35,17 +35,18 @@ def get_bond_fractions_data_for_figures(
                 },
             }
 
-        # Update the bond fractions for this CIF's structure
-        bond_fractions = (
-            cif.CN_bond_fractions_by_best_methods_sorted_by_mendeleev
-        )
+        # Only run this computationally extensive part if CN is used.
+        if is_CN_used:
+            bond_fractions_CN = (
+                cif.CN_bond_fractions_by_best_methods_sorted_by_mendeleev
+            )
 
-        for bond_tuple, fraction in bond_fractions.items():
-            bond = f"{bond_tuple[0]}-{bond_tuple[1]}"
-            if bond in bond_pairs_formatted:
-                bond_fractions_data[structure]["bond_fractions_CN"][
-                    bond
-                ] = fraction
+            for bond_tuple, fraction in bond_fractions_CN.items():
+                bond = f"{bond_tuple[0]}-{bond_tuple[1]}"
+                if bond in bond_pairs_formatted:
+                    bond_fractions_data[structure]["bond_fractions_CN"][
+                        bond
+                    ] = fraction
 
     return bond_fractions_data
 

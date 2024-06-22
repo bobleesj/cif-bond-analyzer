@@ -34,27 +34,53 @@ def run_system_analysis(script_path):
 
     # Would you like to use bond fractions in coordination numbers?
     is_CN_used = input.prompt_to_use_CN_bond_fractions()
+    use_existing_json = True
+
+    if not is_CN_used:
+        use_existing_json = input.prompt_to_use_existing_json_file()
 
     # Process each folder
     for idx, dir_path in enumerate(dir_paths, start=1):
-
         prompt_folder_progress(idx, dir_path, len(dir_paths))
-        conduct_system_analysis(dir_path, is_CN_used=is_CN_used)
+        conduct_system_analysis(dir_path, is_CN_used, use_existing_json)
 
 
-def conduct_system_analysis(dir_path, is_CN_used=False):
+def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
 
-    # Conduct system analysis
-    cif_ensemble_with_nested = site_analysis.generate_site_analysis_data(
-        dir_path, add_nested=True
-    )
+    # If CN is used or do not use existing json, run site analysis
+    # CN bond fractions require computing the coordination geometry
+
+    """
+    Step 1. Read site pair json
+    """
+    # Read JSON - if there is no file, run Site Analysis (SA)
+    is_site_analysis_run = False
+    updated_json_file_path = get_site_json_site_data_path(dir_path)
+
+    if not os.path.exists(updated_json_file_path):
+        print(
+            f"Error: File does not exist at {updated_json_file_path}."
+            " Automatically run Site Analysis."
+        )
+        cif_ensemble_with_nested = site_analysis.generate_site_analysis_data(
+            dir_path, add_nested=True
+        )
+        is_site_analysis_run = True
+
+    # If SA has not been run, ask whether to run based on CN or by choice.
+    if not is_site_analysis_run:
+        if is_CN_used or not use_existing_json:
+            cif_ensemble_with_nested = (
+                site_analysis.generate_site_analysis_data(
+                    dir_path, add_nested=True
+                )
+            )
+        else:
+            cif_ensemble_with_nested = CifEnsemble(
+                dir_path, preprocess=False, add_nested=True
+            )
 
     dir_path = cif_ensemble_with_nested.dir_path
-    """
-    Step 1. Update JSON with formula and structural info
-    """
-    # Read the JSON file
-    updated_json_file_path = get_site_json_site_data_path(dir_path)
 
     """
     Step 2. Build dict containing bond/formula/file info per structure
@@ -97,7 +123,10 @@ def conduct_system_analysis(dir_path, is_CN_used=False):
         bond_pairs_ordered = get_ordered_bond_labels_from_AB(A, B)
 
     bond_fraction_per_structure_data = get_bond_fractions_data_for_figures(
-        cif_ensemble_with_nested, structure_dict, bond_pairs_ordered
+        cif_ensemble_with_nested,
+        structure_dict,
+        bond_pairs_ordered,
+        is_CN_used,
     )
 
     if len(elements) not in [2, 3]:

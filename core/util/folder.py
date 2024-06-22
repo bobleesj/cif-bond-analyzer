@@ -133,8 +133,6 @@ def choose_binary_ternary_dir(script_path):
     print("\nWould you like to process each folder above sequentially?")
     process_all = click.confirm("(Default: Y)", default=True)
     if not process_all:
-        # Interactive selection of directory if user does not want all
-        # directories
         input_str = input("\nEnter folder numbers to select (e.g., '1 3 5'): ")
         selected_indices = [
             int(num) for num in input_str.split() if num.isdigit()
@@ -148,12 +146,14 @@ def choose_binary_ternary_dir(script_path):
             if 1 <= i <= len(dir_path_list)
         ]
         for dir_path in selected_dir_paths:
-            print(f"Selected for processing: {dir_path}")
+            print("Selected for processing")
+            print(f"-{dir_path}")
     else:
         # Automatically process all directories sequentially by default
         selected_dir_paths = dir_path_list
         for dir_path in selected_dir_paths:
-            print(f"Selected for processing: {dir_path}")
+            print("Selected for processing")
+            print(f"-{dir_path}")
 
     return selected_dir_paths
 

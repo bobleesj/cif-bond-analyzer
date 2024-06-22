@@ -39,7 +39,7 @@ def draw_ternary_frame(v0, v1, v2):
     """
     # Triangle vertices
     # Plotting the enhanced triangle
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(8, 7))
     triangle = plt.Polygon(
         [v0, v1, v2],
         edgecolor="k",
@@ -48,7 +48,7 @@ def draw_ternary_frame(v0, v1, v2):
     )
     plt.gca().add_patch(triangle)
     # Set new plot limits here
-    plt.xlim(-0.3, 1.3)  # Extend x-axis limits
+    plt.xlim(-0.2, 1.2)  # Extend x-axis limits
     plt.ylim(-0.4, 1.0)  # Extend y-axis limits
 
     plt.tight_layout(pad=0.2)
@@ -59,7 +59,7 @@ def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
     """
     Draw extra edges on the traingle with tags found on binary compounds
     """
-    print("Print unique formulas", unique_formulas)
+
     # First from the structure dict, we get all unique formulas
     formula_tag_tuples = string_parser.parse_formulas_with_underscore(
         unique_formulas
@@ -76,8 +76,6 @@ def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
         (tuple(v0), tuple(v2)): "RX",
         (tuple(v1), tuple(v2)): "MX",
     }
-
-    print(tags_count)
 
     extra_edge_line_width = 0.5
     for (start, end), key in edges.items():
@@ -135,6 +133,7 @@ def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
                 x_shift = shift_amount
             elif key == "RX":
                 x_shift = -shift_amount
+
             new_p1 = shift_points_xy(start_vertex, x_shift, y_shift)
             new_p2 = shift_points_xy(end_vertex, x_shift, y_shift)
             plt.plot(
@@ -409,7 +408,7 @@ def draw_hexagon_for_binary_formula(
         elif tag == "ht":
             center_pt = shift_points_xy(center_pt, 0.0, -0.2)
         elif tag is not None:
-            center_pt = shift_points_xy(center_pt, 0.0, -0.1)
+            center_pt = shift_points_xy(center_pt, 0.0, -0.3)
 
         if is_CN_used:
             hexagon.draw_single_hexagon_and_lines_per_center_point(
@@ -437,7 +436,7 @@ def draw_hexagon_for_binary_formula(
         elif tag == "ht":
             center_pt = shift_points_xy(center_pt, -0.2, 0.0)
         elif tag is not None:
-            center_pt = shift_points_xy(center_pt, -0.1, 0.0)
+            center_pt = shift_points_xy(center_pt, -0.3, 0.0)
 
         if is_CN_used:
             hexagon.draw_single_hexagon_and_lines_per_center_point(
@@ -466,7 +465,7 @@ def draw_hexagon_for_binary_formula(
         elif tag == "ht":
             center_pt = shift_points_xy(center_pt, 0.2, 0.0)
         elif tag is not None:
-            center_pt = shift_points_xy(center_pt, 0.1, 0.0)
+            center_pt = shift_points_xy(center_pt, 0.3, 0.0)
 
         if is_CN_used:
             hexagon.draw_single_hexagon_and_lines_per_center_point(

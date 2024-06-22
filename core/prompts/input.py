@@ -15,3 +15,11 @@ def prompt_to_use_CN_bond_fractions():
     )
     is_CN_used = click.confirm("(Default: N)", default=False)
     return is_CN_used
+
+
+def prompt_to_use_existing_json_file():
+    click.echo(
+        "\nWould you like to use existing site_pairs.json if available?"
+    )
+    is_CN_used = click.confirm("(Default: Y)", default=True)
+    return is_CN_used

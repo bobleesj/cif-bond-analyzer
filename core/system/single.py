@@ -150,8 +150,6 @@ def draw_hexagon_for_individual_figure(
             parsed_norm_formulas, B, A
         )
 
-    print("Sorted indices:", sorted_indices)
-
     # Sort hexagon image files according to the sorted indices
     sorted_hexagon_image_files = [
         hexagon_image_files[i] for i in sorted_indices
