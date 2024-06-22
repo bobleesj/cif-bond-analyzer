@@ -12,7 +12,8 @@ from core.system.figure_util import (
 def draw_ternary_figure(
     bond_fraction_per_structure_data,
     bond_pairs_ordered,
-    unique_formulas,
+    formulas_no_tag,
+    formulas_with_tag,
     RMX,
     output_dir,
     is_CN_used,
@@ -26,7 +27,10 @@ def draw_ternary_figure(
     vertices = ternary.generate_traingle_vertex_points()
     v0, v1, v2 = vertices
     ternary.draw_ternary_frame(v0, v1, v2)
-    ternary.draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX)
+    # For binary - shift center position with tags
+    # ternary.draw_extra_frame_for_binary_tags(
+    #     v0, v1, v2, formulas_with_tag, RMX
+    # )
     ternary.draw_filled_edges(v0, v1, v2)
     ternary.draw_triangular_grid(
         v0, v1, v2, grid_alpha, grid_line_width, n_lines=10
@@ -69,9 +73,11 @@ def draw_ternary_figure(
             tag = formula_parser.extract_tag(formula)
             center_pt = ternary.draw_hexagon_for_binary_formula(
                 vertices,
+                formulas_no_tag,
                 parsed_normalized_formula,
                 bond_fractions,
                 bnod_fractions_CN,
+                formula,
                 RMX,
                 tag,
                 is_CN_used,

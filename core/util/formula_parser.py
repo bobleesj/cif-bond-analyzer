@@ -151,64 +151,6 @@ def get_AB_from_elements(unique_elements: list[str]):
     return A_element, B_element
 
 
-def count_formula_with_tags_in_ternary(formula_tag_tuples, RMX):
-    """
-    Count RM_ht, RM_lt, RX_ht, RX_lt, MX_lt, MX_ht combinations,
-    and other combinations with unspecified suffixes,
-    given the definitions of R, M, and X elements.
-    """
-    R, M, X = RMX
-    counts = {
-        "RM_ht": 0,
-        "RM_lt": 0,
-        "RX_ht": 0,
-        "RX_lt": 0,
-        "MX_lt": 0,
-        "MX_ht": 0,
-        "RM_others": 0,
-        "RX_others": 0,
-        "MX_others": 0,
-    }
-
-    # Define a helper to extract elements from formula
-    def extract_elements(formula):
-        return re.findall(r"[A-Z][a-z]*", formula)
-
-    # Process each formula and suffix
-    for formula, tag in formula_tag_tuples:
-        elements = extract_elements(formula)
-        elements_set = set(elements)
-
-        # Ignore hex, should be plotted on the main line
-        if tag == "hex" or tag == "rt":
-            continue
-
-        # Check and increment the appropriate counter
-        if elements_set == {R, M}:
-            if tag == "ht":
-                counts["RM_ht"] += 1
-            elif tag == "lt":
-                counts["RM_lt"] += 1
-            else:
-                counts["RM_others"] += 1
-        if elements_set == {R, X}:
-            if tag == "ht":
-                counts["RX_ht"] += 1
-            elif tag == "lt":
-                counts["RX_lt"] += 1
-            else:
-                counts["RX_others"] += 1
-        if elements_set == {M, X}:
-            if tag == "ht":
-                counts["MX_ht"] += 1
-            elif tag == "lt":
-                counts["MX_lt"] += 1
-            else:
-                counts["MX_others"] += 1
-
-    return counts
-
-
 def extract_tag(formula_tag):
     # Split the string by underscore and return the last element
     parts = formula_tag.split("_")

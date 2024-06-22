@@ -1,6 +1,6 @@
 ##############################################################################
 #                                                                            #
-# Co-Er            # Er6Co4.5 rt                                   #  454035 #
+# Co-Er            # Er6Co4.5 rhom                                  #  454035 #
 #                                                                            #
 ##############################################################################
 #                                                                            #
@@ -33,7 +33,7 @@ _chemical_formula_structural             'Er~6~ Co~4.5~'
 _chemical_formula_sum                    'Co4.50 Er6'
 _chemical_name_mineral                   ?
 _chemical_compound_source                ?
-_chemical_name_structure_type            Ho~6~Co~4.5~,hP22,176
+_chemical_name_structure_type            test_structure
 _chemical_formula_weight                 1268.8
 
 # Bibliographic data

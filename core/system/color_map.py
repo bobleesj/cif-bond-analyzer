@@ -18,14 +18,13 @@ from core.system.figure_util import (
 
 
 def plot_ternary_color_map(
-    bond_fraction_per_structure_data,
-    RMX,
-    output_dir,
+    bond_fraction_per_structure_data, RMX, output_dir, is_CN_used
 ):
     save_color_map(
         bond_fraction_per_structure_data,
         RMX,
         output_dir,
+        is_CN_used,
         is_colors_combined=False,
     )
 
@@ -33,6 +32,7 @@ def plot_ternary_color_map(
         bond_fraction_per_structure_data,
         RMX,
         output_dir,
+        is_CN_used,
         is_colors_combined=True,
     )
 
@@ -41,6 +41,7 @@ def save_color_map(
     bond_fraction_per_structure_data,
     RMX,
     output_dir,
+    is_CN_used,
     is_colors_combined,
 ):
 
@@ -48,8 +49,7 @@ def save_color_map(
     # Plot the overlayed ternary diagrams
     fig, ax = plt.subplots()
     triangulations = []
-    transparency = 0.3333
-    # transparency = 0.500
+    transparency = 0.833
 
     # contour_smoothing = 10
     contour_smoothing = 20
@@ -80,17 +80,16 @@ def save_color_map(
 
         # Get all unique formulas
         for _, data in bond_fraction_per_structure_data.items():
-            bond_fractions, bnod_fractions_CN, bond_pairs, formulas = (
+            bond_fractions, bond_fractions_CN, bond_pairs, formulas = (
                 parse_bond_fractions_formulas(data)
             )
+
             formula = formulas[0]
 
-            # Skip ternary formulas with a tag
-            tag = formula_parser.extract_tag(formula)
-            if tag:
-                continue
-
-            bond_fraction = bond_fractions[i]
+            if is_CN_used:
+                bond_fraction = bond_fractions_CN[i]
+            else:
+                bond_fraction = bond_fractions[i]
             (
                 A_norm_comp,
                 B_norm_comp,
@@ -139,10 +138,7 @@ def save_color_map(
             print(f"Skipping triangulation/interpolation. {e}")
             continue
 
-        interp = mtri.CubicTriInterpolator(
-            triangulation, z_all_per_bond_type, kind="geom"
-        )
-
+        interp = mtri.LinearTriInterpolator(triangulation, z_all_per_bond_type)
         zi = interp(xi, yi)
 
         # Create a custom color map from white to the specified color
@@ -180,13 +176,22 @@ def save_color_map(
             )
             ax.set_axis_off()
             ax.set_aspect("equal")
-            ax.figure.savefig(
-                join(
-                    output_dir,
-                    f"color_map_{bond_pairs[i]}.png",
-                ),
-                dpi=300,
-            )
+            if is_CN_used:
+                ax.figure.savefig(
+                    join(
+                        output_dir,
+                        f"color_map_{bond_pairs[i]}_CN.png",
+                    ),
+                    dpi=300,
+                )
+            else:
+                ax.figure.savefig(
+                    join(
+                        output_dir,
+                        f"color_map_{bond_pairs[i]}.png",
+                    ),
+                    dpi=300,
+                )
             ax.cla()
             continue
 
@@ -232,4 +237,10 @@ def save_color_map(
         ax.grid(False)
         ax.set_axis_off()
         ax.set_aspect("equal")  # Ensure the axis are of equal size
-        ax.figure.savefig(join(output_dir, f"color_map_overall"), dpi=300)
+
+        if is_CN_used:
+            ax.figure.savefig(
+                join(output_dir, f"color_map_overall_CN"), dpi=300
+            )
+        else:
+            ax.figure.savefig(join(output_dir, f"color_map_overall"), dpi=300)

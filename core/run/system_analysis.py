@@ -46,10 +46,6 @@ def run_system_analysis(script_path):
 
 
 def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
-
-    # If CN is used or do not use existing json, run site analysis
-    # CN bond fractions require computing the coordination geometry
-
     """
     Step 1. Read site pair json
     """
@@ -70,6 +66,7 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
     # If SA has not been run, ask whether to run based on CN or by choice.
     if not is_site_analysis_run:
         if is_CN_used or not use_existing_json:
+            # Compute the shortest distance (heavy computation)
             cif_ensemble_with_nested = (
                 site_analysis.generate_site_analysis_data(
                     dir_path, add_nested=True
@@ -161,6 +158,7 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
         ternary_handler.draw_ternary_figure(
             bond_fraction_per_structure_data,
             bond_pairs_ordered,
+            formulas_no_tag,
             formulas_with_tag,
             (R, M, X),
             output_dir,
@@ -168,9 +166,7 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
         )
 
         color_map.plot_ternary_color_map(
-            bond_fraction_per_structure_data,
-            (R, M, X),
-            output_dir,
+            bond_fraction_per_structure_data, (R, M, X), output_dir, is_CN_used
         )
 
 

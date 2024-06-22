@@ -7,9 +7,8 @@ from core.system.figure_util import (
 )
 
 
-def get_point_in_triangle_from_ternary_index(
-    v0, v1, v2, R_norm_index, M_norm_index
-):
+def get_point_in_triangle(vertices, R_norm_index, M_norm_index):
+    v0, v1, v2 = vertices
     # R_norm_index corresponds to v2
     # M_norm_index corresponds to v1
     R = R_norm_index
@@ -53,96 +52,6 @@ def draw_ternary_frame(v0, v1, v2):
 
     plt.tight_layout(pad=0.2)
     plt.gca().set_aspect("equal", adjustable="box")
-
-
-def draw_extra_frame_for_binary_tags(v0, v1, v2, unique_formulas, RMX):
-    """
-    Draw extra edges on the traingle with tags found on binary compounds
-    """
-
-    # First from the structure dict, we get all unique formulas
-    formula_tag_tuples = string_parser.parse_formulas_with_underscore(
-        unique_formulas
-    )
-
-    tags_count = formula_parser.count_formula_with_tags_in_ternary(
-        formula_tag_tuples, RMX
-    )
-    # Draw edges of the traingle
-    # The following is the not refactored logic at the moment for flexibility
-
-    edges = {
-        (tuple(v0), tuple(v1)): "RM",
-        (tuple(v0), tuple(v2)): "RX",
-        (tuple(v1), tuple(v2)): "MX",
-    }
-
-    extra_edge_line_width = 0.5
-    for (start, end), key in edges.items():
-        start_vertex = np.array(start)
-        end_vertex = np.array(end)
-        x_shift, y_shift = 0, 0
-
-        # Handle 'lt' condition
-        if tags_count.get(f"{key}_lt", 0):
-            # Smaller shifts
-            shift_amount = 0.1
-            if key == "RM":
-                y_shift = -shift_amount
-            elif key == "MX":
-                x_shift = shift_amount
-            elif key == "RX":
-                x_shift = -shift_amount
-            new_p1 = shift_points_xy(start_vertex, x_shift, y_shift)
-            new_p2 = shift_points_xy(end_vertex, x_shift, y_shift)
-            plt.plot(
-                [new_p1[0], new_p2[0]],
-                [new_p1[1], new_p2[1]],
-                "k--",
-                zorder=2,
-                lw=extra_edge_line_width,
-            )
-
-        # Handle 'ht' condition
-        if tags_count.get(f"{key}_ht", 0):
-            # Custom shifts based on the key
-            shift_amount = 0.2
-            if key == "RM":
-                y_shift = -shift_amount
-            elif key == "MX":
-                x_shift = shift_amount
-            elif key == "RX":
-                x_shift = -shift_amount
-            new_p1 = shift_points_xy(start_vertex, x_shift, y_shift)
-            new_p2 = shift_points_xy(end_vertex, x_shift, y_shift)
-            plt.plot(
-                [new_p1[0], new_p2[0]],
-                [new_p1[1], new_p2[1]],
-                "k--",
-                zorder=2,
-                lw=extra_edge_line_width,
-            )
-
-        # Assume handling 'others' or any condition needing a larger shift
-        if tags_count.get(f"{key}_others", 0):
-            # Larger shifts, example with a hypothetical 'others' condition
-            shift_amount = 0.3
-            if key == "RM":
-                y_shift = -shift_amount
-            elif key == "MX":
-                x_shift = shift_amount
-            elif key == "RX":
-                x_shift = -shift_amount
-
-            new_p1 = shift_points_xy(start_vertex, x_shift, y_shift)
-            new_p2 = shift_points_xy(end_vertex, x_shift, y_shift)
-            plt.plot(
-                [new_p1[0], new_p2[0]],
-                [new_p1[1], new_p2[1]],
-                "k--",
-                zorder=2,
-                lw=extra_edge_line_width,
-            )
 
 
 def add_vertex_labels(v0, v1, v2, RMX):
@@ -352,12 +261,9 @@ def draw_hexagon_for_ternary_formula(
 ):
     R_norm_index = parsed_normalized_formula[0][1]
     M_norm_index = parsed_normalized_formula[1][1]
-    v0, v1, v2 = vertices
 
-    center_pt = get_point_in_triangle_from_ternary_index(
-        v0,
-        v1,
-        v2,
+    center_pt = get_point_in_triangle(
+        vertices,
         float(R_norm_index),
         float(M_norm_index),
     )
@@ -377,9 +283,11 @@ def draw_hexagon_for_ternary_formula(
 
 def draw_hexagon_for_binary_formula(
     vertices,
+    formulas_no_tag,
     parsed_normalized_formula,
     bond_fractions,
     bnod_fractions_CN,
+    formula_with_tag,
     RMX,
     tag,
     is_CN_used,
@@ -390,14 +298,56 @@ def draw_hexagon_for_binary_formula(
     B_norm_index = float(parsed_normalized_formula[1][1])
     A_label = parsed_normalized_formula[0][0]
     B_label = parsed_normalized_formula[1][0]
-    v0, v1, v2 = vertices
+
+    # Check whether the formula exists in unique formulas
+    is_formula_with_tag_in_main_line = False
+    if "_" in formula_with_tag:
+        formula_with_tag_removed = formula_parser.remove_tag_with_underscore(
+            formula_with_tag
+        )
+
+        if formula_with_tag_removed not in formulas_no_tag:
+            is_formula_with_tag_in_main_line = True
+
+    # THere can be up to 9 lines total.
+    RM_lt_line_drawn = False
+    RM_ht_line_drawn = False
+    RM_others_line_drawn = False
+
+    MX_lt_line_drawn = False
+    MX_ht_line_drawn = False
+    MX_others_line_drawn = False
+
+    RX_lt_line_drawn = False
+    RX_ht_line_drawn = False
+    RX_others_line_drawn = False
+    # traingle vertices
+
+    def draw_extra_frame(pair, p1_x, p1_y, p2_x, p2_y):
+        v0, v1, v2 = vertices
+        extra_edge_line_width = 0.5
+        if pair == "RM":
+            new_p1 = shift_points_xy(v0, p1_x, p1_y)
+            new_p2 = shift_points_xy(v1, p2_x, p2_y)
+        elif pair == "MX":
+            new_p1 = shift_points_xy(v1, p1_x, p1_y)
+            new_p2 = shift_points_xy(v2, p2_x, p2_y)
+        elif pair == "RX":
+            new_p1 = shift_points_xy(v0, p1_x, p1_y)
+            new_p2 = shift_points_xy(v2, p2_x, p2_y)
+
+        plt.plot(
+            [new_p1[0], new_p2[0]],
+            [new_p1[1], new_p2[1]],
+            "k--",
+            zorder=2,
+            lw=extra_edge_line_width,
+        )
 
     if A_label == R and B_label == M:
         # ErCo
-        center_pt = get_point_in_triangle_from_ternary_index(
-            v0,
-            v1,
-            v2,
+        center_pt = get_point_in_triangle(
+            vertices,
             A_norm_index,
             B_norm_index,
         )
@@ -405,76 +355,58 @@ def draw_hexagon_for_binary_formula(
             center_pt = center_pt
         elif tag == "lt":
             center_pt = shift_points_xy(center_pt, 0.0, -0.1)
+            draw_extra_frame("RM", 0.0, -0.1, 0.0, -0.1)
         elif tag == "ht":
             center_pt = shift_points_xy(center_pt, 0.0, -0.2)
+            draw_extra_frame("RM", 0.0, -0.2, 0.0, -0.2)
+        elif is_formula_with_tag_in_main_line:
+            center_pt = center_pt
         elif tag is not None:
             center_pt = shift_points_xy(center_pt, 0.0, -0.3)
+            draw_extra_frame("RM", 0.0, -0.3, 0.0, -0.3)
 
-        if is_CN_used:
-            hexagon.draw_single_hexagon_and_lines_per_center_point(
-                center_pt,
-                bnod_fractions_CN,
-            )
-        else:
-            hexagon.draw_single_hexagon_and_lines_per_center_point(
-                center_pt,
-                bond_fractions,
-            )
-
-    if A_label == R and B_label == X:
-        center_pt = get_point_in_triangle_from_ternary_index(
-            v0,
-            v1,
-            v2,
-            A_norm_index,
-            0.0,
-        )
-        if tag == "hex" or tag == "rt":
-            center_pt = center_pt
-        elif tag == "lt":
-            center_pt = shift_points_xy(center_pt, -0.1, 0.0)
-        elif tag == "ht":
-            center_pt = shift_points_xy(center_pt, -0.2, 0.0)
-        elif tag is not None:
-            center_pt = shift_points_xy(center_pt, -0.3, 0.0)
-
-        if is_CN_used:
-            hexagon.draw_single_hexagon_and_lines_per_center_point(
-                center_pt,
-                bnod_fractions_CN,
-            )
-        else:
-            hexagon.draw_single_hexagon_and_lines_per_center_point(
-                center_pt,
-                bond_fractions,
-            )
-
+    # CoIn2
     if A_label == M and B_label == X:
-        # CoIn2
-        center_pt = get_point_in_triangle_from_ternary_index(
-            v0,
-            v1,
-            v2,
-            0,
-            (1 - B_norm_index),
-        )
+        center_pt = get_point_in_triangle(vertices, 0, (1 - B_norm_index))
         if tag == "hex" or tag == "rt":
             center_pt = center_pt
         elif tag == "lt":
             center_pt = shift_points_xy(center_pt, 0.1, 0.0)
+            draw_extra_frame("MX", 0.1, 0.0, 0.1, 0.0)
         elif tag == "ht":
             center_pt = shift_points_xy(center_pt, 0.2, 0.0)
+            draw_extra_frame("MX", 0.2, 0.0, 0.2, 0.0)
+        elif is_formula_with_tag_in_main_line:
+            center_pt = center_pt
         elif tag is not None:
             center_pt = shift_points_xy(center_pt, 0.3, 0.0)
+            draw_extra_frame("MX", 0.3, 0.0, 0.3, 0.0)
+    # ErIn
+    if A_label == R and B_label == X:
+        center_pt = get_point_in_triangle(vertices, A_norm_index, 0.0)
+        if tag == "hex" or tag == "rt":
+            center_pt = center_pt
+        elif tag == "lt":
+            center_pt = shift_points_xy(center_pt, -0.1, 0.0)
+            draw_extra_frame("RX", -0.1, 0.0, -0.1, 0.0)
+        elif tag == "ht":
+            center_pt = shift_points_xy(center_pt, -0.2, 0.0)
+            draw_extra_frame("RX", -0.2, 0.0, -0.2, 0.0)
+        elif is_formula_with_tag_in_main_line:
+            center_pt = center_pt
+        elif tag is not None:
+            center_pt = shift_points_xy(center_pt, -0.3, 0.0)
+            draw_extra_frame("RX", -0.3, 0.0, -0.3, 0.0)
 
-        if is_CN_used:
-            hexagon.draw_single_hexagon_and_lines_per_center_point(
-                center_pt,
-                bnod_fractions_CN,
-            )
-        else:
-            hexagon.draw_single_hexagon_and_lines_per_center_point(
-                center_pt,
-                bond_fractions,
-            )
+    # Plot an invidiaul hexagon on the ternary frame
+    if is_CN_used:
+        hexagon.draw_single_hexagon_and_lines_per_center_point(
+            center_pt,
+            bnod_fractions_CN,
+        )
+    else:
+        hexagon.draw_single_hexagon_and_lines_per_center_point(
+            center_pt,
+            bond_fractions,
+        )
     return center_pt
