@@ -13,7 +13,6 @@ from core.coordination.util import compute_delta
 
 
 def save_excel_for_connections(cif_ensemble: CifEnsemble, output_dir):
-
     # Create an Excel writer object
     writer = pd.ExcelWriter(
         f"{output_dir}/CN_connections.xlsx",

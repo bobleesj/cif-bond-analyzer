@@ -44,7 +44,6 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
 
         # Get site unique label pair data sorted by mendeleev
         for label_pair, distance in unique_label_pair_distances.items():
-
             site_element = get_atom_type_from_label(label_pair[0])
             other_element = get_atom_type_from_label(label_pair[1])
 

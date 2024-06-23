@@ -35,7 +35,6 @@ def get_folder_indices(dir_names_with_cif):
 
 
 def get_user_input_folder_processing(dir_names, file_type):
-
     click.echo(f"\nFolders with {file_type} files:")
 
     for i, dir_name in enumerate(dir_names, start=1):

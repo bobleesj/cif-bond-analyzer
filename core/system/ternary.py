@@ -309,20 +309,6 @@ def draw_hexagon_for_binary_formula(
         if formula_with_tag_removed not in formulas_no_tag:
             is_formula_with_tag_in_main_line = True
 
-    # THere can be up to 9 lines total.
-    RM_lt_line_drawn = False
-    RM_ht_line_drawn = False
-    RM_others_line_drawn = False
-
-    MX_lt_line_drawn = False
-    MX_ht_line_drawn = False
-    MX_others_line_drawn = False
-
-    RX_lt_line_drawn = False
-    RX_ht_line_drawn = False
-    RX_others_line_drawn = False
-    # traingle vertices
-
     def draw_extra_frame(pair, p1_x, p1_y, p2_x, p2_y):
         v0, v1, v2 = vertices
         extra_edge_line_width = 0.5

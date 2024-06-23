@@ -50,7 +50,7 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
     Step 1. Read site pair json
     """
     # Read JSON - if there is no file, run Site Analysis (SA)
-    is_site_analysis_run = False
+    run_site_analysis = False
     updated_json_file_path = get_site_json_site_data_path(dir_path)
 
     if not os.path.exists(updated_json_file_path):
@@ -61,10 +61,10 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
         cif_ensemble_with_nested = site_analysis.generate_site_analysis_data(
             dir_path, add_nested=True
         )
-        is_site_analysis_run = True
+        run_site_analysis = True
 
     # If SA has not been run, ask whether to run based on CN or by choice.
-    if not is_site_analysis_run:
+    if not run_site_analysis:
         if is_CN_used or not use_existing_json:
             # Compute the shortest distance (heavy computation)
             cif_ensemble_with_nested = (
@@ -88,6 +88,12 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
     )
 
     elements = cif_ensemble_with_nested.unique_elements
+
+    # Check whether there are only 2 or 3 elements.
+    if len(elements) not in [2, 3]:
+        print("Only a total of 2 or 3 elements must be found in the folder.")
+        return
+
     formulas_no_tag = cif_ensemble_with_nested.unique_formulas
     all_bond_pairs = get_pairs_sorted_by_mendeleev(list(elements))
     structures = cif_ensemble_with_nested.unique_structures
@@ -125,10 +131,6 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
         bond_pairs_ordered,
         is_CN_used,
     )
-
-    if len(elements) not in [2, 3]:
-        print("Only a total of 2 or 3 elements must be found in the folder.")
-        return
 
     is_binary = structure_util.get_is_single_binary(formulas_no_tag)
     is_binary_mixed = structure_util.get_is_binary_mixed(formulas_no_tag)

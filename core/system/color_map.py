@@ -44,7 +44,6 @@ def save_color_map(
     is_CN_used,
     is_colors_combined,
 ):
-
     R, M, X = RMX
     # Plot the overlayed ternary diagrams
     fig, ax = plt.subplots()
@@ -80,9 +79,12 @@ def save_color_map(
 
         # Get all unique formulas
         for _, data in bond_fraction_per_structure_data.items():
-            bond_fractions, bond_fractions_CN, bond_pairs, formulas = (
-                parse_bond_fractions_formulas(data)
-            )
+            (
+                bond_fractions,
+                bond_fractions_CN,
+                bond_pairs,
+                formulas,
+            ) = parse_bond_fractions_formulas(data)
 
             formula = formulas[0]
 

@@ -14,7 +14,6 @@ def save_excel_json(
     global_element_pair_dict,
     dir_path,
 ):
-
     # Create folder
     output_dir_path = make_output_folder(dir_path, "output")
     # Save Excel file (1/2) with site pair

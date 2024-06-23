@@ -21,7 +21,6 @@ def draw_hexagon_for_individual_figure(
         individuals_dir = os.path.join(output_dir, "individuals")
         os.makedirs(individuals_dir, exist_ok=True)
 
-    hexagon_image_files = []
     center_pt = (0, 0)
 
     # Individual hexagon (modified)
@@ -38,21 +37,30 @@ def draw_hexagon_for_individual_figure(
     formula_font_size = 15
     formula_offset = -2.5
 
-    formulas_no_tag_for_hexagon = []
+    formulas_no_tag_for_hexagon_binary = []
+    formulas_no_tag_for_hexagon_ternary = []
+    hexagon_image_files_binary = []
+    hexagon_image_files_ternary = []
+    contain_binary = False
+    contain_ternary = False
 
     for structure, data in bond_fractions_data.items():
-        bond_fractions, bnod_fractions_CN, bond_pairs, formulas = (
-            parse_bond_fractions_formulas(data)
-        )
+        (
+            bond_fractions,
+            bnod_fractions_CN,
+            bond_pairs,
+            formulas,
+        ) = parse_bond_fractions_formulas(data)
 
         structure = formula_parser.get_subscripted_string(structure)
+        elements_parsed_from_formula = formula_parser.get_unique_elements(
+            formulas[0]
+        )
         formula = formula_parser.get_subscripted_string(formulas[0])
-
         fig, ax = plt.subplots(figsize=(3, 3.5), dpi=300)
         plt.subplots_adjust(top=1.1)
 
         if is_CN_used:
-
             hexagon.draw_single_hexagon_and_lines_per_center_point(
                 center_pt,
                 bnod_fractions_CN,
@@ -117,43 +125,86 @@ def draw_hexagon_for_individual_figure(
         ax.set_aspect("equal", adjustable="box")
         ax.axis("off")
 
+        is_binary_file = len(elements_parsed_from_formula) == 2
+        formula_no_tag = formula_parser.remove_tag_with_underscore(formulas[0])
+
         # Saving each hexagon to a file
-        hexagon_filename = f"{formulas[0]}.png"
+        if is_binary_file:
+            hexagon_filename = f"bi_{formulas[0]}.png"
+        else:
+            hexagon_filename = f"ter_{formulas[0]}.png"
+
         hexagon_filepath = os.path.join(individuals_dir, hexagon_filename)
         fig.savefig(hexagon_filepath, dpi=300)
         plt.close(fig)
-        hexagon_image_files.append(hexagon_filepath)
+
+        if is_binary_file:
+            hexagon_image_files_binary.append(hexagon_filepath)
+            formulas_no_tag_for_hexagon_binary.append(formula_no_tag)
+            contain_binary = True
+        else:
+            hexagon_image_files_ternary.append(hexagon_filepath)
+            formulas_no_tag_for_hexagon_ternary.append(formula_no_tag)
+            contain_ternary = True
 
         # Add the formula used, without thet ag
-        formula_no_tag = formula_parser.remove_tag_with_underscore(formulas[0])
-        formulas_no_tag_for_hexagon.append(formula_no_tag)
+        # formulas_no_tag_for_hexagon.append(formula_no_tag)
 
     """
     Save composite figures files
     - We need to order the hexagons by normalized fraction of X, M, etc.
     """
-    parsed_norm_formulas = [
+
+    parsed_norm_formulas_binary = [
         formula_parser.get_parsed_norm_formula(formula)
-        for formula in formulas_no_tag_for_hexagon
+        for formula in formulas_no_tag_for_hexagon_binary
     ]
-
-    if len(elements) == 3:
-        R, M, X = formula_parser.get_RMX_from_elements(elements)
-        sorted_indices = get_sorted_indices_by_ternary_elements(
-            parsed_norm_formulas, X, M, R
-        )
-
-    # Generate ordered bond pairs for 2 unique elements
-    if len(elements) == 2:
+    parsed_norm_formulas_ternary = [
+        formula_parser.get_parsed_norm_formula(formula)
+        for formula in formulas_no_tag_for_hexagon_ternary
+    ]
+    # Case 1. Only contain binary files
+    if contain_binary and not contain_ternary:
         A, B = formula_parser.get_AB_from_elements(elements)
-        sorted_indices = get_sorted_indices_by_binary_elements(
-            parsed_norm_formulas, B, A
+        sorted_indices_binary = get_sorted_indices_by_binary_elements(
+            parsed_norm_formulas_binary, B, A
+        )
+        sorted_files_binary = [
+            hexagon_image_files_binary[i] for i in sorted_indices_binary
+        ]
+        save_single_composite_figures(
+            sorted_files_binary, True, is_CN_used, output_dir
         )
 
-    # Sort hexagon image files according to the sorted indices
-    sorted_hexagon_image_files = [
-        hexagon_image_files[i] for i in sorted_indices
-    ]
+    # Case 2. Contain only ternary files
+    if contain_ternary:
+        R, M, X = formula_parser.get_RMX_from_elements(elements)
+        sorted_indices_ternary = get_sorted_indices_by_ternary_elements(
+            parsed_norm_formulas_ternary, X, M, R
+        )
+
+        sorted_files_ternary = [
+            hexagon_image_files_ternary[i] for i in sorted_indices_ternary
+        ]
+        save_single_composite_figures(
+            sorted_files_ternary, False, is_CN_used, output_dir
+        )
+        # Case 3. Contain both binary and ternary files
+        if contain_binary:
+            sorted_indices_binary = get_sorted_indices_by_binary_elements(
+                parsed_norm_formulas_binary, X, M
+            )
+            sorted_files_binary = [
+                hexagon_image_files_binary[i] for i in sorted_indices_binary
+            ]
+            save_single_composite_figures(
+                sorted_files_binary, True, is_CN_used, output_dir
+            )
+
+
+def save_single_composite_figures(
+    sorted_hexagon_image_files, is_binary, is_CN_used, output_dir
+):
 
     # Constants for the layout
     max_images_per_figure = 12
@@ -164,8 +215,7 @@ def draw_hexagon_for_individual_figure(
     num_figures = int(
         np.ceil(len(sorted_hexagon_image_files) / max_images_per_figure)
     )
-
-    # Loop through each figure to be created
+    # # Loop through each figure to be created
     for fig_idx in range(num_figures):
         # Calculate the range of images for this figure
         start_idx = fig_idx * max_images_per_figure
@@ -204,13 +254,21 @@ def draw_hexagon_for_individual_figure(
         )
 
         # Save this figure
-        if is_CN_used:
+        if is_binary and is_CN_used:
             composite_filepath = os.path.join(
-                output_dir, f"composite_{fig_idx+1}_CN.png"
+                output_dir, f"composite_binary_{fig_idx+1}_CN.png"
             )
-        else:
+        elif is_binary and not is_CN_used:
             composite_filepath = os.path.join(
-                output_dir, f"composite_{fig_idx+1}.png"
+                output_dir, f"composite_binary_{fig_idx+1}.png"
+            )
+        elif not is_binary and is_CN_used:
+            composite_filepath = os.path.join(
+                output_dir, f"composite_ternary_{fig_idx+1}_CN.png"
+            )
+        elif not is_binary and not is_CN_used:
+            composite_filepath = os.path.join(
+                output_dir, f"composite_ternary_{fig_idx+1}.png"
             )
         fig.savefig(composite_filepath, dpi=300)
         plt.close(fig)

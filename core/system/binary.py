@@ -6,12 +6,14 @@ from core.system.figure_util import parse_bond_fractions_formulas
 
 
 def draw_binary_figure(bond_fractions_data, output_dir, is_CN_used):
-
     # In the case of 3 bond fractions (2 elements)
     for _, data in bond_fractions_data.items():
-        bond_fractions, bnod_fractions_CN, _, formulas = (
-            parse_bond_fractions_formulas(data)
-        )
+        (
+            bond_fractions,
+            bnod_fractions_CN,
+            _,
+            formulas,
+        ) = parse_bond_fractions_formulas(data)
         if is_CN_used:
             draw_horizontal_lines_with_multiple_marks(
                 formulas[0],

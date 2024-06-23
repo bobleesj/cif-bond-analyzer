@@ -18,7 +18,6 @@ def draw_ternary_figure(
     output_dir,
     is_CN_used,
 ):
-
     # Grid
     grid_alpha = 0.2
     grid_line_width = 0.5
@@ -27,10 +26,6 @@ def draw_ternary_figure(
     vertices = ternary.generate_traingle_vertex_points()
     v0, v1, v2 = vertices
     ternary.draw_ternary_frame(v0, v1, v2)
-    # For binary - shift center position with tags
-    # ternary.draw_extra_frame_for_binary_tags(
-    #     v0, v1, v2, formulas_with_tag, RMX
-    # )
     ternary.draw_filled_edges(v0, v1, v2)
     ternary.draw_triangular_grid(
         v0, v1, v2, grid_alpha, grid_line_width, n_lines=10
@@ -49,9 +44,12 @@ def draw_ternary_figure(
 
     # Get all unique formulas
     for _, data in bond_fraction_per_structure_data.items():
-        bond_fractions, bnod_fractions_CN, _, formulas = (
-            parse_bond_fractions_formulas(data)
-        )
+        (
+            bond_fractions,
+            bnod_fractions_CN,
+            _,
+            formulas,
+        ) = parse_bond_fractions_formulas(data)
         formula = formulas[0]
         parsed_normalized_formula = formula_parser.get_parsed_norm_formula(
             formula

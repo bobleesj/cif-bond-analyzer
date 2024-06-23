@@ -4,7 +4,6 @@ from core.coordination.util import compute_delta
 
 
 def save_json_for_connections(cif_ensemble: CifEnsemble, output_dir):
-
     CN_json = {}
     for cif in cif_ensemble.cifs:
         connections = cif.CN_connections_by_best_methods
