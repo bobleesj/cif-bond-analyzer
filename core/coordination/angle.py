@@ -2,6 +2,11 @@ import numpy as np
 
 
 def compute_angles_from_central_atom(CN_connections):
+    """
+    Compute the angles between vectors formed by connections from
+    a central atom to its neighbors. Stores the calculated angles
+    in degrees with four significant figures.
+    """
     angles = {}
 
     for label, connection_data in CN_connections.items():
@@ -40,6 +45,11 @@ def compute_angles_from_central_atom(CN_connections):
 def get_largest_angle_atom_indices_largest_to_smallest(
     angles, threshold=40
 ) -> dict:
+    """
+    Filter and sort the angles close to 180 degrees within a specified
+    threshold. Outputs the top 10 largest angles for each label and
+    stores the pairindices of these angles.
+    """
     indicies = {}
     for label, angle_data in angles.items():
         # Get filtered and sorted list of (pair, angle) tuples based on the angle
@@ -65,6 +75,10 @@ def get_largest_angle_atom_indices_largest_to_smallest(
 
 
 def count_number_of_angles(angle_data, angle):
+    """
+    Count the occurrences of a specified angle in the angle data.
+    """
+
     # Initialize count
     count = 0
 

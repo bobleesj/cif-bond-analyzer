@@ -1,6 +1,5 @@
 """
 Plot histograms for atomic pair dists from dict and save the plots.
-(Refactoring will occcur once test results are confirmed)
 """
 
 import os
@@ -49,6 +48,9 @@ def get_colors_category_mappings():
 
 
 def draw_histograms(site_pair_dict, element_pair_dict, dir_path):
+    """
+    Draw histograms using site pair and element pair dicts.
+    """
     all_distances = get_distances_from_site_pair(site_pair_dict)
     config = get_histogram_config()
     bin_width = config["bin_width"]

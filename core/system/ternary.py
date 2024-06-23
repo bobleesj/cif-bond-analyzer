@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from core.system import ternary_handler, hexagon
-from core.util import string_parser, formula_parser
+from core.system import hexagon
+from core.util import formula_parser
 from core.system.figure_util import (
     shift_points_xy,
 )
@@ -34,7 +34,7 @@ def generate_traingle_vertex_points():
 
 def draw_ternary_frame(v0, v1, v2):
     """
-    Draw traingle vertices.
+    Draw the frame of a ternary diagram.
     """
     # Triangle vertices
     # Plotting the enhanced triangle
@@ -55,6 +55,9 @@ def draw_ternary_frame(v0, v1, v2):
 
 
 def add_vertex_labels(v0, v1, v2, RMX):
+    """
+    Label the vertices of the ternary diagram.
+    """
     # Labeling the vertices
     plt.text(
         v0[0] - 0.02,
@@ -83,6 +86,9 @@ def add_vertex_labels(v0, v1, v2, RMX):
 
 
 def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
+    """
+    Draw filled edges on the ternary diagram to highlight regions.
+    """
     # Calculate points along the edges at the given fraction of their lengths
     p0_blue = [
         (1 - fraction) * v0[0] + (1 - fraction) * v1[0],
@@ -139,6 +145,9 @@ def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
 
 
 def draw_triangular_grid(v0, v1, v2, alpha, line_width, n_lines=10):
+    """
+    Draw a grid within the ternary diagram.
+    """
     # Line parallel to v2v0 (right slant)
     for i in range(1, n_lines):
         t = i / n_lines
@@ -175,6 +184,9 @@ def draw_triangular_grid(v0, v1, v2, alpha, line_width, n_lines=10):
 
 
 def draw_legend(bond_pairs_ordered, x_position):
+    """
+    Draw a legend on the ternary diagram to explain bond pairs.
+    """
     legend_center_point = (0 + x_position, 0.8)
     legend_bond_label_font_size = 10
     legend_radius = 0.06
@@ -228,6 +240,10 @@ def draw_legend(bond_pairs_ordered, x_position):
 
 
 def draw_center_dot_formula(center_pt, formula):
+    """
+    Mark the center of a hexagon on the ternary diagram with formula data.
+    """
+
     # Config for hexagon
     center_dot_radius = 8
     formula_offset = -0.07
@@ -259,6 +275,9 @@ def draw_hexagon_for_ternary_formula(
     bnod_fractions_CN,
     is_CN_used,
 ):
+    """
+    Draw a hexagon for a ternary formula on the diagram.
+    """
     R_norm_index = parsed_normalized_formula[0][1]
     M_norm_index = parsed_normalized_formula[1][1]
 
@@ -292,6 +311,9 @@ def draw_hexagon_for_binary_formula(
     tag,
     is_CN_used,
 ):
+    """
+    Draw a hexagon for a binary formula on the ternary diagram.
+    """
     center_pt = None
     R, M, X = RMX
     A_norm_index = float(parsed_normalized_formula[0][1])

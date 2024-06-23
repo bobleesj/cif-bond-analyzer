@@ -1,25 +1,21 @@
 import time
-from cifkit import CifEnsemble, Cif
+from cifkit import CifEnsemble
 from cifkit.utils.string_parser import get_atom_type_from_label
 from cifkit.utils.bond_pair import order_tuple_pair_by_mendeleev
-from core.util.save import save_to_json
 from core.prompts.progress import (
     prompt_progress_current,
     prompt_progress_finished,
 )
 
-"""
- Each pair of site labels is sorted
- alphabetically and converted into a tuple. A dictionary (min_distances)
- is used to track the minimum distance observed for each unique sorted pair.
- As the script iterates through each pair's distance,
- it checks whether this pair is already recorded in min_distances.
- If the pair is new, or if a shorter distance for an existing
- pair is found, the dictionary is updated accordingly.
- """
-
 
 def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
+    """
+    Sort each pair of site labels alphabetically, converting to a tuple.
+    Track the minimum distance for each unique sorted pair in a dictionary.
+    Update the dictionary if a new pair is found or a shorter distance for an
+    existing pair is recorded.
+    """
+
     data = {}
     file_count = cif_ensemble.file_count
     for i, cif in enumerate(cif_ensemble.cifs, start=1):
@@ -86,18 +82,22 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
 
 
 def remove_empty_keys(data):
-    """Remove keys with empty data"""
+    """
+    Remove keys with empty data.
+    """
     cleaned_data = {}
     for bond, cif_dict in data.items():
         if cif_dict:
             cleaned_data[bond] = cif_dict
-        else:
-            print(f"Removed empty bond pair: {bond}")
+        # else:
+        #     print(f"Removed empty bond pair: {bond}")
     return cleaned_data
 
 
 def filter_with_minimum_distance_per_file(data):
-    """Return the minimum distance per pair."""
+    """
+    Return the minimum distance per pair.
+    """
     min_distances = {}
     for bond, cif_dict in data.items():
         min_distances[bond] = {}

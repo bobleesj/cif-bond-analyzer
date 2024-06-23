@@ -1,19 +1,26 @@
-def get_ordered_bond_labels_from_RMX(
-    R_element, M_element, X_element
-) -> list[str]:
+def get_ordered_bond_labels_from_RMX(R: str, M: str, X: str) -> list[str]:
+    """
+    Generates a list of bond labels for a ternary
+    compound based on the elements provided.
+    """
+
     return [
-        f"{R_element}-{R_element}",  # Self-pair for R
-        f"{R_element}-{M_element}",  # R-M pair
-        f"{M_element}-{M_element}",  # Self-pair for M
-        f"{M_element}-{X_element}",  # M-X pair
-        f"{X_element}-{X_element}",  # Self-pair for X
-        f"{R_element}-{X_element}",  # R-X pair
+        f"{R}-{R}",
+        f"{R}-{M}",
+        f"{M}-{M}",
+        f"{M}-{X}",
+        f"{X}-{X}",
+        f"{R}-{X}",
     ]
 
 
-def get_ordered_bond_labels_from_AB(A_element, B_element) -> list[str]:
+def get_ordered_bond_labels_from_AB(A: str, B: str) -> list[str]:
+    """
+    Generates a list of bond labels for a binary
+    compound based on the elements provided.
+    """
     return [
-        f"{A_element}-{A_element}",
-        f"{A_element}-{B_element}",
-        f"{B_element}-{B_element}",
+        f"{A}-{A}",
+        f"{A}-{B}",
+        f"{B}-{B}",
     ]

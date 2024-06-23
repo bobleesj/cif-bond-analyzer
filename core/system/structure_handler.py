@@ -1,5 +1,4 @@
 from core.system import structure_util
-from core.util import prompt
 
 
 def get_structure_dict(
@@ -7,6 +6,9 @@ def get_structure_dict(
     possible_bond_pairs,
     updated_json_file_path,
 ):
+    """
+    Compile a dictionary of structures with bonds, files, and formulas.
+    """
     structure_dict = structure_util.init_structure_dict(
         unique_structure_types, possible_bond_pairs
     )

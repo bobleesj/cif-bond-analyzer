@@ -1,10 +1,6 @@
 import time
 import pandas as pd
-
 from cifkit import CifEnsemble
-from core.prompts.progress import prompt_folder_progress
-from core.prompts.intro import prompt_coordination_analysis_intro
-from core.prompts.input import prompt_to_include_nested_files
 from core.prompts.progress import (
     prompt_progress_current,
     prompt_progress_finished,
@@ -12,7 +8,13 @@ from core.prompts.progress import (
 from core.coordination.util import compute_delta
 
 
-def save_excel_for_connections(cif_ensemble: CifEnsemble, output_dir):
+def save_excel_for_connections(
+    cif_ensemble: CifEnsemble, output_dir: str
+) -> None:
+    """
+    Save the coordination number connections for a set of CIF files
+    in Excel format.
+    """
     # Create an Excel writer object
     writer = pd.ExcelWriter(
         f"{output_dir}/CN_connections.xlsx",

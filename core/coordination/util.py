@@ -3,8 +3,12 @@ import numpy as np
 from cifkit.utils import string_parser
 
 
-def compute_delta(ref_label, other_label, dist):
-    """Compute distance minus sum of atomic radii"""
+def compute_delta(ref_label: str, other_label: str, dist: float) -> float:
+    """
+    Calculate the percentage difference between a provided distance
+    and the sum of atomic radii.
+    """
+
     ref_element = string_parser.get_atom_type_from_label(ref_label)
     ref_element_rad = get_element_radius(ref_element)
 
@@ -19,7 +23,12 @@ def compute_delta(ref_label, other_label, dist):
     return delta_percent
 
 
-def get_element_radius(ref_element, filename="radii.xlsx", sheet_name="data"):
+def get_element_radius(
+    ref_element: float, filename="radii.xlsx", sheet_name="data"
+) -> float:
+    """
+    Retrieve the atomic radius for a specified element from an Excel file.
+    """
     # Read the Excel file into a DataFrame
     df = pd.read_excel(filename, sheet_name=sheet_name)
 

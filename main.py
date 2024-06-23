@@ -1,15 +1,12 @@
 """
-Main script for processing CIF files.
-
-This script processes CIF files in a specified directory,
-performs preprocessing, bond analysis, and generates output files and plots.
+Main script for conducting 3 analysis options.
 
 Usage:
     python main.py
 
 Author: Sangjoon Bob Lee
 
-Last update: June 9, 2024
+Last update: June 23, 2024
 Release date: Mar 10, 2024
 
 """

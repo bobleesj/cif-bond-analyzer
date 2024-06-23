@@ -1,9 +1,13 @@
 import numpy as np
 import pandas as pd
 from os.path import join
+from core.prompts.progress import prompt_file_saved
 
 
 def save_structure_analysis_excel(structure_dict, output_dir):
+    """
+    Save detailed bond information and statistics for structures to Excel.
+    """
     data = []
     structure_list = []
 
@@ -56,10 +60,14 @@ def save_structure_analysis_excel(structure_dict, output_dir):
     # Save DataFrame to an Excel file
     output_file_path = join(output_dir, "system_analysis_main.xlsx")
     df.to_excel(output_file_path, index=False)
-    print(df.head(40))
+    prompt_file_saved(output_file_path)
+    # print(df.head(40))
 
 
 def save_bond_overview_excel(structure_dict, possible_bond_pairs, output_dir):
+    """
+    Compile and save an overview of bond counts and types for structures to Excel.
+    """
     bond_types = [f"{pair[0]}-{pair[1]}" for pair in possible_bond_pairs]
 
     # Initialize structure bond counts
@@ -135,4 +143,5 @@ def save_bond_overview_excel(structure_dict, possible_bond_pairs, output_dir):
 
     output_file_path = join(output_dir, "system_analysis_files.xlsx")
     df.to_excel(output_file_path, index=False)
-    print(df.head(20))
+    prompt_file_saved(output_file_path)
+    # print(df.head(20))

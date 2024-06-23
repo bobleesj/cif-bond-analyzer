@@ -1,9 +1,7 @@
-import numpy as np
-
-
 def get_ring_count_above_below_central_atom_z(
     near_180_degrees_atom_indices, CN_connections
 ):
+    """Testing purposes only."""
     ring_counts = {}
     for label, conn_data in CN_connections.items():
         # Check if there are near 180 degree connections for the label

@@ -4,7 +4,7 @@ from cifkit.data.mendeleev import get_mendeleev_numbers
 
 def get_normalized_formula(formula):
     """
-    Returns a formula wlth the stoichiometry coefficient sum of 1
+    Return a formula wlth the stoichiometry coefficient sum of 1
     """
     demical_places = 3
     index_sum = 0
@@ -34,7 +34,9 @@ def get_normalized_formula(formula):
 
 
 def get_unique_elements(formula: str) -> list[str]:
-    """Return a set of elements parsed from a formula."""
+    """
+    Return a set of elements parsed from a formula.
+    """
     elements = get_parsed_formula(formula)
     unique_elements = [element for element, _ in elements]
     return unique_elements

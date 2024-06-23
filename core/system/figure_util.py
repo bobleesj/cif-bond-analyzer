@@ -1,17 +1,15 @@
-import os
 import json
 import numpy as np
-import pandas as pd
-import click
-from core.util import prompt, formula_parser, string_parser
-from core.system import structure_util
 
 
 def get_bond_fractions_data_for_figures(
     cif_ensemble, structure_dict, bond_pairs_formatted, is_CN_used
 ):
-    """Return bond fractions (CN, site), formulas, for each structure"""
+    """
+    Return bond fractions (CN, site), formulas, for each structure.
+    """
     bond_fractions_data: dict = {}
+    # print(json.dumps(structure_dict, indent=4))
 
     for cif in cif_ensemble.cifs:
         structure = cif.structure
@@ -52,7 +50,9 @@ def get_bond_fractions_data_for_figures(
 
 
 def parse_bond_fractions_formulas(data):
-    """Parse bond fractinos, pairs, formulas from each loop of plot data."""
+    """
+    Parse bond fractinos, pairs, formulas from each loop of plot data.
+    """
     bond_fractions = list(data["bond_fractions"].values())
     bnod_fractions_CN = list(data["bond_fractions_CN"].values())
     bond_pairs = list(data["bond_fractions"].keys())
@@ -76,5 +76,7 @@ def get_hexagon_vertex_colors(is_pure_binary):
 
 
 def shift_points_xy(point, x_shift, y_shift=0):
-    # Shift a point along the x-axis and y-axis
+    """
+    Shift a point along the x-axis and y-axis.
+    """
     return np.array([point[0] + x_shift, point[1] + y_shift])

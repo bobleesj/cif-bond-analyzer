@@ -25,7 +25,6 @@ def save_excel_json(
     write_pair_dict_to_excel_json(
         global_element_pair_dict, "element", dir_path, output_dir_path
     )
-    print("JSON and Excel saved.")
 
 
 def write_pair_dict_to_excel_json(
@@ -105,5 +104,3 @@ def write_pair_dict_to_excel_json(
             )
     with open(json_file_path, "w", encoding="utf-8") as json_file:
         json.dump(input_dict, json_file, indent=4)
-
-    print(f"{excel_file_path} \n{json_file_path}")

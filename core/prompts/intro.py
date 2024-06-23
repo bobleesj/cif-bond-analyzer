@@ -2,10 +2,10 @@ import textwrap
 import click
 
 
-def prompt_site_analysis_intro():
+def prompt_site_analysis_intro() -> None:
     intro_prompt = textwrap.dedent(
         """
-        ========================SITE ANALYSIS============================
+        ==========================SITE ANALYSIS=============================
         Process for Site Analysis:
 
         [1] Preprocess and standardize atomic labels in each .cif file
@@ -16,16 +16,16 @@ def prompt_site_analysis_intro():
         [6] Generate histograms for each unique atomic pair
 
         Let's get started!
-        =========================================================================
+        =====================================================================
         """
     )
     print(intro_prompt)
 
 
-def prompt_system_analysis_intro():
+def prompt_system_analysis_intro() -> None:
     intro_prompt = textwrap.dedent(
         """
-        ============================SYSTEN ANALYSIS===========================
+        ============================SYSTEN ANALYSIS==========================
         Process for System Analysis:
 
         4 types of folders are processed:
@@ -36,13 +36,13 @@ def prompt_system_analysis_intro():
 
         Note: Nested folders containing .cif files are automatically added.
         Note: Please refer to README.md for visualizations and Excel files.
-        =======================================================================
+        ======================================================================
         """
     )
     click.echo(intro_prompt)
 
 
-def prompt_coordination_analysis_intro():
+def prompt_coordination_analysis_intro() -> None:
     intro_prompt = textwrap.dedent(
         """
         =========================COORDINAITON ANALYSIS=======================
@@ -56,7 +56,7 @@ def prompt_coordination_analysis_intro():
         Note: For the CN methods, please refer to README.md
         Note: ∆ is (interatomic distance - sum of atomic radii).
         You may provide your radii values by modifying the radii.xlsx file.
-        =======================================================================
+        ======================================================================
         """
     )
     click.echo(intro_prompt)

@@ -6,6 +6,8 @@ from cifkit.utils.bond_pair import (
 
 from core.run import site_analysis
 from core.prompts.progress import prompt_folder_progress
+from core.system import color_map
+from core.system.figure_util import get_bond_fractions_data_for_figures
 from core.util import formula_parser
 from core.util.bond import (
     get_ordered_bond_labels_from_AB,
@@ -19,8 +21,6 @@ from core.system import (
     structure_util,
     ternary_handler,
 )
-from core.system import color_map
-from core.system.figure_util import get_bond_fractions_data_for_figures
 from core.util import folder
 from core.prompts.intro import prompt_system_analysis_intro
 from core.prompts import input

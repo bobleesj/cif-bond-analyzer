@@ -6,7 +6,7 @@ import click
 
 def get_cif_dir_paths(script_path):
     """
-    Returns a list of directories containing .cif files.
+    Return a list of directories containing .cif files.
     """
     dir_paths = [
         d
@@ -29,7 +29,7 @@ def get_cif_dir_paths(script_path):
 
 def get_json_dir_names(script_path):
     """
-    Returns .cif directories containing .json in the output folder.
+    Return .cif directories containing .json in the output folder.
     """
     directories = os.listdir(script_path)
 
@@ -60,7 +60,7 @@ def get_json_dir_names(script_path):
 
 
 def get_dir_list(ext, script_path):
-    """Returns directory names with .cif files."""
+    """Return directory names with .cif files."""
     matching_dir_names = [
         d
         for d in os.listdir(script_path)
@@ -145,15 +145,14 @@ def choose_binary_ternary_dir(script_path):
             for i in selected_indices
             if 1 <= i <= len(dir_path_list)
         ]
-        for dir_path in selected_dir_paths:
-            print("Selected for processing")
-            print(f"-{dir_path}")
+
     else:
         # Automatically process all directories sequentially by default
         selected_dir_paths = dir_path_list
-        for dir_path in selected_dir_paths:
-            print("Selected for processing")
-            print(f"-{dir_path}")
+
+    print("The following folders are selected for processing:")
+    for dir_path in selected_dir_paths:
+        print(f"- {dir_path}")
 
     return selected_dir_paths
 

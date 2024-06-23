@@ -2,7 +2,7 @@ import numpy as np
 import os
 from core.util import formula_parser
 import matplotlib.pyplot as plt
-from core.system import structure_util
+from core.prompts.progress import prompt_file_saved
 from core.system import hexagon
 from core.system.figure_util import parse_bond_fractions_formulas
 
@@ -205,6 +205,9 @@ def draw_hexagon_for_individual_figure(
 def save_single_composite_figures(
     sorted_hexagon_image_files, is_binary, is_CN_used, output_dir
 ):
+    """
+    Save multiple composite figures from hexagon images based on CN and type.
+    """
 
     # Constants for the layout
     max_images_per_figure = 12
@@ -272,12 +275,15 @@ def save_single_composite_figures(
             )
         fig.savefig(composite_filepath, dpi=300)
         plt.close(fig)
-        print(f"Saved composite hexagon image {fig_idx+1} in {output_dir}")
+        prompt_file_saved(composite_filepath)
 
 
 def get_sorted_indices_by_binary_elements(
     parsed_formulas, primary_element, secondary_element
 ):
+    """
+    Sort indices by primary and secondary element fractions in binary formulas.
+    """
     element_data = []
 
     # Collect the relevant fractions for primary and secondary elements
@@ -301,6 +307,9 @@ def get_sorted_indices_by_binary_elements(
 def get_sorted_indices_by_ternary_elements(
     parsed_formulas, primary_element, secondary_element, tertiary_element
 ):
+    """
+    Sort indices by element fractions in ternary formulas.
+    """
     element_data = []
 
     # Collect the relevant fractions for primary, secondary, and tertiary elements

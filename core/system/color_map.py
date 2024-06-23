@@ -1,17 +1,13 @@
-import re
-import numpy as np
 from os.path import join
+import numpy as np
 import matplotlib.tri as mtri
-import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import colors as mcolors
-
-from core.system import ternary
 from core.util import formula_parser
+from core.system import ternary
 from core.system.figure_util import (
     get_hexagon_vertex_colors,
 )
-from core.system import structure_util
 from core.system.figure_util import (
     parse_bond_fractions_formulas,
 )
@@ -20,6 +16,9 @@ from core.system.figure_util import (
 def plot_ternary_color_map(
     bond_fraction_per_structure_data, RMX, output_dir, is_CN_used
 ):
+    """
+    Plot and save ternary color maps, both combined and separate, based on CN.
+    """
     save_color_map(
         bond_fraction_per_structure_data,
         RMX,
@@ -44,6 +43,9 @@ def save_color_map(
     is_CN_used,
     is_colors_combined,
 ):
+    """
+    Generate and save ternary diagrams with color gradients for bond fractions.
+    """
     R, M, X = RMX
     # Plot the overlayed ternary diagrams
     fig, ax = plt.subplots()
@@ -137,7 +139,7 @@ def save_color_map(
             )
 
         except ValueError as e:
-            print(f"Skipping triangulation/interpolation. {e}")
+            # print(f"Skipping triangulation/interpolation. {e}")
             continue
 
         interp = mtri.LinearTriInterpolator(triangulation, z_all_per_bond_type)

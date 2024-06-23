@@ -1,4 +1,5 @@
 from click import echo
+from cifkit import CifEnsemble
 
 from core.site import (
     bond_missing,
@@ -11,11 +12,14 @@ from core.prompts.progress import prompt_folder_progress
 from core.prompts.intro import prompt_site_analysis_intro
 from core.prompts.input import prompt_to_include_nested_files
 from core.site import handler as site_handler
-from cifkit import CifEnsemble
 
 
 def run_site_analysis(script_path):
-    """Run the bond extraction procedure"""
+    """
+    Execute the site analysis sequence including directory
+    selection and initiating the analysis on selected folders.
+    """
+
     prompt_site_analysis_intro()
 
     # Which folders would you like to process?
@@ -35,6 +39,10 @@ def run_site_analysis(script_path):
 
 
 def generate_site_analysis_data(dir_path, add_nested) -> CifEnsemble:
+    """
+    Conduct site analysis on a specified directory,
+    handling CIF files and generating summary outputs and visualizations.
+    """
     if add_nested:
         cif_ensemble = CifEnsemble(dir_path, add_nested=True)
     else:

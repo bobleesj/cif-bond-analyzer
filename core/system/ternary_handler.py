@@ -1,12 +1,11 @@
-import numpy as np
 import os
-from core.util import formula_parser, prompt
 import matplotlib.pyplot as plt
-from core.system import structure_util, ternary
-from core.system import hexagon
+from core.util import formula_parser
+from core.system import ternary
 from core.system.figure_util import (
     parse_bond_fractions_formulas,
 )
+from core.prompts.progress import prompt_file_saved
 
 
 def draw_ternary_figure(
@@ -18,6 +17,9 @@ def draw_ternary_figure(
     output_dir,
     is_CN_used,
 ):
+    """
+    Draw ternary diagrams with bond fractions and save to specified directory.
+    """
     # Grid
     grid_alpha = 0.2
     grid_line_width = 0.5
@@ -92,4 +94,5 @@ def draw_ternary_figure(
 
     plt.axis("off")
     plt.savefig(output_filepath, dpi=300)
+    prompt_file_saved(output_filepath)
     plt.close()

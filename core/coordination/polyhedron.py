@@ -1,10 +1,9 @@
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.spatial import ConvexHull
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from scipy.spatial import Delaunay
-import matplotlib.pyplot as plt
+from scipy.spatial import ConvexHull
 from coordination.angle import count_number_of_angles
 
 
@@ -19,6 +18,8 @@ def plot_polyhedrons(
     """
     Plot the best polyhedron for each label using 3D visualization with
     Poly3DCollection.
+
+    *Not used in CBA at the moment. This is for testing purposes only.    
     """
     color_map = {
         "In1": "blue",

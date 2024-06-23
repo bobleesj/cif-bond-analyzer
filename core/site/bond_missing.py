@@ -4,7 +4,7 @@ from cifkit.utils.bond_pair import order_tuple_pair_by_mendeleev
 
 def get_sorted_missing_pairs(global_element_pair_dict):
     """
-    Returns label tuple list containing pairs not found from CIF.
+    Return label tuple list containing pairs not found from CIF.
     """
 
     all_pairs = get_all_ordered_pairs_from_set(global_element_pair_dict)

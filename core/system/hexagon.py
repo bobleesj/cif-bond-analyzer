@@ -1,12 +1,12 @@
-import random
 import numpy as np
 import matplotlib.pyplot as plt
-from core.system import hexagon
 from core.system.figure_util import get_hexagon_vertex_colors
 
 
 def get_hexagon_points(center, size):
-    """Generate points for a hexagon rotated to stand on a vertex."""
+    """
+    Generate points for a hexagon rotated to stand on a vertex.
+    """
     angles = np.linspace(0, 2 * np.pi, 7, endpoint=True) + 7 * (
         np.pi / 6
     )  # Rotate by 30 degrees
@@ -27,6 +27,10 @@ def draw_single_hexagon_and_lines_per_center_point(
     color_line_width=2.5,
     is_for_individual_hexagon=False,
 ):
+    """
+    Draw a hexagon and lines indicating bond fractions, customize visual
+    elements.
+    """
     # Get colors
     is_pure_binary = False
     if len(bond_fractions) == 3:
