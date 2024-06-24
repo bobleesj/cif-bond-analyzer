@@ -23,7 +23,7 @@ def run_site_analysis(script_path):
     prompt_site_analysis_intro()
 
     # Which folders would you like to process?
-    dir_names_with_cif = folder.get_cif_dir_paths(script_path)
+    dir_names_with_cif = folder.get_cif_dir_names(script_path)
     selected_dirs = prompt.get_user_input_folder_processing(
         dir_names_with_cif, ".cif"
     )

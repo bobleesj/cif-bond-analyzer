@@ -6,6 +6,7 @@ from core.system.figure_util import (
     parse_bond_fractions_formulas,
 )
 from core.prompts.progress import prompt_file_saved
+from core.configs.ternary import TernaryConfig
 
 
 def draw_ternary_figure(
@@ -34,10 +35,13 @@ def draw_ternary_figure(
     )
 
     # Legend
-    ternary.draw_legend(bond_pairs_ordered, x_position=0.0)
+    ternary.draw_legend(
+        bond_pairs_ordered,
+        TernaryConfig.X_SHIFT.value,
+        TernaryConfig.Y_SHIFT.value,
+    )
 
     # Vertex label
-    # Add vertex label using ternary formula
     ternary.add_vertex_labels(v0, v1, v2, RMX)
 
     """

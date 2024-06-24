@@ -6,6 +6,7 @@ from core.prompts.progress import (
     prompt_progress_finished,
 )
 from core.coordination.util import compute_delta
+from core.prompts.progress import prompt_file_saved
 
 
 def save_excel_for_connections(
@@ -16,8 +17,9 @@ def save_excel_for_connections(
     in Excel format.
     """
     # Create an Excel writer object
+    file_path = f"{output_dir}/CN_connections.xlsx"
     writer = pd.ExcelWriter(
-        f"{output_dir}/CN_connections.xlsx",
+        file_path,
         engine="openpyxl",
     )
     file_count = cif_ensemble.file_count
@@ -83,4 +85,4 @@ def save_excel_for_connections(
 
     # Save the Excel file
     writer._save()
-    print(f"Data successfully written {output_dir}.xlsx")
+    prompt_file_saved(file_path)

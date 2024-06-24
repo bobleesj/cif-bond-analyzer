@@ -37,7 +37,6 @@ def draw_ternary_frame(v0, v1, v2):
     Draw the frame of a ternary diagram.
     """
     # Triangle vertices
-    # Plotting the enhanced triangle
     plt.figure(figsize=(8, 7))
     triangle = plt.Polygon(
         [v0, v1, v2],
@@ -46,10 +45,8 @@ def draw_ternary_frame(v0, v1, v2):
         zorder=3,
     )
     plt.gca().add_patch(triangle)
-    # Set new plot limits here
-    plt.xlim(-0.2, 1.2)  # Extend x-axis limits
-    plt.ylim(-0.4, 1.0)  # Extend y-axis limits
-
+    plt.xlim(-0.2, 1.2)
+    plt.ylim(-0.4, 1.0)
     plt.tight_layout(pad=0.2)
     plt.gca().set_aspect("equal", adjustable="box")
 
@@ -126,12 +123,14 @@ def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
         color="blue",
         alpha=alpha,
     )
+
     filled_edge2 = plt.Polygon(
         [v1, p0_blue, p2_blue],
         closed=True,
         color="green",
         alpha=alpha,
     )
+
     filled_edge3 = plt.Polygon(
         [v2, p1_green, p2_green],
         closed=True,
@@ -183,11 +182,11 @@ def draw_triangular_grid(v0, v1, v2, alpha, line_width, n_lines=10):
         )
 
 
-def draw_legend(bond_pairs_ordered, x_position):
+def draw_legend(bond_pairs_ordered, x_shift, y_shift):
     """
     Draw a legend on the ternary diagram to explain bond pairs.
     """
-    legend_center_point = (0 + x_position, 0.8)
+    legend_center_point = (0 + x_shift, 0.8 + y_shift)
     legend_bond_label_font_size = 10
     legend_radius = 0.06
 

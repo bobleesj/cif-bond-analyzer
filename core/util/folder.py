@@ -4,27 +4,38 @@ from cifkit import CifEnsemble
 import click
 
 
-def get_cif_dir_paths(script_path):
+def contains_cif_files(directory):
     """
-    Return a list of directories containing .cif files.
+    Check if directory or its nested directories contain any .cif files.
     """
-    dir_paths = [
-        d
+    for root, dirs, files in os.walk(directory):
+        if any(file.endswith(".cif") for file in files):
+            return True
+    return False
+
+
+def get_cif_dir_names(script_path):
+    """
+    Return a list of directory names containing .cif files, excluding those
+    starting with 'tests'. Directory names are relative to the script_path.
+    """
+    dir_names = [
+        os.path.basename(d)
         for d in os.listdir(script_path)
         if os.path.isdir(os.path.join(script_path, d))
-        and any(
-            file.endswith(".cif")
-            for file in os.listdir(os.path.join(script_path, d))
-        )
+        and not d.startswith(
+            "tests"
+        )  # Exclude directories starting with 'tests'
+        and contains_cif_files(os.path.join(script_path, d))
     ]
 
-    if not dir_paths:
+    if not dir_names:
         print(
-            "No directories found in the current path containing .cif files!"
+            "No directories found in the current path containing .cif files."
         )
         return []  # Return an empty list instead of None
 
-    return dir_paths
+    return dir_names
 
 
 def get_json_dir_names(script_path):
@@ -85,7 +96,7 @@ def get_dir_paths_with_two_or_three_elements_nested(script_path):
     and file count.
     """
     # List all directories under the script path that contain .cif files, including nested folders
-    dir_paths = get_cif_dir_paths(script_path)
+    dir_paths = get_cif_dir_names(script_path)
     biarny_ternary_dir_paths = {}
 
     for dir_path in dir_paths:

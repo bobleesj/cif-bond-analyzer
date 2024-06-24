@@ -1,11 +1,13 @@
 import os
-import time
 import json
 import click
 from click import echo
-
 from core.site import histogram
-from core.util import folder, prompt
+from core.util import prompt, folder
+
+
+from core.prompts.progress import prompt_folder_progress
+from core.prompts.intro import prompt_plot_histograms_intro
 
 
 def plot_histogram():
@@ -13,9 +15,9 @@ def plot_histogram():
     Produce histogram sheets and single histograms
     """
 
-    click.echo("Starting the histogram plotting process...")
+    prompt_plot_histograms_intro()
     # 1. Customize the bin width if needed
-    echo("\nWould you like to customize the histogram width?")
+    echo("Would you like to customize the histogram width?")
     is_custom_design = click.confirm("(Default: Y)", default=True)
 
     if is_custom_design:
@@ -29,7 +31,7 @@ def plot_histogram():
         )
 
         bin_width = click.prompt(
-            "(3/3) Enter the bin width (default is 0.10 Å)",
+            "(3/3) Enter the bin width",
             type=float,
         )
 
@@ -48,7 +50,7 @@ def plot_histogram():
     # 3. Plot
     for idx, dir_name in enumerate(selected_dirs.values(), start=1):
         dir_path = os.path.join(script_path, dir_name, "output")
-        prompt.echo_folder_progress(idx, dir_name, num_selected_dirs)
+        prompt_folder_progress(idx, dir_name, num_selected_dirs)
         element_pair_dict = None
         site_pair_dict = None
 
@@ -57,7 +59,7 @@ def plot_histogram():
                 "_site_pairs.json"
             ):
                 json_file_path = os.path.join(dir_path, file_name)
-                echo(f"Processing {json_file_path}")
+                echo(f"Processing {os.path.basename(json_file_path)}")
 
                 with open(json_file_path, "r") as json_file:
                     data = json.load(json_file)
@@ -94,7 +96,8 @@ def plot_histogram():
                     distances,
                     "histogram_element_pair",
                 )
-    echo("\nCongratulations! All histograms generated.")
+
+    echo("\nCongratulations! All histograms are re-generated.")
 
 
 if __name__ == "__main__":

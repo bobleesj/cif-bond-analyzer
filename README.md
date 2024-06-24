@@ -135,6 +135,12 @@ pip install -r requirements.txt
 python main.py
 ```
 
+### To customize
+
+### Ternary diagram legend position
+
+### Histograms width and x axis min and max values
+
 ## Tutorial
 
 > If you are new to Conda (Python package manager), I have written a tutorial for you here [Intro to Python package manager for beginners (Ft. Conda with Cheatsheet](https://bobleesj.github.io/tutorial/2024/02/26/intro-to-python-package-manager.html).
@@ -148,14 +154,12 @@ python main.py
 
 ## Questions?
 
-Please feel free to reach out via sl5400@columbia.edu for any questions 
+Please feel free to reach out via sl5400@columbia.edu for any questions.
 
-## How to contribute or report a bug
-
-Please feel free to report an issue or contribute by making a new issue [here](https://github.com/bobleesj/cif-bond-analyzer/issues)
 
 ## Changelog
 
+= 20240623 - Implement CN bond fractions, refactor code, nested code. 
 - 20240331 - Added integration test for JSON result verification.
 - 20240330 - Added sequential folder processing and customizable histogram generation. See [Pull #16](https://github.com/bobleesj/cif-bond-analyzer/pull/16).
 - 20240326 - Implemented automatic preprocessing and relocation of unsupported CIF files.

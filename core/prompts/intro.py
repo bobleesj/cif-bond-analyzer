@@ -60,3 +60,17 @@ def prompt_coordination_analysis_intro() -> None:
         """
     )
     click.echo(intro_prompt)
+
+
+def prompt_plot_histograms_intro() -> None:
+    intro_prompt = textwrap.dedent(
+        """
+        ============================PLOT HISTOGRAMS===========================
+        Process for re-plotting histograms:
+
+        Note: Folder must contain .json produced from Site Analysis.
+        Note: Customize bin size, min and max x-value in all histograms.
+        ======================================================================
+        """
+    )
+    click.echo(intro_prompt)

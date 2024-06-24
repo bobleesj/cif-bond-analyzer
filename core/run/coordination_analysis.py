@@ -16,7 +16,7 @@ def run_coordination(script_path):
     """
 
     prompt_coordination_analysis_intro()
-    dir_names_with_cif = folder.get_cif_dir_paths(script_path)
+    dir_names_with_cif = folder.get_cif_dir_names(script_path)
     selected_dirs = prompt.get_user_input_folder_processing(
         dir_names_with_cif, ".cif"
     )

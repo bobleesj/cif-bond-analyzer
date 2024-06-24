@@ -6,5 +6,4 @@ openpyxl==3.1.2
 pandas==2.2.1
 scipy==1.12.0
 sympy==1.12
-cifkit==0.20
-pyvista==0.43.9
+cifkit==0.22
