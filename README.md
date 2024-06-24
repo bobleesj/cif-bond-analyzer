@@ -5,8 +5,6 @@
 ![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)
 ![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)
 ![Python 3.11](https://img.shields.io/badge/python-3.12-blue.svg)
-
-
 [![Integration tests](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml/badge.svg)](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml)
 
 ## Description
@@ -168,7 +166,7 @@ Please feel free to reach out via sl5400@columbia.edu for any questions.
 
 ## Changelog
 
-= 20240623 - Implement CN bond fractions, refactor code, nested code. 
+- 20240623 - Implement CN bond fractions, refactor code, nested code, add integration tests
 - 20240331 - Added integration test for JSON result verification.
 - 20240330 - Added sequential folder processing and customizable histogram generation. See [Pull #16](https://github.com/bobleesj/cif-bond-analyzer/pull/16).
 - 20240326 - Implemented automatic preprocessing and relocation of unsupported CIF files.

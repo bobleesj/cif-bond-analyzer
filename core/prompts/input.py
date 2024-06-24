@@ -19,6 +19,7 @@ def prompt_to_use_CN_bond_fractions() -> bool:
     """
     click.echo(
         "\nWould like to use bond fractions in coordination number geometry?"
+        " (for figures only)"
     )
     is_CN_used = click.confirm("(Default: N)", default=False)
     return is_CN_used
