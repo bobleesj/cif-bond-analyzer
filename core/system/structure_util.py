@@ -73,7 +73,7 @@ def add_files_and_formula(
                         structure_dict[structure]["files"].append(dataset_id)
                         structure_dict[structure]["file_count"] += 1
 
-                        if tag is not "":
+                        if tag != "":
                             structure_dict[structure]["formulas"].append(
                                 formula + "_" + tag
                             )
