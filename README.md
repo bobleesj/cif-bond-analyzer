@@ -2,6 +2,13 @@
 
 ![Header](https://s9.gifyu.com/images/SViLp.png)
 
+![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)
+![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)
+![Python 3.11](https://img.shields.io/badge/python-3.12-blue.svg)
+
+
+[![Integration tests](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml/badge.svg)](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml)
+
 ## Description
 
 CIF Bond Analyzer (CBA) is an interactive, command-line Python application designed for the high-throughput extraction of minimum bond length and atomic mixing information from a CIF (Crystallographic Information File) file. CBA constructs a supercell and determines the minimum bond length from each atomic site. CBA repeats the extraction process for each file in the selected folder. The outputs are saved in both JSON and Excel formats. Additionally, CBA generates histograms for a graphical overview of bond lengths and a text file that enumerates bond pair counts and unobserved bonding pairs.
