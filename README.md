@@ -8,39 +8,48 @@
 
 CIF Bond Analyzer (CBA) is an interactive, command-line Python application designed for the high-throughput extraction of bonding information from CIF (Crystallographic Information File) file.
 
+## Overview
 
-### Overview
+Defect .cif files. CBA is a prompt-based and codeless application built in Python. To begin, CBA detects folders containing .cif files located at the project level. It also counts .cif files that are nested within the folder.
 
-1. Choose the folder interactively and decided to inculde .cif files in nested folders.
-2. Preprocess .cif files and standarlize site labels
-3. Move ill-formatted files
+Preprocess .cif files and standarlize site labels. Due to atomic mixing, site labels may have a comma and symbols such as `M` is used. CBA reformats them that is easily parsable into an element. Also, we noticed that many files have problems with the author section and publication, we also remove the author loop section.
+
+Move ill-formatted files. 
 4. Choose one of the options
 5. Generate a unitcell and a supercell by applying +-1, +-1, +-1 shifts in fractional coordinates.
+
 6. Generate a supercell for each file and determine the shortest distance and pair from each atomic site. The atomic site is selected based on the atom with the greatest number of minimum distances in the surrounding atoms.
 
 
 ## Demo
 
-![CIF Bond Analyzer execution process](https://s12.gifyu.com/images/SViMw.gif)
+The program has been designed to be run with intuitive user-interactive commands only.
+
+![CBA-demo-gif](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/fad16f21-93d8-4954-8efe-c04fbc68a9b7)
 
 
 ## How to use
 
-Download all the required libraries. The code has been tested on Python version 3.10, 3.11, 3.12.
+Download required depdencies. The code has been tested on Python version 3.10, 3.11, 3.12.
 
 ```bash
 pip install -r requirements.txt
 ```
 
-This command will start the program and prompt you to select a folder containing .`cif` files for analysis.
+Run via:
 
 ```bash
 python main.py
 ```
 
-The following will prompt
+
+## Options
+
+CBA supports 3 options belows.
 
 ```text
+python main.py
+
 Welcome! Please choose an option to proceed:
 [1] Conduct site analysis.
 [2] Conduct system analysis.
@@ -48,9 +57,6 @@ Welcome! Please choose an option to proceed:
 Enter your choice (1-3): 
 ```
 
-## Options
-
-CBA supports 3 options with details provided below.
 
 ###  Option 1. Site Analysis
 
@@ -186,29 +192,7 @@ For each folder, CBA generates `.xlsx` and `.json` files containing the shortest
 
 An Excel file containing the information and each sheet having the bond pair.
 
-[20240623_ErCoIn_nested_element_pairs.xlsx](https://github.com/user-attachments/files/15963693/20240623_ErCoIn_nested_element_pairs.xlsx)
-
 ![Excel screenshot](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/d6bed0df-b9ea-4922-967b-4656bb3ab3e0)
-
-
-```
-File	Distance
-1814810.cif	2.623
-1803318.cif	2.644
-1840445.cif	2.691
-1818414.cif	2.729
-1234747.cif	2.737
-1140826.cif	2.743
-1229705.cif	2.794
-1956508.cif	2.799
-1000761.cif	2.81
-1233938.cif	2.881
-1803512.cif	2.882
-1925389.cif	2.922
-    
-Average	2.771
-SD	0.094
-```
 
 
 ### Option 2. System Analysis
@@ -242,19 +226,23 @@ For Type 1, the following is generated.
 
 For Type 2, 3, 4, the following is generated.
 
+How to customize:
+
 Customizaiton: You move the positino of the legend in the ternary diagram, you may modify the values of `X_SHIFT = 0.0` and `Y_SHIFT = 0.0` in `core/configs/ternary.py`.
 
 Individual hexagons are also produced.
 
-![composite_binary_2](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/b385fe6e-f17e-439d-99e8-694378c097a3)
-![composite_ternary_1](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/1cb0b0f8-501e-4c53-86fb-190e304f11a6)
+![composite_binary_1](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/2f0e7076-50cd-4356-8ca0-0714571d8944)
 
+![composite_ternary_1](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/5620581c-9764-4b27-bf99-14e15adbb73b)
 
-![color_map_Er-In](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/2da0a905-b247-43ac-bebf-4afc4c0b0608)
+Ternary diagram
 
-![color_map_In-In](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/874b083f-1aa3-4bd0-aba3-eb63bf5229e7)
+![ternary](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/7496f433-c218-49ac-8372-cb75a369e409)
 
-![color_map_overall](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/1a450ee5-053c-471e-b092-e1731427c2a0)
+Binary files
+
+![binary_single](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/21f25fb3-79ea-4cd1-931d-ad5b3ea55189)
 
 
 #### Output 2.2 Color map

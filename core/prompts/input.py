@@ -8,7 +8,7 @@ def prompt_to_include_nested_files() -> bool:
     click.echo(
         "\nWould you like to include nested .cif files in each folder above?"
     )
-    add_nested_files = click.confirm("(Default: N)", default=False)
+    add_nested_files = click.confirm("(Default: Y)", default=True)
     return add_nested_files
 
 
@@ -19,7 +19,7 @@ def prompt_to_use_CN_bond_fractions() -> bool:
     """
     click.echo(
         "\nWould like to use bond fractions in coordination number geometry?"
-        " (for figures only)"
+        " (for .png only)"
     )
     is_CN_used = click.confirm("(Default: N)", default=False)
     return is_CN_used
