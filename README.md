@@ -238,6 +238,10 @@ For Type 1:
 
 ![binary_single](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/21f25fb3-79ea-4cd1-931d-ad5b3ea55189)
 
+All of the individual hexagon figures also saved in order.
+
+![composite_binary_1](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/3c405d7c-2a42-4114-ba45-d3df0f721b48)
+
 #### Output 2.2 Color map
 
 For Types 2, 3, and 4, color maps for each bond type and overall are generated.
@@ -261,7 +265,7 @@ Average bond lenghts, count, and statistical values are recorded in `system_anal
 
 - **Purpose:** This option determines the best coordination geometry using four methods provided in `cifkit`. Excel files and JSON are saved with nearest neighbor information.
 
-- **Customization:** The Excel contains `Δ`, which is defined as the interatomic distance subtracted by the sum of atomic radii. You may provide your radii values by modifying the radii.xlsx file.
+- **Customization:** The Excel contains `Δ`, which is defined as the interatomic distance subtracted by the sum of atomic radii. You may provide your radii values by modifying the `radii.xlsx` file.
 
 #### Ouput 3.1 JSON
 
@@ -341,9 +345,8 @@ Please feel free to reach out via sl5400@columbia.edu for any questions.
 
 ## Changelog
 
-- 20240623 - Implement CN bond fractions, add GitHub CI. See Pull #17.
+- 20240623 - Implement CN bond fractions, add GitHub CI. See [Pull #22](https://github.com/bobleesj/cif-bond-analyzer/pull/22).
 - 20240330 - Add sequential folder processing and customizable histogram generation. See [Pull #16](https://github.com/bobleesj/cif-bond-analyzer/pull/16).
-- 20240326 - Implement automatic preprocessing and relocation of unsupported CIF files.
 - 20240311 - Integrate PEP8 linting with `black`. See [Pull #12](https://github.com/bobleesj/cif-bond-analyzer/pull/12).
 - 20240310 - Enhance output options to include both element-based and label-based data for Excel, JSON, and histograms. See [Pull #11](https://github.com/bobleesj/cif-bond-analyzer/pull/11).
 - 20240301 - Provide translation options for unit cells with more than 100 atoms, either in all ±1 directions or just +1 in each.
