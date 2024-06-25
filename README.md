@@ -8,6 +8,7 @@
 
 CIF Bond Analyzer (CBA) is an interactive, command-line Python application designed for the high-throughput extraction of bonding information from CIF (Crystallographic Information File) file.
 
+
 ### Overview
 
 1. Choose the folder interactively and decided to inculde .cif files in nested folders.
@@ -183,6 +184,33 @@ For each folder, CBA generates `.xlsx` and `.json` files containing the shortest
 }
 ```
 
+An Excel file containing the information and each sheet having the bond pair.
+
+[20240623_ErCoIn_nested_element_pairs.xlsx](https://github.com/user-attachments/files/15963693/20240623_ErCoIn_nested_element_pairs.xlsx)
+
+![Excel screenshot](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/d6bed0df-b9ea-4922-967b-4656bb3ab3e0)
+
+
+```
+File	Distance
+1814810.cif	2.623
+1803318.cif	2.644
+1840445.cif	2.691
+1818414.cif	2.729
+1234747.cif	2.737
+1140826.cif	2.743
+1229705.cif	2.794
+1956508.cif	2.799
+1000761.cif	2.81
+1233938.cif	2.881
+1803512.cif	2.882
+1925389.cif	2.922
+    
+Average	2.771
+SD	0.094
+```
+
+
 ### Option 2. System Analysis
 
 System Analyiss is applicable for a folder containing either 2 or 3 unique elements. Four types are possible.
@@ -205,6 +233,7 @@ Available folders containing 2 or 3 unique elements:
 5. 20240611_binary_2_unique_elements, 2 elements (Er, Co), 4 files````
 ```
 
+
 #### Output 2.1 Binary/ternary figures
 
 By deafult, all of the nested folders containing .cif files are automatically added. 
@@ -213,10 +242,36 @@ For Type 1, the following is generated.
 
 For Type 2, 3, 4, the following is generated.
 
+Customizaiton: You move the positino of the legend in the ternary diagram, you may modify the values of `X_SHIFT = 0.0` and `Y_SHIFT = 0.0` in `core/configs/ternary.py`.
+
+Individual hexagons are also produced.
+
+![composite_binary_2](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/b385fe6e-f17e-439d-99e8-694378c097a3)
+![composite_ternary_1](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/1cb0b0f8-501e-4c53-86fb-190e304f11a6)
+
+
+![color_map_Er-In](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/2da0a905-b247-43ac-bebf-4afc4c0b0608)
+
+![color_map_In-In](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/874b083f-1aa3-4bd0-aba3-eb63bf5229e7)
+
+![color_map_overall](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/1a450ee5-053c-471e-b092-e1731427c2a0)
+
 
 #### Output 2.2 Color map
 
 Color map for each bond type and the overall is generated for Type 2, 3, 4 above.
+
+#### Output 2.3 Excel
+
+`system_analysis_files.xlsx`
+
+<img width="753" alt="SA_main" src="https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/024b9f0f-5a5f-43ae-8e70-86031db9d26a">
+
+
+`system_analysis_main.xlsx`
+
+<img width="1025" alt="SA_file" src="https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/420193ec-081a-4df2-b56e-9cddcefa00cb">
+
 
 
 ### Option 3. Coordination Analysis
@@ -270,11 +325,15 @@ You may provide your radii values by modifying the radii.xlsx file.
                 "neighbor": 12
             }
         ]
+    }
+}
 ```
 
 #### Output 3.2 Excel
 
 A screenshot is provided below. Each sheet contains the file name and the formula associated with the file.
+
+<img width="842" alt="CN_excel" src="https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/6322cacf-5ab0-4855-90e3-56aaddf6ab1f">
 
 
 ## Installation
