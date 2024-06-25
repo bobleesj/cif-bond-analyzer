@@ -1,0 +1,131 @@
+##############################################################################
+#                                                                            #
+# Co-Er-In         # ErCoIn5                                       # 1710931 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Hunter College - City University of New York                             #
+#                                                                            #
+##############################################################################
+
+data_1710931
+_audit_creation_date                     2024-03-05
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      1710931
+_database_code_PDF                       04-012-3303
+
+# Entry summary
+
+_chemical_formula_structural             'Er Co In~5~'
+_chemical_formula_sum                    'Co Er In5'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            HoCoGa~5~,tP7,123
+_chemical_formula_weight                 800.3
+
+# Bibliographic data
+
+_publ_section_title
+'Synthesis, Structure and Magnetism of ErCoIn~5~'                             
+_journal_coden_ASTM                      MRSPDH
+_journal_name_full                       'Mater. Res. Soc. Symp. Proc.'
+_journal_year                            2005
+_journal_volume                          848
+_journal_page_first                      121
+_journal_page_last                       126
+_journal_language                        English
+loop_
+ _publ_author_name
+ _publ_author_address
+''
+;
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           4.54
+_cell_length_b                           4.54
+_cell_length_c                           7.397
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             152.5
+_cell_formula_units_Z                    1
+_space_group_IT_number                   123
+_space_group_name_H-M_alt                'P 4/m m m'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '-x, -y, -z'
+ 3 '-x, -y, z'
+ 4 '-x, y, -z'
+ 5 '-x, y, z'
+ 6 '-y, -x, -z'
+ 7 '-y, -x, z'
+ 8 '-y, x, -z'
+ 9 '-y, x, z'
+ 10 'x, -y, -z'
+ 11 'x, -y, z'
+ 12 'x, y, -z'
+ 13 'y, -x, -z'
+ 14 'y, -x, z'
+ 15 'y, x, -z'
+ 16 'y, x, z'
+loop_
+ _atom_type_symbol
+ In
+ Co
+ Er
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ In2 In 4 i 0 0.5 0.30474 1
+ In1 In 1 c 0.5 0.5 0 1
+ Co Co 1 b 0 0 0.5 1
+ Er Er 1 a 0 0 0 1
+
+
+_exptl_crystal_colour                    'gray silver'
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            8.72
+_cell_measurement_temperature            ?
+_cell_measurement_radiation              ?
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              298(2)
+_diffrn_measurement_device               'automatic diffractometer'
+_diffrn_measurement_device_type          'Nonius KAPPA'
+_diffrn_radiation_type                   'X-rays, Mo Ka'
+_diffrn_radiation_wavelength             0.71073
+_diffrn_reflns_number                    753
+_diffrn_reflns_theta_min                 2.75
+_diffrn_reflns_theta_max                 29.88
+_exptl_absorpt_coefficient_mu            34.670
+_exptl_absorpt_correction_type           yes
+_computing_structure_solution            'starting values from the literature'
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 ?
+_refine_ls_R_factor_gt                   0.0254
+_refine_ls_wR_factor_gt                  0.0605
+
+# End of data set 1710931
+

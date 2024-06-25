@@ -1,21 +1,18 @@
 """
-Main script for processing CIF files.
-
-This script processes CIF files in a specified directory,
-performs preprocessing, bond analysis, and generates output files and plots.
+Main script for conducting 3 analysis options.
 
 Usage:
     python main.py
 
 Author: Sangjoon Bob Lee
 
-Last update: May 24, 2024
+Last update: June 23, 2024
 Release date: Mar 10, 2024
 
 """
 
 import os
-from run import bond, system
+from core.run import coordination_analysis, site_analysis, system_analysis
 
 
 def main():
@@ -23,9 +20,9 @@ def main():
 
     print("\nWelcome! Please choose an option to proceed:")
     options = {
-        "1": "Compute the shortest distance from each site.",
+        "1": "Conduct site analysis.",
         "2": "Conduct system analysis.",
-        # "3": "Compute the nearest neighbor distances for each site.",
+        "3": "Conduct coordination analysis.",
     }
 
     for key, value in options.items():
@@ -34,11 +31,11 @@ def main():
     choice = input(f"Enter your choice (1-{len(options)}): ")
 
     if choice == "1":
-        bond.run_bond_analysis(script_path)
+        site_analysis.run_site_analysis(script_path)
     elif choice == "2":
-        system.run_system_analysis(script_path)
-    # elif choice == "3":
-    #     environment.run_environment_analysis(script_path)
+        system_analysis.run_system_analysis(script_path)
+    elif choice == "3":
+        coordination_analysis.run_coordination(script_path)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,129 @@
+##############################################################################
+#                                                                            #
+# Co-Er            # Er6Co4.5 rt                                   #  542270 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Hunter College - City University of New York                             #
+#                                                                            #
+##############################################################################
+
+data_542270
+_audit_creation_date                     2024-05-31
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      542270
+_database_code_PDF                       04-005-4980
+
+# Entry summary
+
+_chemical_formula_structural             'Er~6~ Co~4.5~'
+_chemical_formula_sum                    'Co4.5 Er6'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            Ho~6~Co~4.5~,hP22,176
+_chemical_formula_weight                 1268.8
+
+# Bibliographic data
+
+_publ_section_title
+;
+Structure cristalline des composes intermetalliques T~4~Co~3~ (T= Y, Gd, Tb, Dy, Ho, Er et Tm)
+;
+_journal_coden_ASTM                      ACBCAR
+_journal_name_full                       'Acta Crystallogr. B'
+_journal_year                            1969
+_journal_volume                          25
+_journal_page_first                      710
+_journal_page_last                       713
+_journal_language                        French
+loop_
+ _publ_author_name
+ _publ_author_address
+''
+;
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           11.352
+_cell_length_b                           11.352
+_cell_length_c                           3.973
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        120
+_cell_volume                             443.4
+_cell_formula_units_Z                    2
+_space_group_IT_number                   176
+_space_group_name_H-M_alt                'P 63/m'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '-x+y, -x, 1/2-z'
+ 3 '-x+y, -x, z'
+ 4 '-x, -y, -z'
+ 5 '-x, -y, 1/2+z'
+ 6 '-y, x-y, 1/2-z'
+ 7 '-y, x-y, z'
+ 8 'x, y, 1/2-z'
+ 9 'x-y, x, -z'
+ 10 'x-y, x, 1/2+z'
+ 11 'y, -x+y, -z'
+ 12 'y, -x+y, 1/2+z'
+
+# Atomic positions taken from type-defining entry
+
+loop_
+ _atom_type_symbol
+ Co
+ Er
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ Co1 Co 6 h 0.1578 0.4415 0.25 1
+ Er1 Er 6 h 0.2457 0.2248 0.25 1
+ Er2 Er 6 h 0.5150 0.1360 0.25 1
+ Co2 Co 2 c 0.333333 0.666667 0.25 1
+ Co3 Co 2 b 0 0 0 0.500
+
+
+_exptl_crystal_colour                    ?
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            9.50
+_cell_measurement_temperature            ?
+_cell_measurement_radiation              X-rays
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              ?
+_diffrn_measurement_device               ?
+_diffrn_measurement_device_type          ?
+_diffrn_radiation_type                   ?
+_diffrn_reflns_number                    ?
+_exptl_absorpt_coefficient_mu            ?
+_exptl_absorpt_correction_type           ?
+_computing_structure_solution            ?
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 ?
+_refine_ls_R_factor_gt                   ?
+_refine_ls_wR_factor_gt                  ?
+
+# End of data set 542270
+
