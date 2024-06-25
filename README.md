@@ -2,53 +2,62 @@
 
 ![Header](https://s9.gifyu.com/images/SViLp.png)
 
-![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)
-![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)
-![Python 3.11](https://img.shields.io/badge/python-3.12-blue.svg)
-[![Integration tests](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml/badge.svg)](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml)
+[![Integration tests](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml/badge.svg)](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml) ![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg) ![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg) ![Python 3.11](https://img.shields.io/badge/python-3.12-blue.svg) 
 
 ## Description
 
-CIF Bond Analyzer (CBA) is an interactive, command-line Python application designed for the high-throughput extraction of minimum bond length and atomic mixing information from a CIF (Crystallographic Information File) file. CBA constructs a supercell and determines the minimum bond length from each atomic site. CBA repeats the extraction process for each file in the selected folder. The outputs are saved in both JSON and Excel formats. Additionally, CBA generates histograms for a graphical overview of bond lengths and a text file that enumerates bond pair counts and unobserved bonding pairs.
+CIF Bond Analyzer (CBA) is an interactive, command-line Python application designed for the high-throughput extraction of bonding information from CIF (Crystallographic Information File) file.
 
-## What CIF Bond Anaylzer does
+### Overview
 
-1. Preprocess Crystallographic Information Files (CIF) from selected folders.
-2. Generate a supercell for each file and determine the shortest distance and pair from each atomic site.
-3. Generate histograms and save the data in text and Excel file formats.
-
-## Usage
-
-This command will start the program and prompt you to select a folder containing .`cif` files for analysis.
-
-```python
-python main.py
-```
-
-When you run `python main.py`, it identifies folders containing `.cif` files.
-
-```bash
-Folders with .cif files:
-1. 20240308_output_test, 12 files
-2. 20240307_histogram_test, 41 files
-
-Would you like to process each folder above sequentially?
-(Default: Y) [Y/n]: y
-```
-
-To modify the histogram width and customize histogram generation, use `plot-histogram.py`. This script allows you to interactively specify parameters, such as the bin width and x-axis range:
-
-```python
-python plot-histogram.py
-```
-
+1. Choose the folder interactively and decided to inculde .cif files in nested folders.
+2. Preprocess .cif files and standarlize site labels
+3. Move ill-formatted files
+4. Choose one of the options
+5. Generate a unitcell and a supercell by applying +-1, +-1, +-1 shifts in fractional coordinates.
+6. Generate a supercell for each file and determine the shortest distance and pair from each atomic site. The atomic site is selected based on the atom with the greatest number of minimum distances in the surrounding atoms.
 
 
 ## Demo
 
 ![CIF Bond Analyzer execution process](https://s12.gifyu.com/images/SViMw.gif)
 
-### Output 1. Text file
+
+## How to use
+
+Download all the required libraries. The code has been tested on Python version 3.10, 3.11, 3.12.
+
+```bash
+pip install -r requirements.txt
+```
+
+This command will start the program and prompt you to select a folder containing .`cif` files for analysis.
+
+```bash
+python main.py
+```
+
+The following will prompt
+
+```text
+Welcome! Please choose an option to proceed:
+[1] Conduct site analysis.
+[2] Conduct system analysis.
+[3] Conduct coordination analysis.
+Enter your choice (1-3): 
+```
+
+## Options
+
+CBA supports 3 options with details provided below.
+
+###  Option 1. Site Analysis
+
+From a single `.cif` file, a supercell is generated and determines the shortest distance and the connecting site.
+
+#### Output 1.1 text summary
+
+A text file `summary.txt` is generated in the folder to provide an overview of the shortest bonding pairs and missing pairs in the selected folders.
 
 ```txt
 Summary:
@@ -74,64 +83,210 @@ Co-Si
 Fe-Co
 ```
 
-### Output 2. Histograms
+#### Output 1.2 histograms
 
 In the `output` folder, histograms per shortest pair distance from each atom will be saved.
 
 ![Histograms for label pair](https://s9.gifyu.com/images/SViMv.png)
 
+To modify the histograms, run `python plot-histogram.py`. This script allows you to interactively specify parameters, such as the bin width and x-axis range:
 
+#### Output 1.3 Excel and JSON
 
-### Output 3. Excel and JSON
+For each folder, CBA generates `.xlsx` and `.json` files containing the shortest distance and the connecting site from each reference site.
+
+ It also determines the atomic mixing and occupacny information at the pair level. It extracts the tag from the .cif file if provided.
+
+`site_pairs.json` is produced shown below.
 
 ```json
 {
-    "Ni-Ni": {
-        "1830597": [
+    "Co-Co": {
+        "250361": [
             {
-                "mixing": "4",
-                "dist": "2.477"
+                "dist": 2.529,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "rt",
+                "structure": "MgCu2"
             }
-        ]
-    },
-    "Ni-Ga": {
-        "1830597": [
+        ],
+        "1955204": [
             {
-                "mixing": "4",
-                "dist": "2.53"
+                "dist": 2.404,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
             },
             {
-                "mixing": "3",
-                "dist": "2.424"
+                "dist": 2.46,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
+            },
+            {
+                "dist": 2.274,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
+            }
+        ],
+        "1644636": [
+            {
+                "dist": 2.49,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "lt",
+                "structure": "TbFe2"
+            }
+        ],
+    }
+}
+```
+
+`element_pairs.json` is generated that it determines the shortest distance for each bond pair in a file.
+
+```json
+{
+    "Co-Co": {
+        "250361": [
+            {
+                "dist": 2.529,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "rt",
+                "structure": "MgCu2"
+            }
+        ],
+        "1955204": [
+            {
+                "dist": 2.274,
+                "mixing": "full_occupancy",
+                "formula": "Er2Co17",
+                "tag": "hex",
+                "structure": "Th2Ni17"
+            }
+        ],
+        "1644636": [
+            {
+                "dist": 2.49,
+                "mixing": "full_occupancy",
+                "formula": "ErCo2",
+                "tag": "lt",
+                "structure": "TbFe2"
             }
         ]
     }
 }
 ```
 
-Atomic mixing info mapping:
+### Option 2. System Analysis
 
-```python
-categories_mapping = {
-      "1": "Deficiency with atomic mixing",
-      "2": "Full occupancy with atomic mixing",
-      "3": "Deficiency without atomic mixing",
-      "4": "Full occupancy",
-  }
+System Analyiss is applicable for a folder containing either 2 or 3 unique elements. Four types are possible.
+
+```
+4 types of folders are processed:
+- Type 1. Binary files, 2 unique elements
+- Type 2. Binary files, 3 unique elements
+- Type 3. Ternary files, 3 unique elements
+- Type 4. Ternary and binary combined, 3 unique elements
 ```
 
-## Installation
+Here is an example below. 
+```
+Available folders containing 2 or 3 unique elements:
+1. 20240623_ErCoIn_nested, 3 elements (In, Er, Co), 152 files
+2. 20240612_ternary_only, 3 elements (In, Er, Co), 2 files
+3. 20240611_ternary_binary_combined, 3 elements (In, Er, Co), 5 files
+4. 20240623_teranry_3_unique_elements, 2 elements (Er, Co), 3 files
+5. 20240611_binary_2_unique_elements, 2 elements (Er, Co), 4 files````
+```
 
-Simply copy and paste the following block.
+#### Output 2.1 Binary/ternary figures
+
+By deafult, all of the nested folders containing .cif files are automatically added. 
+
+For Type 1, the following is generated.
+
+For Type 2, 3, 4, the following is generated.
+
+
+#### Output 2.2 Color map
+
+Color map for each bond type and the overall is generated for Type 2, 3, 4 above.
+
+
+### Option 3. Coordination Analysis
+
+#### Ouput 3.1 JSON
+
+It determines the best cooridnation geometry using 4 methods provided in `cifkit`. Save Excel file and JSON on nearest neighbor info. 
+
+The Excel contains ∆ which is defined as the interactomic distance substracted by the sum of atomic radii. Note: For the CN methods, please refer to README.md. Note: ∆ is (interatomic distance - sum of atomic radii).
+You may provide your radii values by modifying the radii.xlsx file.
+
+
+```python
+{
+    "250361": {
+        "Co": [
+            {
+                "connected_label": "Co",
+                "distance": 2.529,
+                "delta": 1.16,
+                "mixing": "full_occupancy",
+                "neighbor": 1
+            },
+            {
+                "connected_label": "Co",
+                "distance": 2.529,
+                "delta": 1.16,
+                "mixing": "full_occupancy",
+                "neighbor": 2
+            },
+            ...
+            {
+                "connected_label": "Er",
+                "distance": 2.966,
+                "delta": -0.603,
+                "mixing": "full_occupancy",
+                "neighbor": 10
+            },
+            {
+                "connected_label": "Er",
+                "distance": 2.966,
+                "delta": -0.603,
+                "mixing": "full_occupancy",
+                "neighbor": 11
+            },
+            {
+                "connected_label": "Er",
+                "distance": 2.966,
+                "delta": -0.603,
+                "mixing": "full_occupancy",
+                "neighbor": 12
+            }
+        ]
+```
+
+#### Output 3.2 Excel
+
+A screenshot is provided below. Each sheet contains the file name and the formula associated with the file.
+
+
+## Installation
 
 ```bash
 git clone https://github.com/bobleesj/cif-bond-analyzer.git
 cd cif-bond-analyzer
-pip install pandas click gemmi matplotlib pytest sympy openpyxl
+pip install -r requirements.txt
 python main.py
 ```
 
-The above method had no issue so far. But If you are interested in using `Conda` with a new environment run the following:
+If you are interested in using `Conda` with a new environment run the following:
 
 ```bash
 git clone https://github.com/bobleesj/cif-bond-analyzer.git
@@ -141,17 +296,6 @@ conda activate cif
 pip install -r requirements.txt
 python main.py
 ```
-
-### To customize
-
-### Ternary diagram legend position
-
-### Histograms width and x axis min and max values
-
-## Tutorial
-
-> If you are new to Conda (Python package manager), I have written a tutorial for you here [Intro to Python package manager for beginners (Ft. Conda with Cheatsheet](https://bobleesj.github.io/tutorial/2024/02/26/intro-to-python-package-manager.html).
-
 
 ## Contributors
 
