@@ -269,6 +269,8 @@ Average bond lenghts, count, and statistical values are recorded in `system_anal
 
 #### Ouput 3.1 JSON
 
+For each site, the nearest neighbors within the coordination number geometry are recorded in `CN_connections.json`.
+
 ```python
 {
     "250361": {
@@ -309,7 +311,7 @@ Average bond lenghts, count, and statistical values are recorded in `system_anal
 
 #### Output 3.2 Excel
 
-A screenshot is provided below. Each sheet contains the file name and the formula associated with the file.
+For each `.cif` file, the nearest neighbor information is wrriten in each sheet within `CN_connections.xlsx`.
 
 <img width="842" alt="CN_excel" src="https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/6322cacf-5ab0-4855-90e3-56aaddf6ab1f">
 
@@ -349,6 +351,5 @@ Please feel free to reach out via sl5400@columbia.edu for any questions.
 - 20240330 - Add sequential folder processing and customizable histogram generation. See [Pull #16](https://github.com/bobleesj/cif-bond-analyzer/pull/16).
 - 20240311 - Integrate PEP8 linting with `black`. See [Pull #12](https://github.com/bobleesj/cif-bond-analyzer/pull/12).
 - 20240310 - Enhance output options to include both element-based and label-based data for Excel, JSON, and histograms. See [Pull #11](https://github.com/bobleesj/cif-bond-analyzer/pull/11).
-- 20240301 - Provide translation options for unit cells with more than 100 atoms, either in all ±1 directions or just +1 in each.
 - 20240301 - Display atom counts and execution time per file in Terminal; adds CSV logging.
 - 20240229 - Expand file support to include all CIF files.
