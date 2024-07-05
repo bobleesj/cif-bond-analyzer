@@ -4,9 +4,7 @@ from core.coordination.util import compute_delta
 from core.prompts.progress import prompt_file_saved
 
 
-def save_json_for_connections(
-    cif_ensemble: CifEnsemble, output_dir: str
-) -> None:
+def save_json_for_connections(cif_ensemble: CifEnsemble, output_dir: str) -> None:
     """
     Save the coordination number connections for a set of CIF files
     in JSON format.

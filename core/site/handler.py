@@ -21,9 +21,7 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
     for i, cif in enumerate(cif_ensemble.cifs, start=1):
         start_time = time.perf_counter()
 
-        prompt_progress_current(
-            i, cif.file_name, cif.supercell_atom_count, file_count
-        )
+        prompt_progress_current(i, cif.file_name, cif.supercell_atom_count, file_count)
 
         mixing_info = cif.mixing_info_per_label_pair_sorted_by_mendeleev
         shortest_distances = cif.shortest_site_pair_distance
@@ -73,9 +71,7 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
         # Record time
         elapsed_time = time.perf_counter() - start_time
 
-        prompt_progress_finished(
-            cif.file_name, cif.supercell_atom_count, elapsed_time
-        )
+        prompt_progress_finished(cif.file_name, cif.supercell_atom_count, elapsed_time)
     remove_empty_keys(data)
 
     return data

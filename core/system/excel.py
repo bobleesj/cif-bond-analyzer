@@ -122,11 +122,7 @@ def save_bond_overview_excel(structure_dict, possible_bond_pairs, output_dir):
     }
     total_unique_bonds = sum(unique_total_bonds.values())
     bond_fractions = [
-        (
-            unique_total_bonds[bond] / total_unique_bonds
-            if total_unique_bonds > 0
-            else 0
-        )
+        (unique_total_bonds[bond] / total_unique_bonds if total_unique_bonds > 0 else 0)
         for bond in bond_types
     ]
 

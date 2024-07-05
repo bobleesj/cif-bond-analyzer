@@ -18,7 +18,7 @@ def get_hexagon_points(center, size):
 
 def draw_single_hexagon_and_lines_per_center_point(
     center_pt,
-    bond_fractions,
+    bond_fractions: list[float],
     radius=0.05,
     hex_inner_color="#D3D3D3",
     hex_outer_color="#D3D3D3",
@@ -157,9 +157,7 @@ def plot_colored_black_lines_with_fraction(
         order = 5
         scale = 0.018
         # Calculate the unit vector for the color point
-        unit_vector, dist = compute_unit_vector_dist(
-            center_pt, x_color_pt, y_color_pt
-        )
+        unit_vector, dist = compute_unit_vector_dist(center_pt, x_color_pt, y_color_pt)
 
         # Calculate the unit vector for the hexagon vertex
         hex_unit_vector, dist_hex = compute_unit_vector_dist(
@@ -172,12 +170,8 @@ def plot_colored_black_lines_with_fraction(
         start_color_x = center_pt[0] + hex_unit_vector[0] * start_offset
         start_color_y = center_pt[1] + hex_unit_vector[1] * start_offset
 
-        end_color_x = center_pt[0] + unit_vector[0] * (
-            dist * 0.97 - start_offset
-        )
-        end_color_y = center_pt[1] + unit_vector[1] * (
-            dist * 0.97 - start_offset
-        )
+        end_color_x = center_pt[0] + unit_vector[0] * (dist * 0.97 - start_offset)
+        end_color_y = center_pt[1] + unit_vector[1] * (dist * 0.97 - start_offset)
 
         # Draw the colored line
         plt.plot(
@@ -201,9 +195,7 @@ def plot_colored_black_lines_with_fraction(
         order = 5
         scale = 0.003
         # Calculate the unit vector for the color point
-        unit_vector, dist = compute_unit_vector_dist(
-            center_pt, x_color_pt, y_color_pt
-        )
+        unit_vector, dist = compute_unit_vector_dist(center_pt, x_color_pt, y_color_pt)
 
         # Calculate the unit vector for the hexagon vertex
         hex_unit_vector, dist_hex = compute_unit_vector_dist(
@@ -216,12 +208,8 @@ def plot_colored_black_lines_with_fraction(
         start_color_x = center_pt[0] + hex_unit_vector[0] * start_offset
         start_color_y = center_pt[1] + hex_unit_vector[1] * start_offset
 
-        end_color_x = center_pt[0] + unit_vector[0] * (
-            dist * 0.97 - start_offset
-        )
-        end_color_y = center_pt[1] + unit_vector[1] * (
-            dist * 0.97 - start_offset
-        )
+        end_color_x = center_pt[0] + unit_vector[0] * (dist * 0.97 - start_offset)
+        end_color_y = center_pt[1] + unit_vector[1] * (dist * 0.97 - start_offset)
 
         # Draw the colored line
         plt.plot(

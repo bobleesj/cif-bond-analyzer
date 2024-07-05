@@ -23,16 +23,12 @@ def get_cif_dir_names(script_path):
         os.path.basename(d)
         for d in os.listdir(script_path)
         if os.path.isdir(os.path.join(script_path, d))
-        and not d.startswith(
-            "tests"
-        )  # Exclude directories starting with 'tests'
+        and not d.startswith("tests")  # Exclude directories starting with 'tests'
         and contains_cif_files(os.path.join(script_path, d))
     ]
 
     if not dir_names:
-        print(
-            "No directories found in the current path containing .cif files."
-        )
+        print("No directories found in the current path containing .cif files.")
         return []  # Return an empty list instead of None
 
     return dir_names
@@ -49,9 +45,7 @@ def get_json_dir_names(script_path):
         dir_path = os.path.join(script_path, d)
         if os.path.isdir(dir_path):
             output_dir_path = os.path.join(dir_path, "output")
-            if os.path.exists(output_dir_path) and os.path.isdir(
-                output_dir_path
-            ):
+            if os.path.exists(output_dir_path) and os.path.isdir(output_dir_path):
                 files = os.listdir(output_dir_path)
                 for file in files:
                     if file.endswith(".json"):
@@ -62,9 +56,7 @@ def get_json_dir_names(script_path):
                         break
 
     if not dir_name_list:
-        print(
-            "No directories found in the current path containing JSON files!"
-        )
+        print("No directories found in the current path containing JSON files!")
         return None
 
     return dir_name_list
@@ -76,15 +68,11 @@ def get_dir_list(ext, script_path):
         d
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
-        and any(
-            file.endswith(ext) for file in os.listdir(join(script_path, d))
-        )
+        and any(file.endswith(ext) for file in os.listdir(join(script_path, d)))
     ]
 
     if not matching_dir_names:
-        print(
-            "No directories found in the current path containing .cif files!"
-        )
+        print("No directories found in the current path containing .cif files!")
         return None
     return matching_dir_names
 
@@ -145,9 +133,7 @@ def choose_binary_ternary_dir(script_path):
     process_all = click.confirm("(Default: Y)", default=True)
     if not process_all:
         input_str = input("\nEnter folder numbers to select (e.g., '1 3 5'): ")
-        selected_indices = [
-            int(num) for num in input_str.split() if num.isdigit()
-        ]
+        selected_indices = [int(num) for num in input_str.split() if num.isdigit()]
 
         selected_dir_paths = [
             dir_path_list[

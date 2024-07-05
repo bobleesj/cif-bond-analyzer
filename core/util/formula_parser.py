@@ -102,9 +102,7 @@ def get_subscripted_string(formula):
     Return a subscripted formula used for plotting.
     """
     # Use regular expression to find elements and numbers
-    formatted_formula = re.sub(
-        r"([A-Z][a-z]*)(\d*\.?\d*)", r"\1$_{\2}$", formula
-    )
+    formatted_formula = re.sub(r"([A-Z][a-z]*)(\d*\.?\d*)", r"\1$_{\2}$", formula)
     return formatted_formula
 
 
@@ -176,9 +174,7 @@ def get_composition_from_binary_ternary(
     # Regex to find elements followed by optional stoichiometric numbers (including decimals)
     pattern = r"(" + "|".join(elements) + r")(\d*\.?\d*)"
     matches = re.findall(pattern, formula)
-    parts_dict = {
-        el: 0 for el in elements
-    }  # Initialize each element's count as 0
+    parts_dict = {el: 0 for el in elements}  # Initialize each element's count as 0
 
     for element, count in matches:
         if count == "":
@@ -196,9 +192,7 @@ def get_composition_from_binary_ternary(
             round(parts_dict[el] / total, 3) for el in elements
         ]  # Normalize and round to 3 decimal places
     else:
-        normalized_parts = [0] * len(
-            elements
-        )  # If total is 0, return a list of zeros
+        normalized_parts = [0] * len(elements)  # If total is 0, return a list of zeros
 
     return (
         normalized_parts[0],

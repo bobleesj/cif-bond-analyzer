@@ -27,9 +27,7 @@ def save_excel_json(
     )
 
 
-def write_pair_dict_to_excel_json(
-    input_dict, pair_type, dir_path, output_dir_path
-):
+def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path, output_dir_path):
     """
     Writes JSON and Excel files containing pair info, adjusted.
     Computes and saves the average and standard deviation for the distance.
@@ -62,9 +60,7 @@ def write_pair_dict_to_excel_json(
             )
 
             df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
-            df["Atomic Mixing"] = (
-                df["Atomic Mixing"].astype(str).fillna("Unknown")
-            )
+            df["Atomic Mixing"] = df["Atomic Mixing"].astype(str).fillna("Unknown")
             df.sort_values(by="Distance", inplace=True)
             df = df[["File", "Distance", "Atomic Mixing"]]
 

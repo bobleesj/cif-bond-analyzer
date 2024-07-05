@@ -30,9 +30,7 @@ def draw_ternary_figure(
     v0, v1, v2 = vertices
     ternary.draw_ternary_frame(v0, v1, v2)
     ternary.draw_filled_edges(v0, v1, v2)
-    ternary.draw_triangular_grid(
-        v0, v1, v2, grid_alpha, grid_line_width, n_lines=10
-    )
+    ternary.draw_triangular_grid(v0, v1, v2, grid_alpha, grid_line_width, n_lines=10)
 
     # Legend
     ternary.draw_legend(
@@ -57,9 +55,7 @@ def draw_ternary_figure(
             formulas,
         ) = parse_bond_fractions_formulas(data)
         formula = formulas[0]
-        parsed_normalized_formula = formula_parser.get_parsed_norm_formula(
-            formula
-        )
+        parsed_normalized_formula = formula_parser.get_parsed_norm_formula(formula)
 
         num_of_elements = formula_parser.get_num_element(formula)
 

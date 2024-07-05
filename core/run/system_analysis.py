@@ -67,15 +67,11 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
     if not run_site_analysis:
         if is_CN_used or not use_existing_json:
             # Compute the shortest distance (heavy computation)
-            cif_ensemble_with_nested = (
-                site_analysis.generate_site_analysis_data(
-                    dir_path, add_nested=True
-                )
+            cif_ensemble_with_nested = site_analysis.generate_site_analysis_data(
+                dir_path, add_nested=True
             )
         else:
-            cif_ensemble_with_nested = CifEnsemble(
-                dir_path, preprocess=False, add_nested=True
-            )
+            cif_ensemble_with_nested = CifEnsemble(dir_path, add_nested_files=True)
 
     dir_path = cif_ensemble_with_nested.dir_path
 
@@ -83,9 +79,7 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
     Step 2. Build dict containing bond/formula/file info per structure
     """
 
-    output_dir = folder.create_folder_under_output_dir(
-        dir_path, "system_analysis"
-    )
+    output_dir = folder.create_folder_under_output_dir(dir_path, "system_analysis")
 
     elements = cif_ensemble_with_nested.unique_elements
 
@@ -174,7 +168,5 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
 
 def get_site_json_site_data_path(dir_path):
     folder_name = os.path.basename(dir_path)
-    json_file_path = os.path.join(
-        dir_path, "output", f"{folder_name}_site_pairs.json"
-    )
+    json_file_path = os.path.join(dir_path, "output", f"{folder_name}_site_pairs.json")
     return json_file_path

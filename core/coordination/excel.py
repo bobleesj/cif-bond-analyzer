@@ -9,9 +9,7 @@ from core.coordination.util import compute_delta
 from core.prompts.progress import prompt_file_saved
 
 
-def save_excel_for_connections(
-    cif_ensemble: CifEnsemble, output_dir: str
-) -> None:
+def save_excel_for_connections(cif_ensemble: CifEnsemble, output_dir: str) -> None:
     """
     Save the coordination number connections for a set of CIF files
     in Excel format.
@@ -26,9 +24,7 @@ def save_excel_for_connections(
     # Process each file
     for i, cif in enumerate(cif_ensemble.cifs, start=1):
         start_time = time.perf_counter()
-        prompt_progress_current(
-            i, cif.file_name, cif.supercell_atom_count, file_count
-        )
+        prompt_progress_current(i, cif.file_name, cif.supercell_atom_count, file_count)
 
         # Lazy loading - this is the computaitonally intensive step
         connection_data = cif.CN_connections_by_best_methods
@@ -79,9 +75,7 @@ def save_excel_for_connections(
         # Time
         elapsed_time = time.perf_counter() - start_time
         df_temp.to_excel(writer, sheet_name=sheet_name, index=False)
-        prompt_progress_finished(
-            cif.file_name, cif.supercell_atom_count, elapsed_time
-        )
+        prompt_progress_finished(cif.file_name, cif.supercell_atom_count, elapsed_time)
 
     # Save the Excel file
     writer._save()

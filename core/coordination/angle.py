@@ -28,23 +28,17 @@ def compute_angles_from_central_atom(CN_connections):
                 norm_i = np.linalg.norm(vector_i)
                 norm_j = np.linalg.norm(vector_j)
                 cosine_angle = dot_product / (norm_i * norm_j)
-                angle = np.arccos(
-                    np.clip(cosine_angle, -1.0, 1.0)
-                )  # Clip for safety
+                angle = np.arccos(np.clip(cosine_angle, -1.0, 1.0))  # Clip for safety
 
                 angle_degrees = np.degrees(angle)
-                formatted_angle = (
-                    f"{angle_degrees:.4g}"  # 4 significant figures
-                )
+                formatted_angle = f"{angle_degrees:.4g}"  # 4 significant figures
 
                 angles[label][(i, j)] = float(formatted_angle)
 
     return angles
 
 
-def get_largest_angle_atom_indices_largest_to_smallest(
-    angles, threshold=40
-) -> dict:
+def get_largest_angle_atom_indices_largest_to_smallest(angles, threshold=40) -> dict:
     """
     Filter and sort the angles close to 180 degrees within a specified
     threshold. Outputs the top 10 largest angles for each label and

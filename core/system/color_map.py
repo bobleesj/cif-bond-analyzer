@@ -98,9 +98,7 @@ def save_color_map(
                 A_norm_comp,
                 B_norm_comp,
                 C_norm_comp,
-            ) = formula_parser.get_composition_from_binary_ternary(
-                formula, (R, M, X)
-            )
+            ) = formula_parser.get_composition_from_binary_ternary(formula, (R, M, X))
             # Calculate coordinates based on the normalized composition
             total = A_norm_comp + B_norm_comp + C_norm_comp
             x_coord = 0.5 * (2 * B_norm_comp + C_norm_comp) / total
@@ -128,9 +126,7 @@ def save_color_map(
                 z_all_per_bond_type.append(1.0)
 
         try:
-            triangulation = mtri.Triangulation(
-                x_all_per_bond_type, y_all_per_bond_type
-            )
+            triangulation = mtri.Triangulation(x_all_per_bond_type, y_all_per_bond_type)
             triangulations.append(triangulation)
 
             xi, yi = np.meshgrid(
@@ -243,8 +239,6 @@ def save_color_map(
         ax.set_aspect("equal")  # Ensure the axis are of equal size
 
         if is_CN_used:
-            ax.figure.savefig(
-                join(output_dir, f"color_map_overall_CN"), dpi=300
-            )
+            ax.figure.savefig(join(output_dir, f"color_map_overall_CN"), dpi=300)
         else:
             ax.figure.savefig(join(output_dir, f"color_map_overall"), dpi=300)

@@ -78,9 +78,7 @@ def add_files_and_formula(
                                 formula + "_" + tag
                             )
                         else:
-                            structure_dict[structure]["formulas"].append(
-                                formula
-                            )
+                            structure_dict[structure]["formulas"].append(formula)
 
     return structure_dict
 
@@ -122,9 +120,7 @@ def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
                 bond_lengths = np.array(bond_info["bond_lengths"])
 
                 if bond_lengths.size > 1:
-                    bond_info["avg_bond_length"] = np.round(
-                        np.mean(bond_lengths), 3
-                    )
+                    bond_info["avg_bond_length"] = np.round(np.mean(bond_lengths), 3)
                     bond_info["std_dev_bond_length"] = np.round(
                         np.std(bond_lengths, ddof=1), 3
                     )  # Using sample standard deviation (ddof=1)
@@ -164,9 +160,7 @@ def add_bond_fractions_per_structure(structure_dict):
 
     for structure, data in structure_dict.items():
         bond_data = data.get("bond_data", {})
-        total_bond_count = sum(
-            info["total_bond_count"] for info in bond_data.values()
-        )
+        total_bond_count = sum(info["total_bond_count"] for info in bond_data.values())
 
         if total_bond_count == 0:
             continue  # Avoid division by zero if no bonds are present
@@ -219,10 +213,7 @@ def get_is_single_binary(unique_formulas):
     """
     Determine if all formulas represent binary compounds.
     """
-    return (
-        len(formula_parser.get_unique_elements_from_formulas(unique_formulas))
-        == 2
-    )
+    return len(formula_parser.get_unique_elements_from_formulas(unique_formulas)) == 2
 
 
 def get_is_binary_mixed(unique_formulas):
@@ -231,8 +222,7 @@ def get_is_binary_mixed(unique_formulas):
     """
     # Check if all formulas are binary compounds.
     is_all_binary = all(
-        formula_parser.get_num_element(formula) == 2
-        for formula in unique_formulas
+        formula_parser.get_num_element(formula) == 2 for formula in unique_formulas
     )
 
     # Get the count of unique elements across all unique formulas.
@@ -248,8 +238,7 @@ def get_is_ternary(unique_formulas):
     Determine if all formulas represent ternary compounds.
     """
     return all(
-        formula_parser.get_num_element(formula) == 3
-        for formula in unique_formulas
+        formula_parser.get_num_element(formula) == 3 for formula in unique_formulas
     )
 
 

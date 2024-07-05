@@ -53,9 +53,7 @@ def draw_hexagon_for_individual_figure(
         ) = parse_bond_fractions_formulas(data)
 
         structure = formula_parser.get_subscripted_string(structure)
-        elements_parsed_from_formula = formula_parser.get_unique_elements(
-            formulas[0]
-        )
+        elements_parsed_from_formula = formula_parser.get_unique_elements(formulas[0])
         formula = formula_parser.get_subscripted_string(formulas[0])
         fig, ax = plt.subplots(figsize=(3, 3.5), dpi=300)
         plt.subplots_adjust(top=1.1)
@@ -99,9 +97,7 @@ def draw_hexagon_for_individual_figure(
         label_radius = radius + label_offset
 
         # Get the points for label positioning using the increased radius
-        x_label_pts, y_label_pts = hexagon.get_hexagon_points(
-            center_pt, label_radius
-        )
+        x_label_pts, y_label_pts = hexagon.get_hexagon_points(center_pt, label_radius)
 
         # Find minimum and maximum for both x and y from the hexagon points
         x_min, x_max = min(x_label_pts), max(x_label_pts)
@@ -110,9 +106,7 @@ def draw_hexagon_for_individual_figure(
         ax.set_xlim(x_min - radius_padding, x_max + radius_padding)
         ax.set_ylim(y_min - radius_padding, y_max + radius_padding)
 
-        for i, (x, y, label) in enumerate(
-            zip(x_label_pts, y_label_pts, bond_pairs)
-        ):
+        for i, (x, y, label) in enumerate(zip(x_label_pts, y_label_pts, bond_pairs)):
             plt.text(
                 x,
                 y,
@@ -172,9 +166,7 @@ def draw_hexagon_for_individual_figure(
         sorted_files_binary = [
             hexagon_image_files_binary[i] for i in sorted_indices_binary
         ]
-        save_single_composite_figures(
-            sorted_files_binary, True, is_CN_used, output_dir
-        )
+        save_single_composite_figures(sorted_files_binary, True, is_CN_used, output_dir)
 
     # Case 2. Contain only ternary files
     if contain_ternary:
@@ -215,9 +207,7 @@ def save_single_composite_figures(
     cols_per_figure = 3
 
     # Calculate the number of figures needed
-    num_figures = int(
-        np.ceil(len(sorted_hexagon_image_files) / max_images_per_figure)
-    )
+    num_figures = int(np.ceil(len(sorted_hexagon_image_files) / max_images_per_figure))
     # # Loop through each figure to be created
     for fig_idx in range(num_figures):
         # Calculate the range of images for this figure

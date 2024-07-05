@@ -16,13 +16,9 @@ def get_bond_fractions_data_for_figures(
 
         if structure not in bond_fractions_data:
             # Initialize both dictionaries using the same ordered bond list
-            ordered_bond_fractions = {
-                bond: 0.0 for bond in bond_pairs_formatted
-            }
+            ordered_bond_fractions = {bond: 0.0 for bond in bond_pairs_formatted}
 
-            initial_bond_fractions = structure_dict[structure][
-                "bond_fractions"
-            ]
+            initial_bond_fractions = structure_dict[structure]["bond_fractions"]
             # Ensures bonds are initialized in order
             bond_fractions_data[structure] = {
                 "bond_fractions_CN": ordered_bond_fractions.copy(),
@@ -42,9 +38,7 @@ def get_bond_fractions_data_for_figures(
             for bond_tuple, fraction in bond_fractions_CN.items():
                 bond = f"{bond_tuple[0]}-{bond_tuple[1]}"
                 if bond in bond_pairs_formatted:
-                    bond_fractions_data[structure]["bond_fractions_CN"][
-                        bond
-                    ] = fraction
+                    bond_fractions_data[structure]["bond_fractions_CN"][bond] = fraction
 
     return bond_fractions_data
 

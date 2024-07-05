@@ -17,9 +17,7 @@ def run_coordination(script_path):
 
     prompt_coordination_analysis_intro()
     dir_names_with_cif = folder.get_cif_dir_names(script_path)
-    selected_dirs = prompt.get_user_input_folder_processing(
-        dir_names_with_cif, ".cif"
-    )
+    selected_dirs = prompt.get_user_input_folder_processing(dir_names_with_cif, ".cif")
 
     # Would you like to include nested .cif files?
     include_nested_files = prompt_to_include_nested_files()
@@ -43,11 +41,9 @@ def process_each_folder(dir_path, include_nested_files):
     Process an individual folder to perform coordination analysis,
     including saving the results in Excel and JSON formats.
     """
-    cif_ensemble = CifEnsemble(dir_path, add_nested=include_nested_files)
+    cif_ensemble = CifEnsemble(dir_path, include_nested_files)
 
-    output_dir = folder.create_folder_under_output_dir(
-        dir_path, "coordination"
-    )
+    output_dir = folder.create_folder_under_output_dir(dir_path, "coordination")
 
     # Save
     save_excel_for_connections(cif_ensemble, output_dir)

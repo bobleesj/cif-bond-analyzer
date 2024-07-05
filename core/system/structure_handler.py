@@ -24,13 +24,9 @@ def get_structure_dict(
     )
 
     # Add unique bond counts
-    structure_dict = structure_util.add_unique_bond_count_per_bond_type(
-        structure_dict
-    )
+    structure_dict = structure_util.add_unique_bond_count_per_bond_type(structure_dict)
 
     # Add bond fractions
-    structure_dict = structure_util.add_bond_fractions_per_structure(
-        structure_dict
-    )
+    structure_dict = structure_util.add_bond_fractions_per_structure(structure_dict)
 
     return structure_dict
