@@ -4,8 +4,6 @@ __pycache__/
 *$py.class
 .DS_Store
 
-# module
-nodemon.json
 
 # Cif files
 20240531_ternary_binary_combined/
