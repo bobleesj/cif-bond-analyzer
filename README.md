@@ -11,16 +11,9 @@ The CIF Bond Analyzer (CBA) is an interactive, command-line-based application
 designed for high-throughput extraction of bonding information from CIF
 (Crystallographic Information File) files. CBA offers Site Analysis, System
 Analysis for binary/ternary systems, and Coordination Analysis. The outputs are
-saved in `.json`, `.xlsx`, and `.png `formats.
+saved in `.json`, `.xlsx`, and `.png`formats. 
 
-The current README.md serves as a tutorial and documentation.
-
-## Value
-
-CBA simplifies crystal structure analysis by automating the extraction of
-minimum bond lengths, which are crucial for understanding geometric
-configurations and identifying irregularities. Histograms and figures assist in
-identifying distinct bond lengths and structural patterns.
+> The current README.md serves as a tutorial and documentation - last update July 9, 2024
 
 ## Demo
 
@@ -28,11 +21,24 @@ The code is designed for interactive use without the need to write any code.
 
 ![CBA-demo-gif](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/fad16f21-93d8-4954-8efe-c04fbc68a9b7)
 
-## Installation and tutorial
+
+## Scope
+
+Any `.cif` files.
+
+## Value
+
+`CBA` simplifies crystal structure analysis by automating the extraction of
+minimum bond lengths, which are crucial for understanding geometric
+configurations and identifying irregularities. Histograms and figures assist in
+identifying distinct bond lengths and structural patterns.
+
+
+## Getting started
 
 Copy each line into your command-line applications:
 
-```text
+```bash
 $ git clone https://github.com/bobleesj/cif-bond-analyzer.git
 $ cd cif-bond-analyzer
 $ pip install -r requirements.txt
@@ -77,7 +83,7 @@ information.
 
 ### 1. Format files
 
-CBA uses the `CifEnsemble` object from `cifkit` to conduct preprocessing
+CBA uses the `CifEnsemble` object from `cifkit` (https://github.com/bobleesj/cifkit) to conduct preprocessing
 automatically.
 
 - CBA standardizes the site labels in `atom_site_label`. Some site labels may
@@ -388,9 +394,25 @@ python main.py
 - Emil Jaffal
 - Sangjoon Bob Lee
 
-## Questions?
+## How to ask for help
 
-Please feel free to reach out via sl5400@columbia.edu for any questions.
+`CBA` is also designed for experimental materials scientists and chemists.
+
+- If you have any issues or questions, please feel free to reach out or
+  [leave an issue](https://github.com/bobleesj/cif-bond-analyzer/issues).
+
+## How to contribute
+
+Here is how you can contribute to the `CBA` project if you found it helpful:
+
+- Star the repository on GitHub and recommend it to your colleagues who might
+  find `CBA` helpful as well.
+  [![Star GitHub repository](https://img.shields.io/github/stars/bobleesj/cif-bond-analyzer.svg?style=social)](https://github.com/bobleesj/cif-bond-analyzer/stargazers)
+- Fork the repository and consider contributing changes via a pull request.
+  [![Fork GitHub repository](https://img.shields.io/github/forks/bobleesj/cif-bond-analyzer?style=social)](https://github.com/bobleesj/cif-bond-analyzer/network/members)
+- If you have any suggestions or need further clarification on how to use
+  `CBA`, please feel free to reach out to Sangjoon Bob Lee
+  ([@bobleesj](https://github.com/bobleesj)).
 
 ## Changelog
 
