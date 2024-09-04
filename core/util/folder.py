@@ -88,7 +88,7 @@ def get_dir_paths_with_two_or_three_elements_nested(script_path):
     biarny_ternary_dir_paths = {}
 
     for dir_path in dir_paths:
-        cif_ensemble = CifEnsemble(dir_path, preprocess=False, add_nested=True)
+        cif_ensemble = CifEnsemble(dir_path, preprocess=False, add_nested_files=True)
         unique_elements_count = len(cif_ensemble.unique_elements)
 
         if unique_elements_count == 2 or unique_elements_count == 3:

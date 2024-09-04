@@ -42,7 +42,7 @@ def generate_site_analysis_data(dir_path, add_nested) -> CifEnsemble:
     handling CIF files and generating summary outputs and visualizations.
     """
     if add_nested:
-        cif_ensemble = CifEnsemble(dir_path, True)
+        cif_ensemble = CifEnsemble(dir_path, add_nested_files=True)
     else:
         cif_ensemble = CifEnsemble(dir_path)
 
