@@ -22,9 +22,12 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
         start_time = time.perf_counter()
 
         prompt_progress_current(i, cif.file_name, cif.supercell_atom_count, file_count)
-
-        mixing_info = cif.mixing_info_per_label_pair_sorted_by_mendeleev
-        shortest_distances = cif.shortest_site_pair_distance
+        try:
+            mixing_info = cif.mixing_info_per_label_pair_sorted_by_mendeleev
+            shortest_distances = cif.shortest_site_pair_distance
+        except Exception as e:
+            print(f"Error occured processing {cif.file_name}: {e}")
+            continue
 
         # Alphabetically sort the label pair and find min distance per unique pair
         unique_label_pair_distances = {}

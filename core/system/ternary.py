@@ -5,6 +5,7 @@ from core.util import formula_parser
 from core.system.figure_util import (
     shift_points_xy,
 )
+from core.configs.ternary import TernaryConfig
 
 
 def get_point_in_triangle(vertices, R_norm_index, M_norm_index):
@@ -350,6 +351,10 @@ def draw_hexagon_for_binary_formula(
             zorder=2,
             lw=extra_edge_line_width,
         )
+    
+    # Get the tags for the first and second extra lines from configs/ternary.py
+    TAGS_IN_FIRST_EXTRA_LINE = TernaryConfig.TAGS_IN_FIRST_EXTRA_LINE.value
+    TAGS_IN_SECOND_EXTRA_LINE = TernaryConfig.TAGS_IN_SECOND_EXTRA_LINE.value
 
     if A_label == R and B_label == M:
         # ErCo
@@ -358,16 +363,14 @@ def draw_hexagon_for_binary_formula(
             A_norm_index,
             B_norm_index,
         )
-        if tag == "hex" or tag == "rt":
+        if tag == "hex" or tag == "rt" or is_formula_with_tag_in_main_line:
             center_pt = center_pt
-        elif tag == "lt":
+        elif tag in TAGS_IN_FIRST_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.0, -0.1)
             draw_extra_frame("RM", 0.0, -0.1, 0.0, -0.1)
-        elif tag == "ht":
+        elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.0, -0.2)
             draw_extra_frame("RM", 0.0, -0.2, 0.0, -0.2)
-        elif is_formula_with_tag_in_main_line:
-            center_pt = center_pt
         elif tag is not None:
             center_pt = shift_points_xy(center_pt, 0.0, -0.3)
             draw_extra_frame("RM", 0.0, -0.3, 0.0, -0.3)
@@ -375,32 +378,28 @@ def draw_hexagon_for_binary_formula(
     # CoIn2
     if A_label == M and B_label == X:
         center_pt = get_point_in_triangle(vertices, 0, (1 - B_norm_index))
-        if tag == "hex" or tag == "rt":
+        if tag == "hex" or tag == "rt" or is_formula_with_tag_in_main_line:
             center_pt = center_pt
-        elif tag == "lt":
+        elif tag in TAGS_IN_FIRST_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.1, 0.0)
             draw_extra_frame("MX", 0.1, 0.0, 0.1, 0.0)
-        elif tag == "ht":
+        elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.2, 0.0)
             draw_extra_frame("MX", 0.2, 0.0, 0.2, 0.0)
-        elif is_formula_with_tag_in_main_line:
-            center_pt = center_pt
         elif tag is not None:
             center_pt = shift_points_xy(center_pt, 0.3, 0.0)
             draw_extra_frame("MX", 0.3, 0.0, 0.3, 0.0)
     # ErIn
     if A_label == R and B_label == X:
         center_pt = get_point_in_triangle(vertices, A_norm_index, 0.0)
-        if tag == "hex" or tag == "rt":
+        if tag == "hex" or tag == "rt" or is_formula_with_tag_in_main_line:
             center_pt = center_pt
-        elif tag == "lt":
+        elif tag in TAGS_IN_FIRST_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, -0.1, 0.0)
             draw_extra_frame("RX", -0.1, 0.0, -0.1, 0.0)
-        elif tag == "ht":
+        elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, -0.2, 0.0)
             draw_extra_frame("RX", -0.2, 0.0, -0.2, 0.0)
-        elif is_formula_with_tag_in_main_line:
-            center_pt = center_pt
         elif tag is not None:
             center_pt = shift_points_xy(center_pt, -0.3, 0.0)
             draw_extra_frame("RX", -0.3, 0.0, -0.3, 0.0)
