@@ -372,7 +372,7 @@ def draw_hexagon_for_binary_formula(
         elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.0, -0.2)
             draw_extra_frame("RM", 0.0, -0.2, 0.0, -0.2)
-        elif tag in TAGS_IN_THIRD_EXTRA_LINE:
+        elif tag in TAGS_IN_THIRD_EXTRA_LINE or tag is not None:
             center_pt = shift_points_xy(center_pt, 0.0, -0.3)
             draw_extra_frame("RM", 0.0, -0.3, 0.0, -0.3)
 
@@ -387,7 +387,7 @@ def draw_hexagon_for_binary_formula(
         elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.2, 0.0)
             draw_extra_frame("MX", 0.2, 0.0, 0.2, 0.0)
-        elif tag in TAGS_IN_THIRD_EXTRA_LINE:
+        elif tag in TAGS_IN_THIRD_EXTRA_LINE or tag is not None:
             center_pt = shift_points_xy(center_pt, 0.3, 0.0)
             draw_extra_frame("MX", 0.3, 0.0, 0.3, 0.0)
     # ErIn
@@ -401,7 +401,7 @@ def draw_hexagon_for_binary_formula(
         elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, -0.2, 0.0)
             draw_extra_frame("RX", -0.2, 0.0, -0.2, 0.0)
-        elif tag in TAGS_IN_THIRD_EXTRA_LINE:
+        elif tag in TAGS_IN_THIRD_EXTRA_LINE or tag is not None:
             center_pt = shift_points_xy(center_pt, -0.3, 0.0)
             draw_extra_frame("RX", -0.3, 0.0, -0.3, 0.0)
 
