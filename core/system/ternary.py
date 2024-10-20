@@ -355,6 +355,7 @@ def draw_hexagon_for_binary_formula(
     # Get the tags for the first and second extra lines from configs/ternary.py
     TAGS_IN_FIRST_EXTRA_LINE = TernaryConfig.TAGS_IN_FIRST_EXTRA_LINE.value
     TAGS_IN_SECOND_EXTRA_LINE = TernaryConfig.TAGS_IN_SECOND_EXTRA_LINE.value
+    TAGS_IN_THIRD_EXTRA_LINE = TernaryConfig.TAGS_IN_THIRD_EXTRA_LINE.value
 
     if A_label == R and B_label == M:
         # ErCo
@@ -371,7 +372,7 @@ def draw_hexagon_for_binary_formula(
         elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.0, -0.2)
             draw_extra_frame("RM", 0.0, -0.2, 0.0, -0.2)
-        elif tag is not None:
+        elif tag in TAGS_IN_THIRD_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.0, -0.3)
             draw_extra_frame("RM", 0.0, -0.3, 0.0, -0.3)
 
@@ -386,7 +387,7 @@ def draw_hexagon_for_binary_formula(
         elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.2, 0.0)
             draw_extra_frame("MX", 0.2, 0.0, 0.2, 0.0)
-        elif tag is not None:
+        elif tag in TAGS_IN_THIRD_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, 0.3, 0.0)
             draw_extra_frame("MX", 0.3, 0.0, 0.3, 0.0)
     # ErIn
@@ -400,7 +401,7 @@ def draw_hexagon_for_binary_formula(
         elif tag in TAGS_IN_SECOND_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, -0.2, 0.0)
             draw_extra_frame("RX", -0.2, 0.0, -0.2, 0.0)
-        elif tag is not None:
+        elif tag in TAGS_IN_THIRD_EXTRA_LINE:
             center_pt = shift_points_xy(center_pt, -0.3, 0.0)
             draw_extra_frame("RX", -0.3, 0.0, -0.3, 0.0)
 
