@@ -279,8 +279,14 @@ For Types 2, 3, and 4:
 
 ![ternary](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/7496f433-c218-49ac-8372-cb75a369e409)
 
-To customize the legend position in the ternary diagram, you may modify the
-values of `X_SHIFT = 0.0` and `Y_SHIFT = 0.0` in `core/configs/ternary.py`.
+**Customize legend position:**
+
+To adjust the legend position in the ternary diagram, modify the values of `X_SHIFT = 0.0` and `Y_SHIFT = 0.0` in `core/configs/ternary.py`.
+
+**Customize extra lines:**
+
+To add extra lines to the ternary diagram based on tags, edit `TAGS_IN_FIRST_EXTRA_LINE = ["lt", "ht", "hp", "hp1", "hp2", "hp3"]` and `TAGS_IN_SECOND_EXTRA_LINE = ["lt", "ht", "hp", "hp1", "hp2", "hp3"]` in `core/configs/ternary.py`.
+
 
 For Type 1:
 

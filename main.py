@@ -5,10 +5,6 @@ Usage:
     python main.py
 
 Author: Sangjoon Bob Lee
-
-Last update: June 23, 2024
-Release date: Mar 10, 2024
-
 """
 
 import os
