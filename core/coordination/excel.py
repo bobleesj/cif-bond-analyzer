@@ -70,7 +70,9 @@ def save_excel_for_connections(cif_ensemble: CifEnsemble, output_dir: str) -> No
         df_temp = pd.DataFrame(all_data_for_excel)
 
         # Get the formula from the CIF and use it as sheet name
-        sheet_name = cif.file_name_without_ext + "_" + cif.formula
+        file_name_without_ext = cif.file_name_without_ext or "UnnamedFile"
+        formula = cif.formula or "UnknownFormula"
+        sheet_name = f"{file_name_without_ext}_{formula}"
 
         # Time
         elapsed_time = time.perf_counter() - start_time
