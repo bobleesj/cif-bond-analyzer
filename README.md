@@ -284,8 +284,8 @@ To add extra lines to the ternary diagram based on tags, edit `TAGS_IN_FIRST_EXT
 
 For Type 1:
 
-![binary_single](https://github.com/user-attachments/assets/16d6243b-2b87-49aa-9822-44ad19681e46)
 
+![binary_single](https://github.com/user-attachments/assets/c4695840-6b7f-42a6-9640-d1154e8dc18d)
 
 All of the individual hexagon figures also saved in order.
 
