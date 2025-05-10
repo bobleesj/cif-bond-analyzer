@@ -1,0 +1,11 @@
+cifkit
+click
+gemmi
+matplotlib
+numpy
+openpyxl
+pandas
+scipy
+sympy
+pyvista
+jsondiff
