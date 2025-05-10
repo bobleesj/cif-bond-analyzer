@@ -2,7 +2,6 @@
 
 ![Header](https://s9.gifyu.com/images/SViLp.png)
 
-[![Integration tests](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml/badge.svg)](https://github.com/bobleesj/cif-bond-analyzer/actions/workflows/python-run-pytest.yml)
 ![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)
 ![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)
@@ -14,14 +13,9 @@ designed for high-throughput extraction of bonding information from CIF
 Analysis for binary/ternary systems, and Coordination Analysis. The outputs are
 saved in `.json`, `.xlsx`, and `.png`formats. 
 
-> The current README.md serves as a tutorial and documentation - last update July 9, 2024
-
-## Demo
+> The current README.md serves as a tutorial and documentation
 
 The code is designed for interactive use without the need to write any code.
-
-![CBA-demo-gif](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/fad16f21-93d8-4954-8efe-c04fbc68a9b7)
-
 
 ## Scope
 
@@ -33,7 +27,6 @@ Any `.cif` files.
 minimum bond lengths, which are crucial for understanding geometric
 configurations and identifying irregularities. Histograms and figures assist in
 identifying distinct bond lengths and structural patterns.
-
 
 ## Getting started
 
@@ -205,7 +198,8 @@ The minimum bond pair for each file is saved in `element_pairs.json` and
 
 Here is a screenshot of `element_pairs.xlsx`.
 
-![Excel screenshot](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/d6bed0df-b9ea-4922-967b-4656bb3ab3e0)
+<img width="824" alt="site-image" src="https://github.com/user-attachments/assets/a86c0087-4188-49fd-970c-0f872bfb59de" />
+
 
 #### Output 1.2 text summary
 
@@ -277,7 +271,7 @@ Available folders containing 2 or 3 unique elements:
 
 For Types 2, 3, and 4:
 
-![ternary](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/7496f433-c218-49ac-8372-cb75a369e409)
+![ternary](https://github.com/user-attachments/assets/ee959118-093b-4086-ad34-5ec3a2f84a06)
 
 **Customize legend position:**
 
@@ -290,30 +284,30 @@ To add extra lines to the ternary diagram based on tags, edit `TAGS_IN_FIRST_EXT
 
 For Type 1:
 
-![binary_single](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/21f25fb3-79ea-4cd1-931d-ad5b3ea55189)
+![binary_single](https://github.com/user-attachments/assets/16d6243b-2b87-49aa-9822-44ad19681e46)
+
 
 All of the individual hexagon figures also saved in order.
 
-![composite_binary_1](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/3c405d7c-2a42-4114-ba45-d3df0f721b48)
+![composite_binary_1](https://github.com/user-attachments/assets/badeebaa-7c7f-4bee-baae-9f3e3858a1eb)
+
 
 #### Output 2.2 Color map
 
 For Types 2, 3, and 4, color maps for each bond type and overall are generated.
 
-![color_map_overall](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/f5ca3dd2-c6cb-40b8-aff9-af2be90c700f)
-
-![color_map_In-In](https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/8f6bd208-9e4d-4dfe-a6a1-04b70af1aacc)
+![color_map_overall](https://github.com/user-attachments/assets/061443eb-ed97-4606-a99d-a9fc920faecd)
 
 #### Output 2.3 Excel
 
 Bond count per each `cif` file is recorded in `system_analysis_files.xlsx`.
 
-<img width="753" alt="SA_main" src="https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/024b9f0f-5a5f-43ae-8e70-86031db9d26a">
+<img width="1088" alt="Screenshot 2025-05-10 at 2 20 27 PM" src="https://github.com/user-attachments/assets/3df73932-0e9f-48e0-b40e-ab9ce22ef770" />
 
 Average bond lenghts, count, and statistical values are recorded in
 `system_analysis_main.xlsx`.
 
-<img width="1025" alt="SA_file" src="https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/420193ec-081a-4df2-b56e-9cddcefa00cb">
+<img width="470" alt="Screenshot 2025-05-10 at 2 20 51 PM" src="https://github.com/user-attachments/assets/697aba32-b0fc-4876-a4c7-dff1f179492f" />
 
 ### Option 3. Coordination Analysis
 
@@ -373,7 +367,7 @@ recorded in `CN_connections.json`.
 For each `.cif` file, the nearest neighbor information is wrriten in each sheet
 within `CN_connections.xlsx`.
 
-<img width="842" alt="CN_excel" src="https://github.com/bobleesj/cif-bond-analyzer/assets/14892262/6322cacf-5ab0-4855-90e3-56aaddf6ab1f">
+<img width="1318" alt="Screenshot 2025-05-10 at 2 22 06 PM" src="https://github.com/user-attachments/assets/e043e10f-bce4-4abe-870c-d6557ab6def5" />
 
 ## Installation
 
