@@ -1,0 +1,9 @@
+Summary:
+Pair: Ba-O, Count: 9, Distances: 2.653, 2.692, 2.717, 2.765, 2.770, 2.770, 2.794, 2.808, 2.834
+Pair: Ti-O, Count: 6, Distances: 1.723, 1.737, 1.789, 1.793, 1.829, 1.863
+
+Missing pairs:
+Ba-Ba
+Ba-Ti
+O-O
+Ti-Ti
