@@ -1,0 +1,130 @@
+##############################################################################
+#                                                                            #
+# Ba-O-Ti          # BaTi4O9                                       # 1252588 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Demonstration Version                                                    #
+#                                                                            #
+##############################################################################
+
+data_1252588
+_audit_creation_date                     2024-08-15
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      1252588
+_database_code_PDF                       04-007-2688
+
+# Entry summary
+
+_chemical_formula_structural             'Ba Ti~4~ O~9~'
+_chemical_formula_sum                    'Ba O9 Ti4'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            BaTi~4~O~9~,oP28,59
+_chemical_formula_weight                 472.9
+
+# Bibliographic data
+
+_publ_section_title
+;
+Refinement of Barium Tetratitanate, BaTi~4~O~9~, and Hexabarium 17-Titanate, Ba~6~Ti~17~O~40~
+;
+_journal_coden_ASTM                      ACSCEE
+_journal_name_full                       'Acta Crystallogr. C'
+_journal_year                            1984
+_journal_volume                          40
+_journal_page_first                      1510
+_journal_page_last                       1512
+_journal_language                        English
+loop_
+ _publ_author_name
+ _publ_author_address
+''
+;
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           3.794
+_cell_length_b                           14.527
+_cell_length_c                           6.293
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             346.8
+_cell_formula_units_Z                    2
+_space_group_IT_number                   59
+_space_group_name_H-M_alt                'P m m n (origin choice 2)'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '1/2-x, 1/2-y, z'
+ 3 '1/2-x, y, z'
+ 4 '-x, -y, -z'
+ 5 '-x, 1/2+y, -z'
+ 6 '1/2+x, -y, -z'
+ 7 '1/2+x, 1/2+y, -z'
+ 8 'x, 1/2-y, z'
+loop_
+ _atom_type_symbol
+ Ti
+ O
+ Ba
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ Ti1 Ti 4 e 0.25 0.03677 0.19595 1
+ O4 O 4 e 0.25 0.0934 0.439 1
+ Ti2 Ti 4 e 0.25 0.12901 0.75142 1
+ O3 O 4 e 0.25 0.152 0.0453 1
+ O1 O 4 e 0.25 0.5098 0.8496 1
+ O2 O 4 e 0.25 0.6012 0.26 1
+ Ba Ba 2 b 0.25 0.75 0.70824 1
+ O5 O 2 a 0.25 0.25 0.657 1
+
+
+_exptl_crystal_colour                    ?
+_exptl_crystal_density_meas              ?
+_exptl_crystal_density_diffrn            4.53
+_cell_measurement_temperature            293
+_cell_measurement_radiation              'X-rays, Mo Ka'
+_cell_measurement_wavelength             0.71069
+_cell_measurement_reflns_used            25
+_diffrn_ambient_temperature              293
+_diffrn_measurement_device               'automatic diffractometer'
+_diffrn_measurement_device_type          'Nonius CAD4'
+_diffrn_radiation_type                   'X-rays, Mo Ka'
+_diffrn_radiation_wavelength             0.71069
+_diffrn_reflns_number                    ?
+_diffrn_reflns_theta_min                 0.02
+_diffrn_reflns_theta_max                 9
+_exptl_absorpt_coefficient_mu            10.00
+_exptl_absorpt_correction_type           ?
+_computing_structure_solution            'starting values from the literature'
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 1614
+_refine_ls_R_factor_gt                   0.033
+_refine_ls_wR_factor_gt                  0.036
+
+# End of data set 1252588
+
