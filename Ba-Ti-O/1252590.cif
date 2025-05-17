@@ -1,0 +1,140 @@
+##############################################################################
+#                                                                            #
+# Ba-O-Ti          # Ba4Ti13O30                                    # 1252590 #
+#                                                                            #
+##############################################################################
+#                                                                            #
+#                           Pearson's Crystal Data                           #
+#      Crystal Structure Database for Inorganic Compounds (on DVD)           #
+#                              Release 2023/24                               #
+#                  Editors: Pierre Villars and Karin Cenzual                 #
+#                                                                            #
+#   Copyright (c) ASM International & Material Phases Data System (MPDS),    #
+# Switzerland & National Institute for Materials Science (NIMS), Japan, 2023 #
+#                   All rights reserved. Version 2023.07                     #
+#                                                                            #
+#   This copy of Pearson's Crystal Data is licensed to:                      #
+#   Demonstration Version                                                    #
+#                                                                            #
+##############################################################################
+
+data_1252590
+_audit_creation_date                     2024-08-15
+_audit_creation_method
+;
+Pearson's Crystal Data browser
+;
+#_database_code_PCD                      1252590
+_database_code_PDF                       04-009-3292
+
+# Entry summary
+
+_chemical_formula_structural             'Ba~4~ Ti~13~ O~30~'
+_chemical_formula_sum                    'Ba4 O30 Ti13'
+_chemical_name_mineral                   ?
+_chemical_compound_source                ?
+_chemical_name_structure_type            Ba~4~Ti~13~O~30~,oS188,64
+_chemical_formula_weight                 1652.0
+
+# Bibliographic data
+
+_publ_section_title
+'Tetrabarium tridecatitanate, Ba~4~Ti~13~O~30~'                               
+_journal_coden_ASTM                      CSCMCS
+_journal_name_full                       'Cryst. Struct. Commun.'
+_journal_year                            1982
+_journal_volume                          11
+_journal_page_first                      2087
+_journal_page_last                       2092
+_journal_language                        English
+loop_
+ _publ_author_name
+ _publ_author_address
+''
+;
+;
+
+# Standardized crystallographic data
+
+_cell_length_a                           17.062
+_cell_length_b                           9.862
+_cell_length_c                           14.051
+_cell_angle_alpha                        90
+_cell_angle_beta                         90
+_cell_angle_gamma                        90
+_cell_volume                             2364.3
+_cell_formula_units_Z                    4
+_space_group_IT_number                   64
+_space_group_name_H-M_alt                'C m c e'
+loop_
+ _space_group_symop_id
+ _space_group_symop_operation_xyz
+ 1 'x, y, z'
+ 2 '-x, 1/2-y, 1/2+z'
+ 3 '-x, -y, -z'
+ 4 '-x, 1/2+y, 1/2-z'
+ 5 '-x, y, z'
+ 6 'x, 1/2-y, 1/2+z'
+ 7 'x, -y, -z'
+ 8 'x, 1/2+y, 1/2-z'
+ 9 '1/2+x, 1/2+y, z'
+ 10 '1/2-x, 1-y, 1/2+z'
+ 11 '1/2-x, 1/2-y, -z'
+ 12 '1/2-x, 1+y, 1/2-z'
+ 13 '1/2-x, 1/2+y, z'
+ 14 '1/2+x, 1-y, 1/2+z'
+ 15 '1/2+x, 1/2-y, -z'
+ 16 '1/2+x, 1+y, 1/2-z'
+loop_
+ _atom_type_symbol
+ O
+ Ti
+ Ba
+loop_
+ _atom_site_label
+ _atom_site_type_symbol
+ _atom_site_symmetry_multiplicity
+ _atom_site_Wyckoff_symbol
+ _atom_site_fract_x
+ _atom_site_fract_y
+ _atom_site_fract_z
+ _atom_site_occupancy
+ O7 O 16 g 0.087 0.2654 0.2663 1
+ O4 O 16 g 0.0873 0.0759 0.0758 1
+ Ti4 Ti 16 g 0.09205 0.44472 0.31844 1
+ Ba Ba 16 g 0.14638 0.33205 0.08983 1
+ O6 O 16 g 0.1597 0.0139 0.2658 1
+ O1 O 16 g 0.2553 0.1049 0.0687 1
+ Ti3 Ti 16 g 0.32429 0.17642 0.16469 1
+ O2 O 16 g 0.3276 0.3565 0.0942 1
+ O8 O 16 g 0.4159 0.1083 0.0838 1
+ O9 O 8 f 0 0.0169 0.2512 1
+ Ti5 Ti 8 f 0 0.16355 0.3471 1
+ O3 O 8 f 0 0.3602 0.4039 1
+ O5 O 8 e 0.25 0.2401 0.25 1
+ Ti1 Ti 8 d 0.18383 0 0 1
+ Ti2 Ti 4 a 0 0 0 1
+
+
+_exptl_crystal_colour                    ?
+_exptl_crystal_density_meas              4.60
+_exptl_crystal_density_diffrn            4.64
+_cell_measurement_temperature            ?
+_cell_measurement_radiation              'X-rays, Mo Ka'
+_cell_measurement_reflns_used            ?
+_diffrn_ambient_temperature              ?
+_diffrn_measurement_device               'automatic diffractometer'
+_diffrn_measurement_device_type          ?
+_diffrn_radiation_type                   'X-rays, Mo Ka'
+_diffrn_reflns_number                    10275
+_exptl_absorpt_coefficient_mu            11.10
+_exptl_absorpt_correction_type           yes
+_computing_structure_solution
+'Patterson synthesis, crystal chemical considerations'                        
+_refine_ls_number_parameters             ?
+_refine_ls_number_reflns                 2191
+_refine_ls_R_factor_gt                   0.03
+_refine_ls_wR_factor_gt                  ?
+
+# End of data set 1252590
+
