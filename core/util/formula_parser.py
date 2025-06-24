@@ -1,5 +1,6 @@
 import re
-from cifkit.data.mendeleev import get_mendeleev_numbers
+from bobleesj.utils.sources import mendeleev
+
 
 
 def get_normalized_formula(formula):
@@ -88,8 +89,7 @@ def get_unique_elements_from_formulas(formulas: list[str]):
 
 
 def sort_by_mendeleev(elements):
-    mendeleev_numbers = get_mendeleev_numbers()
-
+    mendeleev_numbers = mendeleev.numbers
     sorted_element = sorted(
         elements, key=lambda x: mendeleev_numbers.get(x, float("inf"))
     )
