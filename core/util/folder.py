@@ -87,7 +87,7 @@ def get_dir_paths_with_two_or_three_elements_nested(script_path):
     dir_paths = get_cif_dir_names(script_path)
     biarny_ternary_dir_paths = {}
     for dir_path in dir_paths:
-        cif_ensemble = CifEnsemble(dir_path, preprocess=False, add_nested_files=True, compute_CN=True)
+        cif_ensemble = CifEnsemble(dir_path, preprocess=False, add_nested_files=True)
         unique_elements_count = len(cif_ensemble.unique_elements)
 
         if unique_elements_count == 2 or unique_elements_count == 3:
@@ -107,15 +107,12 @@ def choose_binary_ternary_dir(script_path):
     binary_ternary_dir_paths = get_dir_paths_with_two_or_three_elements_nested(
         script_path
     )
-
     # Check if there are directories available
     if not binary_ternary_dir_paths:
         print("No directories meet the criteria.")
         return
-
     # Print available directories
     print("\nAvailable folders containing 2 or 3 unique elements:")
-
     dir_path_list = list(binary_ternary_dir_paths.keys())
 
     for idx, dir_path in enumerate(dir_path_list, start=1):
@@ -133,7 +130,6 @@ def choose_binary_ternary_dir(script_path):
     if not process_all:
         input_str = input("\nEnter folder numbers to select (e.g., '1 3 5'): ")
         selected_indices = [int(num) for num in input_str.split() if num.isdigit()]
-
         selected_dir_paths = [
             dir_path_list[
                 i - 1

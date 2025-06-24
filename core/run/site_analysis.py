@@ -29,19 +29,15 @@ def run_site_analysis(script_path, supercell_size=2):
     num_selected_dirs = len(selected_dirs)
     for idx, (_, dir_path) in enumerate(selected_dirs.items(), start=1):
         prompt_folder_progress(idx, dir_path, num_selected_dirs)
-        generate_site_analysis_data(dir_path, add_nested, supercell_size)
+        _generate_site_analysis_data(dir_path, add_nested, supercell_size)
 
 
-def generate_site_analysis_data(dir_path, add_nested, supercell_size) -> CifEnsemble:
+def _generate_site_analysis_data(dir_path, add_nested, supercell_size) -> CifEnsemble:
     """
     Conduct site analysis on a specified directory,
     handling CIF files and generating summary outputs and visualizations.
     """
-    if add_nested:
-        cif_ensemble = CifEnsemble(dir_path, add_nested_files=True, supercell_size=supercell_size, compute_CN=True)
-    else:
-        cif_ensemble = CifEnsemble(dir_path, supercell_size=supercell_size, compute_CN=True)
-
+    cif_ensemble = CifEnsemble(dir_path, add_nested_files=add_nested, supercell_size=supercell_size)
     site_unique_site_pair_data = site_handler.get_site_pair_data_ordered_by_mendeleev(
         cif_ensemble
     )
@@ -73,7 +69,5 @@ def generate_site_analysis_data(dir_path, add_nested, supercell_size) -> CifEnse
         site_unique_element_pair_data,
         dir_path,
     )
-
     echo("Histograms saved.")
-
     return cif_ensemble

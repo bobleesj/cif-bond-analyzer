@@ -28,24 +28,19 @@ from core.prompts import input
 
 def run_system_analysis(script_path, supercell_size=2):
     prompt_system_analysis_intro()
-
     # Display folders containing up to 3 unique elements per folder
     dir_paths = folder.choose_binary_ternary_dir(script_path)
-
     # Would you like to use bond fractions in coordination numbers?
     is_CN_used = input.prompt_to_use_CN_bond_fractions()
     use_existing_json = True
-
     if not is_CN_used:
         use_existing_json = input.prompt_to_use_existing_json_file()
-
     # Process each folder
     for idx, dir_path in enumerate(dir_paths, start=1):
         prompt_folder_progress(idx, dir_path, len(dir_paths))
-        conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_size)
+        _conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_size)
 
-
-def conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_size=3):
+def _conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_size):
     """
     Step 1. Read site pair json
     """
@@ -58,8 +53,8 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_s
             f"Error: File does not exist at {updated_json_file_path}."
             " Automatically run Site Analysis."
         )
-        cif_ensemble_with_nested = site_analysis.generate_site_analysis_data(
-            dir_path, add_nested=True
+        cif_ensemble_with_nested = site_analysis._generate_site_analysis_data(
+            dir_path, True, supercell_size
         )
         run_site_analysis = True
 
@@ -67,12 +62,11 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_s
     if not run_site_analysis:
         if is_CN_used or not use_existing_json:
             # Compute the shortest distance (heavy computation)
-            cif_ensemble_with_nested = site_analysis.generate_site_analysis_data(
-                dir_path, add_nested=True
+            cif_ensemble_with_nested = site_analysis._generate_site_analysis_data(
+                dir_path, True, supercell_size
             )
         else:
-            cif_ensemble_with_nested = CifEnsemble(dir_path, add_nested_files=True, compute_CN=True)
-
+            cif_ensemble_with_nested = CifEnsemble(dir_path, add_nested_files=True)
     dir_path = cif_ensemble_with_nested.dir_path
 
     """

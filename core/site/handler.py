@@ -20,8 +20,8 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
     file_count = cif_ensemble.file_count
     for i, cif in enumerate(cif_ensemble.cifs, start=1):
         start_time = time.perf_counter()
-
         prompt_progress_current(i, cif.file_name, cif.supercell_atom_count, file_count)
+        cif.compute_CN()
         try:
             mixing_info = cif.mixing_info_per_label_pair_sorted_by_mendeleev
             shortest_distances = cif.shortest_site_pair_distance

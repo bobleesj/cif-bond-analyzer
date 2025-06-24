@@ -25,10 +25,9 @@ def save_excel_for_connections(cif_ensemble: CifEnsemble, output_dir: str) -> No
     for i, cif in enumerate(cif_ensemble.cifs, start=1):
         start_time = time.perf_counter()
         prompt_progress_current(i, cif.file_name, cif.supercell_atom_count, file_count)
-
         # Lazy loading - this is the computaitonally intensive step
+        cif.compute_CN()
         connection_data = cif.CN_connections_by_best_methods
-
         # Create a list to store
         all_data_for_excel = []
 
