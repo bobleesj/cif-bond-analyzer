@@ -308,7 +308,7 @@ def get_sorted_indices_by_ternary_elements(
     """Sort indices by element fractions in ternary formulas."""
     element_data = []
 
-    # Collect the relevant fractions for primary, secondary, and tertiary elements
+    # Collect relevant fractions for primary, secondary, tertiary elements
     for index, parsed_formula in enumerate(parsed_formulas):
         element_dict = dict(parsed_formula)
 

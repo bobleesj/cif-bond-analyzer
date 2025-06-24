@@ -134,7 +134,7 @@ def add_unique_bond_count_per_bond_type(structure_dict):
             len(data["files"]) if data["files"] else 1
         )  # Avoid division by zero
 
-        # Calculate unique bond count for each bond type and add it to the bond data
+        # Calculate unique bond count for each bond type and add to bond data
         for bond_type, bond_info in data["bond_data"].items():
             bond_count = bond_info["total_bond_count"]
             unique_bond_count = (

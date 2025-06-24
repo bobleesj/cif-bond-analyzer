@@ -280,7 +280,8 @@ def plot_polyhedrons(
 
             13 and 14 must be the two split atoms. Find the average position
             between 13 and 14,
-            draw a box from the central atom to the average position between 13, 14
+            draw a box from the central atom to the average position
+            between 13, 14
             """
 
             if largest_angle_pair[0] == second_largest_angle_pair[0]:
@@ -331,7 +332,7 @@ def plot_polyhedrons(
                 )
 
             """
-            ***Type 15.2. Symmetric case where there are 3 largest angles formed
+            ***Type 15.2. Symmetric case with 3 largest angles formed
             by the single atom and one of the two-split atoms
             Largest angles for Ta2:
             Pair: (6, 10): 154.3 degrees
@@ -347,7 +348,8 @@ def plot_polyhedrons(
 
             if largest_angle == second_largest_angle == third_largest_angle:
                 print(
-                    "\nType 15.2. CN=15, top 6, bottom (two split) 6, 3 identical largest"
+                    "\nType 15.2. CN=15, top 6, bottom (two split) 6, 3 "
+                    "identical largest"
                     " angles"
                 )
                 single_largest_angle_coord = polyhedron_points_array[
@@ -370,7 +372,8 @@ def plot_polyhedrons(
                 other_double_split_atom_index = near_180_degrees_atom_indices[
                     label
                 ][3][1]
-                # Find the average position between the two atoms in the doublet
+                # Find the average position between the two atoms in
+                # the doublet
                 first_double_split_atom_index = largest_angle_pair[1]
                 point_1 = polyhedron_points_array[
                     first_double_split_atom_index
@@ -434,7 +437,8 @@ def plot_polyhedrons(
             Pair: (1, 14): 148.7 degrees
             Pair: (2, 11): 148.7 degrees
             Pair: (2, 12): 148.7 degrees
-            Check the triplets - this is the second largest angles, there are 3 of them
+            Check the triplets - the second largest angles,
+            there are 3 of them
             Assume the the bottom is the 3 splits, the top forms a 6 ring chain
             The bottom forms
             (0, 2) (0, 3) (0, 1), 0th index must be the top atom
@@ -526,7 +530,8 @@ def draw_rectangular_box(
     )  # Recalculate the end point coordinate
 
     norm_value = 3
-    # Handling special case where the line vector is vertical or aligned with any axis
+    # Handling special case where the line vector is vertical or
+    # aligned with any axis
     if np.all(line_vector[:2] == 0):  # Line is vertical (change in z only)
         # Choose arbitrary perpendicular vectors in the XY plane
         half_width_vector = np.array([norm_value, 0, 0], dtype=np.float64)
@@ -626,6 +631,7 @@ def count_atoms_inside_polyhedron(vertices, atom_positions, split_count=1):
     if split_count == 3:
         count_subtracted_central_large_angle = count - 4
     print(
-        f"Number of atoms inside the box: {count_subtracted_central_large_angle}"
+        f"Number of atoms inside the box: "
+        f"{count_subtracted_central_large_angle}"
     )
     return count_subtracted_central_large_angle

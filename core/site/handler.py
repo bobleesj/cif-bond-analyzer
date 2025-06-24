@@ -4,7 +4,10 @@ from cifkit import CifEnsemble
 from cifkit.utils.bond_pair import order_tuple_pair_by_mendeleev
 from cifkit.utils.string_parser import get_atom_type_from_label
 
-from core.prompts.progress import prompt_progress_current, prompt_progress_finished
+from core.prompts.progress import (
+    prompt_progress_current,
+    prompt_progress_finished,
+)
 
 
 def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
@@ -31,7 +34,8 @@ def get_site_pair_data_ordered_by_mendeleev(cif_ensemble: CifEnsemble):
             print(f"Error occurred processing {cif.file_name}: {e}")
             continue
 
-        # Alphabetically sort the label pair and find min distance per unique pair
+        # Alphabetically sort the label pair and find min distance per
+        # unique pair
         unique_label_pair_distances = {}
         for site_label, (other_label, distance) in shortest_distances.items():
             sorted_pair = tuple(sorted((site_label, other_label)))

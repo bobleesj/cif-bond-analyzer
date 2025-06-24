@@ -29,7 +29,8 @@ def get_colors_category_mappings():
     categories_colors = {
         "deficiency_with_atomic_mixing": "#d62728",  # brick red
         "full_occupancy_atomic_mixing": "#ff7f0e",  # safety orange
-        "deficiency_without_atomic_mixing": "#2ca02c",  # cooked asparagus green
+        "deficiency_without_atomic_mixing": "#2ca02c",  # cooked
+        # asparagus green
         "full_occupancy": "#1f77b4",  # muted blue
     }
 
