@@ -47,7 +47,8 @@ def get_user_input_folder_processing(dir_names, file_type):
 
         if nested_file_count != 0:
             click.echo(
-                f"{i}. {dir_name}, {len(file_paths)} files, {nested_file_count} nested files"
+                f"{i}. {dir_name}, {len(file_paths)} files, {nested_file_count} "
+                "nested files"
             )
         else:
             click.echo(f"{i}. {dir_name}, {len(file_paths)} files")

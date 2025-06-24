@@ -94,7 +94,8 @@ def get_dir_paths_with_two_or_three_elements_nested(script_path):
 
     Also include the list of these elements and file count.
     """
-    # List all directories under the script path that contain .cif files, including nested folders
+    # List all directories under the script path that contain .cif
+    # files, including nested folders
     dir_paths = get_cif_dir_names(script_path)
     biarny_ternary_dir_paths = {}
     for dir_path in dir_paths:
@@ -134,7 +135,8 @@ def choose_binary_ternary_dir(script_path):
         elements = ", ".join(dir_info["elements"])
         file_count = dir_info["file_count"]
         print(
-            f"{idx}. {dir_path}, {element_count} elements ({elements}), {file_count} files"
+            f"{idx}. {dir_path}, {element_count} elements ({elements}),"
+            f" {file_count} files"
         )
 
     # Ask user to choose all or select specific folders

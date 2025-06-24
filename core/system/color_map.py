@@ -134,7 +134,7 @@ def save_color_map(
                 np.linspace(0, np.sqrt(3) / 2, mesh_grid_points),
             )
 
-        except ValueError as e:
+        except ValueError:
             # print(f"Skipping triangulation/interpolation. {e}")
             continue
 
@@ -240,7 +240,9 @@ def save_color_map(
 
         if is_CN_used:
             ax.figure.savefig(
-                join(output_dir, f"color_map_overall_CN"), dpi=300
+                join(output_dir, "color_map_overall_CN.png"), dpi=300
             )
         else:
-            ax.figure.savefig(join(output_dir, f"color_map_overall"), dpi=300)
+            ax.figure.savefig(
+                join(output_dir, "color_map_overall.png"), dpi=300
+            )

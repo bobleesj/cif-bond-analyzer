@@ -24,7 +24,7 @@ def draw_ternary_figure(
     grid_alpha = 0.2
     grid_line_width = 0.5
 
-    # Trinagle frame
+    # Triangle frame
     vertices = ternary.generate_triangle_vertex_points()
     v0, v1, v2 = vertices
     ternary.draw_ternary_frame(v0, v1, v2)

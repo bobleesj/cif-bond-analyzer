@@ -158,7 +158,8 @@ def remove_tag_with_underscore(formula_tag):
 def get_composition_from_binary_ternary(
     formula: str, elements: tuple[str]
 ) -> tuple[float]:
-    # Regex to find elements followed by optional stoichiometric numbers (including decimals)
+    # Regex to find elements followed by optional stoichiometric numbers
+    # (including decimals)
     pattern = r"(" + "|".join(elements) + r")(\d*\.?\d*)"
     matches = re.findall(pattern, formula)
     parts_dict = {

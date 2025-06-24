@@ -139,10 +139,10 @@ def plot_polyhedrons(
 
         # Distance and angle counts
         angle_180_count = count_number_of_angles(angles[label], 180.0)
-        first_shortest_dist_count = nth_shortest_distance_count(
+        first_shortest_dist_count = count_number_of_angles(
             CN_connections, label, 0
         )
-        second_shortest_dist_count = nth_shortest_distance_count(
+        second_shortest_dist_count = count_number_of_angles(
             CN_connections, label, 1
         )
         """Type 10.1.
@@ -278,7 +278,8 @@ def plot_polyhedrons(
             Pair: (2, 14): 157.0 degrees
             Pair: (0, 9): 156.5 degrees
 
-            13 and 14 must be the two split atoms. Find the average position between 13 and 14,
+            13 and 14 must be the two split atoms. Find the average position
+            between 13 and 14,
             draw a box from the central atom to the average position between 13, 14
             """
 
@@ -346,7 +347,8 @@ def plot_polyhedrons(
 
             if largest_angle == second_largest_angle == third_largest_angle:
                 print(
-                    "\nType 15.2. CN=15, top 6, bottom (two split) 6, 3 identical largest angles"
+                    "\nType 15.2. CN=15, top 6, bottom (two split) 6, 3 identical largest"
+                    " angles"
                 )
                 single_largest_angle_coord = polyhedron_points_array[
                     # Pair: (6, 10): 154.3 degrees
