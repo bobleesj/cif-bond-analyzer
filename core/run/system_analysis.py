@@ -26,7 +26,7 @@ from core.prompts.intro import prompt_system_analysis_intro
 from core.prompts import input
 
 
-def run_system_analysis(script_path):
+def run_system_analysis(script_path, supercell_size=2):
     prompt_system_analysis_intro()
 
     # Display folders containing up to 3 unique elements per folder
@@ -42,10 +42,10 @@ def run_system_analysis(script_path):
     # Process each folder
     for idx, dir_path in enumerate(dir_paths, start=1):
         prompt_folder_progress(idx, dir_path, len(dir_paths))
-        conduct_system_analysis(dir_path, is_CN_used, use_existing_json)
+        conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_size)
 
 
-def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
+def conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_size=3):
     """
     Step 1. Read site pair json
     """
@@ -71,7 +71,7 @@ def conduct_system_analysis(dir_path, is_CN_used, use_existing_json):
                 dir_path, add_nested=True
             )
         else:
-            cif_ensemble_with_nested = CifEnsemble(dir_path, add_nested_files=True)
+            cif_ensemble_with_nested = CifEnsemble(dir_path, add_nested_files=True, compute_CN=True)
 
     dir_path = cif_ensemble_with_nested.dir_path
 

@@ -6,6 +6,5 @@ numpy
 openpyxl
 pandas
 scipy
-sympy
-pyvista
 jsondiff
+bobleesj.utils

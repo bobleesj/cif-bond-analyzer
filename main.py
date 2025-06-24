@@ -20,12 +20,9 @@ def main():
         "2": "Conduct system analysis.",
         "3": "Conduct coordination analysis.",
     }
-
     for key, value in options.items():
         print(f"[{key}] {value}")
-
     choice = input(f"Enter your choice (1-{len(options)}): ")
-
     if choice == "1":
         site_analysis.run_site_analysis(script_path)
     elif choice == "2":
