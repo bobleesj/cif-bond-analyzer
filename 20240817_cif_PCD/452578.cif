@@ -39,7 +39,7 @@ _chemical_formula_weight                 286.7
 # Bibliographic data
 
 _publ_section_title
-'A ^121^Sb Mossbauer investigation of the rare earth antimonides'             
+'A ^121^Sb Mossbauer investigation of the rare earth antimonides'
 _journal_coden_ASTM                      JSSCBI
 _journal_name_full                       'J. Solid State Chem.'
 _journal_year                            1981
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 452578
-

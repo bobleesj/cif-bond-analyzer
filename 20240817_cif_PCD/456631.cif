@@ -39,7 +39,7 @@ _chemical_formula_weight                 359.8
 # Bibliographic data
 
 _publ_section_title
-'Pressure-volume behaviour of UP, USb and UTe'                                
+'Pressure-volume behaviour of UP, USb and UTe'
 _journal_coden_ASTM                      PHBCDQ
 _journal_name_full                       'Physica B+C (Amsterdam)'
 _journal_year                            1986
@@ -303,4 +303,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 456631
-

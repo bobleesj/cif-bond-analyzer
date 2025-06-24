@@ -39,7 +39,7 @@ _chemical_formula_weight                 240.4
 # Bibliographic data
 
 _publ_section_title
-'Polymorphic transformation of SnSb at high pressure'                         
+'Polymorphic transformation of SnSb at high pressure'
 _journal_coden_ASTM                      SPSSA7
 _journal_name_full                       'Sov. Phys. Solid State'
 _journal_year                            1971
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 457333
-

@@ -39,7 +39,7 @@ _chemical_formula_weight                 128.7
 # Bibliographic data
 
 _publ_section_title
-'On the Ternary B2-Phase in the Al-Co-Ga System'                              
+'On the Ternary B2-Phase in the Al-Co-Ga System'
 _journal_coden_ASTM                      MOCMB7
 _journal_name_full                       'Monatsh. Chem.'
 _journal_year                            1992
@@ -157,4 +157,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 532447
-

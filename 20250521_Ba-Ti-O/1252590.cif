@@ -39,7 +39,7 @@ _chemical_formula_weight                 1652.0
 # Bibliographic data
 
 _publ_section_title
-'Tetrabarium tridecatitanate, Ba~4~Ti~13~O~30~'                               
+'Tetrabarium tridecatitanate, Ba~4~Ti~13~O~30~'
 _journal_coden_ASTM                      CSCMCS
 _journal_name_full                       'Cryst. Struct. Commun.'
 _journal_year                            1982
@@ -130,11 +130,10 @@ _diffrn_reflns_number                    10275
 _exptl_absorpt_coefficient_mu            11.10
 _exptl_absorpt_correction_type           yes
 _computing_structure_solution
-'Patterson synthesis, crystal chemical considerations'                        
+'Patterson synthesis, crystal chemical considerations'
 _refine_ls_number_parameters             ?
 _refine_ls_number_reflns                 2191
 _refine_ls_R_factor_gt                   0.03
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 1252590
-

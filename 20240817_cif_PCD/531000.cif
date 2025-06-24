@@ -39,7 +39,7 @@ _chemical_formula_weight                 353.8
 # Bibliographic data
 
 _publ_section_title
-'The pressure-induced transformation B1 to B2 in actinide compounds'          
+'The pressure-induced transformation B1 to B2 in actinide compounds'
 _journal_coden_ASTM                      JACGAR
 _journal_name_full                       'J. Appl. Crystallogr.'
 _journal_year                            1990
@@ -304,4 +304,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 531000
-

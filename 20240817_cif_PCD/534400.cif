@@ -39,7 +39,7 @@ _chemical_formula_weight                 280.7
 # Bibliographic data
 
 _publ_section_title
-'Lattice Distortions in Terbium Chalcogenides and Pnictides'                  
+'Lattice Distortions in Terbium Chalcogenides and Pnictides'
 _journal_coden_ASTM                      ZPBBDJ
 _journal_name_full                       'Z. Phys. B: Condens. Matter Quanta'
 _journal_year                            1978
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 534400
-

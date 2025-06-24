@@ -177,4 +177,3 @@ loop_
  4 1 1 0.797 8
 
 # End of data set 451388
-

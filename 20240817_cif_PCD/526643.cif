@@ -40,7 +40,7 @@ _chemical_melting_point                  1493
 # Bibliographic data
 
 _publ_section_title
-'An investigation of the polythermal PdIn-PdSc cross-section'                 
+'An investigation of the polythermal PdIn-PdSc cross-section'
 _journal_coden_ASTM                      RMLYAQ
 _journal_name_full                       'Russ. Metall.'
 _journal_year                            1980
@@ -159,4 +159,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 526643
-

@@ -44,7 +44,7 @@ Sul comportamento di Ittrio. Europio e Itterbio nei composti MX con i metalloidi
 ;
 _journal_coden_ASTM                      AANLAW
 _journal_name_full
-'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'                    
+'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'
 _journal_year                            1964
 _journal_volume                          36
 _journal_page_first                      66
@@ -301,4 +301,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 251988
-

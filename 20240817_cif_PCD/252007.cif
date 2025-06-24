@@ -44,7 +44,7 @@ Sui composti di formula MX formati dalle Terre rare con P, As, Sb, Bi, S, Se, Te
 ;
 _journal_coden_ASTM                      AANLAW
 _journal_name_full
-'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'                    
+'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'
 _journal_year                            1964
 _journal_volume                          37
 _journal_page_first                      160
@@ -301,4 +301,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 252007
-

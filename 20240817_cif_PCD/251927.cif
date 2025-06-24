@@ -44,7 +44,7 @@ Struttura e proprieta magnetiche dei composti MX del terbio con i metalloidi del
 ;
 _journal_coden_ASTM                      AANLAW
 _journal_name_full
-'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'                    
+'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'
 _journal_year                            1961
 _journal_volume                          30
 _journal_page_first                      195
@@ -318,4 +318,3 @@ loop_
  6 0 0 1.03 9
 
 # End of data set 251927
-

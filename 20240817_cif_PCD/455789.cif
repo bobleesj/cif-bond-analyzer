@@ -39,7 +39,7 @@ _chemical_formula_weight                 261.9
 # Bibliographic data
 
 _publ_section_title
-'Volume behaviour of CeSb and LaSb up to 25 GPa'                              
+'Volume behaviour of CeSb and LaSb up to 25 GPa'
 _journal_coden_ASTM                      JPSOAW
 _journal_name_full                       'J. Phys. C: Solid State Phys.'
 _journal_year                            1984
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 455789
-

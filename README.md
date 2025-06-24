@@ -11,7 +11,7 @@ The CIF Bond Analyzer (CBA) is an interactive, command-line-based application
 designed for high-throughput extraction of bonding information from CIF
 (Crystallographic Information File) files. CBA offers Site Analysis, System
 Analysis for binary/ternary systems, and Coordination Analysis. The outputs are
-saved in `.json`, `.xlsx`, and `.png`formats. 
+saved in `.json`, `.xlsx`, and `.png`formats.
 
 > The current README.md serves as a tutorial and documentation
 
@@ -200,7 +200,6 @@ Here is a screenshot of `element_pairs.xlsx`.
 
 <img width="824" alt="site-image" src="https://github.com/user-attachments/assets/a86c0087-4188-49fd-970c-0f872bfb59de" />
 
-
 #### Output 1.2 text summary
 
 A summary text file, `summary_element.txt`, lists the shortest bonding pairs and
@@ -281,16 +280,13 @@ To adjust the legend position in the ternary diagram, modify the values of `X_SH
 
 To add extra lines to the ternary diagram based on tags, edit `TAGS_IN_FIRST_EXTRA_LINE = ["lt", "ht", "hp", "hp1", "hp2", "hp3"]` and `TAGS_IN_SECOND_EXTRA_LINE = ["lt", "ht", "hp", "hp1", "hp2", "hp3"]` in `core/configs/ternary.py`.
 
-
 For Type 1:
-
 
 ![binary_single](https://github.com/user-attachments/assets/c4695840-6b7f-42a6-9640-d1154e8dc18d)
 
 All of the individual hexagon figures also saved in order.
 
 ![composite_binary_1](https://github.com/user-attachments/assets/badeebaa-7c7f-4bee-baae-9f3e3858a1eb)
-
 
 #### Output 2.2 Color map
 
@@ -304,7 +300,7 @@ Bond count per each `cif` file is recorded in `system_analysis_files.xlsx`.
 
 <img width="1088" alt="Screenshot 2025-05-10 at 2 20 27 PM" src="https://github.com/user-attachments/assets/3df73932-0e9f-48e0-b40e-ab9ce22ef770" />
 
-Average bond lenghts, count, and statistical values are recorded in
+Average bond lengths, count, and statistical values are recorded in
 `system_analysis_main.xlsx`.
 
 <img width="470" alt="Screenshot 2025-05-10 at 2 20 51 PM" src="https://github.com/user-attachments/assets/697aba32-b0fc-4876-a4c7-dff1f179492f" />
@@ -319,7 +315,7 @@ Average bond lenghts, count, and statistical values are recorded in
   distance subtracted by the sum of atomic radii. You may provide your radii
   values by modifying the `radii.xlsx` file.
 
-#### Ouput 3.1 JSON
+#### Output 3.1 JSON
 
 For each site, the nearest neighbors within the coordination number geometry are
 recorded in `CN_connections.json`.

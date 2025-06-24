@@ -39,7 +39,7 @@ _chemical_formula_weight                 172.6
 # Bibliographic data
 
 _publ_section_title
-'A Phase Investigation of the Rh-Ga-As System'                                
+'A Phase Investigation of the Rh-Ga-As System'
 _journal_coden_ASTM                      JPEQE6
 _journal_name_full                       'J. Phase Equilib.'
 _journal_year                            1991
@@ -157,4 +157,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 455904
-

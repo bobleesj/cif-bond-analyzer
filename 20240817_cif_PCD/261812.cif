@@ -40,7 +40,7 @@ _chemical_melting_point                  1483
 # Bibliographic data
 
 _publ_section_title
-'Defektstruktur und Gitterparameter von Co-Ga-Legierungen mit B2-Struktur'    
+'Defektstruktur und Gitterparameter von Co-Ga-Legierungen mit B2-Struktur'
 _journal_coden_ASTM                      ZEMTAE
 _journal_name_full                       'Z. Metallkd.'
 _journal_year                            1982
@@ -155,4 +155,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 261812
-

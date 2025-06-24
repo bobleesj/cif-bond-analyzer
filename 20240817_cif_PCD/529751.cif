@@ -39,10 +39,10 @@ _chemical_formula_weight                 359.8
 # Bibliographic data
 
 _publ_section_title
-'Magnetic Properties of Uranium Compounds with Arsenic or Antimony'           
+'Magnetic Properties of Uranium Compounds with Arsenic or Antimony'
 _journal_coden_ASTM                      BAPCAQ
 _journal_name_full
-'Bull. Acad. Pol. Sci., Ser. Sci. Chim.'                                      
+'Bull. Acad. Pol. Sci., Ser. Sci. Chim.'
 _journal_year                            1964
 _journal_volume                          12
 _journal_page_first                      687
@@ -302,4 +302,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 529751
-

@@ -1,0 +1,15 @@
+name: Release on GitHub with tag pushed to remote repository
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "*" # Trigger on all tags initially, but tag and release privilege are verified in _build-wheel-release-upload.yml
+
+jobs:
+  release:
+    uses: scikit-package/release-scripts/.github/workflows/_release-on-github-on-tag-push.yml@v0
+    with:
+      maintainer_GITHUB_username: bobleesj
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}

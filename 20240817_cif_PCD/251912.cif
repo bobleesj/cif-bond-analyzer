@@ -39,10 +39,10 @@ _chemical_formula_weight                 279.0
 # Bibliographic data
 
 _publ_section_title
-'Su alcuni composti intermetallici e semimetallici del Gadolinio'             
+'Su alcuni composti intermetallici e semimetallici del Gadolinio'
 _journal_coden_ASTM                      AANLAW
 _journal_name_full
-'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'                    
+'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'
 _journal_year                            1960
 _journal_volume                          29
 _journal_page_first                      62
@@ -299,4 +299,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 251912
-

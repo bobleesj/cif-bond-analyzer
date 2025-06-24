@@ -40,7 +40,7 @@ _chemical_melting_point                  2448
 # Bibliographic data
 
 _publ_section_title
-'Investigation of the rare earth monoantimonides'                             
+'Investigation of the rare earth monoantimonides'
 _journal_coden_ASTM                      JCOMAH
 _journal_name_full                       'J. Less-Common Met.'
 _journal_year                            1990
@@ -299,4 +299,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 261018
-

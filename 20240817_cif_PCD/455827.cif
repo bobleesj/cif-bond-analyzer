@@ -291,7 +291,7 @@ _cell_measurement_reflns_used            ?
 _diffrn_ambient_temperature              77.3
 _diffrn_measurement_device               'automatic diffractometer'
 _diffrn_measurement_device_type
-'Switzerland, Wurenlingen, Paul Scherrer Institute, SAPHIR reactor'           
+'Switzerland, Wurenlingen, Paul Scherrer Institute, SAPHIR reactor'
 _diffrn_radiation_type                   neutrons
 _diffrn_radiation_wavelength             2.337
 _diffrn_reflns_number                    ?
@@ -307,4 +307,3 @@ _pd_proc_ls_proof_wR_factor              0.075
 _refine_ls_R_I_factor                    0.045
 
 # End of data set 455827
-

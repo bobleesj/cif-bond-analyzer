@@ -39,10 +39,10 @@ _chemical_formula_weight                 262.7
 # Bibliographic data
 
 _publ_section_title
-'Neutron scattering study of pressure-induced antiferromagnetism in PrSb'     
+'Neutron scattering study of pressure-induced antiferromagnetism in PrSb'
 _journal_coden_ASTM                      PRBMDO
 _journal_name_full
-'Phys. Rev. B: Condens. Matter Mater. Phys.'                                  
+'Phys. Rev. B: Condens. Matter Mater. Phys.'
 _journal_year                            1979
 _journal_volume                          20
 _journal_page_first                      4612
@@ -304,4 +304,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 533985
-

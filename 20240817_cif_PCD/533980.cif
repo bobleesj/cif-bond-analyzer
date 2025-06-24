@@ -39,10 +39,10 @@ _chemical_formula_weight                 359.8
 # Bibliographic data
 
 _publ_section_title
-'Search for lattice distortions in UN, UAs, and USb at low temperatures'      
+'Search for lattice distortions in UN, UAs, and USb at low temperatures'
 _journal_coden_ASTM                      PRBMDO
 _journal_name_full
-'Phys. Rev. B: Condens. Matter Mater. Phys.'                                  
+'Phys. Rev. B: Condens. Matter Mater. Phys.'
 _journal_year                            1980
 _journal_volume                          21
 _journal_page_first                      4159
@@ -302,4 +302,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 533980
-

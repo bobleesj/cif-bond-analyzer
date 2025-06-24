@@ -1,19 +1,17 @@
-import os
 import json
+import os
+
 import click
 from click import echo
-from core.site import histogram
-from core.util import prompt, folder
 
-
-from core.prompts.progress import prompt_folder_progress
 from core.prompts.intro import prompt_plot_histograms_intro
+from core.prompts.progress import prompt_folder_progress
+from core.site import histogram
+from core.util import folder, prompt
 
 
 def plot_histogram():
-    """
-    Produce histogram sheets and single histograms
-    """
+    """Produce histogram sheets and single histograms."""
 
     prompt_plot_histograms_intro()
     # 1. Customize the bin width if needed
@@ -35,7 +33,7 @@ def plot_histogram():
             type=float,
         )
 
-    # 2. Choose folders contianing .json
+    # 2. Choose folders containing .json
     script_path = os.path.dirname(os.path.abspath(__file__))
     dir_names_with_json = folder.get_json_dir_names(script_path)
     selected_dirs = prompt.get_user_input_folder_processing(

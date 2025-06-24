@@ -1,4 +1,5 @@
 import textwrap
+
 import click
 
 
@@ -25,7 +26,7 @@ def prompt_site_analysis_intro() -> None:
 def prompt_system_analysis_intro() -> None:
     intro_prompt = textwrap.dedent(
         """
-        ============================SYSTEN ANALYSIS==========================
+        ============================SYSTEM ANALYSIS==========================
         Process for System Analysis:
 
         4 types of folders are processed:
@@ -52,7 +53,7 @@ def prompt_coordination_analysis_intro() -> None:
         [2] Form supercell by shifting unitcell by +-1, +-1, +-1
         [3] Determine the best coordination geometry from 4 methods
         [4] Save Excel file and JSON on nearest neighbor info
-        
+
         Note: For the CN methods, please refer to README.md
         Note: ∆ is (interatomic distance - sum of atomic radii).
         You may provide your radii values by modifying the radii.xlsx file.

@@ -44,7 +44,7 @@ Unusual magnetic response of intermediate-valent YbPd and Yb~3~Pd~4~ as studied 
 ;
 _journal_coden_ASTM                      PRBMDO
 _journal_name_full
-'Phys. Rev. B: Condens. Matter Mater. Phys.'                                  
+'Phys. Rev. B: Condens. Matter Mater. Phys.'
 _journal_year                            1987
 _journal_volume                          35
 _journal_page_first                      3576
@@ -160,4 +160,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 533885
-

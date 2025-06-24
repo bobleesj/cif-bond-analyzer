@@ -39,7 +39,7 @@ _chemical_formula_weight                 262.7
 # Bibliographic data
 
 _publ_section_title
-'Neutron crystal-field spectroscopy in rare-earth metallic compounds'         
+'Neutron crystal-field spectroscopy in rare-earth metallic compounds'
 _journal_coden_ASTM                      JAPIAU
 _journal_name_full                       'J. Appl. Phys.'
 _journal_year                            1971
@@ -298,4 +298,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 1301462
-

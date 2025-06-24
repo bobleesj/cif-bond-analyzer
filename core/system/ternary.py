@@ -1,11 +1,10 @@
-import numpy as np
 import matplotlib.pyplot as plt
-from core.system import hexagon
-from core.util import formula_parser
-from core.system.figure_util import (
-    shift_points_xy,
-)
+import numpy as np
+
 from core.configs.ternary import TernaryConfig
+from core.system import hexagon
+from core.system.figure_util import shift_points_xy
+from core.util import formula_parser
 
 
 def get_point_in_triangle(vertices, R_norm_index, M_norm_index):
@@ -23,10 +22,8 @@ def get_point_in_triangle(vertices, R_norm_index, M_norm_index):
     return point_position
 
 
-def generate_traingle_vertex_points():
-    """
-    Generate 3 x,y positions of traingle vertices
-    """
+def generate_triangle_vertex_points():
+    """Generate 3 x,y positions of triangle vertices."""
     v0 = np.array([0, 0])
     v1 = np.array([1, 0])
     v2 = np.array([0.5, np.sqrt(3) / 2])
@@ -34,9 +31,7 @@ def generate_traingle_vertex_points():
 
 
 def draw_ternary_frame(v0, v1, v2):
-    """
-    Draw the frame of a ternary diagram.
-    """
+    """Draw the frame of a ternary diagram."""
     # Triangle vertices
     plt.figure(figsize=(8, 7))
     triangle = plt.Polygon(
@@ -53,9 +48,7 @@ def draw_ternary_frame(v0, v1, v2):
 
 
 def add_vertex_labels(v0, v1, v2, RMX):
-    """
-    Label the vertices of the ternary diagram.
-    """
+    """Label the vertices of the ternary diagram."""
     # Labeling the vertices
     plt.text(
         v0[0] - 0.02,
@@ -84,9 +77,7 @@ def add_vertex_labels(v0, v1, v2, RMX):
 
 
 def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
-    """
-    Draw filled edges on the ternary diagram to highlight regions.
-    """
+    """Draw filled edges on the ternary diagram to highlight regions."""
     # Calculate points along the edges at the given fraction of their lengths
     p0_blue = [
         (1 - fraction) * v0[0] + (1 - fraction) * v1[0],
@@ -145,9 +136,7 @@ def draw_filled_edges(v0, v1, v2, fraction=0.02, alpha=1):
 
 
 def draw_triangular_grid(v0, v1, v2, alpha, line_width, n_lines=10):
-    """
-    Draw a grid within the ternary diagram.
-    """
+    """Draw a grid within the ternary diagram."""
     # Line parallel to v2v0 (right slant)
     for i in range(1, n_lines):
         t = i / n_lines
@@ -184,9 +173,7 @@ def draw_triangular_grid(v0, v1, v2, alpha, line_width, n_lines=10):
 
 
 def draw_legend(bond_pairs_ordered, x_shift, y_shift):
-    """
-    Draw a legend on the ternary diagram to explain bond pairs.
-    """
+    """Draw a legend on the ternary diagram to explain bond pairs."""
     legend_center_point = (0 + x_shift, 0.8 + y_shift)
     legend_bond_label_font_size = 10
     legend_radius = 0.06
@@ -240,9 +227,8 @@ def draw_legend(bond_pairs_ordered, x_shift, y_shift):
 
 
 def draw_center_dot_formula(center_pt, formula):
-    """
-    Mark the center of a hexagon on the ternary diagram with formula data.
-    """
+    """Mark the center of a hexagon on the ternary diagram with formula
+    data."""
 
     # Config for hexagon
     center_dot_radius = 8
@@ -275,9 +261,7 @@ def draw_hexagon_for_ternary_formula(
     bnod_fractions_CN,
     is_CN_used,
 ):
-    """
-    Draw a hexagon for a ternary formula on the diagram.
-    """
+    """Draw a hexagon for a ternary formula on the diagram."""
     R_norm_index = parsed_normalized_formula[0][1]
     M_norm_index = parsed_normalized_formula[1][1]
 
@@ -311,9 +295,7 @@ def draw_hexagon_for_binary_formula(
     tag,
     is_CN_used,
 ):
-    """
-    Draw a hexagon for a binary formula on the ternary diagram.
-    """
+    """Draw a hexagon for a binary formula on the ternary diagram."""
     center_pt = None
     R, M, X = RMX
     A_norm_index = float(parsed_normalized_formula[0][1])
@@ -351,7 +333,7 @@ def draw_hexagon_for_binary_formula(
             zorder=2,
             lw=extra_edge_line_width,
         )
-    
+
     # Get the tags for the first and second extra lines from configs/ternary.py
     TAGS_IN_FIRST_EXTRA_LINE = TernaryConfig.TAGS_IN_FIRST_EXTRA_LINE.value
     TAGS_IN_SECOND_EXTRA_LINE = TernaryConfig.TAGS_IN_SECOND_EXTRA_LINE.value

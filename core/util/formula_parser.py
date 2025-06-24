@@ -1,12 +1,10 @@
 import re
+
 from bobleesj.utils.sources import mendeleev
 
 
-
 def get_normalized_formula(formula):
-    """
-    Return a formula wlth the stoichiometry coefficient sum of 1
-    """
+    """Return a formula wlth the stoichiometry coefficient sum of 1."""
     demical_places = 3
     index_sum = 0
     normalized_formula_parts = []
@@ -35,26 +33,21 @@ def get_normalized_formula(formula):
 
 
 def get_unique_elements(formula: str) -> list[str]:
-    """
-    Return a set of elements parsed from a formula.
-    """
+    """Return a set of elements parsed from a formula."""
     elements = get_parsed_formula(formula)
     unique_elements = [element for element, _ in elements]
     return unique_elements
 
 
 def get_num_element(formula):
-    """
-    Return the number of elements.
-    """
+    """Return the number of elements."""
     elements = get_parsed_formula(formula)
     return len(elements)
 
 
 def get_parsed_formula(formula):
-    """
-    Return a list of tuples, each tuple containing element and index.
-    """
+    """Return a list of tuples, each tuple containing element and
+    index."""
 
     pattern = r"([A-Z][a-z]*)(\d*\.?\d*)"
     elements = re.findall(pattern, formula)
@@ -62,19 +55,15 @@ def get_parsed_formula(formula):
 
 
 def get_parsed_norm_formula(formula):
-    """
-    Return a list of tuples, each tuple containing element
-    and normalized index.
-    """
+    """Return a list of tuples, each tuple containing element and
+    normalized index."""
     normalized_formula = get_normalized_formula(formula)
     parsed_normalized_formula = get_parsed_formula(normalized_formula)
     return parsed_normalized_formula
 
 
 def get_unique_elements_from_formulas(formulas: list[str]):
-    """
-    Return unique elements from a list of formulas.
-    """
+    """Return unique elements from a list of formulas."""
     unique_elements = set()  # Create a set to store unique elements
 
     for formula in formulas:
@@ -98,11 +87,11 @@ def sort_by_mendeleev(elements):
 
 
 def get_subscripted_string(formula):
-    """
-    Return a subscripted formula used for plotting.
-    """
+    """Return a subscripted formula used for plotting."""
     # Use regular expression to find elements and numbers
-    formatted_formula = re.sub(r"([A-Z][a-z]*)(\d*\.?\d*)", r"\1$_{\2}$", formula)
+    formatted_formula = re.sub(
+        r"([A-Z][a-z]*)(\d*\.?\d*)", r"\1$_{\2}$", formula
+    )
     return formatted_formula
 
 
@@ -116,10 +105,9 @@ def get_mendeleev_sorted_formula(formula: str) -> list:
 
 
 def get_RMX_from_elements(unique_elements: list[str]):
-    """
-    Processe a set of chemical formulas, sorts the unique elements by
-    Mendeleev numbers, and returns the sorted elements as R, M, and X.
-    """
+    """Processe a set of chemical formulas, sorts the unique elements by
+    Mendeleev numbers, and returns the sorted elements as R, M, and
+    X."""
     # Sort these elements by their Mendeleev numbers
     sorted_unique_elements = sort_by_mendeleev(unique_elements)
 
@@ -134,10 +122,9 @@ def get_RMX_from_elements(unique_elements: list[str]):
 
 
 def get_AB_from_elements(unique_elements: list[str]):
-    """
-    Processe a set of chemical formulas, sorts the unique elements by
-    Mendeleev numbers, and returns the sorted elements as R, M, and X.
-    """
+    """Processe a set of chemical formulas, sorts the unique elements by
+    Mendeleev numbers, and returns the sorted elements as R, M, and
+    X."""
     # Sort these elements by their Mendeleev numbers
     sorted_unique_elements = sort_by_mendeleev(unique_elements)
 
@@ -171,10 +158,13 @@ def remove_tag_with_underscore(formula_tag):
 def get_composition_from_binary_ternary(
     formula: str, elements: tuple[str]
 ) -> tuple[float]:
-    # Regex to find elements followed by optional stoichiometric numbers (including decimals)
+    # Regex to find elements followed by optional stoichiometric numbers
+    # (including decimals)
     pattern = r"(" + "|".join(elements) + r")(\d*\.?\d*)"
     matches = re.findall(pattern, formula)
-    parts_dict = {el: 0 for el in elements}  # Initialize each element's count as 0
+    parts_dict = {
+        el: 0 for el in elements
+    }  # Initialize each element's count as 0
 
     for element, count in matches:
         if count == "":
@@ -192,7 +182,9 @@ def get_composition_from_binary_ternary(
             round(parts_dict[el] / total, 3) for el in elements
         ]  # Normalize and round to 3 decimal places
     else:
-        normalized_parts = [0] * len(elements)  # If total is 0, return a list of zeros
+        normalized_parts = [0] * len(
+            elements
+        )  # If total is 0, return a list of zeros
 
     return (
         normalized_parts[0],
