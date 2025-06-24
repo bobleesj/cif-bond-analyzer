@@ -39,7 +39,7 @@ _chemical_formula_weight                 103.9
 # Bibliographic data
 
 _publ_section_title
-'Crystal structures of compounds of scandium with some transition metals'     
+'Crystal structures of compounds of scandium with some transition metals'
 _journal_coden_ASTM                      DUKRA4
 _journal_name_full                       'Dopov. Akad. Nauk Ukr. RSR'
 _journal_year                            1964
@@ -172,4 +172,3 @@ loop_
  3 1 0 0.996 80
 
 # End of data set 453568
-

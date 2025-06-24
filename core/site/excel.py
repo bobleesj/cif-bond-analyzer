@@ -1,10 +1,9 @@
-"""
-Writes JSON and Excel files containing pair info
-The following code will be refactored once results are confirmed.
-"""
+"""Writes JSON and Excel files containing pair info The following code
+will be refactored once results are confirmed."""
 
-import os
 import json
+import os
+
 import pandas as pd
 from cifkit.utils.folder import make_output_folder
 
@@ -27,10 +26,13 @@ def save_excel_json(
     )
 
 
-def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path, output_dir_path):
-    """
-    Writes JSON and Excel files containing pair info, adjusted.
-    Computes and saves the average and standard deviation for the distance.
+def write_pair_dict_to_excel_json(
+    input_dict, pair_type, dir_path, output_dir_path
+):
+    """Writes JSON and Excel files containing pair info, adjusted.
+
+    Computes and saves the average and standard deviation for the
+    distance.
     """
 
     folder_name = os.path.basename(os.path.normpath(dir_path))
@@ -60,7 +62,9 @@ def write_pair_dict_to_excel_json(input_dict, pair_type, dir_path, output_dir_pa
             )
 
             df["Distance"] = pd.to_numeric(df["Distance"], errors="coerce")
-            df["Atomic Mixing"] = df["Atomic Mixing"].astype(str).fillna("Unknown")
+            df["Atomic Mixing"] = (
+                df["Atomic Mixing"].astype(str).fillna("Unknown")
+            )
             df.sort_values(by="Distance", inplace=True)
             df = df[["File", "Distance", "Atomic Mixing"]]
 

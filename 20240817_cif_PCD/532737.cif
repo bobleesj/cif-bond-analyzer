@@ -39,7 +39,7 @@ _chemical_formula_weight                 261.9
 # Bibliographic data
 
 _publ_section_title
-'Die Verbindungen Ta~3~Ga~2~ und IrGa'                                        
+'Die Verbindungen Ta~3~Ga~2~ und IrGa'
 _journal_coden_ASTM                      MOCMB7
 _journal_name_full                       'Monatsh. Chem.'
 _journal_year                            1963
@@ -179,4 +179,3 @@ loop_
  3 2 1 0.804 8
 
 # End of data set 532737
-

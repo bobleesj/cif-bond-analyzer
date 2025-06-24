@@ -39,7 +39,7 @@ _chemical_formula_weight                 261.9
 # Bibliographic data
 
 _publ_section_title
-'Volume compression of cerium compounds'                                      
+'Volume compression of cerium compounds'
 _journal_coden_ASTM                      HTHPAK
 _journal_name_full                       'High Temp. - High Pressures'
 _journal_year                            1984
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 453384
-

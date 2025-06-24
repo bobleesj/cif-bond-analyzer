@@ -1,11 +1,9 @@
-from click import style, echo
+from click import echo, style
 
 
 def prompt_folder_progress(i, dir_name, dirs_total_count):
-    """
-    Display a progress header for folder processing with
-    boundaries and folder information.
-    """
+    """Display a progress header for folder processing with boundaries
+    and folder information."""
     count = 70
     echo("\n")
     echo("=" * count)  # Top line of '=' characters
@@ -14,10 +12,8 @@ def prompt_folder_progress(i, dir_name, dirs_total_count):
 
 
 def prompt_progress_current(i, filename, supercell_atom_count, file_count):
-    """
-    Display the current progress for processing a file, highlighting the
-    filename, atom count, and its order in the sequence.
-    """
+    """Display the current progress for processing a file, highlighting
+    the filename, atom count, and its order in the sequence."""
     echo(
         style(
             f"Processing {filename} with "
@@ -32,10 +28,8 @@ def prompt_progress_finished(
     supercell_atom_count,
     elapsed_time,
 ):
-    """
-    Display a completion message for a file, showing the filename, atom count,
-    and the elapsed time in seconds.
-    """
+    """Display a completion message for a file, showing the filename,
+    atom count, and the elapsed time in seconds."""
     echo(
         style(
             f"Processed {filename} with {supercell_atom_count} atoms in "
@@ -46,9 +40,7 @@ def prompt_progress_finished(
 
 
 def prompt_file_saved(file_path):
-    """
-    Display a file has been saved.
-    """
+    """Display a file has been saved."""
     echo(
         style(
             f"Saved {file_path}",

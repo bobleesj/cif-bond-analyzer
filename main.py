@@ -1,5 +1,4 @@
-"""
-Main script for conducting 3 analysis options.
+"""Main script for conducting 3 analysis options.
 
 Usage:
     python main.py
@@ -8,6 +7,7 @@ Author: Sangjoon Bob Lee
 """
 
 import os
+
 from core.run import coordination_analysis, site_analysis, system_analysis
 
 

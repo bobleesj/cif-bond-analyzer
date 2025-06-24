@@ -39,7 +39,7 @@ _chemical_formula_weight                 294.8
 # Bibliographic data
 
 _publ_section_title
-'Thermal expansion of rare earth monoantimonides'                             
+'Thermal expansion of rare earth monoantimonides'
 _journal_coden_ASTM                      INOMAF
 _journal_name_full                       'Inorg. Mater.'
 _journal_year                            1974
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 525415
-

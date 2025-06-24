@@ -44,7 +44,7 @@ Proprieta strutturali e magnetiche dei composti MX formati dall'Ho con i metallo
 ;
 _journal_coden_ASTM                      AANLAW
 _journal_name_full
-'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'                    
+'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'
 _journal_year                            1961
 _journal_volume                          30
 _journal_page_first                      208
@@ -321,4 +321,3 @@ loop_
  6 4 2 0.816 9
 
 # End of data set 251935
-

@@ -1,11 +1,10 @@
 from itertools import product
+
 from cifkit.utils.bond_pair import order_tuple_pair_by_mendeleev
 
 
 def get_sorted_missing_pairs(global_element_pair_dict):
-    """
-    Return label tuple list containing pairs not found from CIF.
-    """
+    """Return label tuple list containing pairs not found from CIF."""
 
     all_pairs = get_all_ordered_pairs_from_set(global_element_pair_dict)
 
@@ -15,15 +14,15 @@ def get_sorted_missing_pairs(global_element_pair_dict):
     )
 
     # Sort the pairs in the data as well before comparison
-    missing_label_pairs = [pair for pair in all_pairs if pair not in pairs_found]
+    missing_label_pairs = [
+        pair for pair in all_pairs if pair not in pairs_found
+    ]
 
     return missing_label_pairs
 
 
 def get_all_ordered_pairs_from_set(pair_dict):
-    """
-    Generates all possible unique ordered label pairs.
-    """
+    """Generates all possible unique ordered label pairs."""
     unique_labels = set()
 
     for pair in pair_dict.keys():
@@ -46,9 +45,8 @@ def get_all_ordered_pairs_from_set(pair_dict):
 
 
 def get_all_ordered_pairs_from_list(pair_list):
-    """
-    Generates all possible unique ordered pairs following a specific order.
-    """
+    """Generates all possible unique ordered pairs following a specific
+    order."""
     unique_labels = sorted(
         set(element for pair in pair_list for element in pair.split("-"))
     )

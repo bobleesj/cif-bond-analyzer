@@ -1,20 +1,18 @@
 import json
+
 import numpy as np
+
 from core.util import formula_parser
 
 
 def read_json_data(file_path):
-    """
-    Read and return data from a JSON file.
-    """
+    """Read and return data from a JSON file."""
     with open(file_path, "r") as file:
         return json.load(file)
 
 
 def initialize_pair_data():
-    """
-    Initialize a dictionary to store bond length data.
-    """
+    """Initialize a dictionary to store bond length data."""
     return {
         "bond_lengths": [],  # List to store bond lengths
         "total_bond_count": 0,  # Initialize bond count
@@ -23,9 +21,7 @@ def initialize_pair_data():
 
 
 def init_structure_data(pairs):
-    """
-    Initialize structure data for bond pairs.
-    """
+    """Initialize structure data for bond pairs."""
     return {
         "files": [],
         "formulas": [],
@@ -38,9 +34,7 @@ def init_structure_data(pairs):
 
 
 def init_structure_dict(unique_structures, all_pairs_in_the_system):
-    """
-    Initialize a dictionary for storing structure-related data.
-    """
+    """Initialize a dictionary for storing structure-related data."""
     structure_dict = {
         structure: init_structure_data(all_pairs_in_the_system)
         for structure in unique_structures
@@ -53,9 +47,8 @@ def add_files_and_formula(
     structure_dict,
     updated_json_file_path,
 ):
-    """
-    Add file and formula data to the structure dictionary from JSON.
-    """
+    """Add file and formula data to the structure dictionary from
+    JSON."""
     json_data = read_json_data(updated_json_file_path)
     # Initialize structure_dict with nested bond data for each pair
 
@@ -78,15 +71,16 @@ def add_files_and_formula(
                                 formula + "_" + tag
                             )
                         else:
-                            structure_dict[structure]["formulas"].append(formula)
+                            structure_dict[structure]["formulas"].append(
+                                formula
+                            )
 
     return structure_dict
 
 
 def get_unique_formulas_tag(structure_dict):
-    """
-    Extract unique formulas with tags from the structure dictionary.
-    """
+    """Extract unique formulas with tags from the structure
+    dictionary."""
     formulas_with_tag = set()
 
     for structure in structure_dict:
@@ -97,10 +91,9 @@ def get_unique_formulas_tag(structure_dict):
     return formulas_with_tag
 
 
-def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
-    """
-    Add bond lengths and calculate statistics for each bond type in structures.
-    """
+def add_bond_lengths_and_statistics(structure_dict, updated_json_file_path):
+    """Add bond lengths and calculate statistics for each bond type in
+    structures."""
     json_data = read_json_data(updated_json_file_path)
     for pair, datasets in json_data.items():
         for dataset_id, records in datasets.items():
@@ -120,7 +113,9 @@ def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
                 bond_lengths = np.array(bond_info["bond_lengths"])
 
                 if bond_lengths.size > 1:
-                    bond_info["avg_bond_length"] = np.round(np.mean(bond_lengths), 3)
+                    bond_info["avg_bond_length"] = np.round(
+                        np.mean(bond_lengths), 3
+                    )
                     bond_info["std_dev_bond_length"] = np.round(
                         np.std(bond_lengths, ddof=1), 3
                     )  # Using sample standard deviation (ddof=1)
@@ -131,9 +126,8 @@ def add_bond_lenghts_and_statistics(structure_dict, updated_json_file_path):
 
 
 def add_unique_bond_count_per_bond_type(structure_dict):
-    """
-    Calculate and add unique bond counts for each type in the structure.
-    """
+    """Calculate and add unique bond counts for each type in the
+    structure."""
     # Iterate over each structure in the dictionary
     for structure, data in structure_dict.items():
         number_of_files = (
@@ -154,13 +148,14 @@ def add_unique_bond_count_per_bond_type(structure_dict):
 
 
 def add_bond_fractions_per_structure(structure_dict):
-    """
-    Calculate and add bond fractions for each structure based on total bonds.
-    """
+    """Calculate and add bond fractions for each structure based on
+    total bonds."""
 
     for structure, data in structure_dict.items():
         bond_data = data.get("bond_data", {})
-        total_bond_count = sum(info["total_bond_count"] for info in bond_data.values())
+        total_bond_count = sum(
+            info["total_bond_count"] for info in bond_data.values()
+        )
 
         if total_bond_count == 0:
             continue  # Avoid division by zero if no bonds are present
@@ -180,9 +175,8 @@ def add_bond_fractions_per_structure(structure_dict):
 
 
 def extract_bond_info_per_formula(formula, structure_dict):
-    """
-    Extract bond data for a specified formula across different structures.
-    """
+    """Extract bond data for a specified formula across different
+    structures."""
 
     # Initialize lists to store bond labels and fractions for the input formula
     bond_fractions = []
@@ -210,19 +204,20 @@ def extract_bond_info_per_formula(formula, structure_dict):
 
 
 def get_is_single_binary(unique_formulas):
-    """
-    Determine if all formulas represent binary compounds.
-    """
-    return len(formula_parser.get_unique_elements_from_formulas(unique_formulas)) == 2
+    """Determine if all formulas represent binary compounds."""
+    return (
+        len(formula_parser.get_unique_elements_from_formulas(unique_formulas))
+        == 2
+    )
 
 
 def get_is_binary_mixed(unique_formulas):
-    """
-    Check if all formulas are binary and contain exactly three unique elements.
-    """
+    """Check if all formulas are binary and contain exactly three unique
+    elements."""
     # Check if all formulas are binary compounds.
     is_all_binary = all(
-        formula_parser.get_num_element(formula) == 2 for formula in unique_formulas
+        formula_parser.get_num_element(formula) == 2
+        for formula in unique_formulas
     )
 
     # Get the count of unique elements across all unique formulas.
@@ -234,18 +229,16 @@ def get_is_binary_mixed(unique_formulas):
 
 
 def get_is_ternary(unique_formulas):
-    """
-    Determine if all formulas represent ternary compounds.
-    """
+    """Determine if all formulas represent ternary compounds."""
     return all(
-        formula_parser.get_num_element(formula) == 3 for formula in unique_formulas
+        formula_parser.get_num_element(formula) == 3
+        for formula in unique_formulas
     )
 
 
 def get_is_binary_ternary_combined(unique_formulas):
-    """
-    Check if the set of formulas includes both binary and ternary compounds.
-    """
+    """Check if the set of formulas includes both binary and ternary
+    compounds."""
     clean_formulas = [formula.split("_")[0] for formula in unique_formulas]
 
     element_counts = [

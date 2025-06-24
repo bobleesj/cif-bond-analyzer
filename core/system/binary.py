@@ -1,15 +1,16 @@
 import os
-from core.util import formula_parser
+
 import matplotlib.pyplot as plt
+
+from core.prompts.progress import prompt_file_saved
 from core.system import hexagon
 from core.system.figure_util import parse_bond_fractions_formulas
-from core.prompts.progress import prompt_file_saved
+from core.util import formula_parser
 
 
 def draw_binary_figure(bond_fractions_data, output_dir, is_CN_used):
-    """
-    Draw binary figures from bond fractions, save as PNG based on CN usage.
-    """
+    """Draw binary figures from bond fractions, save as PNG based on CN
+    usage."""
     # In the case of 3 bond fractions (2 elements)
     for _, data in bond_fractions_data.items():
         (

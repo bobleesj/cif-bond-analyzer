@@ -44,7 +44,7 @@ Phase diagram and some properties of the alloys of the system neodymium-antimony
 ;
 _journal_coden_ASTM                      MFIZAC
 _journal_name_full
-'Metallofizika (Akad. Nauk Ukr. SSR, Inst. Metallofiz.)'                      
+'Metallofizika (Akad. Nauk Ukr. SSR, Inst. Metallofiz.)'
 _journal_year                            1972
 _journal_volume                          41
 _journal_page_first                      87
@@ -304,4 +304,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 455152
-

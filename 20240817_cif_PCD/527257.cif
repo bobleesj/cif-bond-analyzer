@@ -39,10 +39,10 @@ _chemical_formula_weight                 103.7
 # Bibliographic data
 
 _publ_section_title
-'Binary compounds of scandium with transition metals and beryllium'           
+'Binary compounds of scandium with transition metals and beryllium'
 _journal_coden_ASTM                      14OQAV
 _journal_name_full
-'Vopr. Teor. Primen. Redkozem. Met., Mater. Soveshch.'                        
+'Vopr. Teor. Primen. Redkozem. Met., Mater. Soveshch.'
 _journal_year                            1964
 _journal_volume                          ?
 _journal_page_first                      153
@@ -158,4 +158,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 527257
-

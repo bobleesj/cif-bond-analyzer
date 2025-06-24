@@ -40,7 +40,7 @@ _chemical_melting_point                  2033
 # Bibliographic data
 
 _publ_section_title
-'The scandium-ruthenium phase diagram'                                        
+'The scandium-ruthenium phase diagram'
 _journal_coden_ASTM                      JALCEU
 _journal_name_full                       'J. Alloys Compd.'
 _journal_year                            1995
@@ -155,4 +155,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 1500012
-

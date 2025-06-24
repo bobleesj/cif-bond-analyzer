@@ -1,14 +1,16 @@
 import json
+
 from cifkit import CifEnsemble
+
 from core.coordination.util import compute_delta
 from core.prompts.progress import prompt_file_saved
 
 
-def save_json_for_connections(cif_ensemble: CifEnsemble, output_dir: str) -> None:
-    """
-    Save the coordination number connections for a set of CIF files
-    in JSON format.
-    """
+def save_json_for_connections(
+    cif_ensemble: CifEnsemble, output_dir: str
+) -> None:
+    """Save the coordination number connections for a set of CIF files
+    in JSON format."""
     CN_json = {}
     for cif in cif_ensemble.cifs:
         connections = cif.CN_connections_by_best_methods

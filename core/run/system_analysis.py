@@ -1,29 +1,27 @@
 import os
-from cifkit import CifEnsemble
-from cifkit.utils.bond_pair import (
-    get_pairs_sorted_by_mendeleev,
-)
 
-from core.run import site_analysis
+from cifkit import CifEnsemble
+from cifkit.utils.bond_pair import get_pairs_sorted_by_mendeleev
+
+from core.prompts import input
+from core.prompts.intro import prompt_system_analysis_intro
 from core.prompts.progress import prompt_folder_progress
-from core.system import color_map
-from core.system.figure_util import get_bond_fractions_data_for_figures
-from core.util import formula_parser
-from core.util.bond import (
-    get_ordered_bond_labels_from_AB,
-    get_ordered_bond_labels_from_RMX,
-)
+from core.run import site_analysis
 from core.system import (
     binary,
+    color_map,
     excel,
     single,
     structure_handler,
     structure_util,
     ternary_handler,
 )
-from core.util import folder
-from core.prompts.intro import prompt_system_analysis_intro
-from core.prompts import input
+from core.system.figure_util import get_bond_fractions_data_for_figures
+from core.util import folder, formula_parser
+from core.util.bond import (
+    get_ordered_bond_labels_from_AB,
+    get_ordered_bond_labels_from_RMX,
+)
 
 
 def run_system_analysis(script_path, supercell_size=2):
@@ -38,11 +36,17 @@ def run_system_analysis(script_path, supercell_size=2):
     # Process each folder
     for idx, dir_path in enumerate(dir_paths, start=1):
         prompt_folder_progress(idx, dir_path, len(dir_paths))
-        _conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_size)
+        _conduct_system_analysis(
+            dir_path, is_CN_used, use_existing_json, supercell_size
+        )
 
-def _conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_size):
-    """
-    Step 1. Read site pair json
+
+def _conduct_system_analysis(
+    dir_path, is_CN_used, use_existing_json, supercell_size
+):
+    """Step 1.
+
+    Read site pair json
     """
     # Read JSON - if there is no file, run Site Analysis (SA)
     run_site_analysis = False
@@ -62,18 +66,24 @@ def _conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_
     if not run_site_analysis:
         if is_CN_used or not use_existing_json:
             # Compute the shortest distance (heavy computation)
-            cif_ensemble_with_nested = site_analysis._generate_site_analysis_data(
-                dir_path, True, supercell_size
+            cif_ensemble_with_nested = (
+                site_analysis._generate_site_analysis_data(
+                    dir_path, True, supercell_size
+                )
             )
         else:
-            cif_ensemble_with_nested = CifEnsemble(dir_path, add_nested_files=True)
+            cif_ensemble_with_nested = CifEnsemble(
+                dir_path, add_nested_files=True
+            )
     dir_path = cif_ensemble_with_nested.dir_path
+    """Step 2.
 
-    """
-    Step 2. Build dict containing bond/formula/file info per structure
+    Build dict containing bond/formula/file info per structure
     """
 
-    output_dir = folder.create_folder_under_output_dir(dir_path, "system_analysis")
+    output_dir = folder.create_folder_under_output_dir(
+        dir_path, "system_analysis"
+    )
 
     elements = cif_ensemble_with_nested.unique_elements
 
@@ -90,17 +100,17 @@ def _conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_
         all_bond_pairs,
         updated_json_file_path,
     )
+    """Step 3.
 
-    """
-    Step 3. Generate Excel file
+    Generate Excel file
     """
 
     # Save Structure Analysis and Overview Excel
     excel.save_structure_analysis_excel(structure_dict, output_dir)
     excel.save_bond_overview_excel(structure_dict, all_bond_pairs, output_dir)
+    """Step 4.
 
-    """
-    Step 4. Generate hexagonal figures and color maps
+    Generate hexagonal figures and color maps
     """
 
     # Generate ordered bond pairs for 3 unique elements
@@ -162,5 +172,7 @@ def _conduct_system_analysis(dir_path, is_CN_used, use_existing_json, supercell_
 
 def get_site_json_site_data_path(dir_path):
     folder_name = os.path.basename(dir_path)
-    json_file_path = os.path.join(dir_path, "output", f"{folder_name}_site_pairs.json")
+    json_file_path = os.path.join(
+        dir_path, "output", f"{folder_name}_site_pairs.json"
+    )
     return json_file_path

@@ -40,7 +40,7 @@ _chemical_melting_point                  1398
 # Bibliographic data
 
 _publ_section_title
-'Heats of Formation of Neodymium-Indium Alloys'                               
+'Heats of Formation of Neodymium-Indium Alloys'
 _journal_coden_ASTM                      RJPCAR
 _journal_name_full                       'Russ. J. Phys. Chem.'
 _journal_year                            1979
@@ -156,4 +156,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 1300583
-

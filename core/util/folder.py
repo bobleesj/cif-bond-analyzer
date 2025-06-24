@@ -1,13 +1,13 @@
 import os
 from os.path import join
-from cifkit import CifEnsemble
+
 import click
+from cifkit import CifEnsemble
 
 
 def contains_cif_files(directory):
-    """
-    Check if directory or its nested directories contain any .cif files.
-    """
+    """Check if directory or its nested directories contain any .cif
+    files."""
     for root, dirs, files in os.walk(directory):
         if any(file.endswith(".cif") for file in files):
             return True
@@ -15,29 +15,32 @@ def contains_cif_files(directory):
 
 
 def get_cif_dir_names(script_path):
-    """
-    Return a list of directory names containing .cif files, excluding those
-    starting with 'tests'. Directory names are relative to the script_path.
+    """Return a list of directory names containing .cif files, excluding
+    those starting with 'tests'.
+
+    Directory names are relative to the script_path.
     """
     dir_names = [
         os.path.basename(d)
         for d in os.listdir(script_path)
         if os.path.isdir(os.path.join(script_path, d))
-        and not d.startswith("tests")  # Exclude directories starting with 'tests'
+        and not d.startswith(
+            "tests"
+        )  # Exclude directories starting with 'tests'
         and contains_cif_files(os.path.join(script_path, d))
     ]
 
     if not dir_names:
-        print("No directories found in the current path containing .cif files.")
+        print(
+            "No directories found in the current path containing .cif files."
+        )
         return []  # Return an empty list instead of None
 
     return dir_names
 
 
 def get_json_dir_names(script_path):
-    """
-    Return .cif directories containing .json in the output folder.
-    """
+    """Return .cif directories containing .json in the output folder."""
     directories = os.listdir(script_path)
 
     dir_name_list = []
@@ -45,7 +48,9 @@ def get_json_dir_names(script_path):
         dir_path = os.path.join(script_path, d)
         if os.path.isdir(dir_path):
             output_dir_path = os.path.join(dir_path, "output")
-            if os.path.exists(output_dir_path) and os.path.isdir(output_dir_path):
+            if os.path.exists(output_dir_path) and os.path.isdir(
+                output_dir_path
+            ):
                 files = os.listdir(output_dir_path)
                 for file in files:
                     if file.endswith(".json"):
@@ -56,7 +61,9 @@ def get_json_dir_names(script_path):
                         break
 
     if not dir_name_list:
-        print("No directories found in the current path containing JSON files!")
+        print(
+            "No directories found in the current path containing JSON files!"
+        )
         return None
 
     return dir_name_list
@@ -68,26 +75,32 @@ def get_dir_list(ext, script_path):
         d
         for d in os.listdir(script_path)
         if os.path.isdir(join(script_path, d))
-        and any(file.endswith(ext) for file in os.listdir(join(script_path, d)))
+        and any(
+            file.endswith(ext) for file in os.listdir(join(script_path, d))
+        )
     ]
 
     if not matching_dir_names:
-        print("No directories found in the current path containing .cif files!")
+        print(
+            "No directories found in the current path containing .cif files!"
+        )
         return None
     return matching_dir_names
 
 
 def get_dir_paths_with_two_or_three_elements_nested(script_path):
-    """
-    Allow the user to select a binary/ternary directory containing CIF files
-    with 2 or 3 unique elements. Also include the list of these elements
-    and file count.
+    """Allow the user to select a binary/ternary directory containing
+    CIF files with 2 or 3 unique elements.
+
+    Also include the list of these elements and file count.
     """
     # List all directories under the script path that contain .cif files, including nested folders
     dir_paths = get_cif_dir_names(script_path)
     biarny_ternary_dir_paths = {}
     for dir_path in dir_paths:
-        cif_ensemble = CifEnsemble(dir_path, preprocess=False, add_nested_files=True)
+        cif_ensemble = CifEnsemble(
+            dir_path, preprocess=False, add_nested_files=True
+        )
         unique_elements_count = len(cif_ensemble.unique_elements)
 
         if unique_elements_count == 2 or unique_elements_count == 3:
@@ -129,7 +142,9 @@ def choose_binary_ternary_dir(script_path):
     process_all = click.confirm("(Default: Y)", default=True)
     if not process_all:
         input_str = input("\nEnter folder numbers to select (e.g., '1 3 5'): ")
-        selected_indices = [int(num) for num in input_str.split() if num.isdigit()]
+        selected_indices = [
+            int(num) for num in input_str.split() if num.isdigit()
+        ]
         selected_dir_paths = [
             dir_path_list[
                 i - 1
@@ -150,9 +165,7 @@ def choose_binary_ternary_dir(script_path):
 
 
 def create_folder_under_output_dir(dir_path, folder_name):
-    """
-    Creates a folder inside the output folder.
-    """
+    """Creates a folder inside the output folder."""
     # Define the path to the 'output' directory
     output_dir = join(dir_path, "output")
 

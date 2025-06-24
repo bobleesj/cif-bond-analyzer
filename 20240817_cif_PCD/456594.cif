@@ -39,7 +39,7 @@ _chemical_formula_weight                 284.3
 # Bibliographic data
 
 _publ_section_title
-'Ferro-and metamagnetism of rare earth compounds'                             
+'Ferro-and metamagnetism of rare earth compounds'
 _journal_coden_ASTM                      PHLTAM
 _journal_name_full                       'Phys. Lett.'
 _journal_year                            1963
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 456594
-

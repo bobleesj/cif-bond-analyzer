@@ -39,7 +39,7 @@ _chemical_formula_weight                 128.7
 # Bibliographic data
 
 _publ_section_title
-'Magnetic properties of GaCo~1-x~M~x~ (M= Fe, Mn)'                            
+'Magnetic properties of GaCo~1-x~M~x~ (M= Fe, Mn)'
 _journal_coden_ASTM                      JMMMDC
 _journal_name_full                       'J. Magn. Magn. Mater.'
 _journal_year                            1987
@@ -157,4 +157,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 454524
-

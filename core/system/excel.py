@@ -1,13 +1,14 @@
+from os.path import join
+
 import numpy as np
 import pandas as pd
-from os.path import join
+
 from core.prompts.progress import prompt_file_saved
 
 
 def save_structure_analysis_excel(structure_dict, output_dir):
-    """
-    Save detailed bond information and statistics for structures to Excel.
-    """
+    """Save detailed bond information and statistics for structures to
+    Excel."""
     data = []
     structure_list = []
 
@@ -65,9 +66,8 @@ def save_structure_analysis_excel(structure_dict, output_dir):
 
 
 def save_bond_overview_excel(structure_dict, possible_bond_pairs, output_dir):
-    """
-    Compile and save an overview of bond counts and types for structures to Excel.
-    """
+    """Compile and save an overview of bond counts and types for
+    structures to Excel."""
     bond_types = [f"{pair[0]}-{pair[1]}" for pair in possible_bond_pairs]
 
     # Initialize structure bond counts
@@ -122,7 +122,11 @@ def save_bond_overview_excel(structure_dict, possible_bond_pairs, output_dir):
     }
     total_unique_bonds = sum(unique_total_bonds.values())
     bond_fractions = [
-        (unique_total_bonds[bond] / total_unique_bonds if total_unique_bonds > 0 else 0)
+        (
+            unique_total_bonds[bond] / total_unique_bonds
+            if total_unique_bonds > 0
+            else 0
+        )
         for bond in bond_types
     ]
 

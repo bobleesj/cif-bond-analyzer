@@ -1,10 +1,10 @@
 import os
-import numpy as np
+
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from scipy.spatial import Delaunay
-from scipy.spatial import ConvexHull
+import numpy as np
 from coordination.angle import count_number_of_angles
+from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from scipy.spatial import ConvexHull, Delaunay
 
 
 def plot_polyhedrons(
@@ -14,12 +14,10 @@ def plot_polyhedrons(
     file_path,
 ):
     file_name = os.path.basename(file_path)
+    """Plot the best polyhedron for each label using 3D visualization
+    with Poly3DCollection.
 
-    """
-    Plot the best polyhedron for each label using 3D visualization with
-    Poly3DCollection.
-
-    *Not used in CBA at the moment. This is for testing purposes only.    
+    *Not used in CBA at the moment. This is for testing purposes only.
     """
     color_map = {
         "In1": "blue",
@@ -87,7 +85,9 @@ def plot_polyhedrons(
                 )
 
         # Use Poly3DCollection to draw faces with specified alpha and facecolor
-        poly3d = [polyhedron_points_array[simplex] for simplex in hull.simplices]
+        poly3d = [
+            polyhedron_points_array[simplex] for simplex in hull.simplices
+        ]
         poly_collection = Poly3DCollection(poly3d, alpha=0.1, facecolor="cyan")
         ax.add_collection3d(poly_collection)
 
@@ -108,13 +108,14 @@ def plot_polyhedrons(
             )
 
         # Set labels and title
-        ax.set_title(f"Best Polyhedron for {label}. CN={len(conn_data)}, {file_name}")
+        ax.set_title(
+            f"Best Polyhedron for {label}. CN={len(conn_data)}, {file_name}"
+        )
         ax.set_xlabel("X Coordinate")
         ax.set_ylabel("Y Coordinate")
         ax.set_zlabel("Z Coordinate")
         # ax.autoscale_view()
         # ax.set_axis_off()  # Hide the axes, as requested
-
         """
         Step 1. Find the largest angle indices ref from the central atom
         """
@@ -144,9 +145,9 @@ def plot_polyhedrons(
         second_shortest_dist_count = nth_shortest_distance_count(
             CN_connections, label, 1
         )
+        """Type 10.1.
 
-        """
-        Type 10.1. 180, CN=10, top 4, bottom 4, 180 largest angle
+        180, CN=10, top 4, bottom 4, 180 largest angle
         """
         if CN == 10 and largest_angle == 180.0:
             top_box_vertices = draw_rectangular_box(
@@ -155,7 +156,9 @@ def plot_polyhedrons(
                 large_angle_index_1_coord,
                 "blue",
             )
-            count_atoms_inside_polyhedron(top_box_vertices, polyhedron_points_array)
+            count_atoms_inside_polyhedron(
+                top_box_vertices, polyhedron_points_array
+            )
 
             # Draw the other box with the largest angle
             bottom_box_vertices = draw_rectangular_box(
@@ -165,7 +168,9 @@ def plot_polyhedrons(
                 "red",
             )
 
-            count_atoms_inside_polyhedron(bottom_box_vertices, polyhedron_points_array)
+            count_atoms_inside_polyhedron(
+                bottom_box_vertices, polyhedron_points_array
+            )
 
         """
         Type 12.1. 180, CN=12, top 5, bottom 5
@@ -224,16 +229,17 @@ def plot_polyhedrons(
                 and first_shortest_dist_count == 8
                 and second_shortest_dist_count == 6
             ):
-                """
-                Type 14.2 rhombic dodecahedron, 8 identical shortest distances,
-                7 of 180 degree angles.
+                """Type 14.2 rhombic dodecahedron, 8 identical shortest
+                distances, 7 of 180 degree angles.
+
                 Assume it has no distortion at the moment
                 """
                 print("Type 14.2 rhombic")
 
             elif largest_angle > 178.0:
-                """
-                Type 14.1. 180, CN=14, top 6, bottom 6
+                """Type 14.1.
+
+                180, CN=14, top 6, bottom 6
                 """
                 print("\nType 14.1. 180, CN=14, top 6, bottom 6")
 
@@ -264,10 +270,10 @@ def plot_polyhedrons(
         if CN == 15:
             largest_angle_pair = near_180_degrees_atom_indices[label][0]
             second_largest_angle_pair = near_180_degrees_atom_indices[label][1]
-            """
-            ***Type 15.1. 157.037 CN=15, top 6, bottom (two split) 5***
-            The two largest angle pairs have pairs like, (2, 13), (2, 14).
-            
+            """***Type 15.1. 157.037 CN=15, top 6, bottom (two split)
+            5*** The two largest angle pairs have pairs like, (2, 13),
+            (2, 14).
+
             Pair: (2, 13): 157.0 degrees
             Pair: (2, 14): 157.0 degrees
             Pair: (0, 9): 156.5 degrees
@@ -277,7 +283,9 @@ def plot_polyhedrons(
             """
 
             if largest_angle_pair[0] == second_largest_angle_pair[0]:
-                print("\nType 15.1. 157.037 CN=15, top 6, bottom (two split) 6")
+                print(
+                    "\nType 15.1. 157.037 CN=15, top 6, bottom (two split) 6"
+                )
                 # Use the function
                 (
                     top_point_index,
@@ -290,7 +298,9 @@ def plot_polyhedrons(
 
                 point_1 = polyhedron_points_array[split_atom_point_1_index]
                 point_2 = polyhedron_points_array[split_atom_point_2_index]
-                single_largest_angle_coord = polyhedron_points_array[top_point_index]
+                single_largest_angle_coord = polyhedron_points_array[
+                    top_point_index
+                ]
                 # Calculate the average position (midpoint)
                 average_split_coord = (point_1 + point_2) / 2
 
@@ -355,13 +365,17 @@ def plot_polyhedrons(
                 Pair: (7, 14): 153.3 degrees
                 Pair: (8, 12): 153.3 degrees
                 """
-                other_double_split_atom_index = near_180_degrees_atom_indices[label][3][
-                    1
-                ]
+                other_double_split_atom_index = near_180_degrees_atom_indices[
+                    label
+                ][3][1]
                 # Find the average position between the two atoms in the doublet
                 first_double_split_atom_index = largest_angle_pair[1]
-                point_1 = polyhedron_points_array[first_double_split_atom_index]
-                point_2 = polyhedron_points_array[other_double_split_atom_index]
+                point_1 = polyhedron_points_array[
+                    first_double_split_atom_index
+                ]
+                point_2 = polyhedron_points_array[
+                    other_double_split_atom_index
+                ]
                 average_split_coord = (point_1 + point_2) / 2
 
                 # Get the two from the top atom to other
@@ -391,13 +405,18 @@ def plot_polyhedrons(
                 )
 
         if CN == 16:
-            fourth_largest_angle_pair_indicies = near_180_degrees_atom_indices[label][3]
-            fifth_largest_angle_pair_indicies = near_180_degrees_atom_indices[label][4]
-            sixth_largest_angle_pair_indicies = near_180_degrees_atom_indices[label][5]
+            fourth_largest_angle_pair_indices = near_180_degrees_atom_indices[
+                label
+            ][3]
+            fifth_largest_angle_pair_indices = near_180_degrees_atom_indices[
+                label
+            ][4]
+            sixth_largest_angle_pair_indices = near_180_degrees_atom_indices[
+                label
+            ][5]
+            """Type 16.1. 3 splits, CN=16, Ta1 in
+            20250604_CN_4_methods/457848.cif.
 
-            """
-            
-            Type 16.1. 3 splits, CN=16, Ta1 in 20250604_CN_4_methods/457848.cif
             - Check there are CN=16
             - 3 angles formed 159.7
             - 6 angles formed 148.7
@@ -413,26 +432,27 @@ def plot_polyhedrons(
             Pair: (1, 14): 148.7 degrees
             Pair: (2, 11): 148.7 degrees
             Pair: (2, 12): 148.7 degrees
-            Check the triplets - this is the second largest angles, ther are 3 of them
+            Check the triplets - this is the second largest angles, there are 3 of them
             Assume the the bottom is the 3 splits, the top forms a 6 ring chain
-            The bottom forms 
+            The bottom forms
             (0, 2) (0, 3) (0, 1), 0th index must be the top atom
             """
             if (
-                fourth_largest_angle_pair_indicies[0]
-                == fifth_largest_angle_pair_indicies[0]
-                == sixth_largest_angle_pair_indicies[0]
+                fourth_largest_angle_pair_indices[0]
+                == fifth_largest_angle_pair_indices[0]
+                == sixth_largest_angle_pair_indices[0]
             ):
-                """
-                Draw a box that encompasses 6 atoms at the top ring
-                """
+                """Draw a box that encompasses 6 atoms at the top
+                ring."""
                 print("Type 16.1 CN=16, top 6, bottom (three splits) 6")
                 # Draw top box with no split
 
                 top_box_vertices = draw_rectangular_box(
                     ax,
                     central_atom_coord,
-                    polyhedron_points_array[fourth_largest_angle_pair_indicies[0]],
+                    polyhedron_points_array[
+                        fourth_largest_angle_pair_indices[0]
+                    ],
                     "blue",
                 )
                 count_atoms_inside_polyhedron(
@@ -442,16 +462,18 @@ def plot_polyhedrons(
                 )
                 # Draw bottom box with 3 splits
                 triple_split_coord_1 = polyhedron_points_array[
-                    fourth_largest_angle_pair_indicies[1]
+                    fourth_largest_angle_pair_indices[1]
                 ]
                 triple_split_coord_2 = polyhedron_points_array[
-                    fifth_largest_angle_pair_indicies[1]
+                    fifth_largest_angle_pair_indices[1]
                 ]
                 triple_split_coord_3 = polyhedron_points_array[
-                    sixth_largest_angle_pair_indicies[1]
+                    sixth_largest_angle_pair_indices[1]
                 ]
                 average_split_coord = (
-                    triple_split_coord_1 + triple_split_coord_2 + triple_split_coord_3
+                    triple_split_coord_1
+                    + triple_split_coord_2
+                    + triple_split_coord_3
                 ) / 3
                 bottom_box_vertices = draw_rectangular_box(
                     ax,
@@ -489,13 +511,13 @@ def draw_rectangular_box(
     scale_factor=1.1,
     extension_factor=1.05,
 ):
-    """
-    Draw a rectangular box with a slight extension and scaling to
-    ensure coverage of additional space.
-    """
+    """Draw a rectangular box with a slight extension and scaling to
+    ensure coverage of additional space."""
 
     # Calculate the line vector
-    line_vector = np.array(large_angle_index_1_coord) - np.array(central_atom_coord)
+    line_vector = np.array(large_angle_index_1_coord) - np.array(
+        central_atom_coord
+    )
     line_vector *= extension_factor  # Extend the line vector slightly
     large_angle_index_1_coord = (
         central_atom_coord + line_vector
@@ -582,18 +604,15 @@ def draw_rectangular_box(
 
 
 def is_inside_convex_polyhedron(point, vertices):
-    """
-    Check if a point is inside a convex polyhedron defined by
-    its vertices using Delaunay triangulation.
-    """
+    """Check if a point is inside a convex polyhedron defined by its
+    vertices using Delaunay triangulation."""
     hull = Delaunay(vertices)
     return hull.find_simplex(point) >= 0
 
 
 def count_atoms_inside_polyhedron(vertices, atom_positions, split_count=1):
-    """
-    Counts how many atoms are inside the convex polyhedron defined by vertices.
-    """
+    """Counts how many atoms are inside the convex polyhedron defined by
+    vertices."""
     count = 0
     for i, pos in enumerate(atom_positions):
         if is_inside_convex_polyhedron(pos, vertices):
@@ -604,5 +623,7 @@ def count_atoms_inside_polyhedron(vertices, atom_positions, split_count=1):
         count_subtracted_central_large_angle = count - 3
     if split_count == 3:
         count_subtracted_central_large_angle = count - 4
-    print(f"Number of atoms inside the box: {count_subtracted_central_large_angle}")
+    print(
+        f"Number of atoms inside the box: {count_subtracted_central_large_angle}"
+    )
     return count_subtracted_central_large_angle

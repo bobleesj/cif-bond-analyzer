@@ -44,7 +44,7 @@ Composti dell'Erbio con i metalloidi del V e VI gruppo
 ;
 _journal_coden_ASTM                      AANLAW
 _journal_name_full
-'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'                    
+'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'
 _journal_year                            1961
 _journal_volume                          31
 _journal_page_first                      260
@@ -301,4 +301,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 251956
-

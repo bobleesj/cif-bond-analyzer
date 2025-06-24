@@ -2,10 +2,11 @@ import numpy as np
 
 
 def compute_angles_from_central_atom(CN_connections):
-    """
-    Compute the angles between vectors formed by connections from
-    a central atom to its neighbors. Stores the calculated angles
-    in degrees with four significant figures.
+    """Compute the angles between vectors formed by connections from a
+    central atom to its neighbors.
+
+    Stores the calculated angles in degrees with four significant
+    figures.
     """
     angles = {}
 
@@ -28,23 +29,30 @@ def compute_angles_from_central_atom(CN_connections):
                 norm_i = np.linalg.norm(vector_i)
                 norm_j = np.linalg.norm(vector_j)
                 cosine_angle = dot_product / (norm_i * norm_j)
-                angle = np.arccos(np.clip(cosine_angle, -1.0, 1.0))  # Clip for safety
+                angle = np.arccos(
+                    np.clip(cosine_angle, -1.0, 1.0)
+                )  # Clip for safety
 
                 angle_degrees = np.degrees(angle)
-                formatted_angle = f"{angle_degrees:.4g}"  # 4 significant figures
+                formatted_angle = (
+                    f"{angle_degrees:.4g}"  # 4 significant figures
+                )
 
                 angles[label][(i, j)] = float(formatted_angle)
 
     return angles
 
 
-def get_largest_angle_atom_indices_largest_to_smallest(angles, threshold=40) -> dict:
+def get_largest_angle_atom_indices_largest_to_smallest(
+    angles, threshold=40
+) -> dict:
+    """Filter and sort the angles close to 180 degrees within a
+    specified threshold.
+
+    Outputs the top 10 largest angles for each label and stores the
+    pairindices of these angles.
     """
-    Filter and sort the angles close to 180 degrees within a specified
-    threshold. Outputs the top 10 largest angles for each label and
-    stores the pairindices of these angles.
-    """
-    indicies = {}
+    indices = {}
     for label, angle_data in angles.items():
         # Get filtered and sorted list of (pair, angle) tuples based on the angle
         sorted_pairs = sorted(
@@ -59,19 +67,17 @@ def get_largest_angle_atom_indices_largest_to_smallest(angles, threshold=40) -> 
             reverse=True,
         )
         # Store only the pairs in the dictionary under the label
-        indicies[label] = [pair for pair, _ in sorted_pairs]
+        indices[label] = [pair for pair, _ in sorted_pairs]
         # Print top 10 largest angles for each label, if available
         print(f"Largest angles for {label}:")
         for pair, angle in sorted_pairs[:10]:  # Print only top 10 angles
             print(f"  Pair: {pair}: {np.round(angle, 3)} degrees")
 
-    return indicies
+    return indices
 
 
 def count_number_of_angles(angle_data, angle):
-    """
-    Count the occurrences of a specified angle in the angle data.
-    """
+    """Count the occurrences of a specified angle in the angle data."""
 
     # Initialize count
     count = 0

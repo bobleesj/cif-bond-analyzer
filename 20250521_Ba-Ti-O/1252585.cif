@@ -39,7 +39,7 @@ _chemical_formula_weight                 233.2
 # Bibliographic data
 
 _publ_section_title
-'Structures of the ferroelectric phases of barium titanate'                   
+'Structures of the ferroelectric phases of barium titanate'
 _journal_coden_ASTM                      JPCHAX
 _journal_name_full                       'J. Phys. Chem.'
 _journal_year                            1993
@@ -123,4 +123,3 @@ _pd_proc_ls_proof_wR_factor              0.0455
 _refine_ls_R_I_factor                    ?
 
 # End of data set 1252585
-

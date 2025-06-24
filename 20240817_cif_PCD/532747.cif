@@ -40,7 +40,7 @@ _chemical_melting_point                  1953
 # Bibliographic data
 
 _publ_section_title
-'Ein Beitrag zum Dreistoff: Thorium-Silicium-Germanium'                       
+'Ein Beitrag zum Dreistoff: Thorium-Silicium-Germanium'
 _journal_coden_ASTM                      MOCMB7
 _journal_name_full                       'Monatsh. Chem.'
 _journal_year                            1963
@@ -302,4 +302,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 532747
-

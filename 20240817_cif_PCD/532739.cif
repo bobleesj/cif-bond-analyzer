@@ -179,4 +179,3 @@ loop_
  3 2 1 0.804 ?
 
 # End of data set 532739
-

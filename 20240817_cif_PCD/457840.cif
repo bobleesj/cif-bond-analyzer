@@ -39,7 +39,7 @@ _chemical_formula_weight                 166.7
 # Bibliographic data
 
 _publ_section_title
-'Alloys of bismuth and antimony with scandium'                                
+'Alloys of bismuth and antimony with scandium'
 _journal_coden_ASTM                      SPHCA6
 _journal_name_full                       'Sov. Phys. Crystallogr.'
 _journal_year                            1962
@@ -330,4 +330,3 @@ loop_
  6 4 2 0.78 8
 
 # End of data set 457840
-

@@ -1,18 +1,18 @@
-import numpy as np
 import os
-from core.util import formula_parser
+
 import matplotlib.pyplot as plt
+import numpy as np
+
 from core.prompts.progress import prompt_file_saved
 from core.system import hexagon
 from core.system.figure_util import parse_bond_fractions_formulas
+from core.util import formula_parser
 
 
 def draw_hexagon_for_individual_figure(
     bond_fractions_data, output_dir, elements, is_CN_used
 ):
-    """
-    Draw individual hexagons
-    """
+    """Draw individual hexagons."""
 
     if is_CN_used:
         individuals_dir = os.path.join(output_dir, "individuals_CN")
@@ -53,7 +53,9 @@ def draw_hexagon_for_individual_figure(
         ) = parse_bond_fractions_formulas(data)
 
         structure = formula_parser.get_subscripted_string(structure)
-        elements_parsed_from_formula = formula_parser.get_unique_elements(formulas[0])
+        elements_parsed_from_formula = formula_parser.get_unique_elements(
+            formulas[0]
+        )
         formula = formula_parser.get_subscripted_string(formulas[0])
         fig, ax = plt.subplots(figsize=(3, 3.5), dpi=300)
         plt.subplots_adjust(top=1.1)
@@ -97,7 +99,9 @@ def draw_hexagon_for_individual_figure(
         label_radius = radius + label_offset
 
         # Get the points for label positioning using the increased radius
-        x_label_pts, y_label_pts = hexagon.get_hexagon_points(center_pt, label_radius)
+        x_label_pts, y_label_pts = hexagon.get_hexagon_points(
+            center_pt, label_radius
+        )
 
         # Find minimum and maximum for both x and y from the hexagon points
         x_min, x_max = min(x_label_pts), max(x_label_pts)
@@ -106,7 +110,9 @@ def draw_hexagon_for_individual_figure(
         ax.set_xlim(x_min - radius_padding, x_max + radius_padding)
         ax.set_ylim(y_min - radius_padding, y_max + radius_padding)
 
-        for i, (x, y, label) in enumerate(zip(x_label_pts, y_label_pts, bond_pairs)):
+        for i, (x, y, label) in enumerate(
+            zip(x_label_pts, y_label_pts, bond_pairs)
+        ):
             plt.text(
                 x,
                 y,
@@ -166,7 +172,9 @@ def draw_hexagon_for_individual_figure(
         sorted_files_binary = [
             hexagon_image_files_binary[i] for i in sorted_indices_binary
         ]
-        save_single_composite_figures(sorted_files_binary, True, is_CN_used, output_dir)
+        save_single_composite_figures(
+            sorted_files_binary, True, is_CN_used, output_dir
+        )
 
     # Case 2. Contain only ternary files
     if contain_ternary:
@@ -197,9 +205,8 @@ def draw_hexagon_for_individual_figure(
 def save_single_composite_figures(
     sorted_hexagon_image_files, is_binary, is_CN_used, output_dir
 ):
-    """
-    Save multiple composite figures from hexagon images based on CN and type.
-    """
+    """Save multiple composite figures from hexagon images based on CN
+    and type."""
 
     # Constants for the layout
     max_images_per_figure = 12
@@ -207,7 +214,9 @@ def save_single_composite_figures(
     cols_per_figure = 3
 
     # Calculate the number of figures needed
-    num_figures = int(np.ceil(len(sorted_hexagon_image_files) / max_images_per_figure))
+    num_figures = int(
+        np.ceil(len(sorted_hexagon_image_files) / max_images_per_figure)
+    )
     # # Loop through each figure to be created
     for fig_idx in range(num_figures):
         # Calculate the range of images for this figure
@@ -271,9 +280,8 @@ def save_single_composite_figures(
 def get_sorted_indices_by_binary_elements(
     parsed_formulas, primary_element, secondary_element
 ):
-    """
-    Sort indices by primary and secondary element fractions in binary formulas.
-    """
+    """Sort indices by primary and secondary element fractions in binary
+    formulas."""
     element_data = []
 
     # Collect the relevant fractions for primary and secondary elements
@@ -297,9 +305,7 @@ def get_sorted_indices_by_binary_elements(
 def get_sorted_indices_by_ternary_elements(
     parsed_formulas, primary_element, secondary_element, tertiary_element
 ):
-    """
-    Sort indices by element fractions in ternary formulas.
-    """
+    """Sort indices by element fractions in ternary formulas."""
     element_data = []
 
     # Collect the relevant fractions for primary, secondary, and tertiary elements

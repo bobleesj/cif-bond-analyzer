@@ -39,7 +39,7 @@ _chemical_formula_weight                 261.9
 # Bibliographic data
 
 _publ_section_title
-'Magnetic and structural properties of CeSb~1-x~Te~x~ mixed compounds'        
+'Magnetic and structural properties of CeSb~1-x~Te~x~ mixed compounds'
 _journal_coden_ASTM                      REMTDV
 _journal_name_full                       'Rare Earths Mod. Sci. Technol.'
 _journal_year                            1982
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 533432
-

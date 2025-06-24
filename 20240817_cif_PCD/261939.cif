@@ -39,7 +39,7 @@ _chemical_formula_weight                 359.5
 # Bibliographic data
 
 _publ_section_title
-'Intermediate Phases in Some Rare Earth Metal-Iridium Systems'                
+'Intermediate Phases in Some Rare Earth Metal-Iridium Systems'
 _journal_coden_ASTM                      ZEMTAE
 _journal_name_full                       'Z. Metallkd.'
 _journal_year                            1989
@@ -154,4 +154,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 261939
-

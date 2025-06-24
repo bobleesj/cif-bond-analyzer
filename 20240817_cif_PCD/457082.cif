@@ -39,7 +39,7 @@ _chemical_formula_weight                 210.7
 # Bibliographic data
 
 _publ_section_title
-'Evidence for a valence transition in U~x~Y~1-x~Sb'                           
+'Evidence for a valence transition in U~x~Y~1-x~Sb'
 _journal_coden_ASTM                      SSCOA4
 _journal_name_full                       'Solid State Commun.'
 _journal_year                            1984
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 457082
-

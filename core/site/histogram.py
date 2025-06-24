@@ -1,17 +1,15 @@
-"""
-Plot histograms for atomic pair dists from dict and save the plots.
-"""
+"""Plot histograms for atomic pair dists from dict and save the
+plots."""
 
 import os
+
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
 import numpy as np
+from matplotlib.ticker import MaxNLocator
 
 
 def get_histogram_config():
-    """
-    Configure the maximum number of histograms per image.
-    """
+    """Configure the maximum number of histograms per image."""
 
     max_columns = 4
     histograms_per_image = 16
@@ -27,9 +25,7 @@ def get_histogram_config():
 
 
 def get_colors_category_mappings():
-    """
-    Get colors and atomic mixing mapping info.
-    """
+    """Get colors and atomic mixing mapping info."""
     categories_colors = {
         "deficiency_with_atomic_mixing": "#d62728",  # brick red
         "full_occupancy_atomic_mixing": "#ff7f0e",  # safety orange
@@ -48,9 +44,7 @@ def get_colors_category_mappings():
 
 
 def draw_histograms(site_pair_dict, element_pair_dict, dir_path):
-    """
-    Draw histograms using site pair and element pair dicts.
-    """
+    """Draw histograms using site pair and element pair dicts."""
     all_distances = get_distances_from_site_pair(site_pair_dict)
     config = get_histogram_config()
     bin_width = config["bin_width"]
@@ -73,9 +67,7 @@ def draw_histograms(site_pair_dict, element_pair_dict, dir_path):
 
 
 def get_distances_from_site_pair(data):
-    """
-    Get all distances from the site pair dict
-    """
+    """Get all distances from the site pair dict."""
     element_pairs = list(data.items())
 
     all_distances = []
@@ -88,9 +80,7 @@ def get_distances_from_site_pair(data):
 
 
 def get_bins_from_distances(bin_width, all_distances):
-    """
-    Get bin information from bin width and distances
-    """
+    """Get bin information from bin width and distances."""
     data_range = max(all_distances) - min(all_distances)
     bin_size = int(np.ceil(data_range / bin_width))
     bins = np.linspace(min(all_distances), max(all_distances), bin_size + 1)

@@ -1,24 +1,23 @@
 from os.path import join
-import numpy as np
-import matplotlib.tri as mtri
+
 import matplotlib.pyplot as plt
+import matplotlib.tri as mtri
+import numpy as np
 from matplotlib import colors as mcolors
-from core.util import formula_parser
+
 from core.system import ternary
 from core.system.figure_util import (
     get_hexagon_vertex_colors,
-)
-from core.system.figure_util import (
     parse_bond_fractions_formulas,
 )
+from core.util import formula_parser
 
 
 def plot_ternary_color_map(
     bond_fraction_per_structure_data, RMX, output_dir, is_CN_used
 ):
-    """
-    Plot and save ternary color maps, both combined and separate, based on CN.
-    """
+    """Plot and save ternary color maps, both combined and separate,
+    based on CN."""
     save_color_map(
         bond_fraction_per_structure_data,
         RMX,
@@ -43,11 +42,10 @@ def save_color_map(
     is_CN_used,
     is_colors_combined,
 ):
-    """
-    Generate and save ternary diagrams with color gradients for bond fractions.
-    """
+    """Generate and save ternary diagrams with color gradients for bond
+    fractions."""
     R, M, X = RMX
-    # Plot the overlayed ternary diagrams
+    # Plot the overlaid ternary diagrams
     fig, ax = plt.subplots()
     triangulations = []
     transparency = 0.833
@@ -98,7 +96,9 @@ def save_color_map(
                 A_norm_comp,
                 B_norm_comp,
                 C_norm_comp,
-            ) = formula_parser.get_composition_from_binary_ternary(formula, (R, M, X))
+            ) = formula_parser.get_composition_from_binary_ternary(
+                formula, (R, M, X)
+            )
             # Calculate coordinates based on the normalized composition
             total = A_norm_comp + B_norm_comp + C_norm_comp
             x_coord = 0.5 * (2 * B_norm_comp + C_norm_comp) / total
@@ -106,11 +106,9 @@ def save_color_map(
             x_all_per_bond_type.append(x_coord)
             y_all_per_bond_type.append(y_coord)
             z_all_per_bond_type.append(bond_fraction)
-
-            """
-            If it is Er-Er (i=0) or Co-Co (i=2) or In-In (i=4), include (1,0,0), (0,1,0), (0,0,1)
-            since the vertices have a single bond type only.
-            """
+            """If it is Er-Er (i=0) or Co-Co (i=2) or In-In (i=4),
+            include (1,0,0), (0,1,0), (0,0,1) since the vertices have a
+            single bond type only."""
 
             if i == 0:
                 x_all_per_bond_type.append(0)
@@ -126,7 +124,9 @@ def save_color_map(
                 z_all_per_bond_type.append(1.0)
 
         try:
-            triangulation = mtri.Triangulation(x_all_per_bond_type, y_all_per_bond_type)
+            triangulation = mtri.Triangulation(
+                x_all_per_bond_type, y_all_per_bond_type
+            )
             triangulations.append(triangulation)
 
             xi, yi = np.meshgrid(
@@ -239,6 +239,8 @@ def save_color_map(
         ax.set_aspect("equal")  # Ensure the axis are of equal size
 
         if is_CN_used:
-            ax.figure.savefig(join(output_dir, f"color_map_overall_CN"), dpi=300)
+            ax.figure.savefig(
+                join(output_dir, f"color_map_overall_CN"), dpi=300
+            )
         else:
             ax.figure.savefig(join(output_dir, f"color_map_overall"), dpi=300)

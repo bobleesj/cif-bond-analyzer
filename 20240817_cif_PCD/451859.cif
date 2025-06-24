@@ -39,7 +39,7 @@ _chemical_formula_weight                 266.0
 # Bibliographic data
 
 _publ_section_title
-'Preparation and characterization of ternary Nd-Pr-Sb alloys'                 
+'Preparation and characterization of ternary Nd-Pr-Sb alloys'
 _journal_coden_ASTM                      JALCEU
 _journal_name_full                       'J. Alloys Compd.'
 _journal_year                            1993
@@ -301,4 +301,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 451859
-

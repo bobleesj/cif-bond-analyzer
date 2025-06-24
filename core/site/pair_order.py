@@ -1,15 +1,12 @@
-"""
-Provides functions for sorting tuples of atomic labels by Mendeleev numbers.
-"""
+"""Provides functions for sorting tuples of atomic labels by Mendeleev
+numbers."""
 
 import pandas as pd
 from cifkit.utils.cif_parser import get_atom_type_from_label
 
 
 def get_mendeleev_num_from_tuple(pair_tuple):
-    """
-    Parse Mendeleev number for each label in the tuple.
-    """
+    """Parse Mendeleev number for each label in the tuple."""
     # Parse the first and second elements
     first_element = get_atom_type_from_label(pair_tuple[0])
     second_element = get_atom_type_from_label(pair_tuple[1])
@@ -31,9 +28,7 @@ def get_mendeleev_num_from_tuple(pair_tuple):
 
 
 def order_pair_by_mendeleev(label_pair_tuple):
-    """
-    Order atomic label tuples based on Mendeleev numbers.
-    """
+    """Order atomic label tuples based on Mendeleev numbers."""
     first_label = label_pair_tuple[0]
     second_label = label_pair_tuple[1]
 
@@ -56,21 +51,15 @@ def order_pair_by_mendeleev(label_pair_tuple):
 
 
 def sort_label_tuple(label_tuple):
-    """
-    Sort a tuple of labels.
-    """
+    """Sort a tuple of labels."""
     return tuple(sorted(label_tuple))
 
 
 def sort_tuple_in_list(tuple_list):
-    """
-    Sort a list of tuples containing labels.
-    """
+    """Sort a list of tuples containing labels."""
     return [tuple(sorted(item)) for item in tuple_list]
 
 
 def sort_tuple_by_mendeleevin_list(tuple_list):
-    """
-    Sort a list of tuples containing labels.
-    """
+    """Sort a list of tuples containing labels."""
     return [tuple(order_pair_by_mendeleev(item)) for item in tuple_list]

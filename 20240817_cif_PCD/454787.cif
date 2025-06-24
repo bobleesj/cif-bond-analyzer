@@ -39,7 +39,7 @@ _chemical_formula_weight                 304.6
 # Bibliographic data
 
 _publ_section_title
-'Preparation and Identification of the Thorium Germanides'                    
+'Preparation and Identification of the Thorium Germanides'
 _journal_coden_ASTM                      JESOAN
 _journal_name_full                       'J. Electrochem. Soc.'
 _journal_year                            1958
@@ -330,4 +330,3 @@ loop_
  7 3 1 0.786 5
 
 # End of data set 454787
-

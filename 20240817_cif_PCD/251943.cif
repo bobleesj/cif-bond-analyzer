@@ -39,10 +39,10 @@ _chemical_formula_weight                 284.3
 # Bibliographic data
 
 _publ_section_title
-'Su alcuni composti semimetallici di formula 1:1 del disprosio'               
+'Su alcuni composti semimetallici di formula 1:1 del disprosio'
 _journal_coden_ASTM                      AANLAW
 _journal_name_full
-'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'                    
+'Atti Accad. Naz. Lincei, Cl. Sci. Fis., Mat. Nat., Rend.'
 _journal_year                            1961
 _journal_volume                          31
 _journal_page_first                      256
@@ -299,4 +299,3 @@ _refine_ls_R_factor_gt                   ?
 _refine_ls_wR_factor_gt                  ?
 
 # End of data set 251943
-

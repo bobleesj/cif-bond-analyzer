@@ -1,5 +1,6 @@
-import click
 import json
+
+import click
 from cifkit.utils import folder
 
 
@@ -15,11 +16,17 @@ def get_folder_indices(dir_names_with_cif):
             )
 
             # Check if all entered indices are valid
-            if not all(1 <= idx <= len(dir_names_with_cif) for idx in folder_indices):
-                raise ValueError("One or more numbers are out of the valid range.")
+            if not all(
+                1 <= idx <= len(dir_names_with_cif) for idx in folder_indices
+            ):
+                raise ValueError(
+                    "One or more numbers are out of the valid range."
+                )
 
             # Map the indices to directory names
-            selected_dirs = {idx: dir_names_with_cif[idx - 1] for idx in folder_indices}
+            selected_dirs = {
+                idx: dir_names_with_cif[idx - 1] for idx in folder_indices
+            }
             return selected_dirs
 
         except ValueError:
@@ -33,7 +40,9 @@ def get_user_input_folder_processing(dir_names, file_type):
 
     for i, dir_name in enumerate(dir_names, start=1):
         file_paths = folder.get_file_paths(dir_name, add_nested_files=False)
-        file_paths_with_nested = folder.get_file_paths(dir_name, add_nested_files=True)
+        file_paths_with_nested = folder.get_file_paths(
+            dir_name, add_nested_files=True
+        )
         nested_file_count = len(file_paths_with_nested) - len(file_paths)
 
         if nested_file_count != 0:
@@ -47,7 +56,9 @@ def get_user_input_folder_processing(dir_names, file_type):
     is_sequentially_processed = click.confirm("(Default: Y)", default=True)
 
     if is_sequentially_processed:
-        selected_dirs = {idx: name for idx, name in enumerate(dir_names, start=1)}
+        selected_dirs = {
+            idx: name for idx, name in enumerate(dir_names, start=1)
+        }
     else:
         selected_dirs = get_folder_indices(dir_names)
 

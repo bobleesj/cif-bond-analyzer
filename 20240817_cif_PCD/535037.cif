@@ -39,7 +39,7 @@ _chemical_formula_weight                 114.8
 # Bibliographic data
 
 _publ_section_title
-'Equilibrium relations in the solid state of the iron-cobalt system'          
+'Equilibrium relations in the solid state of the iron-cobalt system'
 _journal_coden_ASTM                      TASEA7
 _journal_name_full                       'Trans. Am. Soc. Met.'
 _journal_year                            1941
@@ -157,4 +157,3 @@ _pd_proc_ls_proof_wR_factor              ?
 _refine_ls_R_I_factor                    ?
 
 # End of data set 535037
-

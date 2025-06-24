@@ -7,10 +7,8 @@ def write_summary_and_missing_pairs_with_element_dict(
     text_filename,
     dir_path,
 ):
-    """
-    Writes a summary of unique atomic pairs, including counts and distances,
-    and a list of missing pairs to a file.
-    """
+    """Writes a summary of unique atomic pairs, including counts and
+    distances, and a list of missing pairs to a file."""
 
     file_path = os.path.join(dir_path, "output", text_filename)
 
