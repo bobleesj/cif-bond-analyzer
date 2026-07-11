@@ -1,6 +1,6 @@
 import re
 
-from bobleesj.utils.sources import mendeleev
+from cifkit.sources import mendeleev
 
 
 def get_normalized_formula(formula):
